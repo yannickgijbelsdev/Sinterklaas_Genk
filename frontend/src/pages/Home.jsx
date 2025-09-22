@@ -5,6 +5,7 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { SparkleBackground } from '../components/SparkleBackground';
+import { LiveEditor } from '../components/LiveEditor';
 import { showInfo, showDates as fallbackShows, characters, news as fallbackNews } from '../data/mock';
 import { useNews, useShows } from '../hooks/useApi';
 
