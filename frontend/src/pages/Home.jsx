@@ -55,7 +55,18 @@ export default function Home() {
   const featuredNews = news.slice(0, 2);
 
   return (
-    <LiveEditor pageKey="home">
+    <>
+      {/* Magic Curtain Loader - Only for Home page */}
+      {showCurtain && (
+        <MagicCurtain 
+          isLoading={!appReady} 
+          onAnimationComplete={handleCurtainComplete}
+        />
+      )}
+      
+      {/* Home Content */}
+      <div className={`transition-opacity duration-500 ${showCurtain ? 'opacity-0' : 'opacity-100'}`}>
+        <LiveEditor pageKey="home">
       <div className="min-h-screen">
       {/* Hero Section */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
