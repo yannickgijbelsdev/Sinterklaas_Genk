@@ -27,8 +27,8 @@ export default function Home() {
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <div className="mb-6">
-            <div className="text-5xl mb-4">🎭✨</div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            <div className="text-6xl mb-4 sparkle-emoji">🎭✨🎪</div>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight hero-text">
               {showInfo.title}
             </h1>
             <p className="text-xl md:text-2xl mb-6 font-medium">
