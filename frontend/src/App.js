@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { MagicCurtain } from "./components/MagicCurtain";
@@ -11,7 +12,7 @@ import Shows from "./pages/Shows";
 import Gallery from "./pages/Gallery";
 import News from "./pages/News";
 import Contact from "./pages/Contact";
-import Admin from "./pages/Admin";
+import SecureAdmin from "./pages/SecureAdmin";
 import LiveAdmin from "./pages/LiveAdmin";
 import { Toaster } from "./components/ui/sonner";
 
