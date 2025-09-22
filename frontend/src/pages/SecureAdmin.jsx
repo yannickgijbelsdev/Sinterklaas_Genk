@@ -38,15 +38,17 @@ export default function SecureAdmin() {
     is_admin: false
   });
 
+  // Fetch data - always call hooks first
+  useEffect(() => {
+    if (isAuthenticated() && isAdmin()) {
+      fetchAllData();
+    }
+  }, [isAuthenticated, isAdmin]);
+
   // Show login form if not authenticated or not admin
   if (!isAuthenticated() || !isAdmin()) {
     return <LoginForm onSuccess={() => window.location.reload()} />;
   }
-
-  // Fetch data
-  useEffect(() => {
-    fetchAllData();
-  }, []);
 
   const fetchAllData = async () => {
     setLoading(true);
