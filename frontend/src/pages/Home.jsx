@@ -15,7 +15,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="relative h-96 flex items-center justify-center overflow-hidden rounded-3xl shadow-2xl">
+          <div className="relative h-[500px] flex items-center justify-center overflow-hidden rounded-3xl shadow-2xl">
             <div className="absolute inset-0 z-0">
               <img
                 src={showInfo.heroImage}
