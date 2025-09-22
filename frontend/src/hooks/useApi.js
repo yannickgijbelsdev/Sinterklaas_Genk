@@ -8,28 +8,28 @@ export const useApi = (endpoint, dependencies = []) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`${API}${endpoint}`);
-        if (response.ok) {
-          const result = await response.json();
-          setData(result);
-        } else {
-          setError(`HTTP error! status: ${response.status}`);
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${API}${endpoint}`);
+      if (response.ok) {
+        const result = await response.json();
+        setData(result);
+      } else {
+        setError(`HTTP error! status: ${response.status}`);
       }
-    };
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, dependencies);
 
-  return { data, loading, error, refetch: () => fetchData() };
+  return { data, loading, error, refetch: fetchData };
 };
 
 export const useNews = () => {
