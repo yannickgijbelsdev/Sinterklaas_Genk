@@ -373,12 +373,121 @@ async def add_gallery_item(item: GalleryItem):
     await db.gallery.insert_one(item.dict())
     return item
 
-@api_router.delete("/admin/gallery/{item_id}")
-async def delete_gallery_item(item_id: str):
-    result = await db.gallery.delete_one({"id": item_id})
+# User Management (Super Admin only)
+@api_router.get("/admin/users", response_model=List[dict])
+async def get_all_users(current_user: User = Depends(get_admin_user)):
+    users = await db.users.find().to_list(1000)
+    # Remove password hashes from response
+    return [{k: v for k, v in user.items() if k != "hashed_password"} for user in users]
+
+@api_router.post("/admin/users", response_model=dict)
+async def create_user(user_data: UserCreate, current_user: User = Depends(get_admin_user)):
+    # Check if username already exists
+    existing_user = await db.users.find_one({"username": user_data.username})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Username already exists")
+    
+    # Create new user
+    hashed_password = hash_password(user_data.password)
+    user_dict = user_data.dict()
+    user_dict.pop("password")
+    user_dict["hashed_password"] = hashed_password
+    
+    user_obj = User(**user_dict)
+    await db.users.insert_one(user_obj.dict())
+    
+    # Return user without password
+    result = user_obj.dict()
+    result.pop("hashed_password")
+    return result
+
+@api_router.put("/admin/users/{user_id}")
+async def update_user(user_id: str, update_data: UserUpdate, current_user: User = Depends(get_admin_user)):
+    existing_user = await db.users.find_one({"id": user_id})
+    if not existing_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    update_dict = {k: v for k, v in update_data.dict().items() if v is not None}
+    
+    # Hash password if provided
+    if "password" in update_dict:
+        update_dict["hashed_password"] = hash_password(update_dict.pop("password"))
+    
+    update_dict["updatedAt"] = datetime.utcnow()
+    
+    await db.users.update_one({"id": user_id}, {"$set": update_dict})
+    return {"message": "User updated successfully"}
+
+@api_router.delete("/admin/users/{user_id}")
+async def delete_user(user_id: str, current_user: User = Depends(get_admin_user)):
+    # Prevent self-deletion
+    if user_id == current_user.id:
+        raise HTTPException(status_code=400, detail="Cannot delete your own account")
+    
+    result = await db.users.delete_one({"id": user_id})
     if result.deleted_count == 0:
-        raise HTTPException(status_code=404, detail="Gallery item not found")
-    return {"message": "Gallery item deleted successfully"}
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"message": "User deleted successfully"}
+
+# Site Settings Management
+@api_router.get("/admin/settings")
+async def get_site_settings(current_user: User = Depends(get_admin_user)):
+    settings = await db.site_settings.find_one() or {"logo": "", "favicon": ""}
+    return settings
+
+@api_router.put("/admin/settings")
+async def update_site_settings(logo: str = "", favicon: str = "", current_user: User = Depends(get_admin_user)):
+    settings_data = {
+        "logo": logo,
+        "favicon": favicon,
+        "updatedAt": datetime.utcnow()
+    }
+    
+    await db.site_settings.update_one(
+        {},
+        {"$set": settings_data},
+        upsert=True
+    )
+    
+    return {"message": "Settings updated successfully"}
+
+# Protected Live Editor Content
+@api_router.put("/admin/content")
+async def update_content(content_updates: List[ContentUpdate], current_user: User = Depends(get_admin_user)):
+    for update in content_updates:
+        existing = await db.content.find_one({
+            "section": update.section,
+            "key": update.key
+        })
+        
+        if existing:
+            await db.content.update_one(
+                {"section": update.section, "key": update.key},
+                {"$set": {
+                    "value": update.value,
+                    "updatedAt": datetime.utcnow()
+                }}
+            )
+        else:
+            content_item = ContentItem(**update.dict())
+            await db.content.insert_one(content_item.dict())
+    
+    return {"message": "Content updated successfully"}
+
+# Protected File Upload
+@api_router.post("/admin/upload")
+async def upload_file(file: UploadFile = File(...), current_user: User = Depends(get_admin_user)):
+    if not file.content_type.startswith('image/'):
+        raise HTTPException(status_code=400, detail="Only image files are allowed")
+    
+    file_extension = file.filename.split('.')[-1]
+    unique_filename = f"{uuid.uuid4()}.{file_extension}"
+    file_path = uploads_dir / unique_filename
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    
+    return {"url": f"/uploads/{unique_filename}", "filename": unique_filename}
 
 # Include the router in the main app
 app.include_router(api_router)
