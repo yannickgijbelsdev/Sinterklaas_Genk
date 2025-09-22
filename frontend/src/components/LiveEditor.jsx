@@ -18,8 +18,7 @@ import {
   Lock
 } from 'lucide-react';
 
-const BACKEND_URL = window.location.hostname === 'localhost' ? 'http://localhost:8001' : process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const API = 'http://localhost:8001/api';
 
 export const LiveEditor = ({ children, pageKey = 'home' }) => {
   const { isAuthenticated, isAdmin, apiCall } = useAuth();
