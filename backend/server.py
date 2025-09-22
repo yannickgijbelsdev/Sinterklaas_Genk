@@ -325,14 +325,14 @@ async def delete_show_date(show_id: str):
         raise HTTPException(status_code=404, detail="Show not found")
     return {"message": "Show deleted successfully"}
 
-# Admin Routes - Content Management
+# Admin Routes - Content Management (Protected)
 @api_router.get("/admin/content")
-async def get_all_content():
+async def get_all_content(current_user: User = Depends(get_admin_user)):
     content_items = await db.content.find().to_list(1000)
     return [ContentItem(**item) for item in content_items]
 
 @api_router.put("/admin/content")
-async def update_content(content_updates: List[ContentUpdate]):
+async def update_content(content_updates: List[ContentUpdate], current_user: User = Depends(get_admin_user)):
     for update in content_updates:
         # Check if content item exists
         existing = await db.content.find_one({
@@ -356,9 +356,9 @@ async def update_content(content_updates: List[ContentUpdate]):
     
     return {"message": "Content updated successfully"}
 
-# File Upload
+# File Upload (Protected)
 @api_router.post("/admin/upload")
-async def upload_file(file: UploadFile = File(...)):
+async def upload_file(file: UploadFile = File(...), current_user: User = Depends(get_admin_user)):
     # Validate file type
     if not file.content_type.startswith('image/'):
         raise HTTPException(status_code=400, detail="Only image files are allowed")
