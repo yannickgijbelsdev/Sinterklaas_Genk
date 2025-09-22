@@ -294,16 +294,34 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   };
 
   const removeEditableElements = () => {
+    console.log('🧹 Cleaning up editable elements...');
+    
     editableElementsRef.current.forEach((element) => {
+      // Remove visual styling
       element.classList.remove('live-editable', 'live-editing');
+      element.style.border = '';
+      element.style.borderRadius = '';
+      element.style.padding = '';
+      element.style.margin = '';
+      element.style.cursor = '';
+      element.style.backgroundColor = '';
+      element.style.minHeight = '';
+      
+      // Remove attributes
       element.removeAttribute('contenteditable');
       element.removeAttribute('data-editable');
-      element.removeEventListener('input', handleContentChange);
-      element.removeEventListener('blur', handleContentBlur);
-      element.removeEventListener('keydown', handleKeyDown);
-      element.removeEventListener('click', handleImageClick);
+      
+      // Remove event listeners using stored handlers
+      if (element._liveEditHandlers) {
+        Object.entries(element._liveEditHandlers).forEach(([event, handler]) => {
+          element.removeEventListener(event, handler);
+        });
+        delete element._liveEditHandlers;
+      }
     });
+    
     editableElementsRef.current.clear();
+    console.log('✅ Cleanup complete');
   };
 
   return (
