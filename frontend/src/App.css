@@ -1,34 +1,67 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Custom animations for Sinterklaas website */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
+@keyframes glow {
+    0%, 100% { 
+        box-shadow: 0 0 5px rgba(220, 38, 38, 0.4);
+    }
+    50% { 
+        box-shadow: 0 0 20px rgba(220, 38, 38, 0.6), 0 0 30px rgba(220, 38, 38, 0.4);
     }
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(1deg); }
+    75% { transform: rotate(-1deg); }
 }
 
-.App-link {
-    color: #61dafb;
+/* Smooth transitions for all elements */
+* {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Button hover animations */
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* Card hover effects */
+.hover-lift:hover {
+    transform: translateY(-5px);
+}
+
+/* Text animation for hero section */
+.hero-text {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Sinterklaas themed gradients */
+.sinterklaas-gradient {
+    background: linear-gradient(135deg, #dc2626, #f59e0b, #dc2626);
+}
+
+.christmas-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Custom scrollbar for Sinterklaas theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(to bottom, #fef2f2, #fff7ed);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #dc2626, #f59e0b);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #b91c1c, #d97706);
 }
