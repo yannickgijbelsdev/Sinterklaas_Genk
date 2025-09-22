@@ -40,7 +40,8 @@ export default function News() {
     }
 
     return (
-      <div className="min-h-screen">
+      <LiveEditor pageKey="news-article">
+        <div className="min-h-screen">
         <article className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-6">
