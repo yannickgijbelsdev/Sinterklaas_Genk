@@ -7,6 +7,26 @@ import { showInfo } from '../data/mock';
 import { useContent, getContentValue } from '../hooks/useApi';
 
 export default function About() {
+  const { data: contentData } = useContent();
+
+  // Get dynamic content with fallbacks
+  const pageTitle = getContentValue(contentData, 'about', 'title', 'Over De Show');
+  const pageSubtitle = getContentValue(contentData, 'about', 'subtitle', 'Ontdek waarom onze Sinterklaas show de meest magische ervaring van het jaar is. Een perfecte mix van traditie, muziek en plezier voor het hele gezin.');
+  const storyTitle = getContentValue(contentData, 'about', 'story_title', 'Het Verhaal');
+  const storyContent1 = getContentValue(contentData, 'about', 'story_content1', 'Elke december komt Sinterklaas vanuit Spanje naar Nederland om alle brave kinderen te bezoeken. Maar dit jaar heeft hij een extra verrassing: een spectaculaire theatershow vol muziek, dans en natuurlijk zijn trouwe helpers.');
+  const storyContent2 = getContentValue(contentData, 'about', 'story_content2', 'Onze show vertelt het verhaal van hoe Sinterklaas en zijn Pieten zich voorbereiden op het Sinterklaasfeest. Van het inpakken van cadeautjes tot het oefenen van nieuwe liedjes - je bent getuige van alle voorbereidingen!');
+  const storyContent3 = getContentValue(contentData, 'about', 'story_content3', 'Met prachtige kostuums, live muziek en interactieve momenten waar kinderen kunnen meedoen, wordt dit een onvergetelijke ervaring die het hele gezin zal koesteren.');
+  const aboutImage = getContentValue(contentData, 'about', 'hero_image', showInfo.heroImage);
+  
+  const detailsTitle = getContentValue(contentData, 'about', 'details_title', 'Show Details');
+  const detailsSubtitle = getContentValue(contentData, 'about', 'details_subtitle', 'Alles wat je moet weten over onze voorstelling');
+  
+  const featuresTitle = getContentValue(contentData, 'about', 'features_title', 'Wat Maakt Het Bijzonder?');
+  const featuresSubtitle = getContentValue(contentData, 'about', 'features_subtitle', 'Ontdek waarom onze show zo geliefd is bij families');
+  
+  const ctaTitle = getContentValue(contentData, 'about', 'cta_title', 'Klaar Voor De Magie?');
+  const ctaSubtitle = getContentValue(contentData, 'about', 'cta_subtitle', 'Boek nu je tickets en beleef samen met je familie de meest magische Sinterklaas show ooit!');
+
   const features = [
     {
       icon: <Music className="text-red-600" size={32} />,
