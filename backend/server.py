@@ -464,43 +464,7 @@ async def update_site_settings(logo: str = "", favicon: str = "", current_user: 
     
     return {"message": "Settings updated successfully"}
 
-# Protected Live Editor Content
-@api_router.put("/admin/content")
-async def update_content(content_updates: List[ContentUpdate], current_user: User = Depends(get_admin_user)):
-    for update in content_updates:
-        existing = await db.content.find_one({
-            "section": update.section,
-            "key": update.key
-        })
-        
-        if existing:
-            await db.content.update_one(
-                {"section": update.section, "key": update.key},
-                {"$set": {
-                    "value": update.value,
-                    "updatedAt": datetime.utcnow()
-                }}
-            )
-        else:
-            content_item = ContentItem(**update.dict())
-            await db.content.insert_one(content_item.dict())
-    
-    return {"message": "Content updated successfully"}
 
-# Protected File Upload
-@api_router.post("/admin/upload")
-async def upload_file(file: UploadFile = File(...), current_user: User = Depends(get_admin_user)):
-    if not file.content_type.startswith('image/'):
-        raise HTTPException(status_code=400, detail="Only image files are allowed")
-    
-    file_extension = file.filename.split('.')[-1]
-    unique_filename = f"{uuid.uuid4()}.{file_extension}"
-    file_path = uploads_dir / unique_filename
-    
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-    
-    return {"url": f"/uploads/{unique_filename}", "filename": unique_filename}
 
 # Include the router in the main app
 app.include_router(api_router)
