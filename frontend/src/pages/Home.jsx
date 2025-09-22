@@ -9,6 +9,13 @@ import { showInfo, showDates as fallbackShows, characters, news as fallbackNews 
 import { useNews, useShows } from '../hooks/useApi';
 
 export default function Home() {
+  const { data: newsData } = useNews();
+  const { data: showsData } = useShows();
+  
+  // Use API data or fallback to mock data
+  const news = newsData || fallbackNews;
+  const showDates = showsData || fallbackShows;
+  
   const upcomingShows = showDates.slice(0, 3);
   const featuredNews = news.slice(0, 2);
 
