@@ -90,9 +90,13 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {upcomingShows.map((show) => (
-              <Card key={show.id} className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                <CardContent className="p-6">
+            {upcomingShows.map((show, index) => (
+              <Card key={show.id} className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 hover:rotate-1 shake-on-hover bg-gradient-to-br from-white to-red-50 border-2 border-red-100">
+                <CardContent className="p-6 relative overflow-hidden">
+                  {/* Decorative corner emoji */}
+                  <div className="absolute -top-2 -right-2 text-3xl sparkle-emoji">
+                    {index === 0 ? '🎪' : index === 1 ? '🎭' : '🎈'}
+                  </div>
                   <div className="flex justify-between items-start mb-4">
                     <div>
                       <div className="flex items-center space-x-2 text-red-600 mb-2">
