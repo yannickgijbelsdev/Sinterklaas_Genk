@@ -219,36 +219,38 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   };
 
   const addEditableElements = () => {
-    // Find and make elements editable
-    const editableSelectors = [
-      '[data-editable-text]',
-      '[data-editable-image]'
-    ];
-
-    editableSelectors.forEach(selector => {
-      document.querySelectorAll(selector).forEach(element => {
-        console.log('Found editable element:', element); // Debug log
-        
-        const section = element.dataset.section || pageKey;
-        const type = element.dataset.editableText ? 'text' : 
-                    element.dataset.editableImage ? 'image' : 'text';
-        const key = element.dataset.key || 
-                   element.dataset.editableText || 
-                   element.dataset.editableImage ||
-                   'unknown';
-
-        console.log(`Making element editable: ${section}|${type}|${key}`); // Debug log
-        makeElementEditable(element, section, type, key);
-      });
+    console.log('🔍 Looking for editable elements...');
+    
+    // Find text elements
+    const textElements = document.querySelectorAll('[data-editable-text]');
+    console.log(`Found ${textElements.length} text elements:`, textElements);
+    
+    textElements.forEach(element => {
+      const section = element.dataset.section || pageKey;
+      const key = element.dataset.key || element.dataset.editableText || 'unknown';
+      console.log(`Making text element editable: ${section}|${key}`, element);
+      makeElementEditable(element, section, 'text', key);
     });
 
-    // Also make images with data-editable-image clickable
-    document.querySelectorAll('img[data-editable-image]').forEach(element => {
-      console.log('Found editable image:', element);
+    // Find image elements  
+    const imageElements = document.querySelectorAll('[data-editable-image]');
+    console.log(`Found ${imageElements.length} image elements:`, imageElements);
+    
+    imageElements.forEach(element => {
       const section = element.dataset.section || pageKey;
-      const key = element.dataset.key || element.dataset.editableImage || 'image';
+      const key = element.dataset.key || element.dataset.editableImage || 'unknown';
+      console.log(`Making image element editable: ${section}|${key}`, element);
       makeElementEditable(element, section, 'image', key);
     });
+
+    const totalElements = textElements.length + imageElements.length;
+    console.log(`✅ Total editable elements processed: ${totalElements}`);
+    
+    if (totalElements > 0) {
+      toast.success(`${totalElements} bewerkbare elementen gevonden!`);
+    } else {
+      toast.error('Geen bewerkbare elementen gevonden. Controleer data-attributen.');
+    }
   };
 
   const removeEditableElements = () => {
