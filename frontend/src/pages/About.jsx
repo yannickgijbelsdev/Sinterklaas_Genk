@@ -1,6 +1,7 @@
 import React from 'react';
 import { Clock, Users, Star, Heart, Music, Gift } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
+import { SparkleBackground } from '../components/SparkleBackground';
 import { showInfo } from '../data/mock';
 
 export default function About() {
