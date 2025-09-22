@@ -57,6 +57,7 @@ function App() {
               <Route path="/news/:id" element={<News />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/live-editor" element={<LiveAdmin />} />
             </Routes>
           </main>
           <Footer />
