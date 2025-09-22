@@ -121,6 +121,44 @@ class GalleryItem(BaseModel):
     description: str
     createdAt: datetime = Field(default_factory=datetime.utcnow)
 
+# Authentication Models
+class User(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    username: str
+    email: str
+    hashed_password: str
+    is_active: bool = True
+    is_admin: bool = False
+    createdAt: datetime = Field(default_factory=datetime.utcnow)
+    updatedAt: datetime = Field(default_factory=datetime.utcnow)
+
+class UserCreate(BaseModel):
+    username: str
+    email: str
+    password: str
+    is_admin: bool = False
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+class UserUpdate(BaseModel):
+    email: Optional[str] = None
+    password: Optional[str] = None
+    is_active: Optional[bool] = None
+    is_admin: Optional[bool] = None
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    user: dict
+
+class SiteSettings(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    logo: str
+    favicon: str
+    updatedAt: datetime = Field(default_factory=datetime.utcnow)
+
 # Create uploads directory
 uploads_dir = Path("uploads")
 uploads_dir.mkdir(exist_ok=True)
