@@ -172,29 +172,7 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
     }
   };
 
-  const handleContentChange = (e) => {
-    setIsDirty(true);
-    
-    // Visual feedback for unsaved changes
-    e.target.classList.add('live-editing');
-  };
-
-  const handleContentBlur = (e) => {
-    e.target.classList.remove('live-editing');
-  };
-
-  const handleKeyDown = (e) => {
-    // Prevent line breaks in single-line elements like titles
-    if (e.target.dataset.type === 'title' && e.key === 'Enter') {
-      e.preventDefault();
-    }
-    
-    // Save on Ctrl+S
-    if (e.ctrlKey && e.key === 's') {
-      e.preventDefault();
-      handleAutoSave();
-    }
-  };
+  // These handlers are now defined inline in makeElementEditable for better control
 
   const handleImageClick = async (e) => {
     e.preventDefault();
