@@ -78,51 +78,25 @@ button:active {
     transform: translateY(-5px);
 }
 
-/* Hero text animations */
-.hero-text {
-    animation: float 4s ease-in-out infinite;
+/* Subtle floating animation for hero */
+.hero-float {
+    animation: float 6s ease-in-out infinite;
 }
 
-.bounce-in {
-    animation: bounce 1s ease-out;
+/* Gentle hover effects */
+.gentle-hover:hover {
+    transform: scale(1.05);
 }
 
-.wiggle-hover:hover {
-    animation: wiggle 0.5s ease-in-out;
+/* Playful but subtle card effects */
+.fun-card {
+    transition: all 0.3s ease;
+    border-radius: 16px;
 }
 
-.sparkle-emoji {
-    animation: sparkle 2s ease-in-out infinite;
-}
-
-.rainbow-text {
-    animation: rainbow 3s linear infinite;
-    font-weight: bold;
-}
-
-/* Fun cursor styles */
-button, .clickable {
-    cursor: pointer;
-}
-
-button:hover {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="24">🎪</text></svg>'), auto;
-}
-
-/* Playful decorative elements */
-.decorative-dots::before {
-    content: '✨ 🎈 ✨ 🎭 ✨ 🎪 ✨';
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 16px;
-    animation: sparkle 3s ease-in-out infinite;
-}
-
-/* Card shake effect */
-.shake-on-hover:hover {
-    animation: jiggle 0.5s ease-in-out;
+.fun-card:hover {
+    transform: translateY(-5px) rotate(0.5deg);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Sinterklaas themed gradients */
