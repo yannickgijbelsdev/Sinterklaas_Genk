@@ -4,6 +4,7 @@ import { Calendar, MapPin, Clock, Users, ArrowRight, Star } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
+import { SparkleBackground } from '../components/SparkleBackground';
 import { showInfo, showDates, characters, news } from '../data/mock';
 
 export default function Home() {
