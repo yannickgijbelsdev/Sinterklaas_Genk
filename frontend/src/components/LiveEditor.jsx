@@ -22,12 +22,16 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export const LiveEditor = ({ children, pageKey = 'home' }) => {
+  const { isAuthenticated, isAdmin, apiCall } = useAuth();
   const [editMode, setEditMode] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [saving, setSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState(null);
   const autoSaveTimeoutRef = useRef(null);
   const editableElementsRef = useRef(new Map());
+
+  // Check if user has edit permissions
+  const canEdit = isAuthenticated() && isAdmin();
 
   // Auto-save mechanism
   useEffect(() => {
