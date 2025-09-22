@@ -141,12 +141,20 @@ export default function Home() {
       </section>
 
       {/* Characters Preview */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-gradient-to-b from-blue-50 via-purple-50 to-pink-50 relative overflow-hidden">
+        {/* Fun background decorations */}
+        <div className="absolute top-16 left-16 text-6xl opacity-10 float">🎪</div>
+        <div className="absolute top-32 right-10 text-4xl opacity-20 sparkle-emoji">🌟</div>
+        <div className="absolute bottom-20 left-20 text-5xl opacity-15 bounce-in">🎈</div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Ontmoet de Karakters</h2>
+            <div className="text-6xl mb-4 heartbeat">👥✨</div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <span className="rainbow-text">Ontmoet de Karakters</span> 🎭
+            </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Maak kennis met Sinterklaas en zijn vrolijke helpers die jouw show onvergetelijk maken.
+              Maak kennis met Sinterklaas en zijn vrolijke helpers die jouw show onvergetelijk maken! 🌟
             </p>
           </div>
 
