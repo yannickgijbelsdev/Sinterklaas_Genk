@@ -54,16 +54,16 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <div className="flex items-center space-x-1">
-              <Clock size={14} />
+            <div className="flex items-center space-x-2">
+              <Clock size={16} />
               <span>{showInfo.duration}</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <Users size={14} />
+            <div className="flex items-center space-x-2">
+              <Users size={16} />
               <span>Leeftijd: {showInfo.ageRange}</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <Star size={14} />
+            <div className="flex items-center space-x-2">
+              <Star size={16} />
               <span>{showInfo.language}</span>
             </div>
           </div>
