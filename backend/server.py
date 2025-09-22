@@ -201,7 +201,7 @@ async def get_admin_user(current_user: User = Depends(get_current_user)):
     return current_user
 
 # Authentication Routes
-@api_router.post("/auth/login", response_model=Token)
+@api_router.post("/auth/login")
 async def login(user_data: UserLogin):
     print(f"🔍 Login attempt for username: {user_data.username}")
     
