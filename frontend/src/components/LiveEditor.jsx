@@ -211,7 +211,7 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
 
         if (response.ok) {
           const result = await response.json();
-          e.target.src = `${BACKEND_URL}${result.url}`;
+          e.target.src = `http://localhost:8001${result.url}`;
           setIsDirty(true);
           toast.success('Afbeelding vervangen! 🎉');
           console.log('Image replaced successfully');
