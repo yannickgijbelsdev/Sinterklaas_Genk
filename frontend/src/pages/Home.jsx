@@ -137,8 +137,28 @@ export default function Home() {
       </section>
 
       {/* Characters Preview */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-white relative overflow-hidden">
+        {/* Extra subtle sparkles for character section */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute opacity-20 select-none"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                fontSize: '0.6rem',
+                animationDelay: `${Math.random() * 6}s`,
+                animationDuration: '6s',
+                animation: 'subtle-twinkle 6s ease-in-out infinite'
+              }}
+            >
+              ✨
+            </div>
+          ))}
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Ontmoet de Karakters</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
