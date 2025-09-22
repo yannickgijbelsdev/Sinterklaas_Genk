@@ -12,7 +12,7 @@ from typing import List, Optional, Dict, Any
 import uuid
 import shutil
 import jwt
-import bcrypt
+from passlib.context import CryptContext
 from datetime import datetime, timedelta
 
 
