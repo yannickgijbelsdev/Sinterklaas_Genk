@@ -34,38 +34,40 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {/* Magic Curtain Loader */}
-      {showCurtain && (
-        <MagicCurtain 
-          isLoading={!appReady} 
-          onAnimationComplete={handleCurtainComplete}
-        />
-      )}
-      
-      {/* Main App Content */}
-      <div className={`transition-opacity duration-500 ${showCurtain ? 'opacity-0' : 'opacity-100'}`}>
-        <BrowserRouter>
-          <Header />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/characters" element={<Characters />} />
-              <Route path="/shows" element={<Shows />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/news" element={<News />} />
-              <Route path="/news/:id" element={<News />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/live-editor" element={<LiveAdmin />} />
-            </Routes>
-          </main>
-          <Footer />
-          <Toaster />
-        </BrowserRouter>
+    <AuthProvider>
+      <div className="App">
+        {/* Magic Curtain Loader */}
+        {showCurtain && (
+          <MagicCurtain 
+            isLoading={!appReady} 
+            onAnimationComplete={handleCurtainComplete}
+          />
+        )}
+        
+        {/* Main App Content */}
+        <div className={`transition-opacity duration-500 ${showCurtain ? 'opacity-0' : 'opacity-100'}`}>
+          <BrowserRouter>
+            <Header />
+            <main>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/characters" element={<Characters />} />
+                <Route path="/shows" element={<Shows />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/news" element={<News />} />
+                <Route path="/news/:id" element={<News />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/admin" element={<SecureAdmin />} />
+                <Route path="/live-editor" element={<LiveAdmin />} />
+              </Routes>
+            </main>
+            <Footer />
+            <Toaster />
+          </BrowserRouter>
+        </div>
       </div>
-    </div>
+    </AuthProvider>
   );
 }
 
