@@ -14,7 +14,8 @@ export const Header = () => {
     { name: 'Data & Locaties', path: '/shows' },
     { name: 'Galerij', path: '/gallery' },
     { name: 'Nieuws', path: '/news' },
-    { name: 'Contact', path: '/contact' }
+    { name: 'Contact', path: '/contact' },
+    { name: '🎛️ Admin', path: '/admin' }
   ];
 
   const isActive = (path) => location.pathname === path;
