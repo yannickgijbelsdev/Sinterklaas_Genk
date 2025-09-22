@@ -28,8 +28,14 @@ import {
 } from 'lucide-react';
 
 export default function LiveAdmin() {
+  const { isAuthenticated, isAdmin, logout, user } = useAuth();
   const [selectedPage, setSelectedPage] = useState('home');
   const [previewMode, setPreviewMode] = useState('desktop');
+
+  // Show login form if not authenticated or not admin
+  if (!isAuthenticated() || !isAdmin()) {
+    return <LoginForm onSuccess={() => window.location.reload()} />;
+  }
 
   const pages = [
     { key: 'home', name: 'Home', icon: HomeIcon, component: Home },
