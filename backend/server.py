@@ -37,6 +37,82 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+# Admin Models
+class NewsArticle(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    title: str
+    excerpt: str
+    content: str
+    image: str
+    date: str
+    published: bool = True
+    createdAt: datetime = Field(default_factory=datetime.utcnow)
+    updatedAt: datetime = Field(default_factory=datetime.utcnow)
+
+class NewsArticleCreate(BaseModel):
+    title: str
+    excerpt: str
+    content: str
+    image: str
+    date: str
+    published: bool = True
+
+class NewsArticleUpdate(BaseModel):
+    title: Optional[str] = None
+    excerpt: Optional[str] = None
+    content: Optional[str] = None
+    image: Optional[str] = None
+    date: Optional[str] = None
+    published: Optional[bool] = None
+
+class ShowDate(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    date: str
+    time: str
+    venue: str
+    city: str
+    ticketsAvailable: bool = True
+    ticketUrl: str
+    createdAt: datetime = Field(default_factory=datetime.utcnow)
+    updatedAt: datetime = Field(default_factory=datetime.utcnow)
+
+class ShowDateCreate(BaseModel):
+    date: str
+    time: str
+    venue: str
+    city: str
+    ticketsAvailable: bool = True
+    ticketUrl: str
+
+class ShowDateUpdate(BaseModel):
+    date: Optional[str] = None
+    time: Optional[str] = None
+    venue: Optional[str] = None
+    city: Optional[str] = None
+    ticketsAvailable: Optional[bool] = None
+    ticketUrl: Optional[str] = None
+
+class ContentItem(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    section: str
+    type: str  # 'text', 'image', 'color', 'settings'
+    key: str
+    value: str
+    updatedAt: datetime = Field(default_factory=datetime.utcnow)
+
+class ContentUpdate(BaseModel):
+    section: str
+    type: str
+    key: str
+    value: str
+
+class GalleryItem(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    image: str
+    title: str
+    description: str
+    createdAt: datetime = Field(default_factory=datetime.utcnow)
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
