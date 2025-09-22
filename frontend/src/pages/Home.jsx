@@ -12,10 +12,28 @@ import { useNews, useShows, useContent, getContentValue } from '../hooks/useApi'
 export default function Home() {
   const { data: newsData } = useNews();
   const { data: showsData } = useShows();
+  const { data: contentData } = useContent();
   
   // Use API data or fallback to mock data
   const news = newsData || fallbackNews;
   const showDates = showsData || fallbackShows;
+  
+  // Create dynamic showInfo from database content
+  const showInfo = {
+    title: getContentValue(contentData, 'hero', 'title', fallbackShowInfo.title),
+    subtitle: getContentValue(contentData, 'hero', 'subtitle', fallbackShowInfo.subtitle),
+    description: getContentValue(contentData, 'hero', 'description', fallbackShowInfo.description),
+    heroImage: getContentValue(contentData, 'hero', 'background_image', fallbackShowInfo.heroImage),
+    duration: fallbackShowInfo.duration,
+    ageRange: fallbackShowInfo.ageRange,
+    language: fallbackShowInfo.language
+  };
+  
+  // Get section titles dynamically
+  const showsSectionTitle = getContentValue(contentData, 'shows', 'section_title', 'Aankomende Voorstellingen');
+  const showsSectionDescription = getContentValue(contentData, 'shows', 'section_description', 'Mis de magische Sinterklaas show niet! Kies jouw ideale datum en locatie.');
+  const charactersSectionTitle = getContentValue(contentData, 'characters', 'section_title', 'Ontmoet de Karakters');
+  const charactersSectionDescription = getContentValue(contentData, 'characters', 'section_description', 'Maak kennis met Sinterklaas en zijn vrolijke helpers die jouw show onvergetelijk maken.');
   
   const upcomingShows = showDates.slice(0, 3);
   const featuredNews = news.slice(0, 2);
