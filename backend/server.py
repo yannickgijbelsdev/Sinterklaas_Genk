@@ -203,44 +203,33 @@ async def get_admin_user(current_user: User = Depends(get_current_user)):
 # Authentication Routes
 @api_router.post("/auth/login")
 async def login(user_data: UserLogin):
-    print(f"🔍 Login attempt for username: {user_data.username}")
-    
-    user = await db.users.find_one({"username": user_data.username})
-    print(f"🔍 User found: {user is not None}")
-    
-    if not user:
-        print("❌ User not found")
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-    
-    print(f"🔍 Stored hash: {user['hashed_password'][:20]}...")
-    password_valid = verify_password(user_data.password, user["hashed_password"])
-    print(f"🔍 Password valid: {password_valid}")
-    
-    if not password_valid:
-        print("❌ Password verification failed")
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-    
-    if not user["is_active"]:
-        print("❌ Account deactivated")
-        raise HTTPException(status_code=401, detail="Account deactivated")
-    
-    print("✅ Login successful")
-    token = create_access_token({"sub": user["username"]})
-    
-    # Convert datetime objects to strings for JSON serialization
-    user_dict = {}
-    for k, v in user.items():
-        if k != "hashed_password":
-            if isinstance(v, datetime):
-                user_dict[k] = v.isoformat()
-            else:
-                user_dict[k] = v
-    
-    return {
-        "access_token": token,
-        "token_type": "bearer",
-        "user": user_dict
-    }
+    try:
+        user = await db.users.find_one({"username": user_data.username})
+        
+        if not user or not verify_password(user_data.password, user["hashed_password"]):
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+        
+        if not user["is_active"]:
+            raise HTTPException(status_code=401, detail="Account deactivated")
+        
+        token = create_access_token({"sub": user["username"]})
+        
+        return {
+            "access_token": token,
+            "token_type": "bearer",
+            "user": {
+                "id": user["id"],
+                "username": user["username"],
+                "email": user["email"],
+                "is_admin": user["is_admin"],
+                "is_active": user["is_active"]
+            }
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Login error: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 @api_router.post("/auth/verify")
 async def verify_token(current_user: User = Depends(get_current_user)):
