@@ -228,6 +228,11 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   };
 
   const toggleEditMode = () => {
+    if (!canEdit) {
+      toast.error('Je moet ingelogd zijn als admin om te kunnen bewerken!');
+      return;
+    }
+
     const newEditMode = !editMode;
     console.log(`🔄 Toggling edit mode: ${editMode} -> ${newEditMode}`);
     setEditMode(newEditMode);
