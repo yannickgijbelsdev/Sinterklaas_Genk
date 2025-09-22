@@ -132,9 +132,22 @@ export default function LiveAdmin() {
                 </Button>
               </div>
               
-              <Badge variant="secondary" className="bg-green-100 text-green-800">
-                Live Editor Actief
-              </Badge>
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-gray-600">
+                  👋 {user?.username}
+                </span>
+                <Badge variant="secondary" className="bg-green-100 text-green-800">
+                  Live Editor Actief
+                </Badge>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={logout}
+                  className="text-gray-700 hover:text-red-600"
+                >
+                  <LogOut size={16} />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
