@@ -525,15 +525,7 @@ export default function Admin() {
           </TabsContent>
 
           <TabsContent value="content">
-            <Card>
-              <CardHeader>
-                <CardTitle>Content Management</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">Content editor komt binnenkort beschikbaar!</p>
-                <p className="text-sm text-gray-500 mt-2">Hier kun je banners, teksten en afbeeldingen aanpassen.</p>
-              </CardContent>
-            </Card>
+            <BannerEditor />
           </TabsContent>
         </Tabs>
       </div>
