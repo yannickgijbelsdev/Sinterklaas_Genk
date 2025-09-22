@@ -38,7 +38,7 @@ export const BannerEditor = () => {
         const result = await response.json();
         setBannerData(prev => ({
           ...prev,
-          backgroundImage: `${BACKEND_URL}${result.url}`
+          backgroundImage: `http://localhost:8001${result.url}`
         }));
         toast.success('Afbeelding geüpload!');
       } else {
