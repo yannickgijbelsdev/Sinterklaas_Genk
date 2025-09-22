@@ -3,6 +3,7 @@ import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { toast } from 'sonner';
+import { useAuth } from '../contexts/AuthContext';
 import { 
   Edit3, 
   Save, 
@@ -13,7 +14,8 @@ import {
   Type,
   Image as ImageIcon,
   Palette,
-  RefreshCw
+  RefreshCw,
+  Lock
 } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
