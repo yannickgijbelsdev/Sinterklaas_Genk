@@ -158,6 +158,9 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
 
   const handleImageClick = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Image clicked for editing:', e.target);
     
     const input = document.createElement('input');
     input.type = 'file';
@@ -165,6 +168,9 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
     input.onchange = async (event) => {
       const file = event.target.files[0];
       if (!file) return;
+
+      console.log('File selected:', file.name);
+      toast.success('Uploading image...');
 
       try {
         const formData = new FormData();
@@ -179,9 +185,13 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
           const result = await response.json();
           e.target.src = `${BACKEND_URL}${result.url}`;
           setIsDirty(true);
-          toast.success('Afbeelding vervangen!');
+          toast.success('Afbeelding vervangen! 🎉');
+          console.log('Image replaced successfully');
+        } else {
+          throw new Error(`Upload failed: ${response.status}`);
         }
       } catch (error) {
+        console.error('Upload error:', error);
         toast.error('Fout bij uploaden: ' + error.message);
       }
     };
