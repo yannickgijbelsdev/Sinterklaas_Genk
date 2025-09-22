@@ -45,6 +45,18 @@ export default function SecureAdmin() {
     }
   }, [isAuthenticated, isAdmin]);
 
+  // Show loading while authentication is being verified
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl mb-4">🎭</div>
+          <div className="text-xl text-gray-600">Bezig met laden...</div>
+        </div>
+      </div>
+    );
+  }
+
   // Show login form if not authenticated or not admin
   if (!isAuthenticated() || !isAdmin()) {
     return <LoginForm onSuccess={() => window.location.reload()} />;
