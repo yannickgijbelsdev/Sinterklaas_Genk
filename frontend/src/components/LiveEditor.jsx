@@ -240,21 +240,29 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
 
   const toggleEditMode = () => {
     const newEditMode = !editMode;
+    console.log(`🔄 Toggling edit mode: ${editMode} -> ${newEditMode}`);
     setEditMode(newEditMode);
     
     if (newEditMode) {
       // Entering edit mode
-      console.log('Entering edit mode...');
+      console.log('🚀 Entering edit mode...');
+      toast.success('Edit mode geactiveerd!');
+      
+      // Wait for React to finish rendering
       setTimeout(() => {
         addEditableElements();
-      }, 100);
+      }, 500);
     } else {
       // Exiting edit mode
-      console.log('Exiting edit mode...');
+      console.log('🛑 Exiting edit mode...');
       removeEditableElements();
+      
       if (isDirty) {
+        console.log('💾 Saving changes before exit...');
         handleAutoSave();
       }
+      
+      toast.success('Edit mode uitgeschakeld!');
     }
   };
 
