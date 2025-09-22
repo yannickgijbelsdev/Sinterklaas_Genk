@@ -199,6 +199,34 @@ async def get_admin_user(current_user: User = Depends(get_current_user)):
         raise HTTPException(status_code=403, detail="Admin access required")
     return current_user
 
+# Authentication Routes
+@api_router.post("/auth/login", response_model=Token)
+async def login(user_data: UserLogin):
+    user = await db.users.find_one({"username": user_data.username})
+    if not user or not verify_password(user_data.password, user["hashed_password"]):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    
+    if not user["is_active"]:
+        raise HTTPException(status_code=401, detail="Account deactivated")
+    
+    token = create_access_token({"sub": user["username"]})
+    user_dict = {k: v for k, v in user.items() if k != "hashed_password"}
+    
+    return {
+        "access_token": token,
+        "token_type": "bearer",
+        "user": user_dict
+    }
+
+@api_router.post("/auth/verify")
+async def verify_token(current_user: User = Depends(get_current_user)):
+    user_dict = {k: v for k, v in current_user.dict().items() if k != "hashed_password"}
+    return {"valid": True, "user": user_dict}
+
+@api_router.post("/auth/logout")
+async def logout():
+    return {"message": "Logged out successfully"}
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
