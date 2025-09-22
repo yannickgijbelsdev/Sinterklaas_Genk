@@ -111,8 +111,20 @@ export default function Home() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Aankomende Voorstellingen</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <h2 
+              className="text-4xl font-bold text-gray-900 mb-4"
+              data-editable-text="title"
+              data-section="shows"
+              data-key="section_title"
+            >
+              Aankomende Voorstellingen
+            </h2>
+            <p 
+              className="text-xl text-gray-600 max-w-2xl mx-auto"
+              data-editable-text="description"
+              data-section="shows"
+              data-key="section_description"
+            >
               Mis de magische Sinterklaas show niet! Kies jouw ideale datum en locatie.
             </p>
           </div>
