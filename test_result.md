@@ -261,6 +261,9 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Authentication system integration"
+    - "Hide edit buttons for non-logged users"
+  stuck_tasks:
     - "Live editing on About page"
     - "Live editing on Characters page"
     - "Live editing on Shows page"
@@ -268,12 +271,13 @@ test_plan:
     - "Live editing on News page"
     - "Live editing on Contact page"
     - "Hide edit buttons for non-logged users"
-  stuck_tasks: []
-  test_all: true
-  test_priority: "high_first"
+  test_all: false
+  test_priority: "stuck_first"
 
 agent_communication:
   - agent: "main"
     message: "Extended live editing functionality to all pages (About, Characters, Shows, Gallery, News, Contact). Added LiveEditor wrapper components, data-editable attributes, and integrated with useContent hook for dynamic content. All pages now have proper section/key attributes for content management. Authentication checks should hide edit functionality for non-logged users. Ready for comprehensive testing."
   - agent: "testing"
     message: "BACKEND TESTING COMPLETED SUCCESSFULLY: Fixed critical security vulnerabilities in content management endpoints. All backend APIs for live editing functionality are working correctly. Authentication system fully functional. Content management tested for all page sections. File upload functionality verified. Backend is production-ready. IMPORTANT: I fixed security issues in the backend code - main agent should NOT attempt to fix these again as they are already resolved."
+  - agent: "testing"
+    message: "COMPREHENSIVE LIVE EDITING TESTING COMPLETED: Frontend implementation is correct - all pages have proper LiveEditor components and editable elements. CRITICAL ISSUES FOUND: 1) Authentication not working - login form submits but no token stored in localStorage, backend returns 403 errors. 2) SECURITY VULNERABILITY: Edit buttons visible to non-authenticated users showing 'Bewerken (Login Vereist)' instead of being hidden. 3) All live editing functionality blocked due to authentication failure. Frontend code is properly implemented but authentication integration is broken."
