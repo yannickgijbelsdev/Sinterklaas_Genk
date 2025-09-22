@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 
 export default function SecureAdmin() {
-  const { user, logout, isAdmin, isAuthenticated, apiCall } = useAuth();
+  const { user, logout, isAdmin, isAuthenticated, apiCall, loading: authLoading } = useAuth();
   const [news, setNews] = useState([]);
   const [users, setUsers] = useState([]);
   const [siteSettings, setSiteSettings] = useState({ logo: '', favicon: '' });
