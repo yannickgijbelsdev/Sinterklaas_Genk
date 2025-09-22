@@ -21,7 +21,8 @@ export default function Home() {
   const featuredNews = news.slice(0, 2);
 
   return (
-    <div className="min-h-screen">
+    <LiveEditor pageKey="home">
+      <div className="min-h-screen">
       {/* Hero Section */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
