@@ -13,15 +13,17 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src={showInfo.heroImage}
-            alt="Sinterklaas Show"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60"></div>
-        </div>
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative h-96 flex items-center justify-center overflow-hidden rounded-3xl shadow-2xl">
+            <div className="absolute inset-0 z-0">
+              <img
+                src={showInfo.heroImage}
+                alt="Sinterklaas Show"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60 rounded-3xl"></div>
+            </div>
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <div className="mb-6">
