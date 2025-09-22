@@ -196,8 +196,28 @@ export default function Home() {
       </section>
 
       {/* Latest News */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-gray-50 relative overflow-hidden">
+        {/* Ultra subtle sparkles for news section */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute opacity-15 select-none"
+              style={{
+                left: `${20 + Math.random() * 60}%`,
+                top: `${20 + Math.random() * 60}%`,
+                fontSize: '0.5rem',
+                animationDelay: `${Math.random() * 8}s`,
+                animationDuration: '8s',
+                animation: 'subtle-twinkle 8s ease-in-out infinite'
+              }}
+            >
+              ⭐
+            </div>
+          ))}
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Laatste Nieuws</h2>
             <p className="text-xl text-gray-600">Blijf op de hoogte van alle nieuwtjes rondom de show.</p>
