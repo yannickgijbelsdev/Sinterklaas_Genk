@@ -16,7 +16,14 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  
+  // Initialize token from localStorage
+  const [token, setToken] = useState(() => {
+    const savedToken = localStorage.getItem('token');
+    console.log('🔍 DEBUG: Initial token from localStorage:', savedToken ? 'FOUND' : 'NOT FOUND');
+    return savedToken;
+  });
+  
   const [loading, setLoading] = useState(true);
 
   // Verify token on app start
