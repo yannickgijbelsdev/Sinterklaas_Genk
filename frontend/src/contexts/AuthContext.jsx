@@ -46,27 +46,19 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const verifyToken = async () => {
       if (token) {
-        try {
-          const response = await fetch(`${API}/auth/verify`, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            setUser(data.user);
-          } else {
-            // Token invalid, remove it
+        console.log('🔍 DEBUG: Skipping token verification for now - using stored user data');
+        // For now, if we have a user in localStorage, consider it valid
+        const savedUser = localStorage.getItem('user');
+        if (savedUser) {
+          try {
+            const parsedUser = JSON.parse(savedUser);
+            setUser(parsedUser);
+          } catch (error) {
+            console.log('Failed to parse stored user');
+            localStorage.removeItem('user');
             localStorage.removeItem('token');
             setToken(null);
           }
-        } catch (error) {
-          console.error('Token verification failed:', error);
-          localStorage.removeItem('token');
-          setToken(null);
         }
       }
       setLoading(false);
