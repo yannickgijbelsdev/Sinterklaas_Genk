@@ -15,7 +15,23 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  // Initialize user from localStorage if available
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        console.log('🔍 DEBUG: Initial user from localStorage:', parsedUser.username || 'UNKNOWN');
+        return parsedUser;
+      } catch (error) {
+        console.log('🔍 DEBUG: Failed to parse user from localStorage');
+        localStorage.removeItem('user');
+        return null;
+      }
+    }
+    console.log('🔍 DEBUG: No user found in localStorage');
+    return null;
+  });
   
   // Initialize token from localStorage
   const [token, setToken] = useState(() => {
