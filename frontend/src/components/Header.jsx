@@ -7,17 +7,26 @@ import { useAuth } from '../contexts/AuthContext';
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, isAdmin, logout, user } = useAuth();
 
-  const navigationItems = [
+  const publicNavigationItems = [
     { name: 'Home', path: '/' },
     { name: 'Over de Show', path: '/about' },
     { name: 'Karakters', path: '/characters' },
     { name: 'Data & Locaties', path: '/shows' },
     { name: 'Galerij', path: '/gallery' },
     { name: 'Nieuws', path: '/news' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Contact', path: '/contact' }
+  ];
+
+  const adminNavigationItems = [
     { name: '🎛️ Admin', path: '/admin' },
     { name: '✏️ Live Editor', path: '/live-editor' }
+  ];
+
+  const navigationItems = [
+    ...publicNavigationItems,
+    ...(isAuthenticated() && isAdmin() ? adminNavigationItems : [])
   ];
 
   const isActive = (path) => location.pathname === path;
