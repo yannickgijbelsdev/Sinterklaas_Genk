@@ -401,21 +401,6 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
         </div>
       )}
 
-      {/* Show login hint for non-admin users if they try to access editing */}
-      {!canEdit && (
-        <div className="fixed bottom-6 right-6 z-50">
-          <Button
-            onClick={() => toast.error('Inloggen als admin vereist voor bewerken')}
-            className="shadow-2xl bg-gray-400 hover:bg-gray-500 cursor-not-allowed"
-            size="lg"
-            disabled
-          >
-            <Lock className="mr-2" size={18} />
-            Bewerken (Login Vereist)
-          </Button>
-        </div>
-      )}
-
       {/* Content with potential editing */}
       <div className={editMode ? 'live-editor-active' : ''}>
         {children}
