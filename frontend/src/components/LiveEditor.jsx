@@ -111,43 +111,64 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   const makeElementEditable = (element, section, type, key) => {
     if (!element) return;
 
-    console.log(`Making element editable: ${section}|${type}|${key}`, element); // Debug log
-
     const elementKey = `${section}|${type}|${key}`;
     editableElementsRef.current.set(elementKey, element);
 
-    // Add visual editing indicators
+    // Add visual editing indicators with stronger styling
     element.classList.add('live-editable');
     element.setAttribute('data-editable', 'true');
     element.setAttribute('data-section', section);
     element.setAttribute('data-type', type);
     element.setAttribute('data-key', key);
 
+    // Apply immediate visual styling
+    element.style.border = '2px dashed #3b82f6';
+    element.style.borderRadius = '4px';
+    element.style.padding = '4px';
+    element.style.margin = '2px';
+    element.style.minHeight = '20px';
+
     if (type === 'text') {
       element.contentEditable = true;
       element.style.cursor = 'text';
+      element.style.outline = 'none';
       
       // Remove existing listeners first
-      element.removeEventListener('input', handleContentChange);
-      element.removeEventListener('blur', handleContentBlur);
-      element.removeEventListener('keydown', handleKeyDown);
+      const newInputHandler = (e) => {
+        console.log('📝 Text changed:', e.target.textContent);
+        setIsDirty(true);
+        e.target.style.backgroundColor = 'rgba(245, 158, 11, 0.1)';
+        e.target.style.borderColor = '#f59e0b';
+      };
       
-      // Add new listeners
-      element.addEventListener('input', handleContentChange);
-      element.addEventListener('blur', handleContentBlur);
-      element.addEventListener('keydown', handleKeyDown);
+      const newBlurHandler = (e) => {
+        e.target.style.backgroundColor = 'transparent';
+        e.target.style.borderColor = '#3b82f6';
+      };
       
-      console.log('Text element made editable:', element);
+      const newKeyHandler = (e) => {
+        if (e.ctrlKey && e.key === 's') {
+          e.preventDefault();
+          handleAutoSave();
+        }
+      };
+      
+      element.addEventListener('input', newInputHandler);
+      element.addEventListener('blur', newBlurHandler);
+      element.addEventListener('keydown', newKeyHandler);
+      
+      // Store handlers for cleanup
+      element._liveEditHandlers = { input: newInputHandler, blur: newBlurHandler, keydown: newKeyHandler };
+      
+      console.log('✅ Text element made editable:', element);
     } else if (type === 'image') {
       element.style.cursor = 'pointer';
       
-      // Remove existing listener first
-      element.removeEventListener('click', handleImageClick);
+      const newClickHandler = (e) => handleImageClick(e);
+      element.addEventListener('click', newClickHandler);
+      element._liveEditHandlers = { click: newClickHandler };
       
-      // Add new listener
-      element.addEventListener('click', handleImageClick);
-      
-      console.log('Image element made clickable:', element);
+      console.log('✅ Image element made clickable:', element);
     }
   };
 
