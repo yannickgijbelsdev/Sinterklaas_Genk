@@ -84,7 +84,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {upcomingShows.map((show) => (
-              <Card key={show.id} className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+              <Card key={show.id} className="group fun-card bg-gradient-to-br from-white to-red-50/30">
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div>
