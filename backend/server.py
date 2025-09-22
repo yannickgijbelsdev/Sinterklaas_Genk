@@ -276,6 +276,9 @@ async def delete_gallery_item(item_id: str):
 # Include the router in the main app
 app.include_router(api_router)
 
+# Mount static files for uploads
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
