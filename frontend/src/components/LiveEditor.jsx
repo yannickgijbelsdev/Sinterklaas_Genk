@@ -189,26 +189,32 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
     // Find and make elements editable
     const editableSelectors = [
       '[data-editable-text]',
-      '[data-editable-image]',
-      'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-      'p:not(.no-edit)',
-      '.editable-content'
+      '[data-editable-image]'
     ];
 
     editableSelectors.forEach(selector => {
       document.querySelectorAll(selector).forEach(element => {
+        console.log('Found editable element:', element); // Debug log
+        
         const section = element.dataset.section || pageKey;
         const type = element.dataset.editableText ? 'text' : 
-                    element.dataset.editableImage ? 'image' :
-                    element.tagName.toLowerCase() === 'img' ? 'image' : 'text';
+                    element.dataset.editableImage ? 'image' : 'text';
         const key = element.dataset.key || 
                    element.dataset.editableText || 
                    element.dataset.editableImage ||
-                   element.className ||
-                   element.tagName.toLowerCase();
+                   'unknown';
 
+        console.log(`Making element editable: ${section}|${type}|${key}`); // Debug log
         makeElementEditable(element, section, type, key);
       });
+    });
+
+    // Also make images with data-editable-image clickable
+    document.querySelectorAll('img[data-editable-image]').forEach(element => {
+      console.log('Found editable image:', element);
+      const section = element.dataset.section || pageKey;
+      const key = element.dataset.key || element.dataset.editableImage || 'image';
+      makeElementEditable(element, section, 'image', key);
     });
   };
 
