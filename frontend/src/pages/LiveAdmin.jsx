@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { LoginForm } from '../components/LoginForm';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
@@ -21,7 +23,8 @@ import {
   FileText,
   Image as ImageIcon,
   Mail,
-  Info
+  Info,
+  LogOut
 } from 'lucide-react';
 
 export default function LiveAdmin() {
