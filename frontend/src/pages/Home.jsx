@@ -25,6 +25,9 @@ export default function Home() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60 rounded-3xl"></div>
             </div>
+            
+            {/* Subtle sparkles in hero */}
+            <SparkleBackground density="light" animation="slow" />
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <div className="mb-6">
