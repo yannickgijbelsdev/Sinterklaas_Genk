@@ -244,38 +244,35 @@ async def get_status_checks():
     status_checks = await db.status_checks.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
 
-# Admin Routes - News Management
+# Admin Routes - News Management (Protected)
 @api_router.get("/admin/news", response_model=List[NewsArticle])
-async def get_all_news():
+async def get_all_news(current_user: User = Depends(get_admin_user)):
     news_items = await db.news.find().to_list(1000)
     return [NewsArticle(**item) for item in news_items]
 
 @api_router.post("/admin/news", response_model=NewsArticle)
-async def create_news_article(article: NewsArticleCreate):
+async def create_news_article(article: NewsArticleCreate, current_user: User = Depends(get_admin_user)):
     article_dict = article.dict()
     article_obj = NewsArticle(**article_dict)
     await db.news.insert_one(article_obj.dict())
     return article_obj
 
 @api_router.put("/admin/news/{article_id}", response_model=NewsArticle)
-async def update_news_article(article_id: str, update_data: NewsArticleUpdate):
-    # Find existing article
+async def update_news_article(article_id: str, update_data: NewsArticleUpdate, current_user: User = Depends(get_admin_user)):
     existing_article = await db.news.find_one({"id": article_id})
     if not existing_article:
         raise HTTPException(status_code=404, detail="Article not found")
     
-    # Update only provided fields
     update_dict = {k: v for k, v in update_data.dict().items() if v is not None}
     update_dict["updatedAt"] = datetime.utcnow()
     
     await db.news.update_one({"id": article_id}, {"$set": update_dict})
     
-    # Return updated article
     updated_article = await db.news.find_one({"id": article_id})
     return NewsArticle(**updated_article)
 
 @api_router.delete("/admin/news/{article_id}")
-async def delete_news_article(article_id: str):
+async def delete_news_article(article_id: str, current_user: User = Depends(get_admin_user)):
     result = await db.news.delete_one({"id": article_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Article not found")
