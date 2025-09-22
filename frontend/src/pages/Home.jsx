@@ -27,14 +27,14 @@ export default function Home() {
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <div className="mb-6">
-            <div className="text-4xl mb-3">🎭✨</div>
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+            <div className="text-5xl mb-4">🎭✨</div>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               {showInfo.title}
             </h1>
-            <p className="text-lg md:text-xl mb-4 font-medium">
+            <p className="text-xl md:text-2xl mb-6 font-medium">
               {showInfo.subtitle}
             </p>
-            <p className="text-sm md:text-base mb-6 opacity-90 max-w-xl mx-auto">
+            <p className="text-base md:text-lg mb-8 opacity-90 max-w-2xl mx-auto">
               {showInfo.description}
             </p>
           </div>
