@@ -136,7 +136,7 @@ export default function Home() {
               data-section="shows"
               data-key="section_title"
             >
-              Aankomende Voorstellingen
+              {showsSectionTitle}
             </h2>
             <p 
               className="text-xl text-gray-600 max-w-2xl mx-auto"
@@ -144,7 +144,7 @@ export default function Home() {
               data-section="shows"
               data-key="section_description"
             >
-              Mis de magische Sinterklaas show niet! Kies jouw ideale datum en locatie.
+              {showsSectionDescription}
             </p>
           </div>
 
