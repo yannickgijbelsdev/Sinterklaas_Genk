@@ -9,10 +9,14 @@ import { news as fallbackNews } from '../data/mock';
 
 export default function News() {
   const { id } = useParams();
+  const { data: newsData, loading } = useNews();
+  
+  // Use API data or fallback to mock data
+  const news = newsData || fallbackNews;
   
   // If there's an ID in the URL, show single article
   if (id) {
-    const article = news.find(item => item.id === parseInt(id));
+    const article = news.find(item => item.id === id);
     
     if (!article) {
       return (
