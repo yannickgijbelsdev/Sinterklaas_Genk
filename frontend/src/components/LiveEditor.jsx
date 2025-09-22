@@ -328,8 +328,8 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
 
   return (
     <div className="relative">
-      {/* Live Editor Toolbar */}
-      {editMode && (
+      {/* Live Editor Toolbar - Only show for admins */}
+      {editMode && canEdit && (
         <div className="fixed top-20 right-4 z-50">
           <Card className="shadow-2xl border-2 border-blue-200">
             <CardContent className="p-4">
