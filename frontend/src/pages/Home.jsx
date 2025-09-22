@@ -119,8 +119,8 @@ export default function Home() {
                   
                   {show.ticketsAvailable && (
                     <a href={show.ticketUrl} target="_blank" rel="noopener noreferrer">
-                      <Button className="w-full bg-red-600 hover:bg-red-700 group-hover:scale-105 transition-transform duration-200">
-                        Tickets Kopen
+                      <Button className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 group-hover:scale-110 transition-all duration-300 shadow-lg wiggle-hover text-white font-bold">
+                        🎫 Tickets Kopen 
                         <ArrowRight className="ml-2" size={16} />
                       </Button>
                     </a>
