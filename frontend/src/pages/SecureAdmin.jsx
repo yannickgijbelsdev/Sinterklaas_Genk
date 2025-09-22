@@ -25,18 +25,30 @@ import {
 } from 'lucide-react';
 
 export default function SecureAdmin() {
-  const { user, logout, isAdmin, isAuthenticated, apiCall, loading: authLoading } = useAuth();
+  // Simple auth check
+  const token = localStorage.getItem('token');
+  const user = localStorage.getItem('user');
+  
+  // If no token or user, show login
+  if (!token || !user) {
+    return <SimpleLogin />;
+  }
+
+  // Parse user
+  let userData;
+  try {
+    userData = JSON.parse(user);
+    if (!userData.is_admin) {
+      return <SimpleLogin />;
+    }
+  } catch (error) {
+    return <SimpleLogin />;
+  }
+
   const [news, setNews] = useState([]);
   const [users, setUsers] = useState([]);
   const [siteSettings, setSiteSettings] = useState({ logo: '', favicon: '' });
   const [loading, setLoading] = useState(false);
-  const [editingNews, setEditingNews] = useState(null);
-  const [newUser, setNewUser] = useState({
-    username: '',
-    email: '',
-    password: '',
-    is_admin: false
-  });
 
   // Fetch data - always call hooks first
   useEffect(() => {
