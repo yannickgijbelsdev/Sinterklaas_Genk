@@ -50,30 +50,36 @@ export default function SecureAdmin() {
   const [siteSettings, setSiteSettings] = useState({ logo: '', favicon: '' });
   const [loading, setLoading] = useState(false);
 
-  // Fetch data - always call hooks first
-  useEffect(() => {
-    if (isAuthenticated() && isAdmin()) {
-      fetchAllData();
-    }
-  }, [isAuthenticated, isAdmin]);
+  const [editingNews, setEditingNews] = useState(null);
+  const [newUser, setNewUser] = useState({
+    username: '',
+    email: '',
+    password: '',
+    is_admin: false
+  });
 
-  // Show loading while authentication is being verified
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-4xl mb-4">🎭</div>
-          <div className="text-xl text-gray-600">Bezig met laden...</div>
-        </div>
-      </div>
-    );
-  }
+  // Simple API call function
+  const apiCall = async (endpoint, options = {}) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`http://localhost:8001/api${endpoint}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        ...options.headers
+      },
+      ...options
+    });
+    return response;
+  };
 
-  // Show login form if not authenticated or not admin
-  if (!isAuthenticated() || !isAdmin()) {
-    return <SimpleLogin onSuccess={() => window.location.reload()} />;
-  }
+  // Simple logout function
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.reload();
+  };
 
+  // Define fetchAllData 
   const fetchAllData = async () => {
     setLoading(true);
     try {
@@ -82,15 +88,20 @@ export default function SecureAdmin() {
         apiCall('/admin/users'),
         apiCall('/admin/settings')
       ]);
-
+      
       if (newsRes.ok) setNews(await newsRes.json());
       if (usersRes.ok) setUsers(await usersRes.json());
       if (settingsRes.ok) setSiteSettings(await settingsRes.json());
     } catch (error) {
-      toast.error('Error loading data: ' + error.message);
+      console.error('Error fetching data:', error);
     }
     setLoading(false);
   };
+
+  // Fetch data on mount
+  useEffect(() => {
+    fetchAllData();
+  }, []);
 
   // News Management
   const NewsManager = () => {
