@@ -53,6 +53,7 @@ export default function Home() {
                 data-editable-image="background"
                 data-section="hero"
                 data-key="background_image"
+                key={showInfo.heroImage} // Force re-render when image changes
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60 rounded-3xl"></div>
             </div>
