@@ -11,9 +11,16 @@ import { news as fallbackNews } from '../data/mock';
 export default function News() {
   const { id } = useParams();
   const { data: newsData, loading } = useNews();
+  const { data: contentData } = useContent();
   
   // Use API data or fallback to mock data
   const news = newsData || fallbackNews;
+
+  // Get dynamic content with fallbacks
+  const pageTitle = getContentValue(contentData, 'news', 'title', 'Nieuws & Updates');
+  const pageSubtitle = getContentValue(contentData, 'news', 'subtitle', 'Blijf op de hoogte van alle laatste nieuwtjes, updates en aankondigingen rondom onze Sinterklaas show.');
+  const newsletterTitle = getContentValue(contentData, 'news', 'newsletter_title', 'Blijf Op De Hoogte');
+  const newsletterSubtitle = getContentValue(contentData, 'news', 'newsletter_subtitle', 'Schrijf je in voor onze nieuwsbrief en mis geen enkel nieuwtje over de show!');
   
   // If there's an ID in the URL, show single article
   if (id) {
