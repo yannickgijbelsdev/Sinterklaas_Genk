@@ -39,21 +39,21 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Link to="/shows">
-              <Button size="default" className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 font-semibold">
+              <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-lg font-semibold">
                 Bekijk Show Data
-                <ArrowRight className="ml-2" size={16} />
+                <ArrowRight className="ml-2" size={18} />
               </Button>
             </Link>
             <Link to="/about">
-              <Button variant="outline" size="default" className="border-white text-white hover:bg-white hover:text-gray-900 px-6 py-2">
+              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 text-lg">
                 Meer Info
               </Button>
             </Link>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 text-xs">
+          <div className="flex flex-wrap justify-center gap-6 text-sm">
             <div className="flex items-center space-x-1">
               <Clock size={14} />
               <span>{showInfo.duration}</span>
