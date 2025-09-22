@@ -68,9 +68,17 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         const data = await response.json();
         console.log('🔍 DEBUG: Login success, setting user and token');
+        
+        // Set localStorage first, then state
+        localStorage.setItem('token', data.access_token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        
+        // Then update state
         setUser(data.user);
         setToken(data.access_token);
-        localStorage.setItem('token', data.access_token);
+        
+        console.log('🔍 DEBUG: Token saved to localStorage:', localStorage.getItem('token') ? 'SUCCESS' : 'FAILED');
+        
         toast.success('Succesvol ingelogd!');
         return { success: true };
       } else {
