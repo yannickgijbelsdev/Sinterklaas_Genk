@@ -11,6 +11,7 @@ import Shows from "./pages/Shows";
 import Gallery from "./pages/Gallery";
 import News from "./pages/News";
 import Contact from "./pages/Contact";
+import Admin from "./pages/Admin";
 import { Toaster } from "./components/ui/sonner";
 
 function App() {
