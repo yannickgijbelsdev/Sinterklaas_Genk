@@ -421,8 +421,8 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
         {children}
       </div>
 
-      {/* Instructions overlay */}
-      {editMode && (
+      {/* Instructions overlay - Only show if editing and user has permissions */}
+      {editMode && canEdit && (
         <div className="fixed top-32 left-4 z-40">
           <Card className="shadow-lg bg-yellow-50 border-yellow-200">
             <CardContent className="p-4">
