@@ -225,7 +225,7 @@ export default function Home() {
               data-section="characters"
               data-key="section_title"
             >
-              Ontmoet de Karakters
+              {charactersSectionTitle}
             </h2>
             <p 
               className="text-xl text-gray-600 max-w-2xl mx-auto"
@@ -233,7 +233,7 @@ export default function Home() {
               data-section="characters"
               data-key="section_description"
             >
-              Maak kennis met Sinterklaas en zijn vrolijke helpers die jouw show onvergetelijk maken.
+              {charactersSectionDescription}
             </p>
           </div>
 
