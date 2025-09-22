@@ -113,6 +113,10 @@ class GalleryItem(BaseModel):
     description: str
     createdAt: datetime = Field(default_factory=datetime.utcnow)
 
+# Create uploads directory
+uploads_dir = Path("uploads")
+uploads_dir.mkdir(exist_ok=True)
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
@@ -129,6 +133,145 @@ async def create_status_check(input: StatusCheckCreate):
 async def get_status_checks():
     status_checks = await db.status_checks.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
+
+# Admin Routes - News Management
+@api_router.get("/admin/news", response_model=List[NewsArticle])
+async def get_all_news():
+    news_items = await db.news.find().to_list(1000)
+    return [NewsArticle(**item) for item in news_items]
+
+@api_router.post("/admin/news", response_model=NewsArticle)
+async def create_news_article(article: NewsArticleCreate):
+    article_dict = article.dict()
+    article_obj = NewsArticle(**article_dict)
+    await db.news.insert_one(article_obj.dict())
+    return article_obj
+
+@api_router.put("/admin/news/{article_id}", response_model=NewsArticle)
+async def update_news_article(article_id: str, update_data: NewsArticleUpdate):
+    # Find existing article
+    existing_article = await db.news.find_one({"id": article_id})
+    if not existing_article:
+        raise HTTPException(status_code=404, detail="Article not found")
+    
+    # Update only provided fields
+    update_dict = {k: v for k, v in update_data.dict().items() if v is not None}
+    update_dict["updatedAt"] = datetime.utcnow()
+    
+    await db.news.update_one({"id": article_id}, {"$set": update_dict})
+    
+    # Return updated article
+    updated_article = await db.news.find_one({"id": article_id})
+    return NewsArticle(**updated_article)
+
+@api_router.delete("/admin/news/{article_id}")
+async def delete_news_article(article_id: str):
+    result = await db.news.delete_one({"id": article_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Article not found")
+    return {"message": "Article deleted successfully"}
+
+# Admin Routes - Show Management
+@api_router.get("/admin/shows", response_model=List[ShowDate])
+async def get_all_shows():
+    shows = await db.shows.find().to_list(1000)
+    return [ShowDate(**show) for show in shows]
+
+@api_router.post("/admin/shows", response_model=ShowDate)
+async def create_show_date(show: ShowDateCreate):
+    show_dict = show.dict()
+    show_obj = ShowDate(**show_dict)
+    await db.shows.insert_one(show_obj.dict())
+    return show_obj
+
+@api_router.put("/admin/shows/{show_id}", response_model=ShowDate)
+async def update_show_date(show_id: str, update_data: ShowDateUpdate):
+    existing_show = await db.shows.find_one({"id": show_id})
+    if not existing_show:
+        raise HTTPException(status_code=404, detail="Show not found")
+    
+    update_dict = {k: v for k, v in update_data.dict().items() if v is not None}
+    update_dict["updatedAt"] = datetime.utcnow()
+    
+    await db.shows.update_one({"id": show_id}, {"$set": update_dict})
+    
+    updated_show = await db.shows.find_one({"id": show_id})
+    return ShowDate(**updated_show)
+
+@api_router.delete("/admin/shows/{show_id}")
+async def delete_show_date(show_id: str):
+    result = await db.shows.delete_one({"id": show_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Show not found")
+    return {"message": "Show deleted successfully"}
+
+# Admin Routes - Content Management
+@api_router.get("/admin/content")
+async def get_all_content():
+    content_items = await db.content.find().to_list(1000)
+    return [ContentItem(**item) for item in content_items]
+
+@api_router.put("/admin/content")
+async def update_content(content_updates: List[ContentUpdate]):
+    for update in content_updates:
+        # Check if content item exists
+        existing = await db.content.find_one({
+            "section": update.section,
+            "key": update.key
+        })
+        
+        if existing:
+            # Update existing
+            await db.content.update_one(
+                {"section": update.section, "key": update.key},
+                {"$set": {
+                    "value": update.value,
+                    "updatedAt": datetime.utcnow()
+                }}
+            )
+        else:
+            # Create new
+            content_item = ContentItem(**update.dict())
+            await db.content.insert_one(content_item.dict())
+    
+    return {"message": "Content updated successfully"}
+
+# File Upload
+@api_router.post("/admin/upload")
+async def upload_file(file: UploadFile = File(...)):
+    # Validate file type
+    if not file.content_type.startswith('image/'):
+        raise HTTPException(status_code=400, detail="Only image files are allowed")
+    
+    # Generate unique filename
+    file_extension = file.filename.split('.')[-1]
+    unique_filename = f"{uuid.uuid4()}.{file_extension}"
+    file_path = uploads_dir / unique_filename
+    
+    # Save file
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    
+    # Return URL
+    return {"url": f"/uploads/{unique_filename}", "filename": unique_filename}
+
+# Gallery Management
+@api_router.get("/admin/gallery", response_model=List[GalleryItem])
+async def get_gallery():
+    gallery_items = await db.gallery.find().to_list(1000)
+    return [GalleryItem(**item) for item in gallery_items]
+
+@api_router.post("/admin/gallery", response_model=GalleryItem)
+async def add_gallery_item(item: GalleryItem):
+    await db.gallery.insert_one(item.dict())
+    return item
+
+@api_router.delete("/admin/gallery/{item_id}")
+async def delete_gallery_item(item_id: str):
+    result = await db.gallery.delete_one({"id": item_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Gallery item not found")
+    return {"message": "Gallery item deleted successfully"}
 
 # Include the router in the main app
 app.include_router(api_router)
