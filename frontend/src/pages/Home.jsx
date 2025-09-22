@@ -269,6 +269,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </LiveEditor>
   );
 }
