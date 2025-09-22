@@ -67,6 +67,7 @@ export default function Home() {
               <span>{showInfo.language}</span>
             </div>
           </div>
+        </div>
           </div>
         </div>
       </section>
