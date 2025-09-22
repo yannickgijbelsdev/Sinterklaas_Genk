@@ -86,9 +86,8 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
       console.log('📤 Sending content updates:', contentUpdates);
 
       if (contentUpdates.length > 0) {
-        const response = await fetch(`${API}/admin/content`, {
+        const response = await apiCall('/admin/content', {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(contentUpdates)
         });
 
