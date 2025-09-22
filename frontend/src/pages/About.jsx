@@ -2,7 +2,9 @@ import React from 'react';
 import { Clock, Users, Star, Heart, Music, Gift } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { SparkleBackground } from '../components/SparkleBackground';
+import { LiveEditor } from '../components/LiveEditor';
 import { showInfo } from '../data/mock';
+import { useContent, getContentValue } from '../hooks/useApi';
 
 export default function About() {
   const features = [
