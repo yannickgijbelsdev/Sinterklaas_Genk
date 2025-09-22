@@ -226,7 +226,15 @@ async def login(user_data: UserLogin):
     
     print("✅ Login successful")
     token = create_access_token({"sub": user["username"]})
-    user_dict = {k: v for k, v in user.items() if k != "hashed_password"}
+    
+    # Convert datetime objects to strings for JSON serialization
+    user_dict = {}
+    for k, v in user.items():
+        if k != "hashed_password":
+            if isinstance(v, datetime):
+                user_dict[k] = v.isoformat()
+            else:
+                user_dict[k] = v
     
     return {
         "access_token": token,
