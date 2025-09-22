@@ -90,7 +90,9 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   };
 
   const makeElementEditable = (element, section, type, key) => {
-    if (!element || !editMode) return;
+    if (!element) return;
+
+    console.log(`Making element editable: ${section}|${type}|${key}`, element); // Debug log
 
     const elementKey = `${section}|${type}|${key}`;
     editableElementsRef.current.set(elementKey, element);
@@ -104,11 +106,29 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
 
     if (type === 'text') {
       element.contentEditable = true;
+      element.style.cursor = 'text';
+      
+      // Remove existing listeners first
+      element.removeEventListener('input', handleContentChange);
+      element.removeEventListener('blur', handleContentBlur);
+      element.removeEventListener('keydown', handleKeyDown);
+      
+      // Add new listeners
       element.addEventListener('input', handleContentChange);
       element.addEventListener('blur', handleContentBlur);
       element.addEventListener('keydown', handleKeyDown);
+      
+      console.log('Text element made editable:', element);
     } else if (type === 'image') {
+      element.style.cursor = 'pointer';
+      
+      // Remove existing listener first
+      element.removeEventListener('click', handleImageClick);
+      
+      // Add new listener
       element.addEventListener('click', handleImageClick);
+      
+      console.log('Image element made clickable:', element);
     }
   };
 
