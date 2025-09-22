@@ -44,6 +44,17 @@ export const useContent = () => {
   return useApi('/admin/content');
 };
 
+// Helper function to get content value by section and key
+export const getContentValue = (contentArray, section, key, fallback = '') => {
+  if (!contentArray) return fallback;
+  
+  const item = contentArray.find(item => 
+    item.section === section && item.key === key
+  );
+  
+  return item ? item.value : fallback;
+};
+
 export const useGallery = () => {
   return useApi('/admin/gallery');
 };
