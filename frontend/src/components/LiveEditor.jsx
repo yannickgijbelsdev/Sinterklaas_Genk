@@ -189,15 +189,18 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   };
 
   const toggleEditMode = () => {
-    setEditMode(!editMode);
+    const newEditMode = !editMode;
+    setEditMode(newEditMode);
     
-    if (!editMode) {
+    if (newEditMode) {
       // Entering edit mode
+      console.log('Entering edit mode...');
       setTimeout(() => {
         addEditableElements();
       }, 100);
     } else {
       // Exiting edit mode
+      console.log('Exiting edit mode...');
       removeEditableElements();
       if (isDirty) {
         handleAutoSave();
