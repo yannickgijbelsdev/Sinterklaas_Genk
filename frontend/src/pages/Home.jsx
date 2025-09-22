@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, MapPin, Clock, Users, ArrowRight, Star } from 'lucide-react';
 import { Button } from '../components/ui/button';
@@ -6,13 +6,29 @@ import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { SparkleBackground } from '../components/SparkleBackground';
 import { LiveEditor } from '../components/LiveEditor';
+import { MagicCurtain } from '../components/MagicCurtain';
 import { showInfo as fallbackShowInfo, showDates as fallbackShows, characters, news as fallbackNews } from '../data/mock';
 import { useNews, useShows, useContent, getContentValue } from '../hooks/useApi';
 
 export default function Home() {
+  const [showCurtain, setShowCurtain] = useState(true);
+  const [appReady, setAppReady] = useState(false);
   const { data: newsData } = useNews();
   const { data: showsData } = useShows();
   const { data: contentData } = useContent();
+
+  useEffect(() => {
+    // Simulate app loading time
+    const timer = setTimeout(() => {
+      setAppReady(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleCurtainComplete = () => {
+    setShowCurtain(false);
+  };
   
   // Use API data or fallback to mock data
   const news = newsData || fallbackNews;
