@@ -156,12 +156,13 @@ button:active {
 /* Live Editor Styles */
 .live-editor-active .live-editable {
     position: relative;
-    border: 2px dashed #3b82f6;
+    border: 2px dashed #3b82f6 !important;
     border-radius: 4px;
-    padding: 4px;
-    margin: 2px;
-    cursor: pointer;
+    padding: 4px !important;
+    margin: 2px !important;
+    cursor: pointer !important;
     transition: all 0.2s ease;
+    min-height: 20px;
 }
 
 .live-editor-active .live-editable:hover {
