@@ -138,8 +138,11 @@ export default function About() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-red-600 to-red-700 text-white">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-gradient-to-r from-red-600 to-red-700 text-white relative overflow-hidden">
+        {/* Sparkles for CTA section */}
+        <SparkleBackground density="light" animation="medium" />
+        
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-4xl font-bold mb-4">Klaar Voor De Magie?</h2>
           <p className="text-xl mb-8 opacity-90">
             Boek nu je tickets en beleef samen met je familie de meest magische Sinterklaas show ooit!
