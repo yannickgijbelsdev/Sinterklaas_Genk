@@ -73,7 +73,13 @@ export default function LiveAdmin() {
     if (!selectedPageData) return null;
 
     const PageComponent = selectedPageData.component;
-    return <PageComponent />;
+    
+    // Wrap each page component with LiveEditor
+    return (
+      <LiveEditor pageKey={selectedPage}>
+        <PageComponent />
+      </LiveEditor>
+    );
   };
 
   return (
