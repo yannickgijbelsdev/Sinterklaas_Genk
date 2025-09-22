@@ -7,8 +7,8 @@ import { Textarea } from './ui/textarea';
 import { Upload, Save, Eye, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
-const BACKEND_URL = window.location.hostname === 'localhost' ? 'http://localhost:8001' : process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Configuration
+const API = 'http://localhost:8001/api';
 
 export const BannerEditor = () => {
   const [bannerData, setBannerData] = useState({
