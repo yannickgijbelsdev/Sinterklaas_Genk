@@ -4,7 +4,8 @@ import { Calendar, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
-import { useNews } from '../hooks/useApi';
+import { LiveEditor } from '../components/LiveEditor';
+import { useNews, useContent, getContentValue } from '../hooks/useApi';
 import { news as fallbackNews } from '../data/mock';
 
 export default function News() {
