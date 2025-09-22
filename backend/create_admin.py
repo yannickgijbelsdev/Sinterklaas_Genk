@@ -4,8 +4,8 @@ Create initial admin user for Sinterklaas Show website
 """
 import asyncio
 import os
-import bcrypt
 import uuid
+from passlib.context import CryptContext
 from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime
 
