@@ -42,13 +42,28 @@ export default function Home() {
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <div className="mb-6">
             <div className="text-5xl mb-4 hero-float">🎭✨</div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            <h1 
+              className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
+              data-editable-text="title"
+              data-section="hero"
+              data-key="title"
+            >
               {showInfo.title}
             </h1>
-            <p className="text-xl md:text-2xl mb-6 font-medium">
+            <p 
+              className="text-xl md:text-2xl mb-6 font-medium"
+              data-editable-text="subtitle"
+              data-section="hero"
+              data-key="subtitle"
+            >
               {showInfo.subtitle}
             </p>
-            <p className="text-base md:text-lg mb-8 opacity-90 max-w-2xl mx-auto">
+            <p 
+              className="text-base md:text-lg mb-8 opacity-90 max-w-2xl mx-auto"
+              data-editable-text="description"
+              data-section="hero"
+              data-key="description"
+            >
               {showInfo.description}
             </p>
           </div>
