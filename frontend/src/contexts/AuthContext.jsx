@@ -53,6 +53,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (username, password) => {
+    console.log('🔍 DEBUG: Login attempt with API:', API);
     try {
       const response = await fetch(`${API}/auth/login`, {
         method: 'POST',
@@ -62,8 +63,11 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ username, password })
       });
 
+      console.log('🔍 DEBUG: Response status:', response.status);
+
       if (response.ok) {
         const data = await response.json();
+        console.log('🔍 DEBUG: Login success, setting user and token');
         setUser(data.user);
         setToken(data.access_token);
         localStorage.setItem('token', data.access_token);
@@ -71,10 +75,12 @@ export const AuthProvider = ({ children }) => {
         return { success: true };
       } else {
         const error = await response.json();
+        console.log('🔍 DEBUG: Login error:', error);
         toast.error(error.detail || 'Login failed');
         return { success: false, error: error.detail };
       }
     } catch (error) {
+      console.log('🔍 DEBUG: Fetch error:', error);
       toast.error('Verbindingsfout: ' + error.message);
       return { success: false, error: error.message };
     }
