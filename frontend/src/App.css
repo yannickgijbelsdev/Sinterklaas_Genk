@@ -1,22 +1,62 @@
-/* Custom animations for Sinterklaas website */
+/* Fun animations for kids! */
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
 }
 
-@keyframes glow {
-    0%, 100% { 
-        box-shadow: 0 0 5px rgba(220, 38, 38, 0.4);
-    }
-    50% { 
-        box-shadow: 0 0 20px rgba(220, 38, 38, 0.6), 0 0 30px rgba(220, 38, 38, 0.4);
-    }
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
 }
 
 @keyframes wiggle {
     0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(1deg); }
-    75% { transform: rotate(-1deg); }
+    25% { transform: rotate(3deg); }
+    75% { transform: rotate(-3deg); }
+}
+
+@keyframes sparkle {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    50% { 
+        opacity: 0.7;
+        transform: scale(1.2) rotate(180deg);
+    }
+}
+
+@keyframes rainbow {
+    0% { color: #ff6b6b; }
+    16% { color: #ffa500; }
+    33% { color: #ffdd59; }
+    50% { color: #32cd32; }
+    66% { color: #87ceeb; }
+    83% { color: #9370db; }
+    100% { color: #ff6b6b; }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes slide-in-left {
+    0% { transform: translateX(-100px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-in-right {
+    0% { transform: translateX(100px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes jiggle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-5deg) scale(1.05); }
+    50% { transform: rotate(5deg) scale(1.1); }
+    75% { transform: rotate(-2deg) scale(1.05); }
 }
 
 /* Smooth transitions for all elements */
