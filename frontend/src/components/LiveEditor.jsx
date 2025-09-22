@@ -49,16 +49,25 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   }, [isDirty, editMode]);
 
   const handleAutoSave = async () => {
-    if (!isDirty) return;
+    if (!isDirty) {
+      console.log('⚠️ No changes to save');
+      return;
+    }
     
+    console.log('💾 Starting auto-save...');
     setSaving(true);
+    
     try {
       const contentUpdates = [];
       
       // Collect all editable elements and their current values
+      console.log('📋 Collecting content from elements:', editableElementsRef.current);
+      
       editableElementsRef.current.forEach((element, key) => {
         const [section, type, contentKey] = key.split('|');
-        const value = type === 'image' ? element.src : element.textContent || element.innerText;
+        const value = type === 'image' ? element.src : (element.textContent || element.innerText);
+        
+        console.log(`📝 Collecting: ${key} = "${value}"`);
         
         contentUpdates.push({
           section,
@@ -68,6 +77,8 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
         });
       });
 
+      console.log('📤 Sending content updates:', contentUpdates);
+
       if (contentUpdates.length > 0) {
         const response = await fetch(`${API}/admin/content`, {
           method: 'PUT',
@@ -75,15 +86,23 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
           body: JSON.stringify(contentUpdates)
         });
 
+        const responseText = await response.text();
+        console.log('📥 Server response:', response.status, responseText);
+
         if (response.ok) {
           setIsDirty(false);
           setLastSaved(new Date());
-          toast.success('Automatisch opgeslagen ✅');
+          toast.success(`✅ ${contentUpdates.length} wijzigingen opgeslagen!`);
+          console.log('✅ Auto-save successful');
         } else {
-          throw new Error('Auto-save failed');
+          throw new Error(`Auto-save failed: ${response.status} - ${responseText}`);
         }
+      } else {
+        console.log('⚠️ No content updates to save');
+        toast.warning('Geen wijzigingen om op te slaan');
       }
     } catch (error) {
+      console.error('❌ Auto-save error:', error);
       toast.error('Auto-save fout: ' + error.message);
     }
     setSaving(false);
