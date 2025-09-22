@@ -94,6 +94,11 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
           setLastSaved(new Date());
           toast.success(`✅ ${contentUpdates.length} wijzigingen opgeslagen!`);
           console.log('✅ Auto-save successful');
+          
+          // Trigger a page refresh to show changes
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         } else {
           throw new Error(`Auto-save failed: ${response.status} - ${responseText}`);
         }
