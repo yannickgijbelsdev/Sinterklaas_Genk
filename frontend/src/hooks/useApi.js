@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const BACKEND_URL = window.location.hostname === 'localhost' ? 'http://localhost:8001' : process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const API = 'http://localhost:8001/api';
 
 export const useApi = (endpoint, dependencies = []) => {
   const [data, setData] = useState(null);
