@@ -118,10 +118,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    console.log('🔍 DEBUG: Logging out, clearing localStorage');
     setUser(null);
     setToken(null);
     localStorage.removeItem('token');
-    toast.success('Uitgelogd');
+    localStorage.removeItem('user');
+    toast.info('Uitgelogd');
   };
 
   const isAdmin = () => {
