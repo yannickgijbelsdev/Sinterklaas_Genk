@@ -60,6 +60,23 @@ export const Header = () => {
             ))}
           </nav>
 
+          {/* Admin info and logout */}
+          {isAuthenticated() && isAdmin() && (
+            <div className="hidden md:flex items-center space-x-4">
+              <span className="text-sm text-gray-600">
+                👋 {user?.username}
+              </span>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={logout}
+                className="text-gray-700 hover:text-red-600"
+              >
+                <LogOut size={16} />
+              </Button>
+            </div>
+          )}
+
           {/* Mobile menu button */}
           <div className="md:hidden">
             <Button
