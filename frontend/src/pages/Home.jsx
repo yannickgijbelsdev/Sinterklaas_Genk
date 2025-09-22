@@ -73,19 +73,12 @@ export default function Home() {
       </section>
 
       {/* Upcoming Shows */}
-      <section className="py-16 bg-gradient-to-b from-red-50 via-orange-50 to-yellow-50 relative overflow-hidden">
-        {/* Decorative floating elements */}
-        <div className="absolute top-10 left-10 text-4xl opacity-20 animate-pulse">🎈</div>
-        <div className="absolute top-20 right-20 text-3xl opacity-30 sparkle-emoji">⭐</div>
-        <div className="absolute bottom-20 left-1/4 text-5xl opacity-15 bounce-in">🎪</div>
-        <div className="absolute bottom-10 right-1/3 text-4xl opacity-25 wiggle-hover">🎭</div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="py-16 bg-gradient-to-b from-red-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="text-5xl mb-4 bounce-in">🎟️✨</div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4 rainbow-text">Aankomende Voorstellingen</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Aankomende Voorstellingen</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Mis de magische Sinterklaas show niet! Kies jouw ideale datum en locatie. 🎉
+              Mis de magische Sinterklaas show niet! Kies jouw ideale datum en locatie.
             </p>
           </div>
 
