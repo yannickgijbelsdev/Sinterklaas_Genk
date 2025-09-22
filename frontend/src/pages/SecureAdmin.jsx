@@ -59,7 +59,7 @@ export default function SecureAdmin() {
 
   // Show login form if not authenticated or not admin
   if (!isAuthenticated() || !isAdmin()) {
-    return <LoginForm onSuccess={() => window.location.reload()} />;
+    return <SimpleLogin onSuccess={() => window.location.reload()} />;
   }
 
   const fetchAllData = async () => {
