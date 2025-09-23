@@ -35,6 +35,7 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   const [saving, setSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState(null);
   const [editModal, setEditModal] = useState({ show: false, type: '', data: {} });
+  const [selectedElement, setSelectedElement] = useState(null);
   const autoSaveTimeoutRef = useRef(null);
   const editableElementsRef = useRef(new Map());
 
