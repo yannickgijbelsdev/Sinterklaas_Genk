@@ -446,11 +446,8 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
         const formData = new FormData();
         formData.append('file', file);
 
-        const response = await fetch(`${API}/admin/upload`, {
+        const response = await apiCall('/admin/upload', {
           method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          },
           body: formData
         });
 
