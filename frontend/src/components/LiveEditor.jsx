@@ -625,8 +625,12 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
       </div>
     );
   };
-</new_str>
-<parameter name="check_services">true
+
+  const handleImageClick = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Image clicked for editing:', e.target);
     
     const input = document.createElement('input');
     input.type = 'file';
