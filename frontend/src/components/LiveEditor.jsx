@@ -384,12 +384,246 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
           </CardContent>
         </Card>
       </div>
+  // Individual editor components
+  const ButtonEditor = ({ data, onSave, onClose }) => {
+    const [text, setText] = useState(data.text);
+    const [href, setHref] = useState(data.href);
+
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center space-x-2 text-lg font-semibold">
+          <Link size={20} />
+          <span>Knop Bewerken</span>
+        </div>
+        
+        <div>
+          <Label htmlFor="button-text">Knop Tekst</Label>
+          <Input
+            id="button-text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Tekst op de knop"
+          />
+        </div>
+        
+        <div>
+          <Label htmlFor="button-href">Link URL</Label>
+          <Input
+            id="button-href"
+            value={href}
+            onChange={(e) => setHref(e.target.value)}
+            placeholder="https://example.com"
+          />
+        </div>
+
+        <div className="flex space-x-2">
+          <Button onClick={() => onSave({ text, href })} className="flex-1">
+            <Save size={16} className="mr-2" />
+            Opslaan
+          </Button>
+          <Button variant="outline" onClick={onClose}>
+            Annuleren
+          </Button>
+        </div>
+      </div>
     );
   };
-    e.preventDefault();
-    e.stopPropagation();
+
+  const ImageEditor = ({ data, onSave, onClose }) => {
+    const [src, setSrc] = useState(data.currentSrc);
+    const [alt, setAlt] = useState(data.alt);
+    const [uploading, setUploading] = useState(false);
+
+    const handleImageUpload = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      setUploading(true);
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await fetch(`${API}/admin/upload`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          body: formData
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          setSrc(result.url);
+          toast.success('Afbeelding geüpload!');
+        } else {
+          throw new Error('Upload failed');
+        }
+      } catch (error) {
+        toast.error('Upload fout: ' + error.message);
+      }
+      setUploading(false);
+    };
+
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center space-x-2 text-lg font-semibold">
+          <ImageIcon size={20} />
+          <span>Afbeelding Bewerken</span>
+        </div>
+        
+        <div className="text-center">
+          <img src={src} alt={alt} className="max-w-full h-32 object-cover rounded mx-auto" />
+        </div>
+        
+        <div>
+          <Label htmlFor="image-upload">Nieuwe Afbeelding Uploaden</Label>
+          <Input
+            id="image-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            disabled={uploading}
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="image-url">Of URL Invoeren</Label>
+          <Input
+            id="image-url"
+            value={src}
+            onChange={(e) => setSrc(e.target.value)}
+            placeholder="https://example.com/image.jpg"
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="image-alt">Alt Tekst</Label>
+          <Input
+            id="image-alt"
+            value={alt}
+            onChange={(e) => setAlt(e.target.value)}
+            placeholder="Beschrijving van de afbeelding"
+          />
+        </div>
+
+        <div className="flex space-x-2">
+          <Button onClick={() => onSave({ src, alt })} className="flex-1" disabled={uploading}>
+            <Save size={16} className="mr-2" />
+            {uploading ? 'Bezig...' : 'Opslaan'}
+          </Button>
+          <Button variant="outline" onClick={onClose}>
+            Annuleren
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
+  const ColorEditor = ({ data, onSave, onClose }) => {
+    const [color, setColor] = useState(data.currentColor);
     
-    console.log('Image clicked for editing:', e.target);
+    const presetColors = [
+      '#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4', 
+      '#3b82f6', '#8b5cf6', '#ec4899', '#f3f4f6', '#374151'
+    ];
+
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center space-x-2 text-lg font-semibold">
+          <Palette size={20} />
+          <span>Kleur Bewerken</span>
+        </div>
+        
+        <div>
+          <Label htmlFor="color-picker">Kleur Kiezen</Label>
+          <Input
+            id="color-picker"
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <Label>Vooringestelde Kleuren</Label>
+          <div className="grid grid-cols-5 gap-2 mt-2">
+            {presetColors.map(presetColor => (
+              <button
+                key={presetColor}
+                className="w-8 h-8 rounded border-2 border-gray-300 hover:border-gray-500"
+                style={{ backgroundColor: presetColor }}
+                onClick={() => setColor(presetColor)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <Label htmlFor="color-input">Hex Kleur</Label>
+          <Input
+            id="color-input"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            placeholder="#ffffff"
+          />
+        </div>
+
+        <div className="flex space-x-2">
+          <Button onClick={() => onSave({ color })} className="flex-1">
+            <Save size={16} className="mr-2" />
+            Opslaan
+          </Button>
+          <Button variant="outline" onClick={onClose}>
+            Annuleren
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
+  const TextEditor = ({ data, onSave, onClose }) => {
+    const [text, setText] = useState(data.text);
+    const isLongText = text.length > 100;
+
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center space-x-2 text-lg font-semibold">
+          <Type size={20} />
+          <span>Tekst Bewerken</span>
+        </div>
+        
+        <div>
+          <Label htmlFor="text-content">Inhoud</Label>
+          {isLongText ? (
+            <Textarea
+              id="text-content"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              rows={4}
+            />
+          ) : (
+            <Input
+              id="text-content"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+          )}
+        </div>
+
+        <div className="flex space-x-2">
+          <Button onClick={() => onSave({ text })} className="flex-1">
+            <Save size={16} className="mr-2" />
+            Opslaan
+          </Button>
+          <Button variant="outline" onClick={onClose}>
+            Annuleren
+          </Button>
+        </div>
+      </div>
+    );
+  };
+</new_str>
+<parameter name="check_services">true
     
     const input = document.createElement('input');
     input.type = 'file';
