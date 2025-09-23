@@ -26,7 +26,7 @@ import {
   Upload
 } from 'lucide-react';
 
-const API = 'http://localhost:8001/api';
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export const LiveEditor = ({ children, pageKey = 'home' }) => {
   const { isAuthenticated, isAdmin, apiCall } = useAuth();
