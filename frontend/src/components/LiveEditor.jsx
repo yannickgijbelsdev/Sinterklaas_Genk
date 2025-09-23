@@ -833,8 +833,8 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
         </div>
       )}
 
-      {/* Edit Mode Toggle - Only show if user has permissions */}
-      {canEdit && (
+      {/* Edit Mode Toggle - Only show if user has permissions AND is authenticated */}
+      {canEdit && isAuthenticated() && (
         <div className="fixed bottom-6 right-6 z-50">
           <Button
             onClick={toggleEditMode}
