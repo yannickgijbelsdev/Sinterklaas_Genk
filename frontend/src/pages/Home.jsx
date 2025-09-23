@@ -308,7 +308,12 @@ export default function Home() {
       </section>
 
       {/* Latest News */}
-      <section className="py-16 bg-gray-50 relative overflow-hidden">
+      <section 
+        className="py-16 bg-gray-50 relative overflow-hidden"
+        data-editable-color="news_section_bg"
+        data-section="home"
+        data-key="news_section_bg"
+      >
         {/* Ultra subtle sparkles for news section */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {[...Array(3)].map((_, i) => (
