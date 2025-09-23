@@ -257,6 +257,13 @@ async def get_status_checks():
     status_checks = await db.status_checks.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
 
+# Public Routes - News (No authentication required)
+@api_router.get("/news", response_model=List[NewsArticle])
+async def get_published_news():
+    """Get all published news articles for public viewing"""
+    news_items = await db.news.find({"published": True}).sort("createdAt", -1).to_list(1000)
+    return [NewsArticle(**item) for item in news_items]
+
 # Admin Routes - News Management (Protected)
 @api_router.get("/admin/news", response_model=List[NewsArticle])
 async def get_all_news(current_user: User = Depends(get_admin_user)):
