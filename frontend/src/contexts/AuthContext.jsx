@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
-// Hard-coded backend URL for local development
-const API = 'http://localhost:8001/api';
+// Use environment variable for backend URL
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const AuthContext = createContext();
 
