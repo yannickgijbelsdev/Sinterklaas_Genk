@@ -364,7 +364,14 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Link to="/news">
-              <Button variant="outline" size="lg" className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                data-editable-button="news_button"
+                data-section="home"
+                data-key="news_button"
+              >
                 Alle Nieuws Bekijken
               </Button>
             </Link>
