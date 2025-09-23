@@ -277,7 +277,115 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
     element.classList.add('live-editor-selected');
   }, [editMode, pageKey]);
 
-  const handleImageClick = async (e) => {
+  // Modal editor components
+  const renderEditModal = () => {
+    if (!editModal.show) return null;
+
+    const { type, data } = editModal;
+
+    const closeModal = () => {
+      if (selectedElement) {
+        selectedElement.classList.remove('live-editor-selected');
+      }
+      setEditModal({ show: false, type: '', data: {} });
+      setSelectedElement(null);
+    };
+
+    const saveChanges = async (newData) => {
+      try {
+        if (type === 'button') {
+          // Update button text and link
+          data.element.textContent = newData.text;
+          data.element.href = newData.href;
+          
+          // Save both text and link to backend
+          await Promise.all([
+            apiCall('/admin/content', {
+              method: 'PUT',
+              body: JSON.stringify([{
+                section: data.section,
+                type: 'text',
+                key: data.key + '_text',
+                value: newData.text
+              }])
+            }),
+            apiCall('/admin/content', {
+              method: 'PUT', 
+              body: JSON.stringify([{
+                section: data.section,
+                type: 'link',
+                key: data.key + '_href',
+                value: newData.href
+              }])
+            })
+          ]);
+          
+        } else if (type === 'image') {
+          // Update image src and alt
+          data.element.src = newData.src;
+          data.element.alt = newData.alt;
+          
+          await apiCall('/admin/content', {
+            method: 'PUT',
+            body: JSON.stringify([{
+              section: data.section,
+              type: 'image',
+              key: data.key,
+              value: newData.src
+            }])
+          });
+          
+        } else if (type === 'color') {
+          // Update element color
+          data.element.style.backgroundColor = newData.color;
+          
+          await apiCall('/admin/content', {
+            method: 'PUT',
+            body: JSON.stringify([{
+              section: data.section,
+              type: 'color',
+              key: data.key,
+              value: newData.color
+            }])
+          });
+          
+        } else if (type === 'text') {
+          // Update text content
+          data.element.textContent = newData.text;
+          
+          await apiCall('/admin/content', {
+            method: 'PUT',
+            body: JSON.stringify([{
+              section: data.section,
+              type: 'text',
+              key: data.key,
+              value: newData.text
+            }])
+          });
+        }
+        
+        toast.success('✅ Wijzigingen opgeslagen!');
+        closeModal();
+        
+      } catch (error) {
+        console.error('Save error:', error);
+        toast.error('❌ Fout bij opslaan: ' + error.message);
+      }
+    };
+
+    return (
+      <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md bg-white">
+          <CardContent className="p-6">
+            {type === 'button' && <ButtonEditor data={data} onSave={saveChanges} onClose={closeModal} />}
+            {type === 'image' && <ImageEditor data={data} onSave={saveChanges} onClose={closeModal} />}
+            {type === 'color' && <ColorEditor data={data} onSave={saveChanges} onClose={closeModal} />}
+            {type === 'text' && <TextEditor data={data} onSave={saveChanges} onClose={closeModal} />}
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
     e.preventDefault();
     e.stopPropagation();
     
