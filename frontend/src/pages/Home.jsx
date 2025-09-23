@@ -214,7 +214,14 @@ export default function Home() {
 
           <div className="text-center">
             <Link to="/shows">
-              <Button variant="outline" size="lg" className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                data-editable-button="shows_button"
+                data-section="home"
+                data-key="shows_button"
+              >
                 Alle Data Bekijken
               </Button>
             </Link>
