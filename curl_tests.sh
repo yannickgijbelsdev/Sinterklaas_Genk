@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BACKEND_URL="https://sint-admin-hub.preview.emergentagent.com"
+BACKEND_URL="https://sint-web-builder.preview.emergentagent.com"
 API_BASE="${BACKEND_URL}/api"
 
 echo "=== BACKEND API TESTING WITH CURL ==="
