@@ -18,7 +18,12 @@ import {
   Image as ImageIcon,
   Palette,
   RefreshCw,
-  Lock
+  Lock,
+  Link,
+  Smartphone,
+  Tablet,
+  Monitor,
+  Upload
 } from 'lucide-react';
 
 const API = 'http://localhost:8001/api';
