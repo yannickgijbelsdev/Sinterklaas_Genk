@@ -78,7 +78,7 @@ export default function SecureAdmin() {
 
     // Try real API call
     try {
-      const response = await fetch(`http://localhost:8001/api${endpoint}`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api${endpoint}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
