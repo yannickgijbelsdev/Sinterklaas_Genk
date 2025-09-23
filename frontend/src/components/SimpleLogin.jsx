@@ -11,31 +11,44 @@ export const SimpleLogin = ({ onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log('🔍 SimpleLogin: Starting login attempt...');
 
     try {
+      console.log('🔍 SimpleLogin: Making fetch request to http://localhost:8001/api/auth/login');
       const response = await fetch('http://localhost:8001/api/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(credentials)
       });
 
+      console.log('🔍 SimpleLogin: Response status:', response.status);
+
       if (response.ok) {
         const data = await response.json();
+        console.log('🔍 SimpleLogin: Login successful, storing credentials');
         
         // Store credentials
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('user', JSON.stringify(data.user));
         
         toast.success('Login succesvol!');
+        console.log('🔍 SimpleLogin: Redirecting to /admin');
         
-        // Redirect to admin dashboard
-        window.location.href = '/admin';
+        // Small delay then redirect
+        setTimeout(() => {
+          window.location.href = '/admin';
+        }, 500);
       } else {
+        const errorText = await response.text();
+        console.log('🔍 SimpleLogin: Login failed with response:', errorText);
         toast.error('Ongeldige inloggegevens');
       }
     } catch (error) {
-      toast.error('Er is een fout opgetreden. Probeer opnieuw.');
-      console.error('Login error:', error);
+      console.log('🔍 SimpleLogin: Fetch error:', error);
+      toast.error('Kan geen verbinding maken met de server. Probeer opnieuw.');
     }
     
     setLoading(false);
