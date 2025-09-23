@@ -884,6 +884,9 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
           </Card>
         </div>
       )}
+
+      {/* Edit Modal */}
+      {renderEditModal()}
     </div>
   );
 };
