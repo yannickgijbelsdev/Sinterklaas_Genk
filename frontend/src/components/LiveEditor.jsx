@@ -702,29 +702,29 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   const addEditableElements = () => {
     console.log('🔍 Looking for editable elements...');
     
-    // Find text elements
-    const textElements = document.querySelectorAll('[data-editable-text]');
-    console.log(`Found ${textElements.length} text elements:`, textElements);
-    
-    textElements.forEach(element => {
-      const section = element.dataset.section || pageKey;
-      const key = element.dataset.key || element.dataset.editableText || 'unknown';
-      console.log(`Making text element editable: ${section}|${key}`, element);
-      makeElementEditable(element, section, 'text', key);
+    // Find and register all editable elements
+    const elementTypes = [
+      { selector: '[data-editable-text]', type: 'text', attr: 'editableText' },
+      { selector: '[data-editable-image]', type: 'image', attr: 'editableImage' },
+      { selector: '[data-editable-button]', type: 'button', attr: 'editableButton' },
+      { selector: '[data-editable-color]', type: 'color', attr: 'editableColor' }
+    ];
+
+    let totalElements = 0;
+    elementTypes.forEach(({ selector, type, attr }) => {
+      const elements = document.querySelectorAll(selector);
+      console.log(`Found ${elements.length} ${type} elements:`, elements);
+      
+      elements.forEach(element => {
+        const section = element.dataset.section || pageKey;
+        const key = element.dataset.key || element.dataset[attr] || 'unknown';
+        console.log(`Making ${type} element editable: ${section}|${key}`, element);
+        makeElementEditable(element, section, type, key);
+      });
+      
+      totalElements += elements.length;
     });
 
-    // Find image elements  
-    const imageElements = document.querySelectorAll('[data-editable-image]');
-    console.log(`Found ${imageElements.length} image elements:`, imageElements);
-    
-    imageElements.forEach(element => {
-      const section = element.dataset.section || pageKey;
-      const key = element.dataset.key || element.dataset.editableImage || 'unknown';
-      console.log(`Making image element editable: ${section}|${key}`, element);
-      makeElementEditable(element, section, 'image', key);
-    });
-
-    const totalElements = textElements.length + imageElements.length;
     console.log(`✅ Total editable elements processed: ${totalElements}`);
     
     if (totalElements > 0) {
