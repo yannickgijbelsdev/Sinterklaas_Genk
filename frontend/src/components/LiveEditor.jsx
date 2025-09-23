@@ -384,6 +384,9 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
           </CardContent>
         </Card>
       </div>
+    );
+  };
+
   // Individual editor components
   const ButtonEditor = ({ data, onSave, onClose }) => {
     const [text, setText] = useState(data.text);
