@@ -188,6 +188,22 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
       element._liveEditHandlers = { click: newClickHandler };
       
       console.log('✅ Image element made clickable:', element);
+    } else if (type === 'button') {
+      element.style.cursor = 'pointer';
+      
+      const newClickHandler = (e) => handleElementClick(e);
+      element.addEventListener('click', newClickHandler);
+      element._liveEditHandlers = { click: newClickHandler };
+      
+      console.log('✅ Button element made clickable:', element);
+    } else if (type === 'color') {
+      element.style.cursor = 'pointer';
+      
+      const newClickHandler = (e) => handleElementClick(e);
+      element.addEventListener('click', newClickHandler);
+      element._liveEditHandlers = { click: newClickHandler };
+      
+      console.log('✅ Color element made clickable:', element);
     }
   };
 
