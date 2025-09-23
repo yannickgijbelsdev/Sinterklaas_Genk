@@ -32,7 +32,11 @@ export const useApi = (endpoint, dependencies = []) => {
 };
 
 export const useNews = () => {
-  return useApi('/admin/news');
+  return useApi('/news');  // Use public news endpoint
+};
+
+export const useAdminNews = () => {
+  return useApi('/admin/news');  // Protected admin endpoint
 };
 
 export const useShows = () => {
