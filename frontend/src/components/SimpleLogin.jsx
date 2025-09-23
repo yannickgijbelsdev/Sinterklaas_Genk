@@ -15,9 +15,9 @@ export const SimpleLogin = ({ onSuccess }) => {
 
     // Try multiple approaches to connect to backend
     const backendUrls = [
-      'http://localhost:8001/api/auth/login',
+      `${process.env.REACT_APP_BACKEND_URL}/api/auth/login`,
       '/api/auth/login',  // Proxy approach
-      'http://127.0.0.1:8001/api/auth/login'
+      'http://localhost:8001/api/auth/login'
     ];
 
     let lastError = null;
