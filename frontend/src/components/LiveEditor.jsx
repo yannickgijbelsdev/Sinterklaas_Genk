@@ -192,6 +192,90 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
 
   // These handlers are now defined inline in makeElementEditable for better control
 
+  // Enhanced click handler for different content types
+  const handleElementClick = useCallback((e) => {
+    if (!editMode) return;
+    
+    e.preventDefault();
+    e.stopPropagation();
+
+    const element = e.target;
+    
+    // Determine content type and open appropriate editor
+    if (element.hasAttribute('data-editable-button')) {
+      // Button with text and link
+      const section = element.getAttribute('data-section') || pageKey;
+      const key = element.getAttribute('data-key') || element.getAttribute('data-editable-button');
+      const currentText = element.textContent || element.innerText;
+      const currentHref = element.href || element.getAttribute('href') || '#';
+      
+      setEditModal({
+        show: true,
+        type: 'button',
+        data: {
+          element,
+          section,
+          key,
+          text: currentText,
+          href: currentHref
+        }
+      });
+      
+    } else if (element.hasAttribute('data-editable-image')) {
+      // Image editing
+      const section = element.getAttribute('data-section') || pageKey;
+      const key = element.getAttribute('data-key') || element.getAttribute('data-editable-image');
+      
+      setEditModal({
+        show: true,
+        type: 'image',
+        data: {
+          element,
+          section,
+          key,
+          currentSrc: element.src,
+          alt: element.alt || ''
+        }
+      });
+      
+    } else if (element.hasAttribute('data-editable-color')) {
+      // Color editing
+      const section = element.getAttribute('data-section') || pageKey;
+      const key = element.getAttribute('data-key') || element.getAttribute('data-editable-color');
+      const currentColor = window.getComputedStyle(element).backgroundColor || '#ffffff';
+      
+      setEditModal({
+        show: true,
+        type: 'color',
+        data: {
+          element,
+          section,
+          key,
+          currentColor
+        }
+      });
+      
+    } else if (element.hasAttribute('data-editable-text')) {
+      // Regular text editing (existing functionality)
+      const section = element.getAttribute('data-section') || pageKey;
+      const key = element.getAttribute('data-key') || element.getAttribute('data-editable-text');
+      
+      setEditModal({
+        show: true,
+        type: 'text',
+        data: {
+          element,
+          section,
+          key,
+          text: element.textContent || element.innerText
+        }
+      });
+    }
+    
+    setSelectedElement(element);
+    element.classList.add('live-editor-selected');
+  }, [editMode, pageKey]);
+
   const handleImageClick = async (e) => {
     e.preventDefault();
     e.stopPropagation();
