@@ -292,7 +292,14 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Link to="/characters">
-              <Button variant="outline" size="lg" className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                data-editable-button="characters_button"
+                data-section="home"
+                data-key="characters_button"
+              >
                 Alle Karakters Ontdekken
               </Button>
             </Link>
