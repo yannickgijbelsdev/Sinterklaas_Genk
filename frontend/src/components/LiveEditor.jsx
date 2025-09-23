@@ -874,6 +874,8 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
                 <div className="text-yellow-700 space-y-1">
                   <div>• Klik op tekst om te bewerken</div>
                   <div>• Klik op afbeeldingen om te vervangen</div>
+                  <div>• Klik op knoppen om tekst en links te bewerken</div>
+                  <div>• Klik op gekleurde elementen om kleuren te wijzigen</div>
                   <div>• Wijzigingen worden automatisch opgeslagen</div>
                   <div>• Ctrl+S voor handmatig opslaan</div>
                 </div>
