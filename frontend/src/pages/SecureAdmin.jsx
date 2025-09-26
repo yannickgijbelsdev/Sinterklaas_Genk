@@ -519,6 +519,327 @@ export default function SecureAdmin() {
     );
   };
 
+  // Newsletter Manager Component
+  const NewsletterManager = () => {
+    const [newSubscriber, setNewSubscriber] = useState({
+      email: '',
+      first_name: '',
+      last_name: '',
+      tags: []
+    });
+    const [csvFile, setCsvFile] = useState(null);
+    const [importLoading, setImportLoading] = useState(false);
+    
+    // Fetch newsletter data
+    const fetchNewsletterData = async () => {
+      try {
+        const [subsRes, campaignsRes, templatesRes, listsRes] = await Promise.all([
+          apiCall('/admin/newsletter/subscribers'),
+          apiCall('/admin/newsletter/campaigns'), 
+          apiCall('/admin/newsletter/templates'),
+          apiCall('/admin/newsletter/lists')
+        ]);
+        
+        if (subsRes.ok) setSubscribers(await subsRes.json());
+        if (campaignsRes.ok) setCampaigns(await campaignsRes.json());
+        if (templatesRes.ok) setTemplates(await templatesRes.json());
+        if (listsRes.ok) setMailingLists(await listsRes.json());
+      } catch (error) {
+        console.error('Error fetching newsletter data:', error);
+      }
+    };
+
+    React.useEffect(() => {
+      fetchNewsletterData();
+    }, []);
+
+    const handleCreateSubscriber = async () => {
+      try {
+        const response = await apiCall('/admin/newsletter/subscribers', {
+          method: 'POST',
+          body: JSON.stringify(newSubscriber)
+        });
+
+        if (response.ok) {
+          toast.success('Subscriber toegevoegd!');
+          setNewSubscriber({ email: '', first_name: '', last_name: '', tags: [] });
+          fetchNewsletterData();
+        } else {
+          const error = await response.text();
+          toast.error('Error: ' + error);
+        }
+      } catch (error) {
+        toast.error('Error creating subscriber: ' + error.message);
+      }
+    };
+
+    const handleCSVImport = async () => {
+      if (!csvFile) {
+        toast.error('Selecteer een CSV bestand');
+        return;
+      }
+
+      setImportLoading(true);
+      try {
+        const formData = new FormData();
+        formData.append('file', csvFile);
+        formData.append('list_name', `Import ${new Date().toLocaleDateString()}`);
+
+        const response = await apiCall('/admin/newsletter/import-csv', {
+          method: 'POST',
+          body: formData,
+          headers: {} // Let browser set Content-Type for FormData
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          toast.success(`Import voltooid! ${result.successful_imports} subscribers toegevoegd.`);
+          if (result.failed_imports > 0) {
+            toast.warning(`${result.failed_imports} rijen konden niet worden geïmporteerd.`);
+          }
+          setCsvFile(null);
+          fetchNewsletterData();
+        }
+      } catch (error) {
+        toast.error('Import fout: ' + error.message);
+      }
+      setImportLoading(false);
+    };
+
+    const handleDeleteSubscriber = async (id) => {
+      if (window.confirm('Weet je zeker dat je deze subscriber wilt verwijderen?')) {
+        try {
+          const response = await apiCall(`/admin/newsletter/subscribers/${id}`, {
+            method: 'DELETE'
+          });
+
+          if (response.ok) {
+            toast.success('Subscriber verwijderd!');
+            fetchNewsletterData();
+          }
+        } catch (error) {
+          toast.error('Error deleting subscriber: ' + error.message);
+        }
+      }
+    };
+
+    return (
+      <div className="space-y-6">
+        {/* Newsletter Tabs */}
+        <div className="border-b">
+          <div className="flex space-x-8">
+            {[
+              { key: 'subscribers', label: 'Subscribers', icon: Users },
+              { key: 'campaigns', label: 'Campaigns', icon: Mail },
+              { key: 'templates', label: 'Templates', icon: FileText },
+              { key: 'analytics', label: 'Analytics', icon: BarChart3 }
+            ].map(({ key, label, icon: Icon }) => (
+              <button
+                key={key}
+                onClick={() => setSelectedTab(key)}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                  selectedTab === key
+                    ? 'border-red-500 text-red-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <Icon size={16} />
+                  {label}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Subscribers Tab */}
+        {selectedTab === 'subscribers' && (
+          <div className="space-y-6">
+            {/* Add Subscriber */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Plus size={20} />
+                  Nieuwe Subscriber
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <Label>Email *</Label>
+                    <Input
+                      type="email"
+                      value={newSubscriber.email}
+                      onChange={(e) => setNewSubscriber({...newSubscriber, email: e.target.value})}
+                      placeholder="email@example.com"
+                    />
+                  </div>
+                  <div>
+                    <Label>Voornaam</Label>
+                    <Input
+                      value={newSubscriber.first_name}
+                      onChange={(e) => setNewSubscriber({...newSubscriber, first_name: e.target.value})}
+                      placeholder="Voornaam"
+                    />
+                  </div>
+                  <div>
+                    <Label>Achternaam</Label>
+                    <Input
+                      value={newSubscriber.last_name}
+                      onChange={(e) => setNewSubscriber({...newSubscriber, last_name: e.target.value})}
+                      placeholder="Achternaam"
+                    />
+                  </div>
+                </div>
+
+                <Button onClick={handleCreateSubscriber} className="w-full">
+                  <Save className="mr-2" size={16} />
+                  Subscriber Toevoegen
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* CSV Import */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Upload size={20} />
+                  CSV Import
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label>CSV Bestand (email, first_name, last_name, phone)</Label>
+                  <Input
+                    type="file"
+                    accept=".csv"
+                    onChange={(e) => setCsvFile(e.target.files[0])}
+                  />
+                </div>
+                <Button 
+                  onClick={handleCSVImport} 
+                  disabled={!csvFile || importLoading}
+                  className="w-full"
+                >
+                  <Download className="mr-2" size={16} />
+                  {importLoading ? 'Importeren...' : 'CSV Importeren'}
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Subscribers List */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Alle Subscribers ({subscribers.length})</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 max-h-96 overflow-y-auto">
+                  {subscribers.map((subscriber) => (
+                    <div key={subscriber.id} className="flex justify-between items-center p-4 border rounded">
+                      <div>
+                        <div className="font-medium">{subscriber.email}</div>
+                        <div className="text-sm text-gray-500">
+                          {subscriber.first_name} {subscriber.last_name}
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          Ingeschreven: {new Date(subscriber.subscribe_date).toLocaleDateString('nl-NL')}
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Badge variant={subscriber.subscribed ? "default" : "destructive"}>
+                          {subscriber.subscribed ? "Actief" : "Uitgeschreven"}
+                        </Badge>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleDeleteSubscriber(subscriber.id)}
+                        >
+                          <Trash2 size={14} />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Campaigns Tab */}
+        {selectedTab === 'campaigns' && (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Mail size={20} />
+                  Newsletter Campaigns
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <Mail className="mx-auto mb-4" size={48} color="#ccc" />
+                  <p className="text-gray-500 mb-4">Campaign management binnenkort beschikbaar!</p>
+                  <p className="text-sm text-gray-400">
+                    Hier kun je straks volledige newsletter campaigns maken met drag & drop editor,
+                    scheduling, A/B testing en meer.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Templates Tab */}
+        {selectedTab === 'templates' && (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText size={20} />
+                  Email Templates
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <FileText className="mx-auto mb-4" size={48} color="#ccc" />
+                  <p className="text-gray-500 mb-4">Drag & drop template editor komt eraan!</p>
+                  <p className="text-sm text-gray-400">
+                    Binnenkort kun je hier professionele email templates maken met 
+                    drag & drop functionaliteit, net zoals in Mailchimp.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Analytics Tab */}
+        {selectedTab === 'analytics' && (
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 size={20} />
+                  Campaign Analytics
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <BarChart3 className="mx-auto mb-4" size={48} color="#ccc" />
+                  <p className="text-gray-500 mb-4">Geavanceerde analytics komen eraan!</p>
+                  <p className="text-sm text-gray-400">
+                    Open rates, click rates, bounce rates, unsubscribes en meer
+                    gedetailleerde statistieken over je newsletter performance.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
