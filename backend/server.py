@@ -278,6 +278,125 @@ def hash_password(password: str) -> str:
 def verify_password(password: str, hashed: str) -> bool:
     return pwd_context.verify(password, hashed)
 
+# Newsletter / Email functions
+def get_sendgrid_client():
+    """Initialize SendGrid client with API key from environment"""
+    api_key = os.environ.get('SENDGRID_API_KEY')
+    if not api_key:
+        raise HTTPException(status_code=500, detail="SendGrid API key not configured")
+    return SendGridAPIClient(api_key)
+
+async def send_newsletter_email(to_email: str, subject: str, html_content: str, from_email: str, from_name: str, campaign_id: str = None):
+    """Send individual newsletter email via SendGrid"""
+    try:
+        sg = get_sendgrid_client()
+        
+        # Add tracking parameters
+        tracking_pixel = f'<img src="https://your-domain.com/api/track/open/{campaign_id}/{to_email}" width="1" height="1" style="display:none;" />'
+        html_with_tracking = html_content + tracking_pixel
+        
+        message = Mail(
+            from_email=From(from_email, from_name),
+            to_emails=To(to_email),
+            subject=Subject(subject),
+            html_content=HtmlContent(html_with_tracking)
+        )
+        
+        # Enable click tracking
+        message.tracking_settings = {
+            "click_tracking": {"enable": True},
+            "open_tracking": {"enable": True}
+        }
+        
+        response = sg.send(message)
+        return response.status_code == 202
+    except Exception as e:
+        logging.error(f"Failed to send email to {to_email}: {str(e)}")
+        return False
+
+async def process_csv_import(csv_content: str, list_name: str) -> CSVImportResult:
+    """Process CSV file and import subscribers"""
+    try:
+        # Read CSV content
+        df = pd.read_csv(StringIO(csv_content))
+        
+        total_rows = len(df)
+        successful_imports = 0
+        failed_imports = 0
+        errors = []
+        
+        # Create new mailing list
+        mailing_list = MailingList(
+            name=list_name,
+            description=f"Imported from CSV on {datetime.utcnow().strftime('%Y-%m-%d %H:%M')}"
+        )
+        await db.mailing_lists.insert_one(mailing_list.dict())
+        list_id = mailing_list.id
+        
+        # Process each row
+        for index, row in df.iterrows():
+            try:
+                # Extract email (required field)
+                email = str(row.get('email', '')).strip().lower()
+                if not email or '@' not in email:
+                    errors.append(f"Row {index + 1}: Invalid or missing email")
+                    failed_imports += 1
+                    continue
+                
+                # Check if subscriber already exists
+                existing = await db.subscribers.find_one({"email": email})
+                if existing:
+                    errors.append(f"Row {index + 1}: Email {email} already exists")
+                    failed_imports += 1
+                    continue
+                
+                # Extract other fields
+                subscriber_data = {
+                    "email": email,
+                    "first_name": str(row.get('first_name', '')).strip() if pd.notna(row.get('first_name')) else None,
+                    "last_name": str(row.get('last_name', '')).strip() if pd.notna(row.get('last_name')) else None,
+                    "phone": str(row.get('phone', '')).strip() if pd.notna(row.get('phone')) else None,
+                    "source": "csv_import",
+                    "tags": [list_name],
+                    "custom_fields": {}
+                }
+                
+                # Add any additional fields as custom fields
+                for col in df.columns:
+                    if col not in ['email', 'first_name', 'last_name', 'phone'] and pd.notna(row.get(col)):
+                        subscriber_data["custom_fields"][col] = str(row[col])
+                
+                # Create subscriber
+                subscriber = Subscriber(**subscriber_data)
+                await db.subscribers.insert_one(subscriber.dict())
+                successful_imports += 1
+                
+            except Exception as e:
+                errors.append(f"Row {index + 1}: {str(e)}")
+                failed_imports += 1
+        
+        # Update mailing list subscriber count
+        await db.mailing_lists.update_one(
+            {"id": list_id},
+            {"$set": {"subscriber_count": successful_imports}}
+        )
+        
+        return CSVImportResult(
+            total_rows=total_rows,
+            successful_imports=successful_imports,
+            failed_imports=failed_imports,
+            errors=errors,
+            created_list_id=list_id
+        )
+        
+    except Exception as e:
+        return CSVImportResult(
+            total_rows=0,
+            successful_imports=0,
+            failed_imports=0,
+            errors=[f"CSV processing error: {str(e)}"]
+        )
+
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(hours=24)
