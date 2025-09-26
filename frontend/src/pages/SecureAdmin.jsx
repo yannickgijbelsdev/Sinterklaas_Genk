@@ -21,7 +21,13 @@ import {
   LogOut,
   Shield,
   Image as ImageIcon,
-  Upload
+  Upload,
+  Mail,
+  Send,
+  Calendar,
+  BarChart3,
+  Download,
+  Eye
 } from 'lucide-react';
 
 export default function SecureAdmin() {
