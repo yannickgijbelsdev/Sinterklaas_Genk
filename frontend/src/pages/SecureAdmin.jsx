@@ -533,10 +533,14 @@ export default function SecureAdmin() {
         </div>
 
         <Tabs defaultValue="news" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="news" className="flex items-center gap-2">
               <FileText size={16} />
               Nieuws
+            </TabsTrigger>
+            <TabsTrigger value="newsletter" className="flex items-center gap-2">
+              <Settings size={16} />
+              Newsletter
             </TabsTrigger>
             <TabsTrigger value="users" className="flex items-center gap-2">
               <Users size={16} />
