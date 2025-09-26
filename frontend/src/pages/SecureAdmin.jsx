@@ -56,6 +56,13 @@ export default function SecureAdmin() {
   const [siteSettings, setSiteSettings] = useState({ logo: '', favicon: '' });
   const [loading, setLoading] = useState(false);
 
+  // Newsletter states
+  const [subscribers, setSubscribers] = useState([]);
+  const [campaigns, setCampaigns] = useState([]);
+  const [templates, setTemplates] = useState([]);
+  const [mailingLists, setMailingLists] = useState([]);
+  const [selectedTab, setSelectedTab] = useState('subscribers');
+
   const [editingNews, setEditingNews] = useState(null);
   const [newUser, setNewUser] = useState({
     username: '',
