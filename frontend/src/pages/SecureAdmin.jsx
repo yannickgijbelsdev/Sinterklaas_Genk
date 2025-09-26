@@ -556,6 +556,10 @@ export default function SecureAdmin() {
             <NewsManager />
           </TabsContent>
 
+          <TabsContent value="newsletter">
+            <NewsletterManager />
+          </TabsContent>
+
           <TabsContent value="users">
             <UserManager />
           </TabsContent>
