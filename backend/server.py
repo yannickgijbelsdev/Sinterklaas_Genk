@@ -140,6 +140,106 @@ class User(BaseModel):
     createdAt: datetime = Field(default_factory=datetime.utcnow)
     updatedAt: datetime = Field(default_factory=datetime.utcnow)
 
+# Newsletter Models
+class CampaignStatus(str, Enum):
+    DRAFT = "draft"
+    SCHEDULED = "scheduled"
+    SENDING = "sending"
+    SENT = "sent"
+    PAUSED = "paused"
+
+class Subscriber(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    email: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    phone: Optional[str] = None
+    tags: List[str] = []
+    subscribed: bool = True
+    subscribe_date: datetime = Field(default_factory=datetime.utcnow)
+    unsubscribe_date: Optional[datetime] = None
+    source: str = "manual"  # manual, csv_import, website
+    custom_fields: Dict[str, str] = {}
+
+class SubscriberCreate(BaseModel):
+    email: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    phone: Optional[str] = None
+    tags: List[str] = []
+    source: str = "manual"
+    custom_fields: Dict[str, str] = {}
+
+class MailingList(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    description: str
+    created_date: datetime = Field(default_factory=datetime.utcnow)
+    subscriber_count: int = 0
+    tags: List[str] = []
+
+class EmailTemplate(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    subject: str
+    html_content: str
+    preview_text: Optional[str] = None
+    template_data: Dict = {}  # For drag & drop editor data
+    created_date: datetime = Field(default_factory=datetime.utcnow)
+    updated_date: datetime = Field(default_factory=datetime.utcnow)
+
+class Campaign(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    subject: str
+    from_name: str
+    from_email: str
+    reply_to: str
+    html_content: str
+    preview_text: Optional[str] = None
+    status: CampaignStatus = CampaignStatus.DRAFT
+    mailing_lists: List[str] = []  # List of mailing list IDs
+    tags: List[str] = []  # Target specific tags
+    scheduled_date: Optional[datetime] = None
+    sent_date: Optional[datetime] = None
+    created_date: datetime = Field(default_factory=datetime.utcnow)
+    updated_date: datetime = Field(default_factory=datetime.utcnow)
+    
+    # Analytics
+    total_recipients: int = 0
+    delivered: int = 0
+    opened: int = 0
+    clicked: int = 0
+    bounced: int = 0
+    unsubscribed: int = 0
+
+class CampaignCreate(BaseModel):
+    name: str
+    subject: str
+    from_name: str
+    from_email: str
+    reply_to: str
+    html_content: str
+    preview_text: Optional[str] = None
+    mailing_lists: List[str] = []
+    tags: List[str] = []
+    scheduled_date: Optional[datetime] = None
+
+class EmailEvent(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    campaign_id: str
+    subscriber_id: str
+    event_type: str  # delivered, opened, clicked, bounced, unsubscribed
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    metadata: Dict = {}
+
+class CSVImportResult(BaseModel):
+    total_rows: int
+    successful_imports: int
+    failed_imports: int
+    errors: List[str]
+    created_list_id: Optional[str] = None
+
 class UserCreate(BaseModel):
     username: str
     email: str
