@@ -697,6 +697,335 @@ async def update_site_settings(logo: str = "", favicon: str = "", current_user: 
     
     return {"message": "Settings updated successfully"}
 
+# Newsletter Management Endpoints
+@api_router.get("/admin/newsletter/subscribers", response_model=List[Subscriber])
+async def get_all_subscribers(current_user: User = Depends(get_admin_user)):
+    """Get all subscribers"""
+    subscribers = await db.subscribers.find().to_list(1000)
+    return [Subscriber(**subscriber) for subscriber in subscribers]
+
+@api_router.post("/admin/newsletter/subscribers", response_model=Subscriber)
+async def create_subscriber(subscriber_data: SubscriberCreate, current_user: User = Depends(get_admin_user)):
+    """Create new subscriber"""
+    # Check if email already exists
+    existing = await db.subscribers.find_one({"email": subscriber_data.email.lower()})
+    if existing:
+        raise HTTPException(status_code=400, detail="Email already exists")
+    
+    subscriber_dict = subscriber_data.dict()
+    subscriber_dict["email"] = subscriber_dict["email"].lower()
+    subscriber = Subscriber(**subscriber_dict)
+    await db.subscribers.insert_one(subscriber.dict())
+    return subscriber
+
+@api_router.delete("/admin/newsletter/subscribers/{subscriber_id}")
+async def delete_subscriber(subscriber_id: str, current_user: User = Depends(get_admin_user)):
+    """Delete subscriber"""
+    result = await db.subscribers.delete_one({"id": subscriber_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Subscriber not found")
+    return {"message": "Subscriber deleted successfully"}
+
+@api_router.post("/admin/newsletter/import-csv")
+async def import_csv(
+    file: UploadFile = File(...),
+    list_name: str = "Imported List",
+    current_user: User = Depends(get_admin_user)
+) -> CSVImportResult:
+    """Import subscribers from CSV file"""
+    if not file.filename.endswith('.csv'):
+        raise HTTPException(status_code=400, detail="File must be a CSV")
+    
+    try:
+        contents = await file.read()
+        csv_content = contents.decode('utf-8')
+        result = await process_csv_import(csv_content, list_name)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"CSV import failed: {str(e)}")
+
+@api_router.get("/admin/newsletter/lists", response_model=List[MailingList])
+async def get_mailing_lists(current_user: User = Depends(get_admin_user)):
+    """Get all mailing lists"""
+    lists = await db.mailing_lists.find().to_list(1000)
+    return [MailingList(**mailing_list) for mailing_list in lists]
+
+@api_router.post("/admin/newsletter/lists", response_model=MailingList)
+async def create_mailing_list(name: str, description: str = "", current_user: User = Depends(get_admin_user)):
+    """Create new mailing list"""
+    mailing_list = MailingList(name=name, description=description)
+    await db.mailing_lists.insert_one(mailing_list.dict())
+    return mailing_list
+
+@api_router.get("/admin/newsletter/templates", response_model=List[EmailTemplate])
+async def get_email_templates(current_user: User = Depends(get_admin_user)):
+    """Get all email templates"""
+    templates = await db.email_templates.find().to_list(1000)
+    return [EmailTemplate(**template) for template in templates]
+
+@api_router.post("/admin/newsletter/templates", response_model=EmailTemplate)
+async def create_email_template(
+    name: str,
+    subject: str,
+    html_content: str,
+    preview_text: str = "",
+    template_data: Dict = {},
+    current_user: User = Depends(get_admin_user)
+):
+    """Create new email template"""
+    template = EmailTemplate(
+        name=name,
+        subject=subject,
+        html_content=html_content,
+        preview_text=preview_text,
+        template_data=template_data
+    )
+    await db.email_templates.insert_one(template.dict())
+    return template
+
+@api_router.put("/admin/newsletter/templates/{template_id}", response_model=EmailTemplate)
+async def update_email_template(
+    template_id: str,
+    name: str = None,
+    subject: str = None,
+    html_content: str = None,
+    preview_text: str = None,
+    template_data: Dict = None,
+    current_user: User = Depends(get_admin_user)
+):
+    """Update email template"""
+    existing = await db.email_templates.find_one({"id": template_id})
+    if not existing:
+        raise HTTPException(status_code=404, detail="Template not found")
+    
+    update_data = {"updated_date": datetime.utcnow()}
+    if name is not None:
+        update_data["name"] = name
+    if subject is not None:
+        update_data["subject"] = subject
+    if html_content is not None:
+        update_data["html_content"] = html_content
+    if preview_text is not None:
+        update_data["preview_text"] = preview_text
+    if template_data is not None:
+        update_data["template_data"] = template_data
+    
+    await db.email_templates.update_one({"id": template_id}, {"$set": update_data})
+    updated = await db.email_templates.find_one({"id": template_id})
+    return EmailTemplate(**updated)
+
+@api_router.delete("/admin/newsletter/templates/{template_id}")
+async def delete_email_template(template_id: str, current_user: User = Depends(get_admin_user)):
+    """Delete email template"""
+    result = await db.email_templates.delete_one({"id": template_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Template not found")
+    return {"message": "Template deleted successfully"}
+
+@api_router.get("/admin/newsletter/campaigns", response_model=List[Campaign])
+async def get_campaigns(current_user: User = Depends(get_admin_user)):
+    """Get all campaigns"""
+    campaigns = await db.campaigns.find().sort("created_date", -1).to_list(1000)
+    return [Campaign(**campaign) for campaign in campaigns]
+
+@api_router.post("/admin/newsletter/campaigns", response_model=Campaign)
+async def create_campaign(campaign_data: CampaignCreate, current_user: User = Depends(get_admin_user)):
+    """Create new campaign"""
+    campaign = Campaign(**campaign_data.dict())
+    await db.campaigns.insert_one(campaign.dict())
+    return campaign
+
+@api_router.put("/admin/newsletter/campaigns/{campaign_id}", response_model=Campaign)
+async def update_campaign(
+    campaign_id: str,
+    name: str = None,
+    subject: str = None,
+    html_content: str = None,
+    scheduled_date: datetime = None,
+    current_user: User = Depends(get_admin_user)
+):
+    """Update campaign"""
+    existing = await db.campaigns.find_one({"id": campaign_id})
+    if not existing:
+        raise HTTPException(status_code=404, detail="Campaign not found")
+    
+    update_data = {"updated_date": datetime.utcnow()}
+    if name is not None:
+        update_data["name"] = name
+    if subject is not None:
+        update_data["subject"] = subject
+    if html_content is not None:
+        update_data["html_content"] = html_content
+    if scheduled_date is not None:
+        update_data["scheduled_date"] = scheduled_date
+        update_data["status"] = CampaignStatus.SCHEDULED
+    
+    await db.campaigns.update_one({"id": campaign_id}, {"$set": update_data})
+    updated = await db.campaigns.find_one({"id": campaign_id})
+    return Campaign(**updated)
+
+@api_router.post("/admin/newsletter/campaigns/{campaign_id}/send")
+async def send_campaign(campaign_id: str, current_user: User = Depends(get_admin_user)):
+    """Send campaign immediately"""
+    campaign = await db.campaigns.find_one({"id": campaign_id})
+    if not campaign:
+        raise HTTPException(status_code=404, detail="Campaign not found")
+    
+    campaign_obj = Campaign(**campaign)
+    
+    if campaign_obj.status != CampaignStatus.DRAFT and campaign_obj.status != CampaignStatus.SCHEDULED:
+        raise HTTPException(status_code=400, detail="Campaign cannot be sent in current status")
+    
+    # Get subscribers based on mailing lists and tags
+    query = {}
+    if campaign_obj.mailing_lists or campaign_obj.tags:
+        or_conditions = []
+        if campaign_obj.tags:
+            or_conditions.append({"tags": {"$in": campaign_obj.tags}})
+        if campaign_obj.mailing_lists:
+            # For simplicity, we'll use list names as tags
+            or_conditions.append({"tags": {"$in": campaign_obj.mailing_lists}})
+        query["$or"] = or_conditions
+        query["subscribed"] = True
+    
+    subscribers = await db.subscribers.find(query).to_list(10000)
+    
+    # Update campaign status
+    await db.campaigns.update_one(
+        {"id": campaign_id},
+        {"$set": {
+            "status": CampaignStatus.SENDING,
+            "total_recipients": len(subscribers),
+            "sent_date": datetime.utcnow()
+        }}
+    )
+    
+    # Send emails in background
+    asyncio.create_task(send_campaign_emails(campaign_obj, subscribers))
+    
+    return {"message": f"Campaign started! Sending to {len(subscribers)} subscribers"}
+
+@api_router.get("/admin/newsletter/campaigns/{campaign_id}/analytics")
+async def get_campaign_analytics(campaign_id: str, current_user: User = Depends(get_admin_user)):
+    """Get campaign analytics"""
+    campaign = await db.campaigns.find_one({"id": campaign_id})
+    if not campaign:
+        raise HTTPException(status_code=404, detail="Campaign not found")
+    
+    # Get events for this campaign
+    events = await db.email_events.find({"campaign_id": campaign_id}).to_list(10000)
+    
+    analytics = {
+        "campaign_id": campaign_id,
+        "campaign_name": campaign["name"],
+        "status": campaign["status"],
+        "total_recipients": campaign.get("total_recipients", 0),
+        "delivered": len([e for e in events if e["event_type"] == "delivered"]),
+        "opened": len([e for e in events if e["event_type"] == "opened"]),
+        "clicked": len([e for e in events if e["event_type"] == "clicked"]),
+        "bounced": len([e for e in events if e["event_type"] == "bounced"]),
+        "unsubscribed": len([e for e in events if e["event_type"] == "unsubscribed"]),
+        "open_rate": 0,
+        "click_rate": 0
+    }
+    
+    if analytics["delivered"] > 0:
+        analytics["open_rate"] = round((analytics["opened"] / analytics["delivered"]) * 100, 2)
+        analytics["click_rate"] = round((analytics["clicked"] / analytics["delivered"]) * 100, 2)
+    
+    return analytics
+
+# Email tracking endpoints
+@api_router.get("/track/open/{campaign_id}/{subscriber_email}")
+async def track_email_open(campaign_id: str, subscriber_email: str):
+    """Track email opens via tracking pixel"""
+    try:
+        subscriber = await db.subscribers.find_one({"email": subscriber_email})
+        if subscriber:
+            event = EmailEvent(
+                campaign_id=campaign_id,
+                subscriber_id=subscriber["id"],
+                event_type="opened"
+            )
+            await db.email_events.insert_one(event.dict())
+        
+        # Return 1x1 transparent pixel
+        from fastapi.responses import Response
+        pixel_data = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\tpHYs\x00\x00\x0b\x13\x00\x00\x0b\x13\x01\x00\x9a\x9c\x18\x00\x00\x00\x17IDATx\xda\x62\xf8\x0f\x00\x01\x01\x01\x00\x18\xdd\x8d\xb4\x00\x00\x00\x00IEND\xaeB`\x82'
+        return Response(content=pixel_data, media_type="image/png")
+    except:
+        return Response(content=b'', media_type="image/png")
+
+# Public unsubscribe endpoint
+@api_router.get("/unsubscribe/{subscriber_id}")
+async def unsubscribe_page(subscriber_id: str):
+    """Unsubscribe page"""
+    subscriber = await db.subscribers.find_one({"id": subscriber_id})
+    if not subscriber:
+        raise HTTPException(status_code=404, detail="Subscriber not found")
+    
+    return {"message": "Unsubscribe page", "email": subscriber["email"]}
+
+@api_router.post("/unsubscribe/{subscriber_id}")
+async def process_unsubscribe(subscriber_id: str):
+    """Process unsubscribe request"""
+    result = await db.subscribers.update_one(
+        {"id": subscriber_id},
+        {"$set": {"subscribed": False, "unsubscribe_date": datetime.utcnow()}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Subscriber not found")
+    
+    return {"message": "Successfully unsubscribed"}
+
+# Background task for sending campaign emails
+async def send_campaign_emails(campaign: Campaign, subscribers: list):
+    """Background task to send emails to all subscribers"""
+    sent_count = 0
+    failed_count = 0
+    
+    for subscriber in subscribers:
+        try:
+            success = await send_newsletter_email(
+                to_email=subscriber["email"],
+                subject=campaign.subject,
+                html_content=campaign.html_content,
+                from_email=campaign.from_email,
+                from_name=campaign.from_name,
+                campaign_id=campaign.id
+            )
+            
+            if success:
+                # Log delivery event
+                event = EmailEvent(
+                    campaign_id=campaign.id,
+                    subscriber_id=subscriber["id"],
+                    event_type="delivered"
+                )
+                await db.email_events.insert_one(event.dict())
+                sent_count += 1
+            else:
+                failed_count += 1
+            
+            # Small delay to avoid rate limiting
+            await asyncio.sleep(0.1)
+            
+        except Exception as e:
+            logging.error(f"Failed to send email to {subscriber['email']}: {str(e)}")
+            failed_count += 1
+    
+    # Update campaign status
+    await db.campaigns.update_one(
+        {"id": campaign.id},
+        {"$set": {
+            "status": CampaignStatus.SENT,
+            "delivered": sent_count
+        }}
+    )
+    
+    logging.info(f"Campaign {campaign.id} completed: {sent_count} sent, {failed_count} failed")
+
 
 
 # Include the router in the main app
