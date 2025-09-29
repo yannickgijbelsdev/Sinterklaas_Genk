@@ -381,7 +381,7 @@ export function CampaignManager({ subscribers = [] }) {
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Users size={16} />
-              {subscribers.length} Subscribers
+              {safeSubscribers.length} Subscribers
             </div>
           </CardTitle>
         </CardHeader>
