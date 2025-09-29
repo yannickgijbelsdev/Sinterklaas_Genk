@@ -786,10 +786,21 @@ export default function SecureAdmin() {
                     <div className="animate-spin w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
                     <h3 className="font-bold text-blue-800 mb-2">CSV IMPORT BEZIG</h3>
                     <p className="text-sm text-blue-600">Verwerken van: <strong>{csvFile?.name}</strong></p>
-                    <div className="mt-3 bg-blue-100 rounded-full h-2 w-48">
-                      <div className="bg-blue-500 h-2 rounded-full animate-pulse" style={{width: '70%'}}></div>
+                    <p className="text-xs text-blue-500">
+                      {csvFile && Math.round(csvFile.size / 1024) > 50 
+                        ? `Groot bestand (${Math.round(csvFile.size / 1024)}KB) - Verwachte tijd: 1-2 minuten`
+                        : 'Klein bestand - Klaar binnen 30 seconden'
+                      }
+                    </p>
+                    <div className="mt-3 bg-blue-100 rounded-full h-3 w-48">
+                      <div className="bg-blue-500 h-3 rounded-full animate-pulse" style={{width: '70%'}}></div>
                     </div>
-                    <p className="text-xs text-gray-500 mt-2">Even geduld, dit duurt slechts een paar seconden...</p>
+                    <p className="text-xs text-gray-500 mt-2">
+                      {csvFile && Math.round(csvFile.size / 1024) > 50 
+                        ? '📊 Honderden abonnees worden verwerkt in batches...'
+                        : 'Even geduld, bijna klaar...'
+                      }
+                    </p>
                   </div>
                 </div>
               )}
