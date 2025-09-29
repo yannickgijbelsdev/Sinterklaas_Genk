@@ -569,7 +569,7 @@ export default function SecureAdmin() {
 
     React.useEffect(() => {
       fetchNewsletterData();
-    }, []);
+    }, []); // Empty dependency array - only run once on mount
 
     const handleCreateSubscriber = async () => {
       try {
