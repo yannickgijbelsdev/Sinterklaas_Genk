@@ -434,10 +434,17 @@ async def process_csv_import(csv_content: str, list_name: str) -> CSVImportResul
                         if value and value != 'nan':
                             subscriber_data["custom_fields"][col] = value
                 
-                # Create subscriber
+                # Add to batch instead of individual insert
                 subscriber = Subscriber(**subscriber_data)
-                await db.subscribers.insert_one(subscriber.dict())
-                successful_imports += 1
+                batch_subscribers.append(subscriber.dict())
+                
+                # Insert batch when reaching batch_size or at the end
+                if len(batch_subscribers) >= batch_size or index == total_rows - 1:
+                    if batch_subscribers:
+                        await db.subscribers.insert_many(batch_subscribers)
+                        successful_imports += len(batch_subscribers)
+                        logging.info(f"Batch inserted: {len(batch_subscribers)} subscribers (total so far: {successful_imports})")
+                        batch_subscribers = []
                 
             except Exception as e:
                 errors.append(f"Rij {index + 2}: {str(e)}")
