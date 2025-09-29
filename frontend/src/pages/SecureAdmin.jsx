@@ -670,8 +670,6 @@ export default function SecureAdmin() {
             }
           }
         }
-        
-        clearTimeout(timeoutId);
 
         toast.dismiss(loadingToast);
 
