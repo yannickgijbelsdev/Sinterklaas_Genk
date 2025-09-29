@@ -586,23 +586,42 @@ export default function SecureAdmin() {
         formData.append('file', csvFile);
         formData.append('list_name', `Import ${new Date().toLocaleDateString()}`);
 
-        const response = await apiCall('/admin/newsletter/import-csv', {
+        // Use token directly for FormData request
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/admin/newsletter/import-csv`, {
           method: 'POST',
-          body: formData,
-          headers: {} // Let browser set Content-Type for FormData
+          headers: {
+            'Authorization': `Bearer ${token}` // Don't set Content-Type for FormData
+          },
+          body: formData
         });
 
         if (response.ok) {
           const result = await response.json();
-          toast.success(`Import voltooid! ${result.successful_imports} subscribers toegevoegd.`);
+          toast.success(`✅ Import voltooid! ${result.successful_imports} subscribers toegevoegd.`);
           if (result.failed_imports > 0) {
-            toast.warning(`${result.failed_imports} rijen konden niet worden geïmporteerd.`);
+            toast.warning(`⚠️ ${result.failed_imports} rijen konden niet worden geïmporteerd.`);
+            if (result.errors && result.errors.length > 0) {
+              console.log('Import errors:', result.errors.slice(0, 5)); // Show first 5 errors in console
+              toast.info(`Zie console voor details van import fouten`);
+            }
           }
           setCsvFile(null);
           fetchNewsletterData();
+        } else if (response.status === 401) {
+          toast.error('🔒 Sessie verlopen, log opnieuw in');
+          // Trigger re-authentication
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          window.location.reload();
+        } else {
+          const errorText = await response.text();
+          console.error('CSV Import Error:', errorText);
+          toast.error(`❌ Import fout: ${errorText || 'Onbekende fout'}`);
         }
       } catch (error) {
-        toast.error('Import fout: ' + error.message);
+        console.error('CSV Import Exception:', error);
+        toast.error(`❌ Import fout: ${error.message || 'Verbindingsprobleem'}`);
       }
       setImportLoading(false);
     };
