@@ -611,13 +611,20 @@ export default function SecureAdmin() {
 
         // Use token directly for FormData request
         const token = localStorage.getItem('token');
+        // Extended timeout for large CSV files (770 subscribers)
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minute timeout
+
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/admin/newsletter/import-csv`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}` // Don't set Content-Type for FormData
           },
-          body: formData
+          body: formData,
+          signal: controller.signal
         });
+        
+        clearTimeout(timeoutId);
 
         toast.dismiss(loadingToast);
 
