@@ -620,20 +620,56 @@ export default function SecureAdmin() {
         formData.append('file', csvFile);
         formData.append('list_name', `Mailpoet Import ${new Date().toLocaleDateString('nl-NL')}`);
 
-        // Use token directly for FormData request
-        const token = localStorage.getItem('token');
-        // Extended timeout for large CSV files (770 subscribers)
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minute timeout
+        // Retry logic for rate limiting (429 errors)
+        let response;
+        let retries = 0;
+        const maxRetries = 3;
+        
+        while (retries <= maxRetries) {
+          try {
+            const token = localStorage.getItem('token');
+            // Extended timeout for large CSV files (770 subscribers)
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minute timeout
 
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/admin/newsletter/import-csv`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}` // Don't set Content-Type for FormData
-          },
-          body: formData,
-          signal: controller.signal
-        });
+            response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/admin/newsletter/import-csv`, {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}` // Don't set Content-Type for FormData
+              },
+              body: formData,
+              signal: controller.signal
+            });
+            
+            clearTimeout(timeoutId);
+            
+            // If successful or not a rate limit error, break out of retry loop
+            if (response.ok || response.status !== 429) {
+              break;
+            }
+            
+            // Handle 429 rate limiting with exponential backoff
+            if (response.status === 429 && retries < maxRetries) {
+              const waitTime = Math.pow(2, retries) * 1000; // 1s, 2s, 4s
+              toast.info(`⏱️ Server bezig, wacht ${waitTime/1000}s en probeer opnieuw... (poging ${retries + 1}/${maxRetries + 1})`);
+              await new Promise(resolve => setTimeout(resolve, waitTime));
+              retries++;
+              continue;
+            }
+            
+            break;
+            
+          } catch (error) {
+            if (retries < maxRetries && error.name !== 'AbortError') {
+              retries++;
+              const waitTime = Math.pow(2, retries) * 1000;
+              toast.info(`🔄 Verbindingsfout, probeer opnieuw in ${waitTime/1000}s... (poging ${retries}/${maxRetries + 1})`);
+              await new Promise(resolve => setTimeout(resolve, waitTime));
+            } else {
+              throw error;
+            }
+          }
+        }
         
         clearTimeout(timeoutId);
 
