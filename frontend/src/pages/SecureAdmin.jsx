@@ -759,11 +759,24 @@ export default function SecureAdmin() {
             </Card>
 
             {/* CSV Import */}
-            <Card>
+            <Card className={importLoading ? "relative" : ""}>
+              {importLoading && (
+                <div className="absolute inset-0 bg-blue-50 bg-opacity-90 z-10 flex items-center justify-center rounded-lg">
+                  <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-blue-200 text-center">
+                    <div className="animate-spin w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+                    <h3 className="font-bold text-blue-800 mb-2">CSV IMPORT BEZIG</h3>
+                    <p className="text-sm text-blue-600">Verwerken van: <strong>{csvFile?.name}</strong></p>
+                    <div className="mt-3 bg-blue-100 rounded-full h-2 w-48">
+                      <div className="bg-blue-500 h-2 rounded-full animate-pulse" style={{width: '70%'}}></div>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-2">Even geduld, dit duurt slechts een paar seconden...</p>
+                  </div>
+                </div>
+              )}
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Upload size={20} />
-                  CSV Import
+                  CSV Import {importLoading ? "(BEZIG...)" : ""}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
