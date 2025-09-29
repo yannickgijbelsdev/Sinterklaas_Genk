@@ -791,13 +791,19 @@ export default function SecureAdmin() {
                         setCsvFile(file);
                         
                         if (file) {
-                          // Show file info
-                          toast.info(`📄 Bestand geselecteerd: ${file.name} (${Math.round(file.size / 1024)}KB)`);
+                          // Show file info immediately
+                          toast.success(`📄 Bestand geselecteerd: ${file.name} (${Math.round(file.size / 1024)}KB)`);
                           
-                          // Auto-import after 1 second delay
-                          setTimeout(async () => {
-                            if (file === csvFile || e.target.files[0]) {
-                              await handleCSVImport();
+                          // Show countdown and auto-import
+                          let countdown = 3;
+                          const countdownInterval = setInterval(() => {
+                            if (countdown > 0) {
+                              toast.info(`🚀 Import start in ${countdown} seconden...`, {id: 'countdown'});
+                              countdown--;
+                            } else {
+                              clearInterval(countdownInterval);
+                              toast.dismiss('countdown');
+                              handleCSVImport();
                             }
                           }, 1000);
                         }
