@@ -541,12 +541,29 @@ export default function SecureAdmin() {
           apiCall('/admin/newsletter/lists')
         ]);
         
-        if (subsRes.ok) setSubscribers(await subsRes.json());
-        if (campaignsRes.ok) setCampaigns(await campaignsRes.json());
-        if (templatesRes.ok) setTemplates(await templatesRes.json());
-        if (listsRes.ok) setMailingLists(await listsRes.json());
+        if (subsRes.ok) {
+          const subsData = await subsRes.json();
+          setSubscribers(Array.isArray(subsData) ? subsData : []);
+        }
+        if (campaignsRes.ok) {
+          const campaignsData = await campaignsRes.json();
+          setCampaigns(Array.isArray(campaignsData) ? campaignsData : []);
+        }
+        if (templatesRes.ok) {
+          const templatesData = await templatesRes.json();
+          setTemplates(Array.isArray(templatesData) ? templatesData : []);
+        }
+        if (listsRes.ok) {
+          const listsData = await listsRes.json();
+          setMailingLists(Array.isArray(listsData) ? listsData : []);
+        }
       } catch (error) {
         console.error('Error fetching newsletter data:', error);
+        // Set empty arrays on error to prevent .map errors
+        setSubscribers([]);
+        setCampaigns([]);
+        setTemplates([]);
+        setMailingLists([]);
       }
     };
 
