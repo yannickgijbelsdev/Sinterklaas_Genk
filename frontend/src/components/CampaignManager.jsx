@@ -164,6 +164,9 @@ export function CampaignManager({ subscribers = [] }) {
   const [previewHtml, setPreviewHtml] = useState('');
   const [sending, setSending] = useState(false);
 
+  // Ensure subscribers is always an array
+  const safeSubscribers = Array.isArray(subscribers) ? subscribers : [];
+
   // API calls
   const apiCall = async (endpoint, options = {}) => {
     const token = localStorage.getItem('token');
