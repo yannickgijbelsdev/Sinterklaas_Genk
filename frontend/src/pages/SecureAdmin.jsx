@@ -902,15 +902,25 @@ export default function SecureAdmin() {
                   </div>
                 </div>
                 
-                <Button 
-                  onClick={handleCSVImport} 
-                  disabled={!csvFile || importLoading}
-                  className="w-full"
-                  variant="outline"
-                >
-                  <Download className="mr-2" size={16} />
-                  {importLoading ? 'Importeren...' : csvFile ? 'Opnieuw Importeren' : 'Selecteer eerst een CSV bestand'}
-                </Button>
+                <div className="space-y-2">
+                  <Button 
+                    onClick={handleCSVImport} 
+                    disabled={!csvFile || importLoading}
+                    className="w-full"
+                    variant={csvFile && !importLoading ? "default" : "outline"}
+                  >
+                    <Download className="mr-2" size={16} />
+                    {importLoading ? 'Bezig met importeren...' : 
+                     csvFile ? `Import ${csvFile.name}` : 
+                     'Selecteer eerst een CSV bestand'}
+                  </Button>
+                  
+                  {csvFile && (
+                    <div className="text-center text-sm text-green-600">
+                      ✅ Klaar: {csvFile.name} ({Math.round(csvFile.size / 1024)}KB)
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
 
