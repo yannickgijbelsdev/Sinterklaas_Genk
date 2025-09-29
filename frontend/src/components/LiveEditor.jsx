@@ -110,21 +110,27 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
           body: JSON.stringify(contentUpdates)
         });
 
-        const responseText = await response.text();
-        console.log('📥 Server response:', response.status, responseText);
-
         if (response.ok) {
+          const result = await response.json();
+          console.log('📥 Server response:', result);
+          
           setIsDirty(false);
           setLastSaved(new Date());
           toast.success(`✅ ${contentUpdates.length} wijzigingen opgeslagen!`);
           console.log('✅ Auto-save successful');
           
-          // Trigger a page refresh to show changes
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
         } else {
-          throw new Error(`Auto-save failed: ${response.status} - ${responseText}`);
+          const errorText = await response.text();
+          console.error('❌ Server error:', response.status, errorText);
+          
+          if (response.status === 401) {
+            toast.error('🔒 Sessie verlopen, log opnieuw in');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user'); 
+            window.location.href = '/admin';
+          } else {
+            throw new Error(`Auto-save failed: ${response.status} - ${errorText}`);
+          }
         }
       } else {
         console.log('⚠️ No content updates to save');
