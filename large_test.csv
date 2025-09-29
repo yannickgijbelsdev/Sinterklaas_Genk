@@ -1,0 +1,26 @@
+Email,First Name,Last Name,Status
+test1@sinterklaas.nl,Jan,Jansen,subscribed
+test2@sinterklaas.nl,Piet,Pietersen,subscribed
+test3@sinterklaas.nl,Marie,de Vries,subscribed
+test4@sinterklaas.nl,Klaas,Klaasen,subscribed
+test5@sinterklaas.nl,Emma,Emmers,subscribed
+test6@sinterklaas.nl,Sophie,Sophiesen,subscribed
+test7@sinterklaas.nl,Lucas,Lucassen,subscribed
+test8@sinterklaas.nl,Mila,Milasen,subscribed
+test9@sinterklaas.nl,Noah,Noahsen,subscribed
+test10@sinterklaas.nl,Liam,Liamsen,subscribed
+batch1@sinterklaas.nl,Test,Batch1,subscribed
+batch2@sinterklaas.nl,Test,Batch2,subscribed
+batch3@sinterklaas.nl,Test,Batch3,subscribed
+batch4@sinterklaas.nl,Test,Batch4,subscribed
+batch5@sinterklaas.nl,Test,Batch5,subscribed
+large1@sinterklaas.nl,Large,Test1,subscribed
+large2@sinterklaas.nl,Large,Test2,subscribed
+large3@sinterklaas.nl,Large,Test3,subscribed
+large4@sinterklaas.nl,Large,Test4,subscribed
+large5@sinterklaas.nl,Large,Test5,subscribed
+performance1@sinterklaas.nl,Perf,Test1,subscribed
+performance2@sinterklaas.nl,Perf,Test2,subscribed
+performance3@sinterklaas.nl,Perf,Test3,subscribed
+performance4@sinterklaas.nl,Perf,Test4,subscribed
+performance5@sinterklaas.nl,Perf,Test5,subscribed
