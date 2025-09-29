@@ -746,20 +746,53 @@ export default function SecureAdmin() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label>CSV Bestand (email, first_name, last_name, phone)</Label>
-                  <Input
-                    type="file"
-                    accept=".csv"
-                    onChange={(e) => setCsvFile(e.target.files[0])}
-                  />
+                  <Label>CSV Bestand (Mailpoet compatible: Email, First Name, Last Name, Status)</Label>
+                  <div className="space-y-2">
+                    <Input
+                      type="file"
+                      accept=".csv"
+                      onChange={async (e) => {
+                        const file = e.target.files[0];
+                        setCsvFile(file);
+                        
+                        if (file) {
+                          // Show file info
+                          toast.info(`📄 Bestand geselecteerd: ${file.name} (${Math.round(file.size / 1024)}KB)`);
+                          
+                          // Auto-import after 1 second delay
+                          setTimeout(async () => {
+                            if (file === csvFile || e.target.files[0]) {
+                              await handleCSVImport();
+                            }
+                          }, 1000);
+                        }
+                      }}
+                      disabled={importLoading}
+                    />
+                    
+                    {csvFile && !importLoading && (
+                      <div className="text-sm text-green-600 bg-green-50 p-2 rounded">
+                        ✅ Bestand geselecteerd: {csvFile.name} - Import start automatisch...
+                      </div>
+                    )}
+                    
+                    {importLoading && (
+                      <div className="text-sm text-blue-600 bg-blue-50 p-2 rounded flex items-center gap-2">
+                        <div className="animate-spin w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full"></div>
+                        Importeren van {csvFile?.name}...
+                      </div>
+                    )}
+                  </div>
                 </div>
+                
                 <Button 
                   onClick={handleCSVImport} 
                   disabled={!csvFile || importLoading}
                   className="w-full"
+                  variant="outline"
                 >
                   <Download className="mr-2" size={16} />
-                  {importLoading ? 'Importeren...' : 'CSV Importeren'}
+                  {importLoading ? 'Importeren...' : csvFile ? 'Opnieuw Importeren' : 'Selecteer eerst een CSV bestand'}
                 </Button>
               </CardContent>
             </Card>
