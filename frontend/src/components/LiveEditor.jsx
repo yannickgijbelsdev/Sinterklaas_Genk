@@ -92,7 +92,7 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
           section,
           type,
           key: contentKey,
-          value
+          value: String(value) // Ensure value is always string
         });
       });
 
