@@ -793,15 +793,26 @@ export default function SecureAdmin() {
                     />
                     
                     {csvFile && !importLoading && (
-                      <div className="text-sm text-green-600 bg-green-50 p-2 rounded">
-                        ✅ Bestand geselecteerd: {csvFile.name} - Import start automatisch...
+                      <div className="text-sm text-green-600 bg-green-50 p-3 rounded border border-green-200 flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <strong>Bestand klaar:</strong> {csvFile.name} - Import start over 1 seconde...
                       </div>
                     )}
                     
                     {importLoading && (
-                      <div className="text-sm text-blue-600 bg-blue-50 p-2 rounded flex items-center gap-2">
-                        <div className="animate-spin w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full"></div>
-                        Importeren van {csvFile?.name}...
+                      <div className="text-sm text-blue-600 bg-blue-50 p-3 rounded border border-blue-200">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="animate-spin w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full"></div>
+                          <strong>BEZIG MET IMPORTEREN</strong>
+                        </div>
+                        <div className="text-xs">
+                          📄 Bestand: {csvFile?.name}<br/>
+                          🔄 Status: Verwerken van CSV data...<br/>
+                          ⏱️ Dit kan een paar seconden duren
+                        </div>
+                        <div className="mt-2 bg-blue-100 rounded-full h-2">
+                          <div className="bg-blue-500 h-2 rounded-full animate-pulse" style={{width: '60%'}}></div>
+                        </div>
                       </div>
                     )}
                   </div>
