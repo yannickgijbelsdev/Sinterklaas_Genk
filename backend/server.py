@@ -819,8 +819,14 @@ async def import_csv(
     try:
         contents = await file.read()
         csv_content = contents.decode('utf-8')
-        result = await process_csv_import(csv_content, list_name)
+        # Add timeout for large CSV processing (2 minutes to match frontend)
+        result = await asyncio.wait_for(
+            process_csv_import(csv_content, list_name),
+            timeout=120.0
+        )
         return result
+    except asyncio.TimeoutError:
+        raise HTTPException(status_code=408, detail="CSV import timed out. Please try with a smaller file or contact support.")
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"CSV import failed: {str(e)}")
 
