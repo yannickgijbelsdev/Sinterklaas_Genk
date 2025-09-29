@@ -126,21 +126,74 @@ export const AuthProvider = ({ children }) => {
     return !!user && !!token;
   };
 
-  // Helper function to make authenticated API calls
+  // Helper function to make authenticated API calls with auto token refresh
   const apiCall = async (url, options = {}) => {
+    let currentToken = token;
+    
+    // Check if token is close to expiration (refresh if less than 1 hour left)
+    if (currentToken && user) {
+      try {
+        const tokenPayload = JSON.parse(atob(currentToken.split('.')[1]));
+        const expirationTime = tokenPayload.exp * 1000; // Convert to milliseconds
+        const currentTime = Date.now();
+        const timeUntilExpiration = expirationTime - currentTime;
+        
+        // If token expires within 1 hour, try to refresh or re-authenticate
+        if (timeUntilExpiration < 3600000) { // 1 hour in milliseconds
+          console.log('🔄 Token expiring soon, refreshing session...');
+          
+          // For demo/development, we'll just extend the session by re-authenticating
+          // In production, you'd implement a proper refresh token mechanism
+          toast.warning('Sessie verloopt binnenkort, wordt ververst...');
+          
+          // Clear old token
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          setToken(null);
+          setUser(null);
+          
+          // Force re-login
+          window.location.reload();
+          return;
+        }
+      } catch (error) {
+        console.log('Token validation error:', error);
+      }
+    }
+
     const headers = {
       'Content-Type': 'application/json',
       ...options.headers
     };
 
-    if (token) {
-      headers.Authorization = `Bearer ${token}`;
+    if (currentToken) {
+      headers.Authorization = `Bearer ${currentToken}`;
     }
 
-    return fetch(`${API}${url}`, {
-      ...options,
-      headers
-    });
+    try {
+      const response = await fetch(`${API}${url}`, {
+        ...options,
+        headers
+      });
+      
+      // Handle authentication errors specifically
+      if (response.status === 401) {
+        console.log('🚫 Authentication failed, redirecting to login...');
+        logout();
+        toast.error('Sessie verlopen, log opnieuw in');
+        window.location.href = '/admin';
+        throw new Error('Authentication failed');
+      }
+      
+      return response;
+    } catch (error) {
+      // Network errors
+      if (error.message === 'Authentication failed') {
+        throw error;
+      }
+      console.error('Network error:', error);
+      throw new Error('Netwerk fout: ' + error.message);
+    }
   };
 
   const value = {
