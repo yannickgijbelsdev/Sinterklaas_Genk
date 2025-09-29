@@ -95,8 +95,14 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
       console.log('📤 Sending content updates:', contentUpdates);
 
       if (contentUpdates.length > 0) {
-        const response = await apiCall('/admin/content', {
+        // Use direct fetch with token to avoid apiCall issues
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/admin/content`, {
           method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(contentUpdates)
         });
 
