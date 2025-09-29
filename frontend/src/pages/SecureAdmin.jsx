@@ -593,15 +593,19 @@ export default function SecureAdmin() {
 
     const handleCSVImport = async () => {
       if (!csvFile) {
-        toast.error('Selecteer een CSV bestand');
+        toast.error('❌ Geen bestand geselecteerd');
         return;
       }
 
       setImportLoading(true);
+      
+      // Show loading toast
+      const loadingToast = toast.loading(`📤 Importeren van ${csvFile.name}...`);
+      
       try {
         const formData = new FormData();
         formData.append('file', csvFile);
-        formData.append('list_name', `Import ${new Date().toLocaleDateString()}`);
+        formData.append('list_name', `Mailpoet Import ${new Date().toLocaleDateString('nl-NL')}`);
 
         // Use token directly for FormData request
         const token = localStorage.getItem('token');
@@ -613,32 +617,50 @@ export default function SecureAdmin() {
           body: formData
         });
 
+        toast.dismiss(loadingToast);
+
         if (response.ok) {
           const result = await response.json();
-          toast.success(`✅ Import voltooid! ${result.successful_imports} subscribers toegevoegd.`);
+          
+          if (result.successful_imports > 0) {
+            toast.success(`🎉 Import geslaagd! ${result.successful_imports} van ${result.total_rows} subscribers toegevoegd.`);
+          }
+          
           if (result.failed_imports > 0) {
-            toast.warning(`⚠️ ${result.failed_imports} rijen konden niet worden geïmporteerd.`);
+            toast.warning(`⚠️ ${result.failed_imports} rijen overgeslagen (duplicaten of fouten)`);
             if (result.errors && result.errors.length > 0) {
-              console.log('Import errors:', result.errors.slice(0, 5)); // Show first 5 errors in console
-              toast.info(`Zie console voor details van import fouten`);
+              console.log('Import details:', result);
+              console.log('Eerste paar fouten:', result.errors.slice(0, 3));
+              toast.info('💡 Kijk in browser console voor gedetailleerde import info');
             }
           }
+          
+          if (result.successful_imports === 0 && result.failed_imports === 0) {
+            toast.error('❌ Geen data geïmporteerd. Controleer CSV formaat.');
+          }
+          
+          // Clear file input
           setCsvFile(null);
+          const fileInput = document.querySelector('input[type="file"]');
+          if (fileInput) fileInput.value = '';
+          
+          // Refresh data
           fetchNewsletterData();
+          
         } else if (response.status === 401) {
           toast.error('🔒 Sessie verlopen, log opnieuw in');
-          // Trigger re-authentication
           localStorage.removeItem('token');
           localStorage.removeItem('user');
           window.location.reload();
         } else {
           const errorText = await response.text();
-          console.error('CSV Import Error:', errorText);
-          toast.error(`❌ Import fout: ${errorText || 'Onbekende fout'}`);
+          console.error('CSV Import Error Response:', errorText);
+          toast.error(`❌ Server fout: ${errorText || 'Onbekende fout'}`);
         }
       } catch (error) {
+        toast.dismiss(loadingToast);
         console.error('CSV Import Exception:', error);
-        toast.error(`❌ Import fout: ${error.message || 'Verbindingsprobleem'}`);
+        toast.error(`❌ Netwerk fout: ${error.message || 'Kan server niet bereiken'}`);
       }
       setImportLoading(false);
     };
