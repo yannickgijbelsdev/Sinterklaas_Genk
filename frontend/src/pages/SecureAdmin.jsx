@@ -693,13 +693,15 @@ export default function SecureAdmin() {
             toast.error('❌ Geen data geïmporteerd. Controleer CSV formaat.');
           }
           
-          // Clear file input
-          setCsvFile(null);
-          const fileInput = document.querySelector('input[type="file"]');
-          if (fileInput) fileInput.value = '';
-          
-          // Refresh data
-          fetchNewsletterData();
+          // Only clear file and refresh data after successful import
+          setTimeout(() => {
+            setCsvFile(null);
+            const fileInput = document.querySelector('input[type="file"]');
+            if (fileInput) fileInput.value = '';
+            
+            // Refresh data after clearing file
+            fetchNewsletterData();
+          }, 1000); // Small delay to show success message
           
         } else if (response.status === 401) {
           toast.error('🔒 Sessie verlopen, log opnieuw in');
