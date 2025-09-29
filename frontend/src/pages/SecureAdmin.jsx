@@ -599,8 +599,10 @@ export default function SecureAdmin() {
 
       setImportLoading(true);
       
-      // Show loading toast
-      const loadingToast = toast.loading(`📤 Importeren van ${csvFile.name}...`);
+      // Show detailed loading toast
+      const loadingToast = toast.loading(`📤 CSV IMPORT BEZIG: ${csvFile.name}`, {
+        duration: 10000 // Show for 10 seconds max
+      });
       
       try {
         const formData = new FormData();
