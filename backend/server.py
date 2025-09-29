@@ -864,6 +864,14 @@ async def update_campaign(
     updated = await db.campaigns.find_one({"id": campaign_id})
     return Campaign(**updated)
 
+@api_router.delete("/admin/newsletter/campaigns/{campaign_id}")
+async def delete_campaign(campaign_id: str, current_user: User = Depends(get_admin_user)):
+    """Delete campaign"""
+    result = await db.campaigns.delete_one({"id": campaign_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Campaign not found")
+    return {"message": "Campaign deleted successfully"}
+
 @api_router.post("/admin/newsletter/campaigns/{campaign_id}/send")
 async def send_campaign(campaign_id: str, current_user: User = Depends(get_admin_user)):
     """Send campaign immediately"""
