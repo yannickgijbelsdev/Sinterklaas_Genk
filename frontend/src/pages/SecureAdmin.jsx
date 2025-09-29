@@ -592,10 +592,15 @@ export default function SecureAdmin() {
     };
 
     const handleCSVImport = async () => {
+      console.log('handleCSVImport called, csvFile:', csvFile?.name);
+      
       if (!csvFile) {
         toast.error('❌ Geen bestand geselecteerd');
+        console.log('No CSV file found in state');
         return;
       }
+      
+      console.log('Starting import for file:', csvFile.name, 'Size:', csvFile.size);
 
       setImportLoading(true);
       
