@@ -6,7 +6,8 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { toast } from 'sonner';
-import { useAuth } from '../contexts/AuthContext';
+import React, { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 import { 
   Edit3, 
   Save, 
