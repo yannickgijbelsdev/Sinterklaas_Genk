@@ -599,10 +599,21 @@ export default function SecureAdmin() {
 
       setImportLoading(true);
       
+      // Check file size for large import warning
+      const fileSizeKB = Math.round(csvFile.size / 1024);
+      const isLargeFile = fileSizeKB > 50; // Files over 50KB are considered large
+      
+      if (isLargeFile) {
+        toast.info(`📊 Groot bestand gedetecteerd (${fileSizeKB}KB). Import kan 1-2 minuten duren voor honderden abonnees.`);
+      }
+
       // Show detailed loading toast
-      const loadingToast = toast.loading(`📤 CSV IMPORT BEZIG: ${csvFile.name}`, {
-        duration: 10000 // Show for 10 seconds max
-      });
+      const loadingToast = toast.loading(
+        `📤 CSV IMPORT BEZIG: ${csvFile.name} (${fileSizeKB}KB)${isLargeFile ? ' - Grote import, even geduld...' : ''}`, 
+        {
+          duration: 120000 // Show for 2 minutes max for large files
+        }
+      );
       
       try {
         const formData = new FormData();
