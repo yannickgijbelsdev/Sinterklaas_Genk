@@ -266,7 +266,7 @@ export function CampaignManager({ subscribers = [] }) {
 
   // Send campaign
   const sendCampaign = async (campaignId) => {
-    if (!window.confirm(`Weet je zeker dat je deze campaign wilt versturen naar ${subscribers.length} subscribers?`)) {
+    if (!window.confirm(`Weet je zeker dat je deze campaign wilt versturen naar ${safeSubscribers.length} subscribers?`)) {
       return;
     }
 
