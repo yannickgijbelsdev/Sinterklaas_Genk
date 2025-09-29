@@ -767,26 +767,7 @@ export default function SecureAdmin() {
 
         {/* Campaigns Tab */}
         {selectedTab === 'campaigns' && (
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Mail size={20} />
-                  Newsletter Campaigns
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Mail className="mx-auto mb-4" size={48} color="#ccc" />
-                  <p className="text-gray-500 mb-4">Campaign management binnenkort beschikbaar!</p>
-                  <p className="text-sm text-gray-400">
-                    Hier kun je straks volledige newsletter campaigns maken met drag & drop editor,
-                    scheduling, A/B testing en meer.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          <CampaignManager subscribers={subscribers} />
         )}
 
         {/* Templates Tab */}
