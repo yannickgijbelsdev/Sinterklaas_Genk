@@ -851,30 +851,26 @@ export default function SecureAdmin() {
                     <Input
                       type="file"
                       accept=".csv"
-                      onChange={async (e) => {
+                      onChange={(e) => {
                         const file = e.target.files[0];
-                        setCsvFile(file);
+                        console.log('File selected:', file?.name, file?.size);
                         
                         if (file) {
+                          // Set file in state FIRST
+                          setCsvFile(file);
+                          
                           // Show file info immediately
                           toast.success(`📄 Bestand geselecteerd: ${file.name} (${Math.round(file.size / 1024)}KB)`);
                           
-                          // Show countdown and auto-import with rate limiting check
-                          let countdown = 5; // Longer countdown for large files
-                          const countdownInterval = setInterval(() => {
-                            if (countdown > 0) {
-                              toast.info(`🚀 Import start in ${countdown} seconden... (Rate limiting preventie)`, {id: 'countdown'});
-                              countdown--;
-                            } else {
-                              clearInterval(countdownInterval);
-                              toast.dismiss('countdown');
-                              
-                              // Extra check: don't start if already importing
-                              if (!importLoading) {
-                                handleCSVImport();
-                              }
+                          // Delayed auto-import to prevent conflicts
+                          setTimeout(() => {
+                            if (!importLoading) {
+                              toast.info('🚀 Auto-import gestart...');
+                              handleCSVImport();
                             }
-                          }, 1000);
+                          }, 2000); // 2 second delay instead of countdown
+                        } else {
+                          setCsvFile(null);
                         }
                       }}
                       disabled={importLoading}
