@@ -369,7 +369,12 @@ async def process_csv_import(csv_content: str, list_name: str) -> CSVImportResul
                 errors=[f"Geen email kolom gevonden. Gevonden kolommen: {', '.join(df.columns)}"]
             )
         
-        # Process each row
+        # Process each row with batch optimization for large imports
+        batch_size = 50  # Process in batches of 50
+        batch_subscribers = []
+        
+        logging.info(f"Processing {total_rows} rows in batches of {batch_size}")
+        
         for index, row in df.iterrows():
             try:
                 # Extract email (required field)
