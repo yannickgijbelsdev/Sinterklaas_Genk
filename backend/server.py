@@ -370,7 +370,7 @@ async def process_csv_import(csv_content: str, list_name: str) -> CSVImportResul
             )
         
         # Process each row with batch optimization for large imports
-        batch_size = 50  # Process in batches of 50
+        batch_size = 20  # Smaller batches to prevent rate limiting (was 50)
         batch_subscribers = []
         
         logging.info(f"Processing {total_rows} rows in batches of {batch_size}")
