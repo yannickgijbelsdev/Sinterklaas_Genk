@@ -466,7 +466,8 @@ async def process_csv_import(csv_content: str, list_name: str) -> CSVImportResul
 
 def create_access_token(data: dict):
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(hours=24)
+    # Extend token lifetime to 7 days for better user experience
+    expire = datetime.utcnow() + timedelta(days=7)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
