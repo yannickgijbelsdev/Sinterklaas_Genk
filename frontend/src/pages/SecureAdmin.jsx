@@ -859,16 +859,20 @@ export default function SecureAdmin() {
                           // Show file info immediately
                           toast.success(`📄 Bestand geselecteerd: ${file.name} (${Math.round(file.size / 1024)}KB)`);
                           
-                          // Show countdown and auto-import
-                          let countdown = 3;
+                          // Show countdown and auto-import with rate limiting check
+                          let countdown = 5; // Longer countdown for large files
                           const countdownInterval = setInterval(() => {
                             if (countdown > 0) {
-                              toast.info(`🚀 Import start in ${countdown} seconden...`, {id: 'countdown'});
+                              toast.info(`🚀 Import start in ${countdown} seconden... (Rate limiting preventie)`, {id: 'countdown'});
                               countdown--;
                             } else {
                               clearInterval(countdownInterval);
                               toast.dismiss('countdown');
-                              handleCSVImport();
+                              
+                              // Extra check: don't start if already importing
+                              if (!importLoading) {
+                                handleCSVImport();
+                              }
                             }
                           }, 1000);
                         }
