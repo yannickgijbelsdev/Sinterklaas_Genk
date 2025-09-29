@@ -29,7 +29,7 @@ import {
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export const LiveEditor = ({ children, pageKey = 'home' }) => {
-  const { user, isAuthenticated } = useContext(AuthContext);
+  const { user, isAuthenticated } = useAuth();
   
   // Check if user is admin
   const isAdmin = () => user && user.is_admin;
