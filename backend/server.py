@@ -445,6 +445,10 @@ async def process_csv_import(csv_content: str, list_name: str) -> CSVImportResul
                         successful_imports += len(batch_subscribers)
                         logging.info(f"Batch inserted: {len(batch_subscribers)} subscribers (total so far: {successful_imports})")
                         batch_subscribers = []
+                        
+                        # Add delay between batches to prevent rate limiting (429 errors)
+                        if index < total_rows - 1:  # Don't delay after the last batch
+                            await asyncio.sleep(0.1)  # 100ms delay between batches
                 
             except Exception as e:
                 errors.append(f"Rij {index + 2}: {str(e)}")
