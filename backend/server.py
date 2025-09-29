@@ -315,10 +315,13 @@ async def send_newsletter_email(to_email: str, subject: str, html_content: str, 
         return False
 
 async def process_csv_import(csv_content: str, list_name: str) -> CSVImportResult:
-    """Process CSV file and import subscribers"""
+    """Process CSV file and import subscribers - Compatible with Mailpoet format"""
     try:
         # Read CSV content
         df = pd.read_csv(StringIO(csv_content))
+        
+        # Debug: log column names to understand Mailpoet format
+        logging.info(f"CSV columns detected: {list(df.columns)}")
         
         total_rows = len(df)
         successful_imports = 0
@@ -333,38 +336,98 @@ async def process_csv_import(csv_content: str, list_name: str) -> CSVImportResul
         await db.mailing_lists.insert_one(mailing_list.dict())
         list_id = mailing_list.id
         
+        # Mailpoet CSV format compatibility
+        # Common Mailpoet columns: Email, First Name, Last Name, Status, Subscribed to lists
+        column_mapping = {
+            'email': ['email', 'Email', 'EMAIL', 'e-mail', 'E-mail'],
+            'first_name': ['first_name', 'First Name', 'FIRST NAME', 'firstname', 'Firstname', 'voornaam', 'Voornaam'],
+            'last_name': ['last_name', 'Last Name', 'LAST NAME', 'lastname', 'Lastname', 'achternaam', 'Achternaam'],
+            'status': ['status', 'Status', 'STATUS', 'subscribed', 'Subscribed'],
+        }
+        
+        # Find correct column names
+        email_col = None
+        first_name_col = None
+        last_name_col = None
+        status_col = None
+        
+        for col in df.columns:
+            if col.strip() in column_mapping['email']:
+                email_col = col
+            elif col.strip() in column_mapping['first_name']:
+                first_name_col = col
+            elif col.strip() in column_mapping['last_name']:
+                last_name_col = col
+            elif col.strip() in column_mapping['status']:
+                status_col = col
+        
+        if not email_col:
+            return CSVImportResult(
+                total_rows=total_rows,
+                successful_imports=0,
+                failed_imports=total_rows,
+                errors=[f"Geen email kolom gevonden. Gevonden kolommen: {', '.join(df.columns)}"]
+            )
+        
         # Process each row
         for index, row in df.iterrows():
             try:
                 # Extract email (required field)
-                email = str(row.get('email', '')).strip().lower()
-                if not email or '@' not in email:
-                    errors.append(f"Row {index + 1}: Invalid or missing email")
+                email = str(row.get(email_col, '')).strip().lower()
+                if not email or pd.isna(email) or email == 'nan' or '@' not in email:
+                    errors.append(f"Rij {index + 2}: Ongeldig of ontbrekend email adres")
                     failed_imports += 1
                     continue
+                
+                # Check status if available (Mailpoet compatibility)
+                is_subscribed = True
+                if status_col and not pd.isna(row.get(status_col)):
+                    status_value = str(row.get(status_col, '')).lower().strip()
+                    if status_value in ['unsubscribed', 'unconfirmed', 'inactive', '0', 'false', 'nee', 'no']:
+                        is_subscribed = False
                 
                 # Check if subscriber already exists
                 existing = await db.subscribers.find_one({"email": email})
                 if existing:
-                    errors.append(f"Row {index + 1}: Email {email} already exists")
-                    failed_imports += 1
+                    # Update existing subscriber if needed
+                    await db.subscribers.update_one(
+                        {"email": email},
+                        {"$addToSet": {"tags": list_name}}
+                    )
+                    successful_imports += 1
                     continue
                 
                 # Extract other fields
+                first_name = None
+                last_name = None
+                
+                if first_name_col and not pd.isna(row.get(first_name_col)):
+                    first_name = str(row.get(first_name_col, '')).strip()
+                    if first_name == 'nan' or not first_name:
+                        first_name = None
+                        
+                if last_name_col and not pd.isna(row.get(last_name_col)):
+                    last_name = str(row.get(last_name_col, '')).strip()
+                    if last_name == 'nan' or not last_name:
+                        last_name = None
+                
                 subscriber_data = {
                     "email": email,
-                    "first_name": str(row.get('first_name', '')).strip() if pd.notna(row.get('first_name')) else None,
-                    "last_name": str(row.get('last_name', '')).strip() if pd.notna(row.get('last_name')) else None,
-                    "phone": str(row.get('phone', '')).strip() if pd.notna(row.get('phone')) else None,
-                    "source": "csv_import",
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "subscribed": is_subscribed,
+                    "source": "mailpoet_csv_import",
                     "tags": [list_name],
                     "custom_fields": {}
                 }
                 
-                # Add any additional fields as custom fields
+                # Add any additional fields as custom fields (excluding mapped columns)
+                mapped_cols = [email_col, first_name_col, last_name_col, status_col]
                 for col in df.columns:
-                    if col not in ['email', 'first_name', 'last_name', 'phone'] and pd.notna(row.get(col)):
-                        subscriber_data["custom_fields"][col] = str(row[col])
+                    if col not in mapped_cols and not pd.isna(row.get(col)):
+                        value = str(row[col]).strip()
+                        if value and value != 'nan':
+                            subscriber_data["custom_fields"][col] = value
                 
                 # Create subscriber
                 subscriber = Subscriber(**subscriber_data)
@@ -372,8 +435,9 @@ async def process_csv_import(csv_content: str, list_name: str) -> CSVImportResul
                 successful_imports += 1
                 
             except Exception as e:
-                errors.append(f"Row {index + 1}: {str(e)}")
+                errors.append(f"Rij {index + 2}: {str(e)}")
                 failed_imports += 1
+                logging.error(f"Error processing row {index + 2}: {str(e)}")
         
         # Update mailing list subscriber count
         await db.mailing_lists.update_one(
@@ -381,20 +445,23 @@ async def process_csv_import(csv_content: str, list_name: str) -> CSVImportResul
             {"$set": {"subscriber_count": successful_imports}}
         )
         
+        logging.info(f"CSV import completed: {successful_imports} success, {failed_imports} failed")
+        
         return CSVImportResult(
             total_rows=total_rows,
             successful_imports=successful_imports,
             failed_imports=failed_imports,
-            errors=errors,
+            errors=errors[:10],  # Limit to first 10 errors
             created_list_id=list_id
         )
         
     except Exception as e:
+        logging.error(f"CSV processing failed: {str(e)}")
         return CSVImportResult(
             total_rows=0,
             successful_imports=0,
             failed_imports=0,
-            errors=[f"CSV processing error: {str(e)}"]
+            errors=[f"CSV verwerkingsfout: {str(e)}. Controleer of het bestand een geldige CSV is."]
         )
 
 def create_access_token(data: dict):
