@@ -1074,7 +1074,7 @@ export default function SecureAdmin() {
           </TabsContent>
 
           <TabsContent value="newsletter">
-            <NewsletterManager />
+            <NewsletterManager apiCall={apiCall} />
           </TabsContent>
 
           <TabsContent value="users">
