@@ -30,7 +30,10 @@ import {
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export const LiveEditor = ({ children, pageKey = 'home' }) => {
-  const { isAuthenticated, isAdmin, apiCall } = useAuth();
+  const { user, isAuthenticated } = useContext(AuthContext);
+  
+  // Check if user is admin
+  const isAdmin = () => user && user.is_admin;
   const [editMode, setEditMode] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [saving, setSaving] = useState(false);
