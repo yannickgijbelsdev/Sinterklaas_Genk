@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Calendar, MapPin, Clock, Users, ArrowRight, Star, Sparkles, Gift, Camera } from 'lucide-react';
+import { Camera, Clock, Users, ArrowRight, Star, Sparkles, Gift, Phone, Mail, MapPin } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { SparkleBackground } from '../components/SparkleBackground';
 import { LiveEditor } from '../components/LiveEditor';
 import { MagicCurtain } from '../components/MagicCurtain';
+import { StoombootBanner } from '../components/StoombootBanner';
 import { showInfo as fallbackShowInfo, news as fallbackNews } from '../data/mock';
 import { useNews, useContent, getContentValue } from '../hooks/useApi';
 import '../styles/sinterklaas-theme.css';
