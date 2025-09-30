@@ -165,6 +165,11 @@ h3 {
   background: radial-gradient(circle, var(--stoomboot-hout) 0%, var(--stoomboot-hout-dark) 100%);
   box-shadow: var(--shadow-medium);
   animation: rotate 20s linear infinite;
+  cursor: pointer;
+}
+
+.stuurwiel:hover {
+  animation-play-state: paused;
 }
 
 .stuurwiel::before {
