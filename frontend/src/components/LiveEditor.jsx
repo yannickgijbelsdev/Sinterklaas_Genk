@@ -221,12 +221,14 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
       const insertionPoint = document.createElement('div');
       insertionPoint.className = 'block-insertion-point';
       insertionPoint.style.cssText = `
-        height: 20px;
-        margin: 10px 0;
+        height: 40px;
+        margin: 20px 0;
         position: relative;
-        opacity: 0;
-        transition: opacity 0.2s;
-        border-top: 2px dashed transparent;
+        opacity: 0.3;
+        transition: all 0.3s ease;
+        border-top: 3px dashed #3b82f6;
+        background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.1) 50%, transparent 100%);
+        border-radius: 4px;
       `;
       
       insertionPoint.addEventListener('mouseenter', () => {
