@@ -59,243 +59,329 @@ export default function Home() {
       {/* Home Content */}
       <div className={`transition-opacity duration-500 ${showCurtain ? 'opacity-0' : 'opacity-100'}`}>
         <LiveEditor pageKey="home">
-      <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative h-[500px] flex items-center justify-center overflow-hidden rounded-3xl shadow-2xl">
-            <div className="absolute inset-0 z-0">
-              <img
-                src={showInfo.heroImage}
-                alt="Sinterklaas Show"
-                className="w-full h-full object-cover"
-                data-editable-image="background"
-                data-section="hero"
-                data-key="background_image"
-                key={showInfo.heroImage} // Force re-render when image changes
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60 rounded-3xl"></div>
-            </div>
+          <div className="min-h-screen">
             
-            {/* Subtle sparkles in hero */}
-            <SparkleBackground density="light" animation="slow" />
-        
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <div className="mb-6">
-            <div className="text-5xl mb-4 hero-float">🎭✨</div>
-            <h1 
-              className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
-              data-editable-text="title"
-              data-section="hero"
-              data-key="title"
-            >
-              {showInfo.title}
-            </h1>
-            <p 
-              className="text-xl md:text-2xl mb-6 font-medium"
-              data-editable-text="subtitle"
-              data-section="hero"
-              data-key="subtitle"
-            >
-              {showInfo.subtitle}
-            </p>
-            <p 
-              className="text-base md:text-lg mb-8 opacity-90 max-w-2xl mx-auto"
-              data-editable-text="description"
-              data-section="hero"
-              data-key="description"
-            >
-              {showInfo.description}
-            </p>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <Link to="/gallery">
-              <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-lg font-semibold">
-                Bekijk Galerij
-                <ArrowRight className="ml-2" size={18} />
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 text-lg">
-                Contact
-              </Button>
-            </Link>
-          </div>
+            {/* Hero Section - Inspired by Camp Buddy */}
+            <section className="sinterklaas-hero relative">
+              {/* Decorative Elements */}
+              <div className="sinterklaas-decoration" style={{top: '10%', left: '10%'}}>🎁</div>
+              <div className="sinterklaas-decoration" style={{top: '20%', right: '15%'}}>⭐</div>
+              <div className="sinterklaas-decoration" style={{bottom: '30%', left: '8%'}}>🎭</div>
+              <div className="sinterklaas-decoration" style={{bottom: '20%', right: '10%'}}>✨</div>
+              
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="flex items-center min-h-[80vh]">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+                    
+                    {/* Left Content */}
+                    <div className="text-left">
+                      <div className="mb-8">
+                        <div className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+                          <Sparkles className="w-5 h-5 text-yellow-500 mr-2" />
+                          <span className="text-sm font-medium text-gray-700">Magische Sinterklaas Ervaring</span>
+                        </div>
+                        
+                        <h1 
+                          className="hero-title mb-6"
+                          data-editable-text="title"
+                          data-section="hero"
+                          data-key="title"
+                        >
+                          {showInfo.title}
+                        </h1>
+                        
+                        <p 
+                          className="text-xl text-gray-600 mb-8 leading-relaxed max-w-lg"
+                          data-editable-text="description"
+                          data-section="hero"
+                          data-key="description"
+                        >
+                          {showInfo.description}
+                        </p>
+                      </div>
+                      
+                      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                        <Link to="/gallery">
+                          <Button className="btn-sinterklaas-primary group">
+                            <Camera className="w-5 h-5 mr-2" />
+                            Bekijk Galerij
+                            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                          </Button>
+                        </Link>
+                        <Link to="/contact">
+                          <Button className="btn-sinterklaas-outline">
+                            Contact Ons
+                          </Button>
+                        </Link>
+                      </div>
 
-          <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <div className="flex items-center space-x-2">
-              <Clock size={16} />
-              <span>{showInfo.duration}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Users size={16} />
-              <span>Leeftijd: {showInfo.ageRange}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Star size={16} />
-              <span>{showInfo.language}</span>
-            </div>
-          </div>
-        </div>
-          </div>
-        </div>
-      </section>
+                      <div className="flex flex-wrap gap-6 text-sm text-gray-600">
+                        <div className="flex items-center space-x-2">
+                          <Clock className="w-4 h-4 text-yellow-600" />
+                          <span>{showInfo.duration}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Users className="w-4 h-4 text-yellow-600" />
+                          <span>Leeftijd: {showInfo.ageRange}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Star className="w-4 h-4 text-yellow-600" />
+                          <span>{showInfo.language}</span>
+                        </div>
+                      </div>
+                    </div>
 
-      {/* Latest News */}
-      <section 
-        className="py-16 bg-gradient-to-b from-red-50 to-white relative overflow-hidden"
-        data-editable-color="news_section_bg"
-        data-section="home"
-        data-key="news_section_bg"
-      >
-        {/* Ultra subtle sparkles for news section */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <SparkleBackground density="light" animation="slow" />
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <h2 
-              className="text-4xl font-bold text-gray-900 mb-4"
-              data-editable-text="title"
-              data-section="home"
-              data-key="news_section_title"
-            >
-              Laatste Nieuws
-            </h2>
-            <p 
-              className="text-xl text-gray-600 max-w-2xl mx-auto"
-              data-editable-text="description"
-              data-section="home"
-              data-key="news_section_description"
-            >
-              Blijf op de hoogte van alle nieuwtjes rondom de show.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {featuredNews.map((article) => (
-              <Card key={article.id} className="group hover:shadow-xl transition-all duration-300 fun-card bg-gradient-to-br from-white to-red-50/30">
-                <div className="aspect-video overflow-hidden rounded-t-lg">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+                    {/* Right Content - Hero Image */}
+                    <div className="relative">
+                      <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img
+                          src={showInfo.heroImage}
+                          alt="Sinterklaas Show"
+                          className="w-full h-[500px] object-cover"
+                          data-editable-image="hero_image"
+                          data-section="hero"
+                          data-key="background_image"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                      </div>
+                      
+                      {/* Floating Stats Cards */}
+                      <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-xl border-4 border-yellow-200">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-red-600">1000+</div>
+                          <div className="text-sm text-gray-600">Blije Kinderen</div>
+                        </div>
+                      </div>
+                      
+                      <div className="absolute -top-6 -right-6 bg-white rounded-2xl p-4 shadow-xl border-4 border-red-200">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-yellow-600">50+</div>
+                          <div className="text-sm text-gray-600">Magische Shows</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <CardContent className="p-6">
-                  <div className="text-sm text-gray-500 mb-2">{article.date}</div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
-                    {article.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{article.excerpt}</p>
-                  <Link to={`/news/${article.id}`}>
-                    <Button variant="ghost" className="p-0 text-red-600 hover:text-red-700">
-                      Lees meer
-                      <ArrowRight className="ml-1" size={16} />
+              </div>
+            </section>
+
+            {/* Why Choose Us Section */}
+            <section className="section-white-background py-20">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-16">
+                  <h2 
+                    className="section-title"
+                    data-editable-text="title"
+                    data-section="home"
+                    data-key="features_title"
+                  >
+                    Waarom Kiezen Voor Onze Show?
+                  </h2>
+                  <p 
+                    className="section-subtitle max-w-3xl mx-auto"
+                    data-editable-text="description"
+                    data-section="home"
+                    data-key="features_description"
+                  >
+                    Ontdek wat onze Sinterklaas show zo bijzonder maakt voor jouw kind en het hele gezin.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div className="sinterklaas-card text-center group">
+                    <div className="mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl mx-auto flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <Gift className="w-8 h-8 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Interactieve Ervaring</h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        Kinderen worden actief betrokken bij de show met zingen, dansen en meedoen met Sinterklaas en zijn Pieten.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="sinterklaas-card text-center group">
+                    <div className="mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl mx-auto flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <Sparkles className="w-8 h-8 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Magische Momenten</h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        Vol verrassingen, cadeautjes en echte magie die kinderen doen geloven in de wonderen van Sinterklaas.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="sinterklaas-card text-center group">
+                    <div className="mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl mx-auto flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <Users className="w-8 h-8 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Professionele Cast</h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        Ervaren acteurs en performers die de magie van Sinterklaas tot leven brengen voor alle leeftijden.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Latest News Section */}
+            <section className="section-gold-background py-20">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-16">
+                  <h2 
+                    className="section-title"
+                    data-editable-text="title"
+                    data-section="home"
+                    data-key="news_section_title"
+                  >
+                    Laatste Nieuws
+                  </h2>
+                  <p 
+                    className="section-subtitle"
+                    data-editable-text="description"
+                    data-section="home"
+                    data-key="news_section_description"
+                  >
+                    Blijf op de hoogte van alle nieuwtjes rondom onze magische Sinterklaas shows.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  {featuredNews.map((article) => (
+                    <div key={article.id} className="news-card">
+                      <div className="news-image">
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="news-content">
+                        <div className="news-date">{article.date}</div>
+                        <h3 className="news-title text-xl font-bold mb-3">
+                          {article.title}
+                        </h3>
+                        <p className="text-gray-600 mb-4 leading-relaxed">{article.excerpt}</p>
+                        <Link to={`/news/${article.id}`}>
+                          <Button variant="ghost" className="p-0 text-red-600 hover:text-red-700 font-medium">
+                            Lees meer
+                            <ArrowRight className="ml-2 w-4 h-4" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="text-center">
+                  <Link to="/news">
+                    <Button className="btn-sinterklaas-secondary">
+                      Alle Nieuws Bekijken
+                      <ArrowRight className="ml-2 w-5 h-5" />
                     </Button>
                   </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link to="/news">
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
-                data-editable-button="news_button"
-                data-section="home"
-                data-key="news_button"
-              >
-                Alle Nieuws Bekijken
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery Preview */}
-      <section className="py-16 bg-white relative overflow-hidden">
-        {/* Subtle sparkles for gallery section */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute opacity-20 select-none"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                fontSize: '0.6rem',
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: '6s',
-                animation: 'subtle-twinkle 6s ease-in-out infinite'
-              }}
-            >
-              📸
-            </div>
-          ))}
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <h2 
-              className="text-4xl font-bold text-gray-900 mb-4"
-              data-editable-text="title"
-              data-section="gallery"
-              data-key="section_title"
-            >
-              Galerij Voorproefje
-            </h2>
-            <p 
-              className="text-xl text-gray-600 max-w-2xl mx-auto"
-              data-editable-text="description"
-              data-section="gallery"
-              data-key="section_description"
-            >
-              Bekijk de mooiste momenten van onze magische Sinterklaas shows.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {[
-              "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80",
-              "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=400&q=80",
-              "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&q=80",
-              "https://images.unsplash.com/photo-1544373022-df25aea89bd4?w=400&q=80"
-            ].map((image, index) => (
-              <div key={index} className="group relative aspect-square overflow-hidden rounded-lg">
-                <img
-                  src={image}
-                  alt={`Galerij foto ${index + 1}`}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                </div>
               </div>
-            ))}
-          </div>
+            </section>
 
-          <div className="text-center">
-            <Link to="/gallery">
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
-                data-editable-button="gallery_button"
-                data-section="home"
-                data-key="gallery_button"
-              >
-                Volledige Galerij Bekijken
-              </Button>
-            </Link>
+            {/* Gallery Preview */}
+            <section className="section-white-background py-20">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-16">
+                  <h2 
+                    className="section-title"
+                    data-editable-text="title"
+                    data-section="gallery"
+                    data-key="section_title"
+                  >
+                    Galerij Voorproefje
+                  </h2>
+                  <p 
+                    className="section-subtitle"
+                    data-editable-text="description"
+                    data-section="gallery"
+                    data-key="section_description"
+                  >
+                    Bekijk de mooiste momenten van onze magische Sinterklaas shows.
+                  </p>
+                </div>
+
+                <div className="gallery-grid mb-12">
+                  {[
+                    {
+                      url: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80",
+                      alt: "Sinterklaas met kinderen"
+                    },
+                    {
+                      url: "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=400&q=80", 
+                      alt: "Magische show momenten"
+                    },
+                    {
+                      url: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&q=80",
+                      alt: "Blije kinderen"
+                    },
+                    {
+                      url: "https://images.unsplash.com/photo-1544373022-df25aea89bd4?w=400&q=80",
+                      alt: "Sinterklaas show"
+                    }
+                  ].map((image, index) => (
+                    <div key={index} className="gallery-item group">
+                      <img
+                        src={image.url}
+                        alt={image.alt}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="text-center">
+                  <Link to="/gallery">
+                    <Button className="btn-sinterklaas-primary">
+                      <Camera className="w-5 h-5 mr-2" />
+                      Volledige Galerij Bekijken
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </section>
+
+            {/* Call to Action Section */}
+            <section className="section-warm-background py-20">
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div className="relative">
+                  <div className="absolute -top-8 -left-8 text-6xl opacity-10">🎁</div>
+                  <div className="absolute -bottom-8 -right-8 text-6xl opacity-10">✨</div>
+                  
+                  <h2 className="section-title mb-6">
+                    Klaar voor een Onvergetelijke Ervaring?
+                  </h2>
+                  <p className="section-subtitle mb-10">
+                    Boek nu je tickets voor de meest magische Sinterklaas show van het jaar!
+                  </p>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <Link to="/contact">
+                      <Button className="btn-sinterklaas-primary text-lg px-8 py-4">
+                        <Gift className="w-6 h-6 mr-2" />
+                        Boek Nu Je Tickets
+                      </Button>
+                    </Link>
+                    <Link to="/gallery">
+                      <Button className="btn-sinterklaas-outline text-lg px-8 py-4">
+                        Bekijk Meer Foto's
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </section>
+
           </div>
-        </div>
-      </section>
-        </div>
-      </LiveEditor>
+        </LiveEditor>
       </div>
     </>
   );
