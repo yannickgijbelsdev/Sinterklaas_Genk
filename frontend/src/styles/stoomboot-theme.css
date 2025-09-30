@@ -635,9 +635,132 @@ h3 {
   }
 }
 
-/* Utility Classes */
-.text-center {
-  text-align: center;
+/* Header Styles - Stoomboot Navigation */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, var(--stoomboot-hout) 0%, var(--stoomboot-hout-dark) 100%);
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid var(--stoomboot-metaal);
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.header.scrolled {
+  background: linear-gradient(135deg, rgba(139, 69, 19, 0.95) 0%, rgba(101, 67, 33, 0.95) 100%);
+  backdrop-filter: blur(12px);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  gap: 32px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
+  }
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.nav-link:hover::before {
+  left: 100%;
+}
+
+.nav-link:hover {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--sinterklaas-goud-light);
+  transform: translateY(-2px);
+}
+
+.header-ctas {
+  display: none;
+  align-items: center;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .header-ctas {
+    display: flex;
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid rgba(245, 158, 11, 0.8);
+  color: var(--sinterklaas-goud-light);
+}
+
+.btn-outline:hover {
+  background: var(--sinterklaas-goud);
+  color: var(--text-dark);
+  border-color: var(--sinterklaas-goud);
+}
+
+/* Mobile Menu Styles */
+@media (max-width: 767px) {
+  .header-content {
+    height: 70px;
+  }
+  
+  .logo {
+    font-size: 20px;
+  }
+  
+  .logo span {
+    display: none;
+  }
 }
 
 .text-white {
