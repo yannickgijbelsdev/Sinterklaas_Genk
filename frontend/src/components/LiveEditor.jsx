@@ -286,22 +286,34 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   const showInsertionButton = (insertionPoint, afterElement) => {
     const btn = document.createElement('button');
     btn.className = 'insertion-button';
-    btn.innerHTML = '+ Blok Toevoegen';
+    btn.innerHTML = '➕ Nieuw Blok Toevoegen';
     btn.style.cssText = `
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #3b82f6;
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
       color: white;
       border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: 12px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
       z-index: 100;
+      transition: all 0.2s ease;
     `;
+    
+    btn.addEventListener('mouseenter', () => {
+      btn.style.transform = 'translate(-50%, -50%) scale(1.05)';
+      btn.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.4)';
+    });
+    
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(-50%, -50%) scale(1)';
+      btn.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)';
+    });
     
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
