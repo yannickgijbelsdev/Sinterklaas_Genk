@@ -327,54 +327,168 @@ h3 {
   border: 2px solid var(--brons);
 }
 
-/* Theater/Grote Zaal (Shows Section) */
+/* Luxe Theater/Salon */
 .stoomboot-theater {
-  background: linear-gradient(135deg, var(--sinterklaas-rood-dark) 0%, var(--sinterklaas-rood) 100%);
-  position: relative;
+  background: linear-gradient(135deg, var(--sinterklaas-rood-dark) 0%, var(--sinterklaas-rood) 50%, #4A0000 100%);
   background-image: 
-    radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.2) 0%, transparent 50%);
+    radial-gradient(ellipse at top, rgba(218, 165, 32, 0.1) 0%, transparent 60%),
+    repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(0,0,0,0.05) 82px);
+  position: relative;
 }
 
-.theater-gordijnen {
+/* Elegante Theater Gordijnen */
+.theater-gordijnen-systeem {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 50px;
-  background: linear-gradient(90deg, var(--sinterklaas-goud) 0%, var(--sinterklaas-goud-light) 50%, var(--sinterklaas-goud) 100%);
-  background-image: repeating-linear-gradient(90deg, transparent 0px, transparent 48px, rgba(0,0,0,0.1) 50px);
+  height: 80px;
+  background: linear-gradient(180deg, 
+    var(--sinterklaas-goud-dark) 0%, 
+    var(--sinterklaas-goud) 30%, 
+    var(--sinterklaas-goud-light) 50%,
+    var(--sinterklaas-goud) 70%,
+    var(--sinterklaas-goud-dark) 100%);
+  background-image: repeating-linear-gradient(90deg, 
+    transparent 0px, 
+    transparent 48px, 
+    rgba(0,0,0,0.2) 50px,
+    rgba(0,0,0,0.2) 52px);
+  box-shadow: 
+    inset 0 -10px 20px rgba(0,0,0,0.3),
+    0 5px 25px rgba(0,0,0,0.4);
+  border-bottom: 4px solid var(--gepolijst-koper);
 }
 
-.theater-spotlights {
+/* Gouden Gordijn Ringen */
+.gordijn-ring {
   position: absolute;
-  top: 60px;
+  width: 15px;
+  height: 20px;
+  background: radial-gradient(ellipse, var(--messing) 0%, var(--gepatineerd-koper) 100%);
+  border-radius: 50%;
+  top: 15px;
+  box-shadow: 
+    inset 0 2px 5px rgba(0,0,0,0.3),
+    0 2px 8px rgba(0,0,0,0.2);
+  border: 1px solid var(--brons);
+}
+
+.gordijn-ring:nth-child(1) { left: 10%; }
+.gordijn-ring:nth-child(2) { left: 20%; }
+.gordijn-ring:nth-child(3) { left: 30%; }
+.gordijn-ring:nth-child(4) { left: 40%; }
+.gordijn-ring:nth-child(5) { left: 50%; }
+.gordijn-ring:nth-child(6) { left: 60%; }
+.gordijn-ring:nth-child(7) { left: 70%; }
+.gordijn-ring:nth-child(8) { left: 80%; }
+.gordijn-ring:nth-child(9) { left: 90%; }
+
+/* Professionele Theater Verlichting */
+.theater-verlichting-systeem {
+  position: absolute;
+  top: 80px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 40px;
+  gap: 60px;
+  z-index: 5;
 }
 
-.spotlight {
-  width: 40px;
-  height: 60px;
-  background: var(--stoomboot-metaal);
-  border-radius: 20px 20px 5px 5px;
+.professionele-spotlight {
+  width: 50px;
+  height: 80px;
+  background: linear-gradient(180deg, var(--staal-geborsteld) 0%, var(--smeedijzer) 100%);
+  border-radius: 25px 25px 8px 8px;
   position: relative;
-  animation: spotlight 4s ease-in-out infinite alternate;
+  animation: spotlight-beweging 6s ease-in-out infinite alternate;
+  box-shadow: 
+    inset 0 5px 15px rgba(0,0,0,0.4),
+    0 8px 20px rgba(0,0,0,0.5);
+  border: 2px solid var(--gepatineerd-koper);
 }
 
-.spotlight::after {
-  content: '';
+.spotlight-lens {
   position: absolute;
-  bottom: -20px;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 15px;
+  background: radial-gradient(ellipse, rgba(255, 255, 180, 0.9) 0%, rgba(255, 255, 120, 0.6) 100%);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 20px rgba(255, 255, 180, 0.8),
+    0 0 40px rgba(255, 255, 120, 0.4);
+}
+
+.spotlight-straal {
+  position: absolute;
+  bottom: -40px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 30px solid transparent;
-  border-right: 30px solid transparent;
-  border-top: 40px solid rgba(255, 255, 200, 0.3);
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-top: 60px solid rgba(255, 255, 180, 0.15);
+  animation: licht-intensiteit 4s ease-in-out infinite alternate;
+}
+
+@keyframes spotlight-beweging {
+  0% { transform: rotate(-3deg); }
+  100% { transform: rotate(3deg); }
+}
+
+@keyframes licht-intensiteit {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Elegant Podium */
+.theater-podium {
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 40px;
+  background: linear-gradient(180deg, var(--teak-hout) 0%, var(--mahonie-hout) 100%);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 
+    inset 0 5px 15px rgba(0,0,0,0.3),
+    0 -5px 20px rgba(0,0,0,0.4);
+  border: 3px solid var(--gepolijst-koper);
+  border-bottom: none;
+}
+
+/* Zijbalkon Details */
+.theater-balkon {
+  position: absolute;
+  top: 25%;
+  width: 120px;
+  height: 200px;
+  background: linear-gradient(135deg, var(--mahonie-hout) 0%, var(--eiken-hout) 100%);
+  border: 4px solid var(--gepolijst-koper);
+  border-radius: 15px;
+  box-shadow: 
+    inset 0 0 20px rgba(0,0,0,0.2),
+    0 8px 25px rgba(0,0,0,0.4);
+}
+
+.theater-balkon.links { left: 5%; }
+.theater-balkon.rechts { right: 5%; }
+
+.balkon-reling {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  right: 10px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--gepolijst-koper) 0%, var(--brons) 100%);
+  border-radius: 20px;
+  box-shadow: 
+    inset 0 3px 8px rgba(0,0,0,0.3),
+    0 3px 10px rgba(0,0,0,0.2);
 }
 
 /* Machinekamer (Safety Section) */
