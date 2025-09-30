@@ -42,7 +42,7 @@ export default function Home() {
     language: fallbackShowInfo.language
   };
   
-  const featuredNews = news.slice(0, 2);
+  const featuredNews = news.slice(0, 3);
 
   return (
     <>
