@@ -203,6 +203,197 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
     };
   }, [isDirty, editMode]);
 
+  useEffect(() => {
+    if (editMode && canEdit) {
+      // Find and make all editable elements interactive
+      const editableElements = document.querySelectorAll('[data-editable="true"]');
+      
+      editableElements.forEach(element => {
+        const section = element.getAttribute('data-section') || pageKey;
+        const type = element.getAttribute('data-type') || 'text';
+        const key = element.getAttribute('data-key') || element.id || 'unknown';
+        
+        makeElementEditable(element, section, type, key);
+      });
+
+      // Add "Add Block" buttons between elements
+      addBlockInsertionPoints();
+    } else {
+      // Clean up toolbars when exiting edit mode
+      document.querySelectorAll('.live-editor-toolbar').forEach(tb => tb.remove());
+      document.querySelectorAll('.block-insertion-point').forEach(bip => bip.remove());
+    }
+  }, [editMode, canEdit, pageKey]);
+
+  // Add insertion points for new blocks
+  const addBlockInsertionPoints = () => {
+    // Remove existing insertion points
+    document.querySelectorAll('.block-insertion-point').forEach(bip => bip.remove());
+    
+    const editableElements = Array.from(document.querySelectorAll('[data-editable="true"]'));
+    
+    editableElements.forEach((element, index) => {
+      // Add insertion point after each element
+      const insertionPoint = document.createElement('div');
+      insertionPoint.className = 'block-insertion-point';
+      insertionPoint.style.cssText = `
+        height: 20px;
+        margin: 10px 0;
+        position: relative;
+        opacity: 0;
+        transition: opacity 0.2s;
+        border-top: 2px dashed transparent;
+      `;
+      
+      insertionPoint.addEventListener('mouseenter', () => {
+        insertionPoint.style.opacity = '1';
+        insertionPoint.style.borderTopColor = '#3b82f6';
+        showInsertionButton(insertionPoint, element);
+      });
+      
+      insertionPoint.addEventListener('mouseleave', () => {
+        insertionPoint.style.opacity = '0';
+        insertionPoint.style.borderTopColor = 'transparent';
+        hideInsertionButton();
+      });
+      
+      // Insert after the element
+      if (element.nextSibling) {
+        element.parentNode.insertBefore(insertionPoint, element.nextSibling);
+      } else {
+        element.parentNode.appendChild(insertionPoint);
+      }
+    });
+    
+    // Add insertion point at the very beginning
+    if (editableElements.length > 0) {
+      const firstElement = editableElements[0];
+      const firstInsertionPoint = document.createElement('div');
+      firstInsertionPoint.className = 'block-insertion-point';
+      firstInsertionPoint.style.cssText = `
+        height: 20px;
+        margin: 10px 0;
+        position: relative;
+        opacity: 0;
+        transition: opacity 0.2s;
+        border-top: 2px dashed transparent;
+      `;
+      
+      firstInsertionPoint.addEventListener('mouseenter', () => {
+        firstInsertionPoint.style.opacity = '1';
+        firstInsertionPoint.style.borderTopColor = '#3b82f6';
+        showInsertionButton(firstInsertionPoint, null);
+      });
+      
+      firstInsertionPoint.addEventListener('mouseleave', () => {
+        firstInsertionPoint.style.opacity = '0';
+        firstInsertionPoint.style.borderTopColor = 'transparent';
+        hideInsertionButton();
+      });
+      
+      firstElement.parentNode.insertBefore(firstInsertionPoint, firstElement);
+    }
+  };
+
+  // Show insertion button
+  const showInsertionButton = (insertionPoint, afterElement) => {
+    const btn = document.createElement('button');
+    btn.className = 'insertion-button';
+    btn.innerHTML = '+ Blok Toevoegen';
+    btn.style.cssText = `
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 100;
+    `;
+    
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showBlockTypeMenu(btn, afterElement);
+    });
+    
+    insertionPoint.appendChild(btn);
+  };
+
+  // Hide insertion button
+  const hideInsertionButton = () => {
+    document.querySelectorAll('.insertion-button').forEach(btn => btn.remove());
+  };
+
+  // Show block type selection menu
+  const showBlockTypeMenu = (button, afterElement) => {
+    const menu = document.createElement('div');
+    menu.className = 'block-type-menu';
+    menu.style.cssText = `
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 8px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+      min-width: 200px;
+    `;
+    
+    const blockTypes = [
+      { type: LIVE_BLOCK_TYPES.TEXT, icon: '📝', label: 'Tekst Paragraaf' },
+      { type: LIVE_BLOCK_TYPES.HEADING, icon: '🔤', label: 'Heading' },
+      { type: LIVE_BLOCK_TYPES.IMAGE, icon: '🖼️', label: 'Afbeelding' },
+      { type: LIVE_BLOCK_TYPES.BUTTON, icon: '🔘', label: 'Knop' },
+      { type: LIVE_BLOCK_TYPES.SPACER, icon: '↕️', label: 'Ruimte' },
+      { type: LIVE_BLOCK_TYPES.DIVIDER, icon: '➖', label: 'Scheidingslijn' }
+    ];
+    
+    blockTypes.forEach(({ type, icon, label }) => {
+      const option = document.createElement('div');
+      option.style.cssText = `
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+      `;
+      option.innerHTML = `${icon} ${label}`;
+      
+      option.addEventListener('mouseenter', () => {
+        option.style.backgroundColor = '#f3f4f6';
+      });
+      
+      option.addEventListener('mouseleave', () => {
+        option.style.backgroundColor = 'transparent';
+      });
+      
+      option.addEventListener('click', () => {
+        addNewBlock(type, { afterElement });
+        menu.remove();
+        hideInsertionButton();
+      });
+      
+      menu.appendChild(option);
+    });
+    
+    button.appendChild(menu);
+    
+    // Close menu when clicking outside
+    setTimeout(() => {
+      document.addEventListener('click', () => menu.remove(), { once: true });
+    }, 100);
+  };
+
   const handleAutoSave = async () => {
     if (!isDirty) {
       console.log('⚠️ No changes to save');
