@@ -479,16 +479,17 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
     toolbar.className = 'live-editor-toolbar';
     toolbar.style.cssText = `
       position: fixed;
-      top: ${rect.top - 40}px;
+      top: ${rect.top - 50}px;
       left: ${rect.left}px;
       z-index: 1000;
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 4px;
+      background: linear-gradient(135deg, #ffffff, #f8fafc);
+      border: 2px solid #3b82f6;
+      border-radius: 12px;
+      padding: 8px;
       display: flex;
-      gap: 2px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      gap: 4px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      animation: slideDown 0.2s ease-out;
     `;
     
     // Add toolbar buttons
