@@ -76,72 +76,28 @@ export default function Home() {
     <div>
       
       {/* Hero Section */}
-      <section id="hero" className="hero" style={{ backgroundColor: '#FFFDF8', minHeight: '80vh', display: 'flex', alignItems: 'center' }}>
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
-          <div className="hero-content" style={{ textAlign: 'center' }}>
-            <div className="eyebrow" style={{ fontSize: '14px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#FF9F47', marginBottom: '12px' }}>
-              Parenting made easy
-            </div>
-            <h1 style={{ fontSize: '56px', fontWeight: '800', lineHeight: '1.1', letterSpacing: '-0.02em', marginBottom: '24px', color: '#2E3A2F' }}>
-              Stay worry-free with Camp Buddy
-            </h1>
-            <p className="hero-subtitle" style={{ fontSize: '20px', color: '#666', marginBottom: '32px', maxWidth: '600px', margin: '0 auto 32px' }}>
-              Connect with trusted, verified summer camps that match your child's interests and your family's needs.
+      <section id="hero" className="hero">
+        <div className="container">
+          <div className="hero-content">
+            <div className="eyebrow">Ho ho ho, welkom!</div>
+            <h1>De Magische Sinterklaas Show in Genk</h1>
+            <p className="hero-subtitle">
+              Beleef samen met je kinderen de meest interactieve en magische Sinterklaasshow van België. 
+              Vol verrassingen, liedjes en natuurlijk echte magie!
             </p>
-            <div className="hero-ctas" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button className="btn btn-primary" style={{ 
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '16px 32px',
-                borderRadius: '50px',
-                fontSize: '16px',
-                fontWeight: '600',
-                textDecoration: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap',
-                background: '#FF9F47',
-                color: 'white',
-                boxShadow: '0 8px 32px rgba(46, 58, 47, 0.08)'
-              }}>
-                <Play size={20} />
-                Start a demo
+            <div className="hero-ctas">
+              <button className="btn btn-primary">
+                <Gift size={20} />
+                Reserveer Tickets
               </button>
-              <button className="btn btn-secondary" style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '16px 32px',
-                borderRadius: '50px',
-                fontSize: '16px',
-                fontWeight: '600',
-                textDecoration: 'none',
-                border: '2px solid #1F4A33',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap',
-                background: 'transparent',
-                color: '#1F4A33'
-              }}>
-                <Download size={20} />
-                Get the app
+              <button className="btn btn-secondary">
+                <Calendar size={20} />
+                Bekijk Data
               </button>
             </div>
           </div>
           
-          <div className="hero-illustration" style={{
-            position: 'relative',
-            height: '400px',
-            background: 'linear-gradient(135deg, #E8F5E8 0%, #D4F1D4 100%)',
-            borderRadius: '24px 24px 0 0',
-            overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 -20px'
-          }}>
+          <div className="hero-illustration">
             <div style={{
               fontSize: '120px',
               display: 'flex',
@@ -150,25 +106,18 @@ export default function Home() {
               justifyContent: 'center',
               flexWrap: 'wrap'
             }}>
-              <span>🏕️</span>
-              <span>🔥</span>
+              <span>🎅</span>
+              <span>🎁</span>
               <span>👧</span>
               <span>👦</span>
-              <span>🏔️</span>
+              <span>⭐</span>
             </div>
-            {/* Wavy separator */}
-            <div style={{
-              position: 'absolute',
-              bottom: '-2px',
-              left: 0,
-              right: 0,
-              height: '60px',
-              background: '#2E3A2F',
-              clipPath: 'ellipse(100% 100% at 50% 0%)'
-            }}></div>
           </div>
         </div>
       </section>
+
+      {/* Golvende Separator */}
+      <div className="wavy-separator"></div>
 
       {/* About Section */}
       <section id="about" className="section section-dark section-padding">
