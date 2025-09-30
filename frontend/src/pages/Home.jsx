@@ -116,9 +116,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Golvende Separator */}
-      <div className="wavy-separator"></div>
-
       {/* Over Ons Section */}
       <section id="about" className="section section-dark section-padding">
         <div className="container">
@@ -180,7 +177,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Golvende Separator Goud */}
+      {/* Speelse Golvende Separator Goud */}
       <div className="wavy-separator-gold"></div>
 
       {/* Shows Section */}
