@@ -489,7 +489,7 @@ function PropertiesPanel({ selectedBlock, onUpdateBlock }) {
             <Button
               size="sm"
               variant={selectedBlock.style?.fontStyle === 'italic' ? 'default' : 'outline'}
-              onClick={() => updateStyle('fontStyle', selectedBlock.style?.fontStyle === 'italic' : 'normal' : 'italic')}
+              onClick={() => updateStyle('fontStyle', selectedBlock.style?.fontStyle === 'italic' ? 'normal' : 'italic')}
             >
               <em>I</em>
             </Button>
