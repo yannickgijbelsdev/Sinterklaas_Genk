@@ -119,20 +119,20 @@ export default function Home() {
       {/* Golvende Separator */}
       <div className="wavy-separator"></div>
 
-      {/* About Section */}
+      {/* Over Ons Section */}
       <section id="about" className="section section-dark section-padding">
         <div className="container">
           <div className="two-column">
             <div>
-              <div className="eyebrow text-white">About us</div>
-              <h2 className="text-white mb-8">What's Camp Buddy?</h2>
+              <div className="eyebrow text-white">Over Sinterklaas Genk</div>
+              <h2 className="text-white mb-8">Wat maakt onze show zo speciaal?</h2>
               <p className="text-white mb-8" style={{ opacity: 0.9 }}>
-                Camp Buddy is the trusted platform that connects families with verified summer camps. 
-                We make finding the perfect camp experience simple, safe, and stress-free for both 
-                parents and children.
+                Al meer dan 15 jaar brengen wij de magie van Sinterklaas tot leven in Genk. 
+                Onze interactieve shows zorgen ervoor dat elk kind zich de hoofdpersoon voelt 
+                van dit magische verhaal.
               </p>
-              <button className="btn btn-secondary-white">
-                Learn more
+              <button className="btn btn-outline-white">
+                Leer meer over ons
                 <ArrowRight size={20} />
               </button>
             </div>
@@ -140,44 +140,48 @@ export default function Home() {
             <div>
               <div className="card card-white" style={{ height: '320px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ fontSize: '80px', textAlign: 'center' }}>
-                  👩‍🏫👧👦
+                  🎅👧👦
                   <div style={{ fontSize: '16px', marginTop: '16px', color: '#666' }}>
-                    Kids + Counselor Illustration
+                    Sinterklaas met blije kinderen
                   </div>
                 </div>
               </div>
             </div>
           </div>
           
-          {/* Camp Granite Lake Card */}
+          {/* Show Highlight Card */}
           <div className="mt-16">
-            <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+            <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '32px', background: 'var(--warm-white)' }}>
               <div style={{ flex: 1 }}>
-                <h3 style={{ marginBottom: '16px' }}>Camp Granite Lake</h3>
+                <div className="sinterklaas-badge">Populairste Show</div>
+                <h3 style={{ marginBottom: '16px', color: 'var(--sinterklaas-rood)' }}>De Grote Sinterklaasavond</h3>
                 <p style={{ marginBottom: '24px', color: '#666' }}>
-                  Experience nature's beauty with hiking, fishing, and campfire stories. 
-                  Perfect for adventurous kids ages 8-14.
+                  Onze meest uitgebreide show vol interactie, verrassingen en natuurlijk 
+                  een bezoek van de échte Sinterklaas met zijn Pieten. Perfect voor het hele gezin!
                 </p>
                 <button className="btn btn-primary">
-                  Request discovery detail
+                  Reserveer nu
                 </button>
               </div>
               <div style={{ 
                 width: '200px', 
                 height: '150px', 
-                background: 'linear-gradient(135deg, #E8F5E8 0%, #D4F1D4 100%)',
+                background: 'linear-gradient(135deg, var(--sinterklaas-goud-light) 0%, var(--sinterklaas-goud) 100%)',
                 borderRadius: '16px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '48px'
               }}>
-                🌲⛺
+                🎭🎪
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Golvende Separator Goud */}
+      <div className="wavy-separator-gold"></div>
 
       {/* Features Section */}
       <section id="features" className="section section-light section-padding">
