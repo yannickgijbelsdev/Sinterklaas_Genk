@@ -86,10 +86,15 @@ export default function Home() {
 
   if (!appReady) {
     return (
-      <MagicCurtain 
-        isLoading={showCurtain} 
-        onAnimationComplete={() => setShowCurtain(false)}
-      />
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #FFE7D3 0%, #FAD9BE 100%)'
+      }}>
+        <div>Loading Camp Buddy...</div>
+      </div>
     );
   }
 
