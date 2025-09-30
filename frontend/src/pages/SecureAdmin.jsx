@@ -1049,14 +1049,18 @@ export default function SecureAdmin() {
           </Button>
         </div>
 
-        <Tabs defaultValue="news" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+        <Tabs defaultValue="website-builder" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-5">
+            <TabsTrigger value="website-builder" className="flex items-center gap-2">
+              <Settings size={16} />
+              Website Builder
+            </TabsTrigger>
             <TabsTrigger value="news" className="flex items-center gap-2">
               <FileText size={16} />
               Nieuws
             </TabsTrigger>
             <TabsTrigger value="newsletter" className="flex items-center gap-2">
-              <Settings size={16} />
+              <Mail size={16} />
               Newsletter
             </TabsTrigger>
             <TabsTrigger value="users" className="flex items-center gap-2">
@@ -1065,7 +1069,7 @@ export default function SecureAdmin() {
             </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings size={16} />
-              Instellingen
+              Site Settings
             </TabsTrigger>
           </TabsList>
 
