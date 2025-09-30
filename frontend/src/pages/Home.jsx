@@ -14,7 +14,6 @@ export default function Home() {
   const [showCurtain, setShowCurtain] = useState(true);
   const [appReady, setAppReady] = useState(false);
   const { data: newsData } = useNews();
-  const { data: showsData } = useShows();
   const { data: contentData } = useContent();
 
   useEffect(() => {
