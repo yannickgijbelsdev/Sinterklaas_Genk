@@ -48,18 +48,8 @@ export const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Snelle Links</h3>
             <ul className="space-y-2 text-gray-300">
               <li>
-                <Link to="/about" className="hover:text-white transition-colors duration-200">
-                  Over de Show
-                </Link>
-              </li>
-              <li>
-                <Link to="/characters" className="hover:text-white transition-colors duration-200">
-                  Karakters
-                </Link>
-              </li>
-              <li>
-                <Link to="/shows" className="hover:text-white transition-colors duration-200">
-                  Data & Locaties
+                <Link to="/" className="hover:text-white transition-colors duration-200">
+                  Home
                 </Link>
               </li>
               <li>
@@ -70,6 +60,11 @@ export const Footer = () => {
               <li>
                 <Link to="/news" className="hover:text-white transition-colors duration-200">
                   Nieuws
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-white transition-colors duration-200">
+                  Contact
                 </Link>
               </li>
             </ul>
