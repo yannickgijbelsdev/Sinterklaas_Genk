@@ -5,6 +5,7 @@ import { Card, CardContent } from '../components/ui/card';
 import { LiveEditor } from '../components/LiveEditor';
 import { MagicCurtain } from '../components/MagicCurtain';
 import { StoombootBanner } from '../components/StoombootBanner';
+import { ScrollIndicator } from '../components/ScrollIndicator';
 import { showInfo as fallbackShowInfo, news as fallbackNews } from '../data/mock';
 import { useNews, useContent, getContentValue } from '../hooks/useApi';
 import '../styles/sinterklaas-theme.css';
