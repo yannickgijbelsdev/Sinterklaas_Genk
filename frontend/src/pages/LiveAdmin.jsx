@@ -39,9 +39,6 @@ export default function LiveAdmin() {
 
   const pages = [
     { key: 'home', name: 'Home', icon: HomeIcon, component: Home },
-    { key: 'about', name: 'Over de Show', icon: Info, component: About },
-    { key: 'characters', name: 'Karakters', icon: Users, component: Characters },
-    { key: 'shows', name: 'Shows', icon: Calendar, component: Shows },
     { key: 'gallery', name: 'Galerij', icon: ImageIcon, component: Gallery },
     { key: 'news', name: 'Nieuws', icon: FileText, component: News },
     { key: 'contact', name: 'Contact', icon: Mail, component: Contact }
