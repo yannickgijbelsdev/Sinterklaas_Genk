@@ -11,7 +11,6 @@ export default function Home() {
   const [showCurtain, setShowCurtain] = useState(true);
   const [appReady, setAppReady] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
-  const { data: newsData } = useNews();
 
   useEffect(() => {
     const timer = setTimeout(() => {
