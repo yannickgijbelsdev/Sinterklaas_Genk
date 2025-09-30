@@ -588,64 +588,184 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Machinekamer - Safety Section */}
+      {/* Authentieke Machinekamer - Safety Section */}
       <section id="safety" className="stoomboot-section stoomboot-machinekamer">
-        <div className="machine-onderdelen">
+        <div className="machinekamer-installaties">
           <div 
-            className="machine verhaal-element"
+            className="stoomketel-complex verhaal-element"
             onClick={() => setActivePopup('machine')}
-            title="Klik op de cadeau-machine!"
-          />
+            title="Klik op de stoomketel!"
+          >
+            <div className="ketel-bovenkant"></div>
+            <div className="druk-meter">
+              <div className="meter-wijzer"></div>
+            </div>
+            <div className="ketel-ventielen">
+              <div className="ventiel"></div>
+              <div className="ventiel"></div>
+              <div className="ventiel"></div>
+            </div>
+          </div>
+          
           <div 
-            className="machine verhaal-element"
+            className="stoomketel-complex verhaal-element"
             onClick={() => setActivePopup('machine')}
-          />
+            style={{ animationDelay: '0.5s' }}
+          >
+            <div className="ketel-bovenkant"></div>
+            <div className="druk-meter">
+              <div className="meter-wijzer" style={{ animationDelay: '0.7s' }}></div>
+            </div>
+            <div className="ketel-ventielen">
+              <div className="ventiel"></div>
+              <div className="ventiel"></div>
+            </div>
+          </div>
+          
           <div 
-            className="machine verhaal-element"
+            className="stoomketel-complex verhaal-element"
             onClick={() => setActivePopup('machine')}
-          />
+            style={{ animationDelay: '1s' }}
+          >
+            <div className="ketel-bovenkant"></div>
+            <div className="druk-meter">
+              <div className="meter-wijzer" style={{ animationDelay: '1.3s' }}></div>
+            </div>
+            <div className="ketel-ventielen">
+              <div className="ventiel"></div>
+              <div className="ventiel"></div>
+              <div className="ventiel"></div>
+              <div className="ventiel"></div>
+            </div>
+          </div>
+          
+          <div 
+            className="stoomketel-complex verhaal-element"
+            onClick={() => setActivePopup('machine')}
+            style={{ animationDelay: '1.5s' }}
+          >
+            <div className="ketel-bovenkant"></div>
+            <div className="druk-meter">
+              <div className="meter-wijzer" style={{ animationDelay: '2s' }}></div>
+            </div>
+            <div className="ketel-ventielen">
+              <div className="ventiel"></div>
+              <div className="ventiel"></div>
+            </div>
+          </div>
         </div>
         
-        <div className="stoom-pijpen">
-          <div className="pijp"></div>
-          <div className="pijp" style={{ height: '180px' }}></div>
-          <div className="pijp" style={{ height: '220px' }}></div>
+        <div className="stoom-leidingen-complex">
+          <div className="stoom-leiding">
+            <div className="stoom-uitlaat"></div>
+            <div className="temperatuur-indicator"></div>
+          </div>
+          <div className="stoom-leiding">
+            <div className="stoom-uitlaat" style={{ animationDelay: '1s' }}></div>
+            <div className="temperatuur-indicator"></div>
+          </div>
+          <div className="stoom-leiding">
+            <div className="stoom-uitlaat" style={{ animationDelay: '2s' }}></div>
+            <div className="temperatuur-indicator"></div>
+          </div>
+          <div className="stoom-leiding">
+            <div className="stoom-uitlaat" style={{ animationDelay: '0.5s' }}></div>
+            <div className="temperatuur-indicator"></div>
+          </div>
+        </div>
+        
+        <div className="kolen-oven">
+          <div className="oven-deur"></div>
         </div>
 
         <div className="container">
-          {/* Piet Engineer */}
+          {/* Professionele Techniek-Piet */}
           <div 
             className="piet-character"
-            style={{ top: '30%', left: '15%', fontSize: '70px' }}
+            style={{ 
+              top: '35%', 
+              left: '18%', 
+              fontSize: '80px',
+              filter: 'drop-shadow(0 12px 25px rgba(0,0,0,0.8))'
+            }}
           >
             👨‍🔧
           </div>
 
-          <div className="scroll-reveal" style={{ color: 'white', maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
-            <div style={{ fontSize: '20px', marginBottom: '15px', opacity: 0.8 }}>
+          <div className="scroll-reveal" style={{ color: 'white', maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+            <div style={{ 
+              fontSize: '24px', 
+              marginBottom: '20px', 
+              opacity: 0.9,
+              textShadow: '0 4px 15px rgba(0,0,0,0.9)',
+              fontFamily: 'Playfair Display, serif',
+              fontStyle: 'italic'
+            }}>
               ⚙️ In de Machinekamer
             </div>
-            <h2 style={{ color: 'white', marginBottom: '30px' }}>
-              Hier Gebeurt de Magie!
+            <h2 style={{ 
+              color: 'white', 
+              marginBottom: '35px',
+              textShadow: '0 6px 20px rgba(0,0,0,0.9)',
+              fontSize: '42px',
+              fontFamily: 'Playfair Display, serif'
+            }}>
+              Hart van de Stoomboot
             </h2>
-            <p style={{ fontSize: '20px', marginBottom: '40px', lineHeight: 1.7 }}>
-              In de machinekamer werken de Techniek-Pieten hard om alle cadeautjes te maken 
-              en de stoomboot soepel te laten varen. Elke machine heeft een speciale functie!
+            <p style={{ 
+              fontSize: '22px', 
+              marginBottom: '45px', 
+              lineHeight: 1.8,
+              textShadow: '0 3px 12px rgba(0,0,0,0.8)'
+            }}>
+              In deze authentieke machinekamer werken de Techniek-Pieten met precisie aan de 
+              geavanceerde stoomketels en systemen die onze luxueuze stoomboot aandrijven. 
+              Elke machine heeft een speciale functie in het magische proces!
             </p>
             
-            {/* Safety Features */}
-            <div style={{ background: 'rgba(245, 158, 11, 0.1)', padding: '30px', borderRadius: '20px', marginBottom: '30px' }}>
-              <h3 style={{ color: 'var(--sinterklaas-goud)', marginBottom: '20px' }}>🔧 Veiligheid Voorop</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', textAlign: 'left' }}>
+            {/* Premium Safety Features */}
+            <div style={{ 
+              background: 'rgba(218, 165, 32, 0.12)', 
+              padding: '35px', 
+              borderRadius: '25px', 
+              marginBottom: '40px',
+              border: '3px solid rgba(218, 165, 32, 0.2)',
+              backdropFilter: 'blur(15px)'
+            }}>
+              <h3 style={{ 
+                color: 'var(--sinterklaas-goud-light)', 
+                marginBottom: '25px', 
+                fontSize: '28px',
+                textShadow: '0 3px 12px rgba(0,0,0,0.8)',
+                fontFamily: 'Playfair Display, serif'
+              }}>
+                🔧 Premium Veiligheid & Kwaliteit
+              </h3>
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+                gap: '25px', 
+                textAlign: 'left' 
+              }}>
                 {[
-                  '✅ Alle machines regelmatig gecontroleerd',
-                  '✅ Ervaren Techniek-Pieten aan het werk',
-                  '✅ Magische veiligheidssystemen actief',
-                  '✅ 24/7 monitoring van alle processen',
-                  '✅ Kinderen altijd begeleid door experts',
-                  '✅ Moderne uitrusting met Sinterklaas magie'
+                  '✅ Alle stoomketels dagelijks geïnspecteerd door gecertificeerde ingenieurs',
+                  '✅ Ervaren Techniek-Pieten met 15+ jaar scheepvaart ervaring',
+                  '✅ Geavanceerde druk- en temperatuurmonitoring systemen',
+                  '✅ 24/7 monitoring van alle kritieke scheepssystemen',
+                  '✅ Kinderen altijd begeleid door gekwalificeerde bemanningsleden',
+                  '✅ Moderne veiligheidssystemen gecombineerd met traditionele vakmanschap'
                 ].map((item, index) => (
-                  <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div 
+                    key={index} 
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'flex-start', 
+                      gap: '12px',
+                      fontSize: '18px',
+                      lineHeight: 1.6,
+                      textShadow: '0 2px 8px rgba(0,0,0,0.7)'
+                    }}
+                  >
                     <span>{item}</span>
                   </div>
                 ))}
