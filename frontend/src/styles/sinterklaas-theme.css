@@ -1,31 +1,31 @@
-/* Sinterklaas Theme - Inspired by Camp Buddy Design with Red & Gold Colors */
+/* Sinterklaas One-Pager Theme - No Gradients, Smooth Animations */
 
 :root {
-  /* Primary Sinterklaas Colors */
-  --sinterklaas-red: #DC2626;          /* Deep red */
-  --sinterklaas-red-light: #EF4444;    /* Lighter red */
-  --sinterklaas-red-dark: #B91C1C;     /* Darker red */
-  --sinterklaas-gold: #F59E0B;         /* Rich gold */
-  --sinterklaas-gold-light: #FBBF24;   /* Light gold */
-  --sinterklaas-gold-dark: #D97706;    /* Dark gold */
+  /* Primary Sinterklaas Colors - Solid Colors Only */
+  --sinterklaas-red: #DC2626;          
+  --sinterklaas-red-light: #EF4444;    
+  --sinterklaas-red-dark: #B91C1C;     
+  --sinterklaas-gold: #F59E0B;         
+  --sinterklaas-gold-light: #FBBF24;   
+  --sinterklaas-gold-dark: #D97706;    
   
   /* Background & Text Colors */
-  --background-warm: #FEF7ED;          /* Warm cream background */
-  --background-white: #FFFFFF;         /* Pure white */
-  --background-light: #FEF3C7;         /* Light golden background */
-  --text-dark: #1F2937;               /* Dark text */
-  --text-medium: #4B5563;             /* Medium gray text */
-  --text-light: #6B7280;              /* Light gray text */
+  --background-warm: #FEF7ED;          
+  --background-white: #FFFFFF;         
+  --background-light: #FEF3C7;         
+  --text-dark: #1F2937;               
+  --text-medium: #4B5563;             
+  --text-light: #6B7280;              
   
   /* Accent Colors */
-  --accent-orange: #EA580C;           /* Warm orange */
-  --accent-yellow: #EAB308;           /* Bright yellow */
-  --success-green: #059669;           /* Success green */
-  
-  /* Gradients */
-  --gradient-warm: linear-gradient(135deg, var(--background-warm) 0%, var(--background-light) 100%);
-  --gradient-gold: linear-gradient(135deg, var(--sinterklaas-gold-light) 0%, var(--sinterklaas-gold) 100%);
-  --gradient-red: linear-gradient(135deg, var(--sinterklaas-red-light) 0%, var(--sinterklaas-red) 100%);
+  --accent-orange: #EA580C;           
+  --accent-yellow: #EAB308;           
+  --success-green: #059669;           
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
 }
 
 /* Global Styles */
@@ -34,9 +34,10 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: var(--text-dark);
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* Typography Enhancements */
+/* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   color: var(--text-dark);
@@ -46,10 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero-title {
   font-size: 3.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--sinterklaas-red), var(--sinterklaas-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--sinterklaas-red);
   line-height: 1.1;
 }
 
@@ -66,12 +64,107 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 3rem;
 }
 
-/* Card Styles - Inspired by Camp Buddy */
+/* Smooth Section Transitions */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: all 0.8s ease-in-out;
+}
+
+.section:nth-child(even) {
+  background-color: var(--background-white);
+}
+
+.section:nth-child(odd) {
+  background-color: var(--background-light);
+}
+
+/* Stoomboot Animation */
+.stoomboot-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.stoomboot {
+  width: 300px;
+  height: 150px;
+  position: relative;
+  animation: float 4s ease-in-out infinite;
+}
+
+.stoomboot-body {
+  width: 200px;
+  height: 60px;
+  background: var(--sinterklaas-red);
+  border-radius: 0 30px 30px 0;
+  position: relative;
+  bottom: 0;
+}
+
+.stoomboot-cabin {
+  width: 80px;
+  height: 40px;
+  background: var(--sinterklaas-gold);
+  position: absolute;
+  top: -40px;
+  left: 20px;
+  border-radius: 5px;
+}
+
+.stoomboot-chimney {
+  width: 12px;
+  height: 30px;
+  background: #333;
+  position: absolute;
+  top: -70px;
+  left: 60px;
+  border-radius: 2px;
+}
+
+/* Rook animatie */
+.smoke {
+  position: absolute;
+  top: -100px;
+  left: 65px;
+  width: 6px;
+  height: 6px;
+  background: #ccc;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: smoke-rise 3s infinite ease-out;
+}
+
+.smoke:nth-child(2) { animation-delay: 0.5s; }
+.smoke:nth-child(3) { animation-delay: 1s; }
+.smoke:nth-child(4) { animation-delay: 1.5s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+  50% { transform: translateY(-10px) rotateZ(1deg); }
+}
+
+@keyframes smoke-rise {
+  0% {
+    opacity: 0.7;
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px) translateX(20px) scale(1.5);
+  }
+}
+
+/* Card Styles - No Gradients */
 .sinterklaas-card {
   background: var(--background-white);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.1), 0 10px 10px -5px rgba(220, 38, 38, 0.04);
+  box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.1);
   border: 2px solid transparent;
   transition: all 0.3s ease;
   position: relative;
@@ -85,18 +178,18 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   height: 4px;
-  background: var(--gradient-gold);
+  background: var(--sinterklaas-gold);
 }
 
 .sinterklaas-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px -10px rgba(220, 38, 38, 0.15), 0 10px 10px -5px rgba(220, 38, 38, 0.08);
+  box-shadow: 0 20px 40px -10px rgba(220, 38, 38, 0.15);
   border-color: var(--sinterklaas-gold-light);
 }
 
-/* Button Styles */
+/* Button Styles - No Gradients */
 .btn-sinterklaas-primary {
-  background: var(--gradient-red);
+  background: var(--sinterklaas-red);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -105,34 +198,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.1rem;
   box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  cursor: pointer;
 }
 
 .btn-sinterklaas-primary:hover {
+  background: var(--sinterklaas-red-dark);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
   color: white;
 }
 
-.btn-sinterklaas-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s;
-}
-
-.btn-sinterklaas-primary:hover::before {
-  left: 100%;
-}
-
 .btn-sinterklaas-secondary {
-  background: var(--gradient-gold);
-  color: var(--text-dark);
+  background: var(--sinterklaas-gold);
+  color: white;
   border: none;
   padding: 1rem 2rem;
   border-radius: 15px;
@@ -140,12 +218,14 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.1rem;
   box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .btn-sinterklaas-secondary:hover {
+  background: var(--sinterklaas-gold-dark);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
-  color: var(--text-dark);
+  color: white;
 }
 
 .btn-sinterklaas-outline {
@@ -157,6 +237,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   font-size: 1.1rem;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .btn-sinterklaas-outline:hover {
@@ -166,20 +247,43 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
 }
 
-/* Section Backgrounds */
-.section-warm-background {
-  background: var(--gradient-warm);
-  position: relative;
+/* Navigation Styles */
+.sinterklaas-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--background-light);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
-.section-white-background {
-  background: var(--background-white);
-  position: relative;
+.nav-link {
+  color: var(--text-dark);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.section-gold-background {
-  background: linear-gradient(135deg, var(--background-light) 0%, var(--sinterklaas-gold-light) 20%, var(--background-light) 100%);
+.nav-link:hover,
+.nav-link.active {
+  background: var(--sinterklaas-red);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero-section {
+  background: var(--background-warm);
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-top: 80px;
 }
 
 /* Decorative Elements */
@@ -193,39 +297,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .sinterklaas-decoration:nth-child(odd) {
   animation-delay: -3s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
-}
-
-/* Header Updates */
-.sinterklaas-header {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--background-light);
-}
-
-/* Hero Section */
-.sinterklaas-hero {
-  background: var(--gradient-warm);
-  position: relative;
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.sinterklaas-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f59e0b' fill-opacity='0.05' %3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
-  opacity: 0.5;
 }
 
 /* News/Content Cards */
@@ -246,7 +317,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .news-card .news-image {
   height: 200px;
-  background: var(--gradient-gold);
+  background: var(--sinterklaas-gold-light);
   position: relative;
   overflow: hidden;
 }
@@ -293,17 +364,28 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 8px 25px rgba(220, 38, 38, 0.2);
 }
 
-.gallery-item::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(45deg, var(--sinterklaas-red), var(--sinterklaas-gold));
-  opacity: 0;
-  transition: opacity 0.3s ease;
+/* Smooth Scroll Indicator */
+.scroll-indicator {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 1000;
 }
 
-.gallery-item:hover::after {
-  opacity: 0.1;
+.scroll-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sinterklaas-gold);
+  margin: 10px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scroll-dot.active {
+  background: var(--sinterklaas-red);
+  transform: scale(1.5);
 }
 
 /* Responsive Design */
@@ -319,26 +401,13 @@ h1, h2, h3, h4, h5, h6 {
   .sinterklaas-card {
     padding: 1.5rem;
   }
-}
-
-/* Animation Utilities */
-@keyframes shine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.shine-effect {
-  position: relative;
-  overflow: hidden;
-}
-
-.shine-effect::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  animation: shine 3s infinite;
+  
+  .stoomboot {
+    width: 200px;
+    height: 100px;
+  }
+  
+  .scroll-indicator {
+    display: none;
+  }
 }
