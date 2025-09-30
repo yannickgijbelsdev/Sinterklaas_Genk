@@ -528,16 +528,29 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
       btn.innerHTML = icon;
       btn.title = title;
       btn.style.cssText = `
-        padding: 6px 8px;
-        border: none;
+        padding: 8px 12px;
+        border: 1px solid #e5e7eb;
         background: white;
         cursor: pointer;
-        border-radius: 4px;
-        font-size: 14px;
+        border-radius: 6px;
+        font-size: 16px;
         line-height: 1;
+        transition: all 0.2s ease;
+        min-width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       `;
-      btn.addEventListener('mouseenter', () => btn.style.backgroundColor = '#f3f4f6');
-      btn.addEventListener('mouseleave', () => btn.style.backgroundColor = 'white');
+      btn.addEventListener('mouseenter', () => {
+        btn.style.backgroundColor = '#3b82f6';
+        btn.style.borderColor = '#3b82f6';
+        btn.style.transform = 'scale(1.1)';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.backgroundColor = 'white';
+        btn.style.borderColor = '#e5e7eb';
+        btn.style.transform = 'scale(1)';
+      });
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         action();
