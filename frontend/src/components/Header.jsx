@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, LogOut, TreePine, Globe } from 'lucide-react';
+import { Menu, X, LogOut, Gift, Globe } from 'lucide-react';
 import { Button } from './ui/button';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -17,13 +17,13 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Camp Buddy navigation items
+  // Sinterklaas Genk navigation items
   const navigationItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Features', href: '#features' },
-    { name: 'Safety', href: '#safety' },
+    { name: 'Over Ons', href: '#about' },
+    { name: 'Shows', href: '#shows' },
+    { name: 'Veiligheid', href: '#safety' },
     { name: 'FAQ', href: '#faq' },
-    { name: 'Blog', href: '#blog' }
+    { name: 'Nieuws', href: '#news' }
   ];
 
   const adminNavigationItems = [
@@ -54,8 +54,8 @@ export const Header = () => {
         <div className="header-content">
           {/* Logo */}
           <div className="logo" onClick={() => smoothScrollTo('#hero')}>
-            <TreePine size={28} color="#1F4A33" />
-            <span>Camp Buddy</span>
+            <Gift size={28} color="#DC2626" />
+            <span>Sinterklaas Genk</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -75,26 +75,26 @@ export const Header = () => {
           <div className="header-ctas">
             <Globe size={20} className="text-gray-500 cursor-pointer" />
             <button 
-              onClick={() => smoothScrollTo('#demo')}
-              className="btn btn-secondary"
+              onClick={() => smoothScrollTo('#reserveer')}
+              className="btn btn-outline"
               style={{ padding: '12px 24px', fontSize: '14px' }}
             >
-              Schedule a demo
+              Reserveer Nu
             </button>
             <button 
-              onClick={() => smoothScrollTo('#app')}
+              onClick={() => smoothScrollTo('#contact')}
               className="btn btn-primary"
               style={{ padding: '12px 24px', fontSize: '14px' }}
             >
-              Get the app
+              Contact
             </button>
           </div>
 
           {/* Admin info and logout */}
           {isAuthenticated() && isAdmin() && (
             <div className="hidden md:flex items-center space-x-4">
-              <div className="bg-orange-100 px-3 py-1 rounded-full">
-                <span className="text-sm font-medium text-orange-700">
+              <div className="bg-red-100 px-3 py-1 rounded-full">
+                <span className="text-sm font-medium text-red-700">
                   👋 {user?.username}
                 </span>
               </div>
@@ -102,7 +102,7 @@ export const Header = () => {
                 variant="ghost"
                 size="sm"
                 onClick={logout}
-                className="text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-xl"
+                className="text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl"
               >
                 <LogOut size={16} />
               </Button>
@@ -125,28 +125,28 @@ export const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-100">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-yellow-100">
               {allNavigationItems.map((item) => (
                 <button
                   key={item.href}
                   onClick={() => smoothScrollTo(item.href)}
-                  className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-orange-600"
+                  className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-red-600"
                 >
                   {item.name}
                 </button>
               ))}
               <div className="pt-4 pb-2 space-y-2">
                 <button 
-                  onClick={() => smoothScrollTo('#demo')}
-                  className="btn btn-secondary w-full"
+                  onClick={() => smoothScrollTo('#reserveer')}
+                  className="btn btn-outline w-full"
                 >
-                  Schedule a demo
+                  Reserveer Nu
                 </button>
                 <button 
-                  onClick={() => smoothScrollTo('#app')}
+                  onClick={() => smoothScrollTo('#contact')}
                   className="btn btn-primary w-full"
                 >
-                  Get the app
+                  Contact
                 </button>
               </div>
             </div>
