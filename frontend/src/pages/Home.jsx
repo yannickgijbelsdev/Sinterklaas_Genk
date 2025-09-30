@@ -11,387 +11,501 @@ import '../styles/camp-buddy-theme.css';
 export default function Home() {
   const [showCurtain, setShowCurtain] = useState(true);
   const [appReady, setAppReady] = useState(false);
+  const [openFaq, setOpenFaq] = useState(0);
   const { data: newsData } = useNews();
-  const { data: contentData } = useContent();
 
   useEffect(() => {
-    // Simulate app loading time
     const timer = setTimeout(() => {
+      setShowCurtain(false);
       setAppReady(true);
-    }, 1000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
 
-  const handleCurtainComplete = () => {
-    setShowCurtain(false);
-  };
-  
-  // Use API data or fallback to mock data
-  const news = newsData || fallbackNews;
-  
-  // Create dynamic showInfo from database content
-  const showInfo = {
-    title: getContentValue(contentData, 'hero', 'title', fallbackShowInfo.title),
-    subtitle: getContentValue(contentData, 'hero', 'subtitle', fallbackShowInfo.subtitle),
-    description: getContentValue(contentData, 'hero', 'description', fallbackShowInfo.description),
-    heroImage: getContentValue(contentData, 'hero', 'background_image', fallbackShowInfo.heroImage),
-    duration: fallbackShowInfo.duration,
-    ageRange: fallbackShowInfo.ageRange,
-    language: fallbackShowInfo.language
-  };
-  
-  const featuredNews = news.slice(0, 3);
+  const faqItems = [
+    {
+      question: "How do you ensure the safety of children at camps?",
+      answer: "All our camp partners undergo rigorous background checks and maintain certified safety standards. We verify insurance, staff credentials, and safety protocols before partnering with any camp."
+    },
+    {
+      question: "What's included in the camp fee?",
+      answer: "Camp fees typically include all activities, meals, accommodation (for overnight camps), supervised activities, and safety equipment. Specific inclusions vary by camp and are clearly outlined in each listing."
+    },
+    {
+      question: "Can I get a refund if my child can't attend?",
+      answer: "Refund policies vary by camp partner. Most offer full refunds with adequate notice (usually 7-14 days). Emergency situations are handled case-by-case with our support team."
+    },
+    {
+      question: "Do you accommodate children with special needs?",
+      answer: "Yes! Many of our partner camps specialize in inclusive programs. During booking, you can specify any accommodations needed, and we'll match you with appropriate camps."
+    },
+    {
+      question: "How are camp counselors vetted?",
+      answer: "All counselors undergo background checks, reference verification, and training certification. We require camps to maintain detailed staff records and ongoing professional development."
+    },
+    {
+      question: "What if there's an emergency during camp?",
+      answer: "Every camp has emergency protocols and medical staff on-site. Parents receive immediate notification of any incidents, and our 24/7 support line is always available."
+    },
+    {
+      question: "Can I visit the camp before booking?",
+      answer: "Absolutely! We encourage camp visits. Use our scheduling feature to arrange tours, meet staff, and see facilities before making your decision."
+    },
+    {
+      question: "What should my child bring to camp?",
+      answer: "Each camp provides a detailed packing list after booking. Generally includes clothes, personal items, any medications, and specific gear for specialized activities."
+    }
+  ];
+
+  const blogPosts = [
+    {
+      category: "Safety Tips",
+      title: "10 Essential Safety Questions to Ask Any Summer Camp",
+      excerpt: "Make sure your child's camp experience is safe and supervised with our comprehensive safety checklist...",
+      date: "March 15, 2024",
+      readTime: "5 min read",
+      icon: "🛡️"
+    },
+    {
+      category: "Camp Guide",
+      title: "First-Time Camper? Here's What to Expect",
+      excerpt: "Help your child prepare for their first camp adventure with tips from experienced counselors...",
+      date: "March 12, 2024", 
+      readTime: "3 min read",
+      icon: "🏕️"
+    },
+    {
+      category: "Parent Tips",
+      title: "Dealing with Homesickness: A Parent's Guide",
+      excerpt: "Learn effective strategies to help your child cope with being away from home for the first time...",
+      date: "March 8, 2024",
+      readTime: "4 min read", 
+      icon: "💙"
+    }
+  ];
+
+  if (!appReady) {
+    return <MagicCurtain isVisible={showCurtain} />;
+  }
 
   return (
-    <>
-      {/* Magic Curtain Loader - Only for Home page */}
-      {showCurtain && (
-        <MagicCurtain 
-          isLoading={!appReady} 
-          onAnimationComplete={handleCurtainComplete}
-        />
-      )}
+    <div className={`transition-opacity duration-500 ${showCurtain ? 'opacity-0' : 'opacity-100'}`}>
       
-      {/* Home Content - One Pager */}
-      <div className={`transition-opacity duration-500 ${showCurtain ? 'opacity-0' : 'opacity-100'}`}>
-        <LiveEditor pageKey="home">
+      {/* Hero Section */}
+      <section id="hero" className="hero">
+        <div className="container">
+          <div className="hero-content">
+            <div className="eyebrow">Parenting made easy</div>
+            <h1>Stay worry-free with Camp Buddy</h1>
+            <p className="hero-subtitle">
+              Connect with trusted, verified summer camps that match your child's interests and your family's needs.
+            </p>
+            <div className="hero-ctas">
+              <button className="btn btn-primary">
+                <Play size={20} />
+                Start a demo
+              </button>
+              <button className="btn btn-secondary">
+                <Download size={20} />
+                Get the app
+              </button>
+            </div>
+          </div>
+          
+          <div className="hero-illustration">
+            <div style={{
+              fontSize: '120px',
+              display: 'flex',
+              gap: '20px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
+            }}>
+              <span>🏕️</span>
+              <span>🔥</span>
+              <span>👧</span>
+              <span>👦</span>
+              <span>🏔️</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          {/* Hero Section */}
-          <section id="home" className="section hero-section">
-            {/* Decorative Elements */}
-            <div className="sinterklaas-decoration" style={{top: '10%', left: '10%'}}>🎁</div>
-            <div className="sinterklaas-decoration" style={{top: '20%', right: '15%'}}>⭐</div>
-            <div className="sinterklaas-decoration" style={{bottom: '30%', left: '8%'}}>🎭</div>
-            <div className="sinterklaas-decoration" style={{bottom: '20%', right: '10%'}}>✨</div>
+      {/* About Section */}
+      <section id="about" className="section section-dark section-padding">
+        <div className="container">
+          <div className="two-column">
+            <div>
+              <div className="eyebrow text-white">About us</div>
+              <h2 className="text-white mb-8">What's Camp Buddy?</h2>
+              <p className="text-white mb-8" style={{ opacity: 0.9 }}>
+                Camp Buddy is the trusted platform that connects families with verified summer camps. 
+                We make finding the perfect camp experience simple, safe, and stress-free for both 
+                parents and children.
+              </p>
+              <button className="btn btn-secondary-white">
+                Learn more
+                <ArrowRight size={20} />
+              </button>
+            </div>
             
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                
-                {/* Left Content */}
-                <div className="text-left">
-                  <div className="mb-8">
-                    <div className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
-                      <Sparkles className="w-5 h-5 text-yellow-500 mr-2" />
-                      <span className="text-sm font-medium text-gray-700">Magische Sinterklaas Ervaring</span>
-                    </div>
-                    
-                    <h1 
-                      className="hero-title mb-6"
-                      data-editable-text="title"
-                      data-section="hero"
-                      data-key="title"
-                    >
-                      {showInfo.title}
-                    </h1>
-                    
-                    <p 
-                      className="text-xl text-gray-600 mb-8 leading-relaxed max-w-lg"
-                      data-editable-text="description"
-                      data-section="hero"
-                      data-key="description"
-                    >
-                      {showInfo.description}
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                    <button 
-                      onClick={() => document.getElementById('gallery').scrollIntoView({behavior: 'smooth'})}
-                      className="btn-sinterklaas-primary group"
-                    >
-                      <Camera className="w-5 h-5 mr-2" />
-                      Bekijk Galerij
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                    <button 
-                      onClick={() => document.getElementById('contact').scrollIntoView({behavior: 'smooth'})}
-                      className="btn-sinterklaas-outline"
-                    >
-                      Contact Ons
-                    </button>
-                  </div>
-
-                  <div className="flex flex-wrap gap-6 text-sm text-gray-600">
-                    <div className="flex items-center space-x-2">
-                      <Clock className="w-4 h-4 text-yellow-600" />
-                      <span>{showInfo.duration}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Users className="w-4 h-4 text-yellow-600" />
-                      <span>Leeftijd: {showInfo.ageRange}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Star className="w-4 h-4 text-yellow-600" />
-                      <span>{showInfo.language}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Content - Hero Image with Stoomboot */}
-                <div className="relative">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-                    <img
-                      src={showInfo.heroImage}
-                      alt="Sinterklaas Show"
-                      className="w-full h-[500px] object-cover"
-                      data-editable-image="hero_image"
-                      data-section="hero"
-                      data-key="background_image"
-                    />
-                    <div className="absolute inset-0 bg-black/20"></div>
-                  </div>
-                  
-                  {/* Stoomboot Banner */}
-                  <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
-                    <StoombootBanner />
-                  </div>
-                  
-                  {/* Floating Stats Cards */}
-                  <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-xl border-4 border-yellow-200">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-red-600">1000+</div>
-                      <div className="text-sm text-gray-600">Blije Kinderen</div>
-                    </div>
-                  </div>
-                  
-                  <div className="absolute -top-6 -right-6 bg-white rounded-2xl p-4 shadow-xl border-4 border-red-200">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-yellow-600">50+</div>
-                      <div className="text-sm text-gray-600">Magische Shows</div>
-                    </div>
+            <div>
+              <div className="card card-white" style={{ height: '320px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ fontSize: '80px', textAlign: 'center' }}>
+                  👩‍🏫👧👦
+                  <div style={{ fontSize: '16px', marginTop: '16px', color: '#666' }}>
+                    Kids + Counselor Illustration
                   </div>
                 </div>
               </div>
             </div>
-          </section>
-
-          {/* Features Section */}
-          <section className="section py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                <h2 
-                  className="section-title"
-                  data-editable-text="title"
-                  data-section="home"
-                  data-key="features_title"
-                >
-                  Waarom Kiezen Voor Onze Show?
-                </h2>
-                <p 
-                  className="section-subtitle max-w-3xl mx-auto"
-                  data-editable-text="description"
-                  data-section="home"
-                  data-key="features_description"
-                >
-                  Ontdek wat onze Sinterklaas show zo bijzonder maakt voor jouw kind en het hele gezin.
+          </div>
+          
+          {/* Camp Granite Lake Card */}
+          <div className="mt-16">
+            <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ marginBottom: '16px' }}>Camp Granite Lake</h3>
+                <p style={{ marginBottom: '24px', color: '#666' }}>
+                  Experience nature's beauty with hiking, fishing, and campfire stories. 
+                  Perfect for adventurous kids ages 8-14.
                 </p>
+                <button className="btn btn-primary">
+                  Request discovery detail
+                </button>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="sinterklaas-card text-center group">
-                  <div className="mb-6">
-                    <div className="w-16 h-16 bg-red-500 rounded-2xl mx-auto flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <Gift className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">Interactieve Ervaring</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Kinderen worden actief betrokken bij de show met zingen, dansen en meedoen met Sinterklaas en zijn Pieten.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="sinterklaas-card text-center group">
-                  <div className="mb-6">
-                    <div className="w-16 h-16 bg-yellow-500 rounded-2xl mx-auto flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <Sparkles className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">Magische Momenten</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Vol verrassingen, cadeautjes en echte magie die kinderen doen geloven in de wonderen van Sinterklaas.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="sinterklaas-card text-center group">
-                  <div className="mb-6">
-                    <div className="w-16 h-16 bg-green-500 rounded-2xl mx-auto flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <Users className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">Professionele Cast</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Ervaren acteurs en performers die de magie van Sinterklaas tot leven brengen voor alle leeftijden.
-                    </p>
-                  </div>
-                </div>
+              <div style={{ 
+                width: '200px', 
+                height: '150px', 
+                background: 'linear-gradient(135deg, #E8F5E8 0%, #D4F1D4 100%)',
+                borderRadius: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '48px'
+              }}>
+                🌲⛺
               </div>
             </div>
-          </section>
+          </div>
+        </div>
+      </section>
 
-          {/* Galerij Section */}
-          <section id="gallery" className="section py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                <h2 
-                  className="section-title"
-                  data-editable-text="title"
-                  data-section="gallery"
-                  data-key="section_title"
-                >
-                  Magische Momenten
-                </h2>
-                <p 
-                  className="section-subtitle"
-                  data-editable-text="description"
-                  data-section="gallery"
-                  data-key="section_description"
-                >
-                  Bekijk de mooiste momenten van onze enchanterende Sinterklaas shows.
-                </p>
+      {/* Features Section */}
+      <section id="features" className="section section-light section-padding">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2>Safe, reliable, and experienced</h2>
+            <p style={{ fontSize: '20px', color: '#666' }}>
+              Every camp partner meets our rigorous standards for safety and quality.
+            </p>
+          </div>
+          
+          <div className="three-column">
+            <div className="card feature-card">
+              <div className="feature-icon">
+                <Shield size={32} color="#2E3A2F" />
               </div>
+              <h3 className="feature-title">Trusted safety standards</h3>
+              <p>All camps undergo comprehensive safety audits and maintain current certifications for staff and facilities.</p>
+            </div>
+            
+            <div className="card feature-card">
+              <div className="feature-icon">
+                <Award size={32} color="#2E3A2F" />
+              </div>
+              <h3 className="feature-title">Screened & verified</h3>
+              <p>Every counselor passes background checks, reference verification, and specialized training requirements.</p>
+            </div>
+            
+            <div className="card feature-card">
+              <div className="feature-icon">
+                <Clipboard size={32} color="#2E3A2F" />
+              </div>
+              <h3 className="feature-title">Secure & personalized</h3>
+              <p>Your family's information is protected while we match you with camps that fit your child's unique needs.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div className="gallery-grid mb-12">
+      {/* Why Suited Section */}
+      <section id="safety" className="section section-cream section-padding">
+        <div className="container">
+          <div className="two-column">
+            <div>
+              <div className="eyebrow">For parents</div>
+              <h2 className="mb-8">Why is Camp Buddy suited for your child?</h2>
+              <p className="mb-8" style={{ color: '#666' }}>
+                We understand that choosing the right camp is one of the most important decisions you'll make for your child's summer.
+              </p>
+              
+              <div style={{ marginBottom: '32px' }}>
                 {[
-                  {
-                    url: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80",
-                    alt: "Sinterklaas met kinderen"
-                  },
-                  {
-                    url: "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=400&q=80", 
-                    alt: "Magische show momenten"
-                  },
-                  {
-                    url: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&q=80",
-                    alt: "Blije kinderen"
-                  },
-                  {
-                    url: "https://images.unsplash.com/photo-1544373022-df25aea89bd4?w=400&q=80",
-                    alt: "Sinterklaas show"
-                  },
-                  {
-                    url: "https://images.unsplash.com/photo-1574005280900-3ff489fa1f70?w=400&q=80",
-                    alt: "Sinterklaas festiviteiten"
-                  },
-                  {
-                    url: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&q=80",
-                    alt: "Kinderen spelen"
-                  }
-                ].map((image, index) => (
-                  <div key={index} className="gallery-item group">
-                    <img
-                      src={image.url}
-                      alt={image.alt}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
+                  'Comprehensive background checks for all staff',
+                  'Expert counselors with specialized training',
+                  'Flexible scheduling and booking options', 
+                  'Transparent pricing with no hidden fees',
+                  'Real-time updates and communication',
+                  '24/7 parent support and emergency contact'
+                ].map((item, index) => (
+                  <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+                    <CheckCircle size={20} color="#1F4A33" style={{ marginRight: '12px', minWidth: '20px' }} />
+                    <span>{item}</span>
                   </div>
                 ))}
               </div>
             </div>
-          </section>
-
-          {/* Nieuws Section */}
-          <section id="news" className="section py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                <h2 
-                  className="section-title"
-                  data-editable-text="title"
-                  data-section="home"
-                  data-key="news_section_title"
-                >
-                  Laatste Nieuws
-                </h2>
-                <p 
-                  className="section-subtitle"
-                  data-editable-text="description"
-                  data-section="home"
-                  data-key="news_section_description"
-                >
-                  Blijf op de hoogte van alle nieuwtjes rondom onze magische Sinterklaas shows.
-                </p>
+            
+            <div style={{ position: 'relative' }}>
+              <div className="phone-mockup">
+                <div className="phone-screen">
+                  💬📱
+                </div>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {featuredNews.map((article) => (
-                  <div key={article.id} className="news-card">
-                    <div className="news-image">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="news-content">
-                      <div className="news-date">{article.date}</div>
-                      <h3 className="news-title text-xl font-bold mb-3">
-                        {article.title}
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed">{article.excerpt}</p>
-                    </div>
-                  </div>
-                ))}
+              <div style={{
+                position: 'absolute',
+                top: '50%',
+                right: '-50px',
+                transform: 'translateY(-50%)',
+                fontSize: '60px',
+                opacity: 0.1,
+                zIndex: -1
+              }}>
+                🏠🌿
               </div>
             </div>
-          </section>
+          </div>
+        </div>
+      </section>
 
-          {/* Contact Section */}
-          <section id="contact" className="section py-20">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <div className="text-center mb-16">
-                <h2 className="section-title mb-6">
-                  Klaar voor een Onvergetelijke Ervaring?
-                </h2>
-                <p className="section-subtitle mb-10">
-                  Boek nu je tickets voor de meest magische Sinterklaas show van het jaar!
-                </p>
+      {/* CTA Demo Section */}
+      <section id="demo" className="section section-dark section-padding">
+        <div className="container">
+          <div className="card" style={{ background: 'var(--dark-olive)', color: 'white', display: 'flex', alignItems: 'center', gap: '64px' }}>
+            <div style={{ flex: 1 }}>
+              <h2 className="text-white mb-8">Be our trusted camp partners by scheduling a demo!</h2>
+              <p className="text-white mb-8" style={{ opacity: 0.9 }}>
+                Join our network of verified camps and connect with families looking for quality experiences.
+              </p>
+              <button className="btn btn-primary">
+                <Calendar size={20} />
+                Schedule a demo
+              </button>
+            </div>
+            <div style={{
+              width: '300px',
+              height: '200px',
+              background: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '64px'
+            }}>
+              📅🌸
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="section section-peach section-padding">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2>Answering all your worries</h2>
+            <p style={{ fontSize: '20px', color: '#666' }}>
+              Common questions from parents about camp safety and booking.
+            </p>
+          </div>
+          
+          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            {faqItems.map((item, index) => (
+              <div key={index} className={`faq-item ${openFaq === index ? 'active' : ''}`}>
+                <button 
+                  className="faq-question"
+                  onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+                >
+                  <span>{item.question}</span>
+                  {openFaq === index ? <Minus size={20} /> : <Plus size={20} />}
+                </button>
+                {openFaq === index && (
+                  <div className="faq-answer">
+                    <p>{item.answer}</p>
+                  </div>
+                )}
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div className="sinterklaas-card text-center">
-                  <div className="w-12 h-12 bg-red-500 rounded-xl mx-auto flex items-center justify-center mb-4">
-                    <Phone className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-bold text-gray-900 mb-2">Bel Ons</h3>
-                  <p className="text-gray-600">+31 (0)6 12345678</p>
+      {/* Blog Section */}
+      <section id="blog" className="section section-light section-padding">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2>Exciting reads you'll love</h2>
+            <p style={{ fontSize: '20px', color: '#666' }}>
+              Expert advice and insights for making the most of your child's camp experience.
+            </p>
+          </div>
+          
+          <div className="three-column">
+            {blogPosts.map((post, index) => (
+              <div key={index} className="blog-card">
+                <div className="blog-image">
+                  {post.icon}
                 </div>
+                <div className="blog-content">
+                  <div className="blog-category">{post.category}</div>
+                  <h3 className="blog-title">{post.title}</h3>
+                  <p className="blog-excerpt">{post.excerpt}</p>
+                  <a href="#" style={{ color: 'var(--primary-orange)', textDecoration: 'none', fontWeight: '600' }}>
+                    Read more →
+                  </a>
+                  <div className="blog-meta">
+                    <span>{post.date}</span>
+                    <span>{post.readTime}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                <div className="sinterklaas-card text-center">
-                  <div className="w-12 h-12 bg-yellow-500 rounded-xl mx-auto flex items-center justify-center mb-4">
-                    <Mail className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-bold text-gray-900 mb-2">Email Ons</h3>
-                  <p className="text-gray-600">info@sinterklaasshow.nl</p>
-                </div>
-
-                <div className="sinterklaas-card text-center">
-                  <div className="w-12 h-12 bg-green-500 rounded-xl mx-auto flex items-center justify-center mb-4">
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-bold text-gray-900 mb-2">Locatie</h3>
-                  <p className="text-gray-600">Heel Nederland</p>
-                </div>
+      {/* App Promo Night Scene */}
+      <section id="app" className="section night-scene section-padding">
+        <div className="night-illustration"></div>
+        <div className="container">
+          <div className="two-column" style={{ alignItems: 'center' }}>
+            <div>
+              <h2 className="text-white mb-8">Be our buddy!</h2>
+              <p className="text-white mb-8" style={{ opacity: 0.9 }}>
+                Download the Camp Buddy app for easy booking, real-time updates, and direct communication with camp counselors.
+              </p>
+              
+              <div className="qr-code">
+                📱
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button className="btn-sinterklaas-primary text-lg px-8 py-4">
-                  <Gift className="w-6 h-6 mr-2" />
-                  Boek Nu Je Tickets
-                </button>
-                <button 
-                  onClick={() => document.getElementById('gallery').scrollIntoView({behavior: 'smooth'})}
-                  className="btn-sinterklaas-outline text-lg px-8 py-4"
-                >
-                  Bekijk Meer Foto's
+              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                <div style={{
+                  background: 'white',
+                  color: 'black',
+                  padding: '12px 24px',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  📱 App Store
+                </div>
+                <div style={{
+                  background: 'white',
+                  color: 'black', 
+                  padding: '12px 24px',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  🤖 Google Play
+                </div>
+              </div>
+            </div>
+            
+            <div className="phones-container">
+              <div className="phone-mockup phone-1">
+                <div className="phone-screen">
+                  🏠
+                </div>
+              </div>
+              <div className="phone-mockup phone-2">
+                <div className="phone-screen">
+                  💬
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-content">
+            <div className="footer-brand">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                <TreePine size={28} color="#1F4A33" />
+                <span style={{ fontSize: '24px', fontWeight: '700' }}>Camp Buddy</span>
+              </div>
+              <p>
+                Connecting families with trusted, verified summer camps for safe and memorable experiences.
+              </p>
+              <div className="newsletter">
+                <input type="email" placeholder="Enter your email" />
+                <button className="btn btn-primary" style={{ padding: '12px 20px' }}>
+                  Subscribe
                 </button>
               </div>
             </div>
-          </section>
+            
+            <div>
+              <div className="footer-title">Product</div>
+              <a href="#" className="footer-link">Find Camps</a>
+              <a href="#" className="footer-link">Camp Partners</a>
+              <a href="#" className="footer-link">Safety Standards</a>
+              <a href="#" className="footer-link">Mobile App</a>
+            </div>
+            
+            <div>
+              <div className="footer-title">Company</div>
+              <a href="#" className="footer-link">About Us</a>
+              <a href="#" className="footer-link">Careers</a>
+              <a href="#" className="footer-link">Press</a>
+              <a href="#" className="footer-link">Contact</a>
+            </div>
+            
+            <div>
+              <div className="footer-title">Resources</div>
+              <a href="#" className="footer-link">Blog</a>
+              <a href="#" className="footer-link">Safety Guide</a>
+              <a href="#" className="footer-link">Parent Tips</a>
+              <a href="#" className="footer-link">Help Center</a>
+            </div>
+            
+            <div>
+              <div className="footer-title">Follow us</div>
+              <div className="social-links">
+                <a href="#" className="social-link">
+                  <Facebook size={20} />
+                </a>
+                <a href="#" className="social-link">
+                  <Twitter size={20} />
+                </a>
+                <a href="#" className="social-link">
+                  <Instagram size={20} />
+                </a>
+                <a href="#" className="social-link">
+                  <Youtube size={20} />
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div className="footer-bottom">
+            <div>© 2024 Camp Buddy. All rights reserved.</div>
+            <div style={{ display: 'flex', gap: '24px' }}>
+              <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Privacy Policy</a>
+              <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Terms of Service</a>
+              <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Cookies</a>
+            </div>
+          </div>
+        </div>
+      </footer>
 
-          {/* Scroll Indicator */}
-          <ScrollIndicator sections={['home', 'gallery', 'news', 'contact']} />
-
-        </LiveEditor>
-      </div>
-    </>
+    </div>
   );
 }
