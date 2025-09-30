@@ -17,13 +17,13 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Stoomboot navigatie items
+  // Sinterklaas Genk navigation items
   const navigationItems = [
-    { name: '🧭 Stuurhut', href: '#about' },
-    { name: '🎭 Theater', href: '#shows' },
-    { name: '⚙️ Machinekamer', href: '#safety' },
-    { name: '🏠 Kajuiten', href: '#faq' },
-    { name: '🏁 Achterdek', href: '#news' }
+    { name: 'Over Ons', href: '#about' },
+    { name: 'Shows', href: '#shows' },
+    { name: 'Veiligheid', href: '#safety' },
+    { name: 'FAQ', href: '#faq' },
+    { name: 'Nieuws', href: '#news' }
   ];
 
   const adminNavigationItems = [
