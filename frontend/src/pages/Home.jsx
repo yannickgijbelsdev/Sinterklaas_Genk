@@ -8,17 +8,7 @@ import { Button } from '../components/ui/button';
 import '../styles/camp-buddy-theme.css';
 
 export default function Home() {
-  const [showCurtain, setShowCurtain] = useState(true);
-  const [appReady, setAppReady] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAppReady(true);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const faqItems = [
     {
