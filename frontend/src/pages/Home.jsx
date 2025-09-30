@@ -9,66 +9,6 @@ import '../styles/camp-buddy-theme.css';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
-  const [activePopup, setActivePopup] = useState(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  // Scroll-based animations and progress
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      setScrollProgress(progress);
-
-      // Reveal elements as we scroll
-      const elements = document.querySelectorAll('.scroll-reveal');
-      elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        if (elementTop < window.innerHeight * 0.8) {
-          element.classList.add('revealed');
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const getProgressEmoji = () => {
-    if (scrollProgress < 16) return '⚓'; // Boeg
-    if (scrollProgress < 32) return '🚢'; // Stuurhut  
-    if (scrollProgress < 48) return '🎭'; // Theater
-    if (scrollProgress < 64) return '⚙️'; // Machinekamer
-    if (scrollProgress < 80) return '🏠'; // Kajuiten
-    return '🏁'; // Finish
-  };
-
-  const verhaalElementen = {
-    anker: {
-      title: "Het Anker van Hoop",
-      content: "Dit magische anker zorgt ervoor dat de stoomboot van Sinterklaas altijd veilig in de haven van Genk aankomt. Kinderen geloven dat het anker gemaakt is van sterren!"
-    },
-    stuurwiel: {
-      title: "Sinterklaas' Stuurwiel",
-      content: "Met dit gouden stuurwiel navigeert Sinterklaas door de wolken naar alle brave kinderen. Het draait alleen voor echte Sinterklaas magie!"
-    },
-    gordijn: {
-      title: "Magische Theater Gordijnen",
-      content: "Achter deze gordijnen bereiden de Pieten de geweldige shows voor. Soms kun je ze zachtjes horen oefenen!"
-    },
-    machine: {
-      title: "Cadeau-Maak Machine",
-      content: "Deze magische machines maken alle cadeautjes voor de kinderen. Ze werken op vrolijkheid en Sinterklaas liedjes!"
-    },
-    raam: {
-      title: "Piet's Uitkijkpost",
-      content: "Vanuit deze ramen houden de Pieten de omgeving in de gaten en zwaaien naar alle kinderen die langslopen!"
-    },
-    vlag: {
-      title: "De Vlag van Genk",
-      content: "Deze speciale vlag laat iedereen weten dat Sinterklaas in Genk is aangekomen voor de meest magische shows!"
-    }
-  };
 
   const faqItems = [
     {
