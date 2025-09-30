@@ -162,99 +162,221 @@ export default function Home() {
         </div>
       )}
 
-      {/* Boeg/Dek - Hero Section */}
+      {/* Authentieke Boeg/Voorplecht - Hero Section */}
       <section id="hero" className="stoomboot-section stoomboot-boeg">
+        <div className="authentiek-anker"></div>
         <div className="container">
-          {/* Sinterklaas Character */}
+          {/* Professionele Sinterklaas Character */}
           <div 
             className="sinterklaas-character verhaal-element"
-            style={{ top: '20%', left: '10%' }}
+            style={{ 
+              top: '25%', 
+              left: '12%', 
+              fontSize: '90px',
+              filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.4))',
+              textShadow: '0 5px 15px rgba(0,0,0,0.6)'
+            }}
             onClick={() => setActivePopup('anker')}
             title="Klik voor het verhaal van het anker!"
           >
             🎅
           </div>
           
-          {/* Piet Characters */}
+          {/* Elegante Piet Characters */}
           <div 
             className="piet-character verhaal-element"
-            style={{ top: '30%', right: '20%' }}
+            style={{ 
+              top: '35%', 
+              right: '25%',
+              fontSize: '70px',
+              filter: 'drop-shadow(0 8px 15px rgba(0,0,0,0.4))'
+            }}
             onClick={() => setActivePopup('anker')}
           >
             👨‍🦱
           </div>
           <div 
             className="piet-character verhaal-element"
-            style={{ bottom: '20%', left: '15%' }}
+            style={{ 
+              bottom: '25%', 
+              left: '20%',
+              fontSize: '70px',
+              filter: 'drop-shadow(0 8px 15px rgba(0,0,0,0.4))'
+            }}
             onClick={() => setActivePopup('anker')}
           >
             👩‍🦱
           </div>
 
           <div className="scroll-reveal" style={{ textAlign: 'center', color: 'white', zIndex: 5, position: 'relative' }}>
-            <div style={{ fontSize: '24px', marginBottom: '20px', opacity: 0.9 }}>
-              🚢 Welkom aan boord! 🚢
+            <div style={{ 
+              fontSize: '28px', 
+              marginBottom: '25px', 
+              opacity: 0.95,
+              textShadow: '0 4px 15px rgba(0,0,0,0.7)',
+              fontFamily: 'Playfair Display, serif',
+              fontWeight: '700'
+            }}>
+              ⚓ Welkom aan boord van de S.S. Sinterklaas ⚓
             </div>
-            <h1 style={{ color: 'white', marginBottom: '30px' }}>
+            <h1 style={{ 
+              color: 'white', 
+              marginBottom: '35px',
+              textShadow: '0 6px 20px rgba(0,0,0,0.8)',
+              fontSize: '52px',
+              fontFamily: 'Playfair Display, serif'
+            }}>
               De Magische Sinterklaas Stoomboot
             </h1>
-            <p style={{ fontSize: '22px', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px' }}>
-              Stap aan boord van Sinterklaas' magische stoomboot en ontdek elke hoek vol verrassingen! 
-              Scroll omlaag om door de stoomboot te reizen...
+            <p style={{ 
+              fontSize: '24px', 
+              marginBottom: '45px', 
+              maxWidth: '700px', 
+              margin: '0 auto 45px',
+              textShadow: '0 3px 10px rgba(0,0,0,0.6)',
+              lineHeight: 1.7,
+              fontWeight: '400'
+            }}>
+              Stap aan boord van Sinterklaas' luxueuze stoomboot en ontdek elke ruimte vol verrassingen! 
+              Een reis door authentieke scheepsruimtes...
             </p>
-            <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button className="btn btn-primary">
-                <Gift size={20} />
-                Kom Aan Boord!
+            <div style={{ display: 'flex', gap: '25px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button className="btn btn-primary" style={{ 
+                fontSize: '18px', 
+                padding: '18px 35px',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.3)',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                fontWeight: '600'
+              }}>
+                🎫 Kom Aan Boord
               </button>
-              <button className="btn btn-secondary">
-                <Calendar size={20} />
-                Bekijk Show Data
+              <button className="btn btn-secondary" style={{ 
+                fontSize: '18px', 
+                padding: '18px 35px',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.3)',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                fontWeight: '600'
+              }}>
+                📅 Show Schema
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stuurhut - About Section */}
+      {/* Luxe Kapiteinsbrug/Stuurhut - About Section */}
       <section id="about" className="stoomboot-section stoomboot-stuurhut">
+        <div className="stuurhut-instrumentenpaneel">
+          <div className="instrument-meter">
+            <div className="meter-naald"></div>
+          </div>
+          <div className="instrument-meter">
+            <div className="meter-naald" style={{ animationDelay: '0.5s' }}></div>
+          </div>
+          <div className="instrument-meter">
+            <div className="meter-naald" style={{ animationDelay: '1s' }}></div>
+          </div>
+          <div className="instrument-meter">
+            <div className="meter-naald" style={{ animationDelay: '1.5s' }}></div>
+          </div>
+        </div>
+        
         <div className="container">
-          {/* Stuurwiel Interactief Element */}
+          {/* Professioneel Stuurwiel Interactief Element */}
           <div 
-            className="stuurwiel verhaal-element"
+            className="professioneel-stuurwiel verhaal-element"
             onClick={() => setActivePopup('stuurwiel')}
             title="Klik op het stuurwiel voor het verhaal!"
-          />
+          >
+            <div className="stuurwiel-spaak"></div>
+            <div className="stuurwiel-spaak"></div>
+            <div className="stuurwiel-spaak"></div>
+            <div className="stuurwiel-spaak"></div>
+            <div className="stuurwiel-spaak"></div>
+            <div className="stuurwiel-spaak"></div>
+            <div className="stuurwiel-spaak"></div>
+            <div className="stuurwiel-spaak"></div>
+            <div className="stuurwiel-hub"></div>
+          </div>
           
-          {/* Sinterklaas bij het stuur */}
+          {/* Elegante Kapitein Sinterklaas */}
           <div 
             className="sinterklaas-character"
-            style={{ top: '40%', right: '20%', fontSize: '70px' }}
+            style={{ 
+              top: '45%', 
+              right: '25%', 
+              fontSize: '80px',
+              filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.6))'
+            }}
           >
             🎅
           </div>
 
-          <div className="scroll-reveal" style={{ color: 'white', maxWidth: '700px' }}>
-            <div style={{ fontSize: '20px', marginBottom: '15px', opacity: 0.8 }}>
-              🧭 In de Stuurhut
+          <div className="scroll-reveal" style={{ color: 'white', maxWidth: '750px', zIndex: 3, position: 'relative' }}>
+            <div style={{ 
+              fontSize: '22px', 
+              marginBottom: '20px', 
+              opacity: 0.9,
+              textShadow: '0 3px 10px rgba(0,0,0,0.8)',
+              fontFamily: 'Playfair Display, serif',
+              fontStyle: 'italic'
+            }}>
+              🧭 Vanaf de Kapiteinsbrug
             </div>
-            <h2 style={{ color: 'white', marginBottom: '30px' }}>
-              Sinterklaas navigeert naar Genk
+            <h2 style={{ 
+              color: 'white', 
+              marginBottom: '35px',
+              textShadow: '0 5px 15px rgba(0,0,0,0.8)',
+              fontFamily: 'Playfair Display, serif',
+              fontSize: '42px'
+            }}>
+              Kapitein Sinterklaas navigeert naar Genk
             </h2>
-            <p style={{ fontSize: '20px', marginBottom: '30px', lineHeight: 1.7 }}>
-              Vanuit deze stuurhut bestuurt Sinterklaas zijn magische stoomboot door de wolken. 
-              Al meer dan 15 jaar vaart hij naar Genk om de meest interactieve en magische shows te brengen!
+            <p style={{ 
+              fontSize: '22px', 
+              marginBottom: '35px', 
+              lineHeight: 1.8,
+              textShadow: '0 2px 8px rgba(0,0,0,0.7)'
+            }}>
+              Vanuit deze luxueuze kapiteinsbrug bestuurt Sinterklaas zijn historische stoomboot door de wolken. 
+              Met precisie-instrumenten en jarenlange ervaring vaart hij al meer dan 15 jaar naar Genk om de meest 
+              interactieve en magische shows te brengen!
             </p>
-            <div style={{ background: 'rgba(245, 158, 11, 0.2)', padding: '20px', borderRadius: '15px', marginBottom: '30px' }}>
-              <h3 style={{ color: 'var(--sinterklaas-goud)', marginBottom: '15px' }}>⭐ Kapitein Sinterklaas vertelt:</h3>
-              <p style={{ fontStyle: 'italic' }}>
-                "Elk kind dat onze show bezoekt, wordt onderdeel van de bemanning! 
-                Samen maken we van elke voorstelling een onvergetelijk avontuur."
+            <div style={{ 
+              background: 'rgba(218, 165, 32, 0.15)', 
+              padding: '25px', 
+              borderRadius: '20px', 
+              marginBottom: '35px',
+              border: '2px solid rgba(218, 165, 32, 0.3)',
+              backdropFilter: 'blur(10px)'
+            }}>
+              <h3 style={{ 
+                color: 'var(--sinterklaas-goud-light)', 
+                marginBottom: '18px',
+                fontSize: '24px',
+                textShadow: '0 2px 8px rgba(0,0,0,0.8)'
+              }}>
+                ⭐ Kapitein Sinterklaas vertelt:
+              </h3>
+              <p style={{ 
+                fontStyle: 'italic', 
+                fontSize: '20px', 
+                lineHeight: 1.6,
+                textShadow: '0 2px 6px rgba(0,0,0,0.7)'
+              }}>
+                "Elk kind dat onze stoomboot betreedt, wordt onderdeel van mijn bemanning! 
+                Samen maken we van elke voorstelling een onvergetelijke zeereis vol magie."
               </p>
             </div>
-            <button className="btn btn-secondary">
-              Leer meer over de bemanning
-              <ArrowRight size={20} />
+            <button className="btn btn-secondary" style={{ 
+              fontSize: '18px', 
+              padding: '16px 30px',
+              boxShadow: '0 6px 20px rgba(0,0,0,0.4)'
+            }}>
+              Ontmoet de Bemanning
+              <ArrowRight size={22} />
             </button>
           </div>
         </div>
