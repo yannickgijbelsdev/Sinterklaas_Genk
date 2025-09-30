@@ -278,6 +278,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Zachte Golvende Separator */}
+      <div className="wavy-separator-soft"></div>
+
       {/* CTA Reserveer Section */}
       <section id="reserveer" className="section section-dark section-padding">
         <div className="container">
