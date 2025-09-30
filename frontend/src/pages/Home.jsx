@@ -6,7 +6,7 @@ import {
   X, Info
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import '../styles/stoomboot-theme.css';
+import '../styles/camp-buddy-theme.css';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
