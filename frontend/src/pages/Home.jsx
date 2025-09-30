@@ -7,8 +7,8 @@ import { Badge } from '../components/ui/badge';
 import { SparkleBackground } from '../components/SparkleBackground';
 import { LiveEditor } from '../components/LiveEditor';
 import { MagicCurtain } from '../components/MagicCurtain';
-import { showInfo as fallbackShowInfo, showDates as fallbackShows, characters, news as fallbackNews } from '../data/mock';
-import { useNews, useShows, useContent, getContentValue } from '../hooks/useApi';
+import { showInfo as fallbackShowInfo, news as fallbackNews } from '../data/mock';
+import { useNews, useContent, getContentValue } from '../hooks/useApi';
 
 export default function Home() {
   const [showCurtain, setShowCurtain] = useState(true);
