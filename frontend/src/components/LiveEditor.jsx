@@ -271,15 +271,87 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
 
   // Show floating toolbar for element
   const showElementToolbar = (element) => {
-    // Implementation for showing floating toolbar
-    // This would create a floating toolbar with edit options
-    console.log('Showing toolbar for element:', element);
+    // Remove existing toolbars
+    document.querySelectorAll('.live-editor-toolbar').forEach(tb => tb.remove());
+    
+    const rect = element.getBoundingClientRect();
+    const toolbar = document.createElement('div');
+    toolbar.className = 'live-editor-toolbar';
+    toolbar.style.cssText = `
+      position: fixed;
+      top: ${rect.top - 40}px;
+      left: ${rect.left}px;
+      z-index: 1000;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 4px;
+      display: flex;
+      gap: 2px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    `;
+    
+    // Add toolbar buttons
+    const buttons = [
+      {
+        icon: '✏️',
+        title: 'Bewerken',
+        action: () => {
+          setSelectedElement(element);
+          setShowPropertiesPanel(true);
+          element.focus();
+        }
+      },
+      {
+        icon: '📋',
+        title: 'Dupliceren', 
+        action: () => duplicateBlock(element)
+      },
+      {
+        icon: '🎨',
+        title: 'Styling',
+        action: () => {
+          setSelectedElement(element);
+          setShowPropertiesPanel(true);
+        }
+      },
+      {
+        icon: '🗑️',
+        title: 'Verwijderen',
+        action: () => deleteBlock(element)
+      }
+    ];
+    
+    buttons.forEach(({ icon, title, action }) => {
+      const btn = document.createElement('button');
+      btn.innerHTML = icon;
+      btn.title = title;
+      btn.style.cssText = `
+        padding: 6px 8px;
+        border: none;
+        background: white;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+        line-height: 1;
+      `;
+      btn.addEventListener('mouseenter', () => btn.style.backgroundColor = '#f3f4f6');
+      btn.addEventListener('mouseleave', () => btn.style.backgroundColor = 'white');
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        action();
+      });
+      toolbar.appendChild(btn);
+    });
+    
+    document.body.appendChild(toolbar);
   };
 
   // Hide floating toolbar for element
   const hideElementToolbar = (element) => {
-    // Implementation for hiding floating toolbar
-    console.log('Hiding toolbar for element:', element);
+    document.querySelectorAll('.live-editor-toolbar').forEach(toolbar => {
+      toolbar.remove();
+    });
   };
 
   const makeElementEditable = (element, section, type, key) => {
