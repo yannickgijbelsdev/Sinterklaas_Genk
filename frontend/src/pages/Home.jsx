@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Shield, Award, Clipboard, Calendar, TreePine, Tent, Users, 
-  CheckCircle, Star, ArrowRight, Play, Download, Plus, Minus,
+  Gift, Star, Calendar, Clock, Users, Heart, Shield, Award, 
+  CheckCircle, ArrowRight, Play, Download, Plus, Minus,
   Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube
 } from 'lucide-react';
-import { MagicCurtain } from '../components/MagicCurtain';
-import { useNews } from '../hooks/useApi';
+import { Button } from '../components/ui/button';
 import '../styles/camp-buddy-theme.css';
 
 export default function Home() {
