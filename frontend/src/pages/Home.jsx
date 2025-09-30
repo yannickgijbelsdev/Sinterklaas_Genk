@@ -31,7 +31,6 @@ export default function Home() {
   
   // Use API data or fallback to mock data
   const news = newsData || fallbackNews;
-  const showDates = showsData || fallbackShows;
   
   // Create dynamic showInfo from database content
   const showInfo = {
@@ -44,13 +43,6 @@ export default function Home() {
     language: fallbackShowInfo.language
   };
   
-  // Get section titles dynamically
-  const showsSectionTitle = getContentValue(contentData, 'shows', 'section_title', 'Aankomende Voorstellingen');
-  const showsSectionDescription = getContentValue(contentData, 'shows', 'section_description', 'Mis de magische Sinterklaas show niet! Kies jouw ideale datum en locatie.');
-  const charactersSectionTitle = getContentValue(contentData, 'characters', 'section_title', 'Ontmoet de Karakters');
-  const charactersSectionDescription = getContentValue(contentData, 'characters', 'section_description', 'Maak kennis met Sinterklaas en zijn vrolijke helpers die jouw show onvergetelijk maken.');
-  
-  const upcomingShows = showDates.slice(0, 3);
   const featuredNews = news.slice(0, 2);
 
   return (
