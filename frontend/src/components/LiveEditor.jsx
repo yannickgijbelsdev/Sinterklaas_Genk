@@ -54,6 +54,16 @@ import {
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
+// Block types for live editor
+const LIVE_BLOCK_TYPES = {
+  TEXT: 'text',
+  HEADING: 'heading',
+  IMAGE: 'image',
+  BUTTON: 'button',
+  SPACER: 'spacer',
+  DIVIDER: 'divider'
+};
+
 export const LiveEditor = ({ children, pageKey = 'home' }) => {
   const { user, isAuthenticated } = useAuth();
   
