@@ -1,0 +1,661 @@
+/* Sinterklaas Stoomboot Interactieve Ervaring */
+
+:root {
+  /* Sinterklaas Kleuren */
+  --sinterklaas-rood: #DC2626;
+  --sinterklaas-rood-light: #EF4444;
+  --sinterklaas-rood-dark: #B91C1C;
+  --sinterklaas-goud: #F59E0B;
+  --sinterklaas-goud-light: #FBBF24;
+  --sinterklaas-goud-dark: #D97706;
+  
+  /* Stoomboot Kleuren */
+  --stoomboot-hout: #8B4513;
+  --stoomboot-hout-dark: #654321;
+  --stoomboot-metaal: #2D2D2D;
+  --stoomboot-koper: #B87333;
+  --stoomboot-water: #1E40AF;
+  --stoomboot-stoom: #F3F4F6;
+  
+  /* Achtergrond Kleuren */
+  --warm-cream: #FEF7ED;
+  --warm-white: #FFFFFF;
+  --text-dark: #1F2937;
+  --text-light: #6B7280;
+  
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --h1-size: 56px;
+  --h2-size: 40px;
+  --h3-size: 28px;
+  --body-size: 18px;
+  
+  /* Spacing */
+  --container-max-width: 1200px;
+  --radius-large: 24px;
+  --radius-medium: 20px;
+  --radius-small: 12px;
+  
+  /* Shadows */
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-medium: 0 12px 48px rgba(0, 0, 0, 0.16);
+  --shadow-strong: 0 16px 64px rgba(0, 0, 0, 0.20);
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--body-size);
+  line-height: 1.6;
+  color: var(--text-dark);
+  background: linear-gradient(180deg, #87CEEB 0%, #4682B4 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Container */
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+/* Typography */
+h1 {
+  font-size: var(--h1-size);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--sinterklaas-rood);
+}
+
+h2 {
+  font-size: var(--h2-size);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+
+h3 {
+  font-size: var(--h3-size);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Stoomboot Sectie Layouts */
+.stoomboot-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Boeg/Dek (Hero Section) */
+.stoomboot-boeg {
+  background: linear-gradient(135deg, var(--stoomboot-hout) 0%, var(--stoomboot-hout-dark) 100%);
+  background-image: 
+    repeating-linear-gradient(90deg, transparent, transparent 98px, rgba(255,255,255,0.1) 100px),
+    repeating-linear-gradient(0deg, transparent, transparent 98px, rgba(255,255,255,0.1) 100px);
+  position: relative;
+  border-radius: 0 0 50% 50% / 0 0 100px 100px;
+}
+
+.stoomboot-boeg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: var(--stoomboot-metaal);
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.stoomboot-boeg::after {
+  content: '⚓';
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  font-size: 60px;
+  opacity: 0.3;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Stuurhut (About Section) */
+.stoomboot-stuurhut {
+  background: linear-gradient(45deg, var(--stoomboot-hout-dark) 0%, var(--stoomboot-hout) 100%);
+  position: relative;
+  border-top: 10px solid var(--stoomboot-metaal);
+  border-bottom: 10px solid var(--stoomboot-metaal);
+}
+
+.stoomboot-stuurhut::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  height: 100px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  border: 3px solid var(--stoomboot-koper);
+}
+
+.stuurwiel {
+  position: absolute;
+  top: 30%;
+  right: 5%;
+  width: 120px;
+  height: 120px;
+  border: 8px solid var(--stoomboot-koper);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--stoomboot-hout) 0%, var(--stoomboot-hout-dark) 100%);
+  box-shadow: var(--shadow-medium);
+  animation: rotate 20s linear infinite;
+}
+
+.stuurwiel::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background: var(--stoomboot-metaal);
+  border-radius: 50%;
+}
+
+.stuurwiel::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--stoomboot-koper);
+  border-radius: 50%;
+}
+
+/* Theater/Grote Zaal (Shows Section) */
+.stoomboot-theater {
+  background: linear-gradient(135deg, var(--sinterklaas-rood-dark) 0%, var(--sinterklaas-rood) 100%);
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.2) 0%, transparent 50%);
+}
+
+.theater-gordijnen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(90deg, var(--sinterklaas-goud) 0%, var(--sinterklaas-goud-light) 50%, var(--sinterklaas-goud) 100%);
+  background-image: repeating-linear-gradient(90deg, transparent 0px, transparent 48px, rgba(0,0,0,0.1) 50px);
+}
+
+.theater-spotlights {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 40px;
+}
+
+.spotlight {
+  width: 40px;
+  height: 60px;
+  background: var(--stoomboot-metaal);
+  border-radius: 20px 20px 5px 5px;
+  position: relative;
+  animation: spotlight 4s ease-in-out infinite alternate;
+}
+
+.spotlight::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 40px solid rgba(255, 255, 200, 0.3);
+}
+
+/* Machinekamer (Safety Section) */
+.stoomboot-machinekamer {
+  background: linear-gradient(180deg, var(--stoomboot-metaal) 0%, #1a1a1a 100%);
+  position: relative;
+  background-image: 
+    repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 12px);
+}
+
+.machine-onderdelen {
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  right: 5%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.machine {
+  width: 80px;
+  height: 120px;
+  background: linear-gradient(135deg, var(--stoomboot-koper) 0%, #8B6914 100%);
+  border-radius: 10px;
+  position: relative;
+  animation: machine-pulse 2s ease-in-out infinite;
+}
+
+.machine::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: var(--stoomboot-metaal);
+  border-radius: 50%;
+}
+
+.machine::after {
+  content: '⚙️';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  animation: rotate 3s linear infinite;
+}
+
+.stoom-pijpen {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  display: flex;
+  gap: 20px;
+}
+
+.pijp {
+  width: 30px;
+  height: 200px;
+  background: var(--stoomboot-metaal);
+  border-radius: 15px;
+  position: relative;
+}
+
+.pijp::after {
+  content: '💨';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  animation: float 2s ease-in-out infinite;
+}
+
+/* Kajuiten (FAQ Section) */
+.stoomboot-kajuiten {
+  background: linear-gradient(135deg, var(--stoomboot-hout) 0%, #A0522D 100%);
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(0,0,0,0.1) 50px),
+    repeating-linear-gradient(90deg, transparent, transparent 198px, rgba(255,255,255,0.1) 200px);
+  position: relative;
+}
+
+.kajuit-ramen {
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  right: 5%;
+  height: 60%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  align-items: center;
+}
+
+.raam {
+  width: 120px;
+  height: 160px;
+  background: rgba(135, 206, 235, 0.8);
+  border: 8px solid var(--stoomboot-metaal);
+  border-radius: 15px;
+  position: relative;
+  margin: 0 auto;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+}
+
+.raam::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--stoomboot-metaal);
+}
+
+.raam::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: var(--stoomboot-metaal);
+}
+
+/* Achterdek (News Section) */
+.stoomboot-achterdek {
+  background: linear-gradient(135deg, var(--stoomboot-hout) 0%, var(--stoomboot-hout-dark) 100%);
+  background-image: 
+    repeating-linear-gradient(90deg, transparent, transparent 98px, rgba(255,255,255,0.1) 100px);
+  position: relative;
+  border-radius: 50% 50% 0 0 / 100px 100px 0 0;
+}
+
+.achterdek-reling {
+  position: absolute;
+  top: 20px;
+  left: 10%;
+  right: 10%;
+  height: 60px;
+  background: var(--stoomboot-metaal);
+  border-radius: 30px;
+  background-image: repeating-linear-gradient(90deg, transparent 0px, transparent 48px, rgba(255,255,255,0.2) 50px);
+}
+
+.achterdek-vlag {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  width: 80px;
+  height: 60px;
+  background: linear-gradient(45deg, var(--sinterklaas-rood) 0%, var(--sinterklaas-rood-light) 100%);
+  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+  animation: wave-flag 3s ease-in-out infinite;
+}
+
+/* Scroll-gebaseerde Animaties */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.25, 0.25, 1);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Interactieve Elementen */
+.verhaal-element {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.verhaal-element:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.verhaal-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--warm-white);
+  padding: 30px;
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-strong);
+  z-index: 1000;
+  max-width: 500px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.verhaal-popup.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.popup-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Karakters */
+.sinterklaas-character {
+  position: absolute;
+  font-size: 80px;
+  z-index: 10;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: float 4s ease-in-out infinite;
+}
+
+.piet-character {
+  position: absolute;
+  font-size: 60px;
+  z-index: 10;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: float 3s ease-in-out infinite 0.5s;
+}
+
+/* Progress Indicator */
+.stoomboot-progress {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: var(--shadow-medium);
+  z-index: 100;
+}
+
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: var(--radius-medium);
+  font-size: var(--body-size);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--sinterklaas-rood) 0%, var(--sinterklaas-rood-light) 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--sinterklaas-rood-dark) 0%, var(--sinterklaas-rood) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--sinterklaas-goud) 0%, var(--sinterklaas-goud-light) 100%);
+  color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, var(--sinterklaas-goud-dark) 0%, var(--sinterklaas-goud) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Card Styles */
+.card {
+  background: var(--warm-white);
+  border-radius: var(--radius-large);
+  padding: 32px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes machine-pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.8);
+  }
+}
+
+@keyframes spotlight {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes wave-flag {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  h1 {
+    font-size: 36px;
+  }
+  
+  h2 {
+    font-size: 28px;
+  }
+  
+  .stoomboot-section {
+    min-height: 80vh;
+  }
+  
+  .sinterklaas-character {
+    font-size: 60px;
+  }
+  
+  .piet-character {
+    font-size: 45px;
+  }
+  
+  .kajuit-ramen {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .raam {
+    width: 80px;
+    height: 120px;
+  }
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.text-white {
+  color: white;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.section-padding {
+  padding: 80px 0;
+}
