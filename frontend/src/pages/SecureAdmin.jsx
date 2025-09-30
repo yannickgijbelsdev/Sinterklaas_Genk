@@ -1073,6 +1073,10 @@ export default function SecureAdmin() {
             </TabsTrigger>
           </TabsList>
 
+          <TabsContent value="website-builder" className="mt-0">
+            <WebsiteBuilder />
+          </TabsContent>
+
           <TabsContent value="news">
             <NewsManager />
           </TabsContent>
