@@ -79,14 +79,14 @@ export const Header = () => {
               className="btn btn-outline"
               style={{ padding: '12px 24px', fontSize: '14px' }}
             >
-              🎟️ Kom Aan Boord
+              Reserveer Nu
             </button>
             <button 
               onClick={() => smoothScrollTo('#contact')}
               className="btn btn-primary"
               style={{ padding: '12px 24px', fontSize: '14px' }}
             >
-              📞 Contact
+              Contact
             </button>
           </div>
 
