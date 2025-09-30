@@ -86,7 +86,12 @@ export default function Home() {
   ];
 
   if (!appReady) {
-    return <MagicCurtain isVisible={showCurtain} />;
+    return (
+      <MagicCurtain 
+        isLoading={showCurtain} 
+        onAnimationComplete={() => setShowCurtain(false)}
+      />
+    );
   }
 
   return (
