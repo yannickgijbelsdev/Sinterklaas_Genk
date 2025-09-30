@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Gift, Star, Calendar, Clock, Users, Heart, Shield, Award, 
   CheckCircle, ArrowRight, Play, Download, Plus, Minus,
@@ -183,66 +183,71 @@ export default function Home() {
       {/* Golvende Separator Goud */}
       <div className="wavy-separator-gold"></div>
 
-      {/* Features Section */}
-      <section id="features" className="section section-light section-padding">
+      {/* Shows Section */}
+      <section id="shows" className="section section-light section-padding">
+        <div className="sinterklaas-decoration" style={{top: '10%', left: '5%'}}>🎁</div>
+        <div className="sinterklaas-decoration" style={{top: '20%', right: '10%'}}>⭐</div>
+        <div className="sinterklaas-decoration" style={{bottom: '15%', left: '8%'}}>🎅</div>
+        
         <div className="container">
           <div className="text-center mb-16">
-            <h2>Safe, reliable, and experienced</h2>
+            <h2>Magische, Veilige en Ervaren Shows</h2>
             <p style={{ fontSize: '20px', color: '#666' }}>
-              Every camp partner meets our rigorous standards for safety and quality.
+              Al onze shows voldoen aan de hoogste standaarden voor kwaliteit en plezier.
             </p>
           </div>
           
           <div className="three-column">
             <div className="card feature-card">
               <div className="feature-icon">
-                <Shield size={32} color="#2E3A2F" />
+                <Heart size={32} color="#DC2626" />
               </div>
-              <h3 className="feature-title">Trusted safety standards</h3>
-              <p>All camps undergo comprehensive safety audits and maintain current certifications for staff and facilities.</p>
+              <h3 className="feature-title">Hartverwarming</h3>
+              <p>Elke show wordt uitgevoerd met liefde en passie. We zorgen ervoor dat elk kind zich speciaal en geliefd voelt tijdens onze magische voorstelling.</p>
             </div>
             
             <div className="card feature-card">
               <div className="feature-icon">
-                <Award size={32} color="#2E3A2F" />
+                <Shield size={32} color="#DC2626" />
               </div>
-              <h3 className="feature-title">Screened & verified</h3>
-              <p>Every counselor passes background checks, reference verification, and specialized training requirements.</p>
+              <h3 className="feature-title">Veilig & Vertrouwd</h3>
+              <p>Al onze acteurs hebben achtergrondcontroles ondergaan en zijn getraind in kindvriendelijke interactie. Veiligheid staat altijd voorop.</p>
             </div>
             
             <div className="card feature-card">
               <div className="feature-icon">
-                <Clipboard size={32} color="#2E3A2F" />
+                <Award size={32} color="#DC2626" />
               </div>
-              <h3 className="feature-title">Secure & personalized</h3>
-              <p>Your family's information is protected while we match you with camps that fit your child's unique needs.</p>
+              <h3 className="feature-title">Award-winning Team</h3>
+              <p>Ons team heeft meerdere prijzen gewonnen voor de beste kindervoorstellingen in de regio. Ervaring en kwaliteit gegarandeerd.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why Suited Section */}
+      {/* Waarom Section */}
       <section id="safety" className="section section-cream section-padding">
         <div className="container">
           <div className="two-column">
             <div>
-              <div className="eyebrow">For parents</div>
-              <h2 className="mb-8">Why is Camp Buddy suited for your child?</h2>
+              <div className="eyebrow">Voor Families</div>
+              <h2 className="mb-8">Waarom kiezen gezinnen voor onze Sinterklaasshows?</h2>
               <p className="mb-8" style={{ color: '#666' }}>
-                We understand that choosing the right camp is one of the most important decisions you'll make for your child's summer.
+                We begrijpen dat het kiezen van de juiste Sinterklaasshow belangrijk is voor uw gezin. 
+                Daarom zorgen wij voor een onvergetelijke ervaring.
               </p>
               
               <div style={{ marginBottom: '32px' }}>
                 {[
-                  'Comprehensive background checks for all staff',
-                  'Expert counselors with specialized training',
-                  'Flexible scheduling and booking options', 
-                  'Transparent pricing with no hidden fees',
-                  'Real-time updates and communication',
-                  '24/7 parent support and emergency contact'
+                  'Volledig achtergrond-gescreende acteurs',
+                  'Interactieve shows aangepast per leeftijdsgroep',
+                  'Flexibele data en tijdstippen',
+                  'Transparante prijzen zonder verborgen kosten',
+                  'Live updates en communicatie met ouders',
+                  'Professionele fotograaf aanwezig'
                 ].map((item, index) => (
                   <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
-                    <CheckCircle size={20} color="#1F4A33" style={{ marginRight: '12px', minWidth: '20px' }} />
+                    <CheckCircle size={20} color="#DC2626" style={{ marginRight: '12px', minWidth: '20px' }} />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -250,79 +255,97 @@ export default function Home() {
             </div>
             
             <div style={{ position: 'relative' }}>
-              <div className="phone-mockup">
-                <div className="phone-screen">
-                  💬📱
-                </div>
-              </div>
               <div style={{
-                position: 'absolute',
-                top: '50%',
-                right: '-50px',
-                transform: 'translateY(-50%)',
-                fontSize: '60px',
-                opacity: 0.1,
-                zIndex: -1
+                width: '280px',
+                height: '400px',
+                background: 'var(--warm-white)',
+                borderRadius: '20px',
+                padding: '20px',
+                boxShadow: 'var(--shadow-medium)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto'
               }}>
-                🏠🌿
+                <div style={{ fontSize: '80px', marginBottom: '20px' }}>📱</div>
+                <div style={{ textAlign: 'center' }}>
+                  <h4 style={{ marginBottom: '10px' }}>Sinterklaas App</h4>
+                  <p style={{ fontSize: '14px', color: '#666' }}>
+                    Download onze app voor updates, foto's en herinneringen aan jullie magische avond!
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Demo Section */}
-      <section id="demo" className="section section-dark section-padding">
+      {/* CTA Reserveer Section */}
+      <section id="reserveer" className="section section-dark section-padding">
         <div className="container">
-          <div className="card" style={{ background: 'var(--dark-olive)', color: 'white', display: 'flex', alignItems: 'center', gap: '64px' }}>
+          <div className="card" style={{ background: 'var(--sinterklaas-rood-dark)', color: 'white', display: 'flex', alignItems: 'center', gap: '64px' }}>
             <div style={{ flex: 1 }}>
-              <h2 className="text-white mb-8">Be our trusted camp partners by scheduling a demo!</h2>
+              <h2 className="text-white mb-8">Reserveer nu jullie magische Sinterklaasavond!</h2>
               <p className="text-white mb-8" style={{ opacity: 0.9 }}>
-                Join our network of verified camps and connect with families looking for quality experiences.
+                Wacht niet te lang - onze populaire data zijn snel uitverkocht. Zorg dat jullie gezin bij dit magische gebeuren kan zijn!
               </p>
-              <button className="btn btn-primary">
+              <button className="btn btn-secondary">
                 <Calendar size={20} />
-                Schedule a demo
+                Reserveer Direct
               </button>
             </div>
             <div style={{
               width: '300px',
               height: '200px',
-              background: 'rgba(255, 255, 255, 0.1)',
+              background: 'rgba(245, 158, 11, 0.2)',
               borderRadius: '20px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '64px'
             }}>
-              📅🌸
+              🗓️✨
             </div>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="section section-peach section-padding">
+      <section id="faq" className="section section-gold section-padding">
         <div className="container">
           <div className="text-center mb-16">
-            <h2>Answering all your worries</h2>
+            <h2>Veelgestelde Vragen</h2>
             <p style={{ fontSize: '20px', color: '#666' }}>
-              Common questions from parents about camp safety and booking.
+              Antwoorden op de meest gestelde vragen over onze Sinterklaasshows.
             </p>
           </div>
           
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             {faqItems.map((item, index) => (
-              <div key={index} className={`faq-item ${openFaq === index ? 'active' : ''}`}>
+              <div key={index} className={`faq-item ${openFaq === index ? 'active' : ''}`} style={{ marginBottom: '16px' }}>
                 <button 
                   className="faq-question"
                   onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+                  style={{ 
+                    padding: '24px',
+                    border: 'none',
+                    background: 'none',
+                    width: '100%',
+                    textAlign: 'left',
+                    fontSize: 'var(--body-size)',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}
                 >
                   <span>{item.question}</span>
-                  {openFaq === index ? <Minus size={20} /> : <Plus size={20} />}
+                  {openFaq === index ? <Minus size={20} color="#DC2626" /> : <Plus size={20} color="#DC2626" />}
                 </button>
                 {openFaq === index && (
-                  <div className="faq-answer">
+                  <div style={{ padding: '0 24px 24px', color: '#666' }}>
                     <p>{item.answer}</p>
                   </div>
                 )}
@@ -332,30 +355,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Blog Section */}
-      <section id="blog" className="section section-light section-padding">
+      {/* Nieuws Section */}
+      <section id="news" className="section section-light section-padding">
         <div className="container">
           <div className="text-center mb-16">
-            <h2>Exciting reads you'll love</h2>
+            <h2>Leuke Verhalen & Nieuws</h2>
             <p style={{ fontSize: '20px', color: '#666' }}>
-              Expert advice and insights for making the most of your child's camp experience.
+              Blijf op de hoogte van alle nieuwtjes en verhalen rondom Sinterklaas Genk.
             </p>
           </div>
           
           <div className="three-column">
             {blogPosts.map((post, index) => (
-              <div key={index} className="blog-card">
-                <div className="blog-image">
+              <div key={index} className="card" style={{ overflow: 'hidden', padding: '0' }}>
+                <div style={{
+                  height: '200px',
+                  background: 'linear-gradient(135deg, var(--sinterklaas-goud-light) 0%, var(--sinterklaas-goud) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '64px'
+                }}>
                   {post.icon}
                 </div>
-                <div className="blog-content">
-                  <div className="blog-category">{post.category}</div>
-                  <h3 className="blog-title">{post.title}</h3>
-                  <p className="blog-excerpt">{post.excerpt}</p>
-                  <a href="#" style={{ color: 'var(--primary-orange)', textDecoration: 'none', fontWeight: '600' }}>
-                    Read more →
+                <div style={{ padding: '24px' }}>
+                  <div className="sinterklaas-badge" style={{ marginBottom: '16px' }}>
+                    {post.category}
+                  </div>
+                  <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px', lineHeight: '1.3' }}>
+                    {post.title}
+                  </h3>
+                  <p style={{ color: '#666', marginBottom: '16px' }}>{post.excerpt}</p>
+                  <a href="#" style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
+                    Lees meer →
                   </a>
-                  <div className="blog-meta">
+                  <div style={{ 
+                    fontSize: '14px', 
+                    color: '#999', 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center', 
+                    marginTop: '16px', 
+                    paddingTop: '16px', 
+                    borderTop: '1px solid #E5E7EB' 
+                  }}>
                     <span>{post.date}</span>
                     <span>{post.readTime}</span>
                   </div>
@@ -366,131 +409,211 @@ export default function Home() {
         </div>
       </section>
 
-      {/* App Promo Night Scene */}
-      <section id="app" className="section night-scene section-padding">
-        <div className="night-illustration"></div>
+      {/* Contact Section */}
+      <section id="contact" className="section section-cream section-padding">
         <div className="container">
-          <div className="two-column" style={{ alignItems: 'center' }}>
-            <div>
-              <h2 className="text-white mb-8">Be our buddy!</h2>
-              <p className="text-white mb-8" style={{ opacity: 0.9 }}>
-                Download the Camp Buddy app for easy booking, real-time updates, and direct communication with camp counselors.
-              </p>
-              
-              <div className="qr-code">
-                📱
+          <div className="text-center mb-16">
+            <h2>Neem Contact Op</h2>
+            <p style={{ fontSize: '20px', color: '#666', marginBottom: '48px' }}>
+              Vragen over onze shows? We helpen jullie graag verder!
+            </p>
+          </div>
+
+          <div className="three-column mb-12">
+            <div className="card text-center">
+              <div style={{ 
+                width: '64px', 
+                height: '64px', 
+                background: 'var(--sinterklaas-rood)', 
+                borderRadius: '50%', 
+                margin: '0 auto 24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Phone size={28} color="white" />
               </div>
-              
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <div style={{
-                  background: 'white',
-                  color: 'black',
-                  padding: '12px 24px',
-                  borderRadius: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}>
-                  📱 App Store
-                </div>
-                <div style={{
-                  background: 'white',
-                  color: 'black', 
-                  padding: '12px 24px',
-                  borderRadius: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}>
-                  🤖 Google Play
-                </div>
-              </div>
+              <h3 style={{ fontWeight: '600', marginBottom: '12px' }}>Bel Ons</h3>
+              <p style={{ color: '#666' }}>+32 (0)89 123 456</p>
             </div>
-            
-            <div className="phones-container">
-              <div className="phone-mockup phone-1">
-                <div className="phone-screen">
-                  🏠
-                </div>
+
+            <div className="card text-center">
+              <div style={{ 
+                width: '64px', 
+                height: '64px', 
+                background: 'var(--sinterklaas-goud)', 
+                borderRadius: '50%', 
+                margin: '0 auto 24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Mail size={28} color="white" />
               </div>
-              <div className="phone-mockup phone-2">
-                <div className="phone-screen">
-                  💬
-                </div>
-              </div>
+              <h3 style={{ fontWeight: '600', marginBottom: '12px' }}>Email Ons</h3>
+              <p style={{ color: '#666' }}>info@sinterklaasgenk.be</p>
             </div>
+
+            <div className="card text-center">
+              <div style={{ 
+                width: '64px', 
+                height: '64px', 
+                background: 'var(--sinterklaas-rood-dark)', 
+                borderRadius: '50%', 
+                margin: '0 auto 24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <MapPin size={28} color="white" />
+              </div>
+              <h3 style={{ fontWeight: '600', marginBottom: '12px' }}>Locatie</h3>
+              <p style={{ color: '#666' }}>Cultureel Centrum Genk<br/>Dieplaan 17, 3600 Genk</p>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <button className="btn btn-primary" style={{ fontSize: '18px', padding: '20px 40px' }}>
+              <Gift size={24} />
+              Reserveer Nu Jullie Tickets
+            </button>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="footer">
+      <footer style={{ background: 'var(--warm-cream)', padding: '64px 0 32px' }}>
         <div className="container">
-          <div className="footer-content">
-            <div className="footer-brand">
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', 
+            gap: '48px', 
+            marginBottom: '48px' 
+          }}>
+            <div style={{ maxWidth: '300px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <TreePine size={28} color="#1F4A33" />
-                <span style={{ fontSize: '24px', fontWeight: '700' }}>Camp Buddy</span>
+                <Gift size={28} color="#DC2626" />
+                <span style={{ fontSize: '24px', fontWeight: '700' }}>Sinterklaas Genk</span>
               </div>
-              <p>
-                Connecting families with trusted, verified summer camps for safe and memorable experiences.
+              <p style={{ marginBottom: '24px' }}>
+                Al meer dan 15 jaar de meest magische Sinterklaasshows van België. 
+                Voor onvergetelijke herinneringen van het hele gezin.
               </p>
-              <div className="newsletter">
-                <input type="email" placeholder="Enter your email" />
+              <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
+                <input 
+                  type="email" 
+                  placeholder="Jouw email adres" 
+                  style={{ 
+                    flex: 1, 
+                    padding: '12px 16px', 
+                    border: '1px solid #E5E7EB', 
+                    borderRadius: '12px', 
+                    fontSize: '14px' 
+                  }} 
+                />
                 <button className="btn btn-primary" style={{ padding: '12px 20px' }}>
-                  Subscribe
+                  Inschrijven
                 </button>
               </div>
             </div>
             
             <div>
-              <div className="footer-title">Product</div>
-              <a href="#" className="footer-link">Find Camps</a>
-              <a href="#" className="footer-link">Camp Partners</a>
-              <a href="#" className="footer-link">Safety Standards</a>
-              <a href="#" className="footer-link">Mobile App</a>
+              <h4 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: 'var(--sinterklaas-rood)' }}>
+                Shows
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Sinterklaasavond</a>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Schoolshows</a>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Privé Events</a>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Groepsarrangementen</a>
+              </div>
             </div>
             
             <div>
-              <div className="footer-title">Company</div>
-              <a href="#" className="footer-link">About Us</a>
-              <a href="#" className="footer-link">Careers</a>
-              <a href="#" className="footer-link">Press</a>
-              <a href="#" className="footer-link">Contact</a>
+              <h4 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: 'var(--sinterklaas-rood)' }}>
+                Info
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Over Ons</a>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Het Team</a>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Locaties</a>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Contact</a>
+              </div>
             </div>
             
             <div>
-              <div className="footer-title">Resources</div>
-              <a href="#" className="footer-link">Blog</a>
-              <a href="#" className="footer-link">Safety Guide</a>
-              <a href="#" className="footer-link">Parent Tips</a>
-              <a href="#" className="footer-link">Help Center</a>
+              <h4 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: 'var(--sinterklaas-rood)' }}>
+                Service
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Klantenservice</a>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Veelgestelde Vragen</a>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Tickets Omruilen</a>
+                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Groepskortingen</a>
+              </div>
             </div>
             
             <div>
-              <div className="footer-title">Follow us</div>
-              <div className="social-links">
-                <a href="#" className="social-link">
+              <h4 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: 'var(--sinterklaas-rood)' }}>
+                Volg Ons
+              </h4>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <a href="#" style={{
+                  width: '40px',
+                  height: '40px',
+                  background: '#F3F4F6',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }}>
                   <Facebook size={20} />
                 </a>
-                <a href="#" className="social-link">
-                  <Twitter size={20} />
-                </a>
-                <a href="#" className="social-link">
+                <a href="#" style={{
+                  width: '40px',
+                  height: '40px',
+                  background: '#F3F4F6',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }}>
                   <Instagram size={20} />
                 </a>
-                <a href="#" className="social-link">
+                <a href="#" style={{
+                  width: '40px',
+                  height: '40px',
+                  background: '#F3F4F6',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }}>
                   <Youtube size={20} />
                 </a>
               </div>
             </div>
           </div>
           
-          <div className="footer-bottom">
-            <div>© 2024 Camp Buddy. All rights reserved.</div>
+          <div style={{ 
+            paddingTop: '32px', 
+            borderTop: '1px solid #E5E7EB', 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            color: '#666', 
+            fontSize: '14px' 
+          }}>
+            <div>© 2024 Sinterklaas Genk. Alle rechten voorbehouden.</div>
             <div style={{ display: 'flex', gap: '24px' }}>
-              <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Privacy Policy</a>
-              <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Terms of Service</a>
+              <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Privacy</a>
+              <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Voorwaarden</a>
               <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Cookies</a>
             </div>
           </div>
