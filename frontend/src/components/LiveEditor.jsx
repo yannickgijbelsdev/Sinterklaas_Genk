@@ -1,12 +1,38 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { Button } from './ui/button';
-import { Card, CardContent } from './ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { toast } from 'sonner';
 import { useAuth } from '../contexts/AuthContext';
+import { 
+  Plus, 
+  Trash2, 
+  Edit3, 
+  Save, 
+  Eye, 
+  Undo, 
+  Redo,
+  GripVertical,
+  Type,
+  Image as ImageIcon,
+  Square,
+  Minus,
+  Columns,
+  Settings,
+  Palette,
+  Copy,
+  Upload,
+  Link2
+} from 'lucide-react';
 import { 
   Edit3, 
   Save, 
