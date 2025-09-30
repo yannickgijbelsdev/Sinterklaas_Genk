@@ -1,0 +1,344 @@
+/* Sinterklaas Theme - Inspired by Camp Buddy Design with Red & Gold Colors */
+
+:root {
+  /* Primary Sinterklaas Colors */
+  --sinterklaas-red: #DC2626;          /* Deep red */
+  --sinterklaas-red-light: #EF4444;    /* Lighter red */
+  --sinterklaas-red-dark: #B91C1C;     /* Darker red */
+  --sinterklaas-gold: #F59E0B;         /* Rich gold */
+  --sinterklaas-gold-light: #FBBF24;   /* Light gold */
+  --sinterklaas-gold-dark: #D97706;    /* Dark gold */
+  
+  /* Background & Text Colors */
+  --background-warm: #FEF7ED;          /* Warm cream background */
+  --background-white: #FFFFFF;         /* Pure white */
+  --background-light: #FEF3C7;         /* Light golden background */
+  --text-dark: #1F2937;               /* Dark text */
+  --text-medium: #4B5563;             /* Medium gray text */
+  --text-light: #6B7280;              /* Light gray text */
+  
+  /* Accent Colors */
+  --accent-orange: #EA580C;           /* Warm orange */
+  --accent-yellow: #EAB308;           /* Bright yellow */
+  --success-green: #059669;           /* Success green */
+  
+  /* Gradients */
+  --gradient-warm: linear-gradient(135deg, var(--background-warm) 0%, var(--background-light) 100%);
+  --gradient-gold: linear-gradient(135deg, var(--sinterklaas-gold-light) 0%, var(--sinterklaas-gold) 100%);
+  --gradient-red: linear-gradient(135deg, var(--sinterklaas-red-light) 0%, var(--sinterklaas-red) 100%);
+}
+
+/* Global Styles */
+body {
+  background-color: var(--background-warm);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* Typography Enhancements */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.025em;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--sinterklaas-red), var(--sinterklaas-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-medium);
+  margin-bottom: 3rem;
+}
+
+/* Card Styles - Inspired by Camp Buddy */
+.sinterklaas-card {
+  background: var(--background-white);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.1), 0 10px 10px -5px rgba(220, 38, 38, 0.04);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sinterklaas-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-gold);
+}
+
+.sinterklaas-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -10px rgba(220, 38, 38, 0.15), 0 10px 10px -5px rgba(220, 38, 38, 0.08);
+  border-color: var(--sinterklaas-gold-light);
+}
+
+/* Button Styles */
+.btn-sinterklaas-primary {
+  background: var(--gradient-red);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-sinterklaas-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+  color: white;
+}
+
+.btn-sinterklaas-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-sinterklaas-primary:hover::before {
+  left: 100%;
+}
+
+.btn-sinterklaas-secondary {
+  background: var(--gradient-gold);
+  color: var(--text-dark);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-sinterklaas-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+  color: var(--text-dark);
+}
+
+.btn-sinterklaas-outline {
+  background: transparent;
+  color: var(--sinterklaas-red);
+  border: 2px solid var(--sinterklaas-red);
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-sinterklaas-outline:hover {
+  background: var(--sinterklaas-red);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
+}
+
+/* Section Backgrounds */
+.section-warm-background {
+  background: var(--gradient-warm);
+  position: relative;
+}
+
+.section-white-background {
+  background: var(--background-white);
+  position: relative;
+}
+
+.section-gold-background {
+  background: linear-gradient(135deg, var(--background-light) 0%, var(--sinterklaas-gold-light) 20%, var(--background-light) 100%);
+  position: relative;
+}
+
+/* Decorative Elements */
+.sinterklaas-decoration {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.1;
+  animation: float 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.sinterklaas-decoration:nth-child(odd) {
+  animation-delay: -3s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* Header Updates */
+.sinterklaas-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--background-light);
+}
+
+/* Hero Section */
+.sinterklaas-hero {
+  background: var(--gradient-warm);
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.sinterklaas-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f59e0b' fill-opacity='0.05' %3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+  opacity: 0.5;
+}
+
+/* News/Content Cards */
+.news-card {
+  background: var(--background-white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.news-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -10px rgba(220, 38, 38, 0.15);
+  border-color: var(--sinterklaas-gold-light);
+}
+
+.news-card .news-image {
+  height: 200px;
+  background: var(--gradient-gold);
+  position: relative;
+  overflow: hidden;
+}
+
+.news-card .news-content {
+  padding: 1.5rem;
+}
+
+.news-card .news-date {
+  color: var(--sinterklaas-gold-dark);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.news-card .news-title {
+  color: var(--text-dark);
+  font-weight: 700;
+  margin: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.news-card:hover .news-title {
+  color: var(--sinterklaas-red);
+}
+
+/* Gallery Preview */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.gallery-item {
+  aspect-ratio: 1;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.1);
+}
+
+.gallery-item:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.2);
+}
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, var(--sinterklaas-red), var(--sinterklaas-gold));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover::after {
+  opacity: 0.1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .sinterklaas-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Animation Utilities */
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shine 3s infinite;
+}
