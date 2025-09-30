@@ -1338,6 +1338,149 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
 
       {/* Edit Modal */}
       {renderEditModal()}
+
+      {/* Properties Panel */}
+      {showPropertiesPanel && selectedElement && (
+        <LivePropertiesPanel
+          selectedElement={selectedElement}
+          onUpdate={() => setIsDirty(true)}
+          onClose={() => {
+            setShowPropertiesPanel(false);
+            setSelectedElement(null);
+          }}
+        />
+      )}
+    </div>
+  );
+};
+
+// Properties Panel Component (moved above LiveEditor)
+const LivePropertiesPanel = ({ selectedElement, onUpdate, onClose }) => {
+  if (!selectedElement) return null;
+  
+  const [properties, setProperties] = useState({
+    content: selectedElement.textContent || '',
+    style: {
+      color: getComputedStyle(selectedElement).color || '#333333',
+      fontSize: getComputedStyle(selectedElement).fontSize || '16px',
+      textAlign: getComputedStyle(selectedElement).textAlign || 'left',
+      fontWeight: getComputedStyle(selectedElement).fontWeight || 'normal'
+    }
+  });
+  
+  const updateProperty = (key, value) => {
+    if (key.startsWith('style.')) {
+      const styleKey = key.replace('style.', '');
+      setProperties(prev => ({
+        ...prev,
+        style: { ...prev.style, [styleKey]: value }
+      }));
+    } else {
+      setProperties(prev => ({ ...prev, [key]: value }));
+    }
+  };
+  
+  const applyChanges = () => {
+    // Apply text content
+    if (properties.content !== selectedElement.textContent) {
+      selectedElement.textContent = properties.content;
+    }
+    
+    // Apply styles
+    Object.entries(properties.style).forEach(([key, value]) => {
+      selectedElement.style[key] = value;
+    });
+    
+    onUpdate && onUpdate();
+    toast.success('Wijzigingen toegepast!');
+  };
+  
+  return (
+    <div className="fixed right-4 top-20 w-80 bg-white rounded-lg shadow-xl border z-30 max-h-96 overflow-y-auto">
+      <div className="p-4 border-b flex items-center justify-between">
+        <h3 className="font-medium">Element Eigenschappen</h3>
+        <Button size="sm" variant="ghost" onClick={onClose}>✕</Button>
+      </div>
+      
+      <div className="p-4 space-y-4">
+        <Tabs defaultValue="content" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="content">Inhoud</TabsTrigger>
+            <TabsTrigger value="style">Styling</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="content" className="space-y-3">
+            <div>
+              <Label>Tekst</Label>
+              <Textarea
+                value={properties.content}
+                onChange={(e) => updateProperty('content', e.target.value)}
+                rows={3}
+              />
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="style" className="space-y-3">
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <Label>Kleur</Label>
+                <Input
+                  type="color"
+                  value={properties.style.color}
+                  onChange={(e) => updateProperty('style.color', e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>Grootte</Label>
+                <select
+                  value={properties.style.fontSize}
+                  onChange={(e) => updateProperty('style.fontSize', e.target.value)}
+                  className="w-full p-2 border rounded"
+                >
+                  <option value="12px">Klein</option>
+                  <option value="14px">Klein-Medium</option>
+                  <option value="16px">Normaal</option>
+                  <option value="18px">Groot</option>
+                  <option value="24px">Extra Groot</option>
+                  <option value="32px">Zeer Groot</option>
+                </select>
+              </div>
+            </div>
+            
+            <div>
+              <Label>Uitlijning</Label>
+              <div className="flex gap-1">
+                {['left', 'center', 'right'].map(align => (
+                  <Button
+                    key={align}
+                    size="sm"
+                    variant={properties.style.textAlign === align ? 'default' : 'outline'}
+                    onClick={() => updateProperty('style.textAlign', align)}
+                  >
+                    {align === 'left' ? '←' : align === 'center' ? '↔' : '→'}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                variant={properties.style.fontWeight === 'bold' ? 'default' : 'outline'}
+                onClick={() => updateProperty('style.fontWeight', 
+                  properties.style.fontWeight === 'bold' ? 'normal' : 'bold')}
+              >
+                <strong>B</strong>
+              </Button>
+            </div>
+          </TabsContent>
+        </Tabs>
+        
+        <Button onClick={applyChanges} className="w-full">
+          <Save size={14} className="mr-2" />
+          Toepassen
+        </Button>
+      </div>
     </div>
   );
 };
