@@ -16,9 +16,8 @@ export default function Home() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowCurtain(false);
       setAppReady(true);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
