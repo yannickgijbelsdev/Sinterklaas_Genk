@@ -382,67 +382,206 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Theater/Grote Zaal - Shows Section */}
+      {/* Luxe Theater/Salon - Shows Section */}
       <section id="shows" className="stoomboot-section stoomboot-theater">
-        <div className="theater-gordijnen">
+        <div className="theater-gordijnen-systeem">
+          <div className="gordijn-ring"></div>
+          <div className="gordijn-ring"></div>
+          <div className="gordijn-ring"></div>
+          <div className="gordijn-ring"></div>
+          <div className="gordijn-ring"></div>
+          <div className="gordijn-ring"></div>
+          <div className="gordijn-ring"></div>
+          <div className="gordijn-ring"></div>
+          <div className="gordijn-ring"></div>
           <div 
             className="verhaal-element"
-            style={{ position: 'absolute', top: '10px', left: '50%', transform: 'translateX(-50%)', fontSize: '30px' }}
+            style={{ 
+              position: 'absolute', 
+              top: '25px', 
+              left: '50%', 
+              transform: 'translateX(-50%)', 
+              fontSize: '35px',
+              cursor: 'pointer',
+              filter: 'drop-shadow(0 5px 15px rgba(0,0,0,0.8))'
+            }}
             onClick={() => setActivePopup('gordijn')}
-            title="Klik op de gordijnen!"
+            title="Klik op de theater gordijnen!"
           >
             🎭
           </div>
         </div>
-        <div className="theater-spotlights">
-          <div className="spotlight"></div>
-          <div className="spotlight"></div>
-          <div className="spotlight"></div>
+        
+        <div className="theater-verlichting-systeem">
+          <div className="professionele-spotlight">
+            <div className="spotlight-lens"></div>
+            <div className="spotlight-straal"></div>
+          </div>
+          <div className="professionele-spotlight" style={{ animationDelay: '1s' }}>
+            <div className="spotlight-lens"></div>
+            <div className="spotlight-straal"></div>
+          </div>
+          <div className="professionele-spotlight" style={{ animationDelay: '2s' }}>
+            <div className="spotlight-lens"></div>
+            <div className="spotlight-straal"></div>
+          </div>
         </div>
         
-        <div className="container" style={{ marginTop: '80px' }}>
-          {/* Sinterklaas op het podium */}
+        <div className="theater-balkon links">
+          <div className="balkon-reling"></div>
+        </div>
+        <div className="theater-balkon rechts">
+          <div className="balkon-reling"></div>
+        </div>
+        
+        <div className="theater-podium"></div>
+        
+        <div className="container" style={{ marginTop: '120px', zIndex: 10, position: 'relative' }}>
+          {/* Elegante Sinterklaas op het podium */}
           <div 
             className="sinterklaas-character"
-            style={{ top: '15%', left: '50%', transform: 'translateX(-50%)', fontSize: '90px' }}
+            style={{ 
+              top: '20%', 
+              left: '50%', 
+              transform: 'translateX(-50%)', 
+              fontSize: '100px',
+              filter: 'drop-shadow(0 15px 30px rgba(0,0,0,0.8))',
+              textShadow: '0 8px 20px rgba(0,0,0,0.9)'
+            }}
           >
             🎅
           </div>
           
-          {/* Pieten aan de zijkanten */}
-          <div className="piet-character" style={{ top: '25%', left: '20%' }}>👨‍🦱</div>
-          <div className="piet-character" style={{ top: '25%', right: '20%' }}>👩‍🦱</div>
+          {/* Elegante Pieten aan weerszijden */}
+          <div 
+            className="piet-character" 
+            style={{ 
+              top: '30%', 
+              left: '25%', 
+              fontSize: '75px',
+              filter: 'drop-shadow(0 12px 25px rgba(0,0,0,0.7))'
+            }}
+          >
+            👨‍🦱
+          </div>
+          <div 
+            className="piet-character" 
+            style={{ 
+              top: '30%', 
+              right: '25%', 
+              fontSize: '75px',
+              filter: 'drop-shadow(0 12px 25px rgba(0,0,0,0.7))'
+            }}
+          >
+            👩‍🦱
+          </div>
 
-          <div className="scroll-reveal" style={{ textAlign: 'center', color: 'white', marginTop: '100px' }}>
-            <div style={{ fontSize: '20px', marginBottom: '15px', opacity: 0.9 }}>
-              🎪 Het Grote Theater
+          <div className="scroll-reveal" style={{ textAlign: 'center', color: 'white', marginTop: '140px' }}>
+            <div style={{ 
+              fontSize: '24px', 
+              marginBottom: '20px', 
+              opacity: 0.95,
+              textShadow: '0 4px 15px rgba(0,0,0,0.9)',
+              fontFamily: 'Playfair Display, serif',
+              fontStyle: 'italic'
+            }}>
+              🎪 Het Grand Theater
             </div>
-            <h2 style={{ color: 'white', marginBottom: '30px' }}>
-              Magische Shows Vol Verrassingen
+            <h2 style={{ 
+              color: 'white', 
+              marginBottom: '35px',
+              textShadow: '0 6px 20px rgba(0,0,0,0.9)',
+              fontSize: '44px',
+              fontFamily: 'Playfair Display, serif'
+            }}>
+              Magische Shows Vol Elegantie
             </h2>
-            <p style={{ fontSize: '20px', marginBottom: '40px', maxWidth: '800px', margin: '0 auto 40px' }}>
-              In dit magische theater gebeurt alle magie! Interactieve voorstellingen waarin elk kind 
-              de hoofdrol speelt in het Sinterklaas verhaal.
+            <p style={{ 
+              fontSize: '22px', 
+              marginBottom: '50px', 
+              maxWidth: '850px', 
+              margin: '0 auto 50px',
+              lineHeight: 1.8,
+              textShadow: '0 3px 12px rgba(0,0,0,0.8)'
+            }}>
+              In dit luxueuze theater gebeurt alle magie! Interactieve voorstellingen in een authentieke 
+              stoomboot setting waarin elk kind de hoofdrol speelt in het Sinterklaas verhaal.
             </p>
             
-            {/* Show Features */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', marginTop: '50px' }}>
-              <div className="card scroll-reveal" style={{ background: 'rgba(255, 255, 255, 0.95)' }}>
-                <div style={{ fontSize: '50px', marginBottom: '15px' }}>❤️</div>
-                <h3 style={{ color: 'var(--sinterklaas-rood)', marginBottom: '15px' }}>Hartverwarming</h3>
-                <p>Elke show wordt uitgevoerd met liefde. Elk kind voelt zich speciaal aan boord!</p>
+            {/* Elegante Show Features */}
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+              gap: '35px', 
+              marginTop: '60px' 
+            }}>
+              <div 
+                className="card scroll-reveal" 
+                style={{ 
+                  background: 'rgba(255, 255, 255, 0.97)', 
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.4)',
+                  border: '2px solid rgba(218, 165, 32, 0.3)'
+                }}
+              >
+                <div style={{ fontSize: '55px', marginBottom: '20px' }}>❤️</div>
+                <h3 style={{ 
+                  color: 'var(--sinterklaas-rood)', 
+                  marginBottom: '18px', 
+                  fontSize: '26px',
+                  fontFamily: 'Playfair Display, serif'
+                }}>
+                  Hartverwarming
+                </h3>
+                <p style={{ fontSize: '18px', lineHeight: 1.6 }}>
+                  Elke show wordt uitgevoerd met liefde en passie. Elk kind voelt zich als een echte VIP 
+                  passagier aan boord van onze luxueuze stoomboot!
+                </p>
               </div>
               
-              <div className="card scroll-reveal" style={{ background: 'rgba(255, 255, 255, 0.95)' }}>
-                <div style={{ fontSize: '50px', marginBottom: '15px' }}>🛡️</div>
-                <h3 style={{ color: 'var(--sinterklaas-rood)', marginBottom: '15px' }}>Veilig & Vertrouwd</h3>
-                <p>Alle bemanningsleden zijn ervaren en getraind in kindvriendelijke magie!</p>
+              <div 
+                className="card scroll-reveal" 
+                style={{ 
+                  background: 'rgba(255, 255, 255, 0.97)',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.4)',
+                  border: '2px solid rgba(218, 165, 32, 0.3)'
+                }}
+              >
+                <div style={{ fontSize: '55px', marginBottom: '20px' }}>🛡️</div>
+                <h3 style={{ 
+                  color: 'var(--sinterklaas-rood)', 
+                  marginBottom: '18px', 
+                  fontSize: '26px',
+                  fontFamily: 'Playfair Display, serif'
+                }}>
+                  Premium & Veilig
+                </h3>
+                <p style={{ fontSize: '18px', lineHeight: 1.6 }}>
+                  Alle bemanningsleden zijn ervaren en gecertificeerd in kindvriendelijke entertainment. 
+                  Onze stoomboot voldoet aan de hoogste veiligheidsnormen!
+                </p>
               </div>
               
-              <div className="card scroll-reveal" style={{ background: 'rgba(255, 255, 255, 0.95)' }}>
-                <div style={{ fontSize: '50px', marginBottom: '15px' }}>🏆</div>
-                <h3 style={{ color: 'var(--sinterklaas-rood)', marginBottom: '15px' }}>Award-winning</h3>
-                <p>Onze stoomboot crew heeft meerdere prijzen gewonnen voor beste kindertheater!</p>
+              <div 
+                className="card scroll-reveal" 
+                style={{ 
+                  background: 'rgba(255, 255, 255, 0.97)',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.4)',
+                  border: '2px solid rgba(218, 165, 32, 0.3)'
+                }}
+              >
+                <div style={{ fontSize: '55px', marginBottom: '20px' }}>🏆</div>
+                <h3 style={{ 
+                  color: 'var(--sinterklaas-rood)', 
+                  marginBottom: '18px', 
+                  fontSize: '26px',
+                  fontFamily: 'Playfair Display, serif'
+                }}>
+                  Award-Winning
+                </h3>
+                <p style={{ fontSize: '18px', lineHeight: 1.6 }}>
+                  Onze stoomboot crew heeft nationale erkenning gekregen voor de meest authentieke 
+                  en innovatieve Sinterklaas beleving van België!
+                </p>
               </div>
             </div>
           </div>
