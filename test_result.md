@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: Extend live editing functionality to all pages (About, Characters, Shows, Gallery, News, Contact) - currently only working on Home page. Make sure all edit buttons and functionality are hidden for non-logged in users.
+user_problem_statement: Test de volledige interactieve stoomboot-ervaring van de Sinterklaas website: scroll-based navigation & animations, interactive story elements, character interactions, FAQ functionality, mobile responsiveness, and all stoomboot-themed features.
 
 backend:
   - task: "Content management endpoints"
