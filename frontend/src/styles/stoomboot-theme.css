@@ -491,80 +491,225 @@ h3 {
     0 3px 10px rgba(0,0,0,0.2);
 }
 
-/* Machinekamer (Safety Section) */
+/* Authentieke Machinekamer */
 .stoomboot-machinekamer {
-  background: linear-gradient(180deg, var(--stoomboot-metaal) 0%, #1a1a1a 100%);
-  position: relative;
+  background: linear-gradient(180deg, var(--smeedijzer) 0%, #0f0f0f 50%, #1a1a1a 100%);
   background-image: 
-    repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 12px);
+    repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255,255,255,0.03) 17px),
+    radial-gradient(circle at 30% 70%, rgba(184, 115, 51, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(184, 115, 51, 0.05) 0%, transparent 40%);
+  position: relative;
+  border-top: 8px solid var(--gepolijst-koper);
+  border-bottom: 8px solid var(--gepolijst-koper);
 }
 
-.machine-onderdelen {
+/* Complexe Machine Opstelling */
+.machinekamer-installaties {
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 5%;
   right: 5%;
-  height: 60%;
-  display: flex;
+  height: 70%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
   align-items: center;
-  justify-content: space-around;
 }
 
-.machine {
-  width: 80px;
-  height: 120px;
-  background: linear-gradient(135deg, var(--stoomboot-koper) 0%, #8B6914 100%);
-  border-radius: 10px;
+.stoomketel-complex {
+  width: 100px;
+  height: 160px;
+  background: linear-gradient(135deg, var(--gepatineerd-koper) 0%, var(--staal-geborsteld) 50%, var(--gepolijst-koper) 100%);
+  border-radius: 15px;
   position: relative;
-  animation: machine-pulse 2s ease-in-out infinite;
+  animation: ketel-vibratie 3s ease-in-out infinite;
+  box-shadow: 
+    inset 0 0 25px rgba(0,0,0,0.4),
+    0 10px 30px rgba(0,0,0,0.6);
+  border: 3px solid var(--brons);
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.machine::before {
-  content: '';
+.stoomketel-complex:hover {
+  transform: scale(1.05);
+  animation-play-state: paused;
+  box-shadow: 
+    inset 0 0 35px rgba(0,0,0,0.5),
+    0 15px 40px rgba(0,0,0,0.7),
+    0 0 50px rgba(184, 115, 51, 0.3);
+}
+
+/* Gedetailleerde Ketel Onderdelen */
+.ketel-bovenkant {
   position: absolute;
-  top: -10px;
+  top: -15px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
-  height: 20px;
-  background: var(--stoomboot-metaal);
+  width: 40px;
+  height: 30px;
+  background: radial-gradient(ellipse, var(--messing) 0%, var(--gepatineerd-koper) 100%);
   border-radius: 50%;
+  box-shadow: 
+    inset 0 0 10px rgba(0,0,0,0.4),
+    0 5px 15px rgba(0,0,0,0.3);
+  border: 2px solid var(--brons);
 }
 
-.machine::after {
-  content: '⚙️';
+.druk-meter {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 50%;
+  border: 4px solid var(--messing);
+  box-shadow: 
+    inset 0 0 15px rgba(0,0,0,0.2),
+    0 3px 10px rgba(0,0,0,0.3);
+}
+
+.meter-wijzer {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 24px;
-  animation: rotate 3s linear infinite;
+  width: 1px;
+  height: 20px;
+  background: var(--sinterklaas-rood);
+  transform-origin: bottom;
+  transform: translate(-50%, -100%) rotate(45deg);
+  animation: druk-meter-beweging 2s ease-in-out infinite alternate;
 }
 
-.stoom-pijpen {
+@keyframes druk-meter-beweging {
+  0% { transform: translate(-50%, -100%) rotate(20deg); }
+  100% { transform: translate(-50%, -100%) rotate(70deg); }
+}
+
+.ketel-ventielen {
   position: absolute;
-  top: 10%;
-  right: 10%;
-  display: flex;
-  gap: 20px;
-}
-
-.pijp {
-  width: 30px;
-  height: 200px;
-  background: var(--stoomboot-metaal);
-  border-radius: 15px;
-  position: relative;
-}
-
-.pijp::after {
-  content: '💨';
-  position: absolute;
-  top: -30px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 24px;
-  animation: float 2s ease-in-out infinite;
+  display: flex;
+  gap: 10px;
+}
+
+.ventiel {
+  width: 15px;
+  height: 25px;
+  background: linear-gradient(180deg, var(--gepolijst-koper) 0%, var(--gepatineerd-koper) 100%);
+  border-radius: 8px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+  border: 1px solid var(--brons);
+}
+
+@keyframes ketel-vibratie {
+  0%, 100% { transform: translateX(0px) translateY(0px); }
+  25% { transform: translateX(1px) translateY(-1px); }
+  50% { transform: translateX(-1px) translateY(0px); }
+  75% { transform: translateX(0px) translateY(1px); }
+}
+
+/* Geavanceerd Stoom Systeem */
+.stoom-leidingen-complex {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 200px;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.stoom-leiding {
+  width: 40px;
+  height: 300px;
+  background: linear-gradient(180deg, var(--staal-geborsteld) 0%, var(--smeedijzer) 50%, var(--staal-geborsteld) 100%);
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 
+    inset 0 0 15px rgba(0,0,0,0.4),
+    0 5px 20px rgba(0,0,0,0.4);
+  border: 2px solid var(--gepatineerd-koper);
+}
+
+.stoom-leiding:nth-child(2) { height: 250px; margin-top: 50px; }
+.stoom-leiding:nth-child(3) { height: 320px; margin-top: -20px; }
+.stoom-leiding:nth-child(4) { height: 280px; margin-top: 20px; }
+
+/* Stoom Effecten */
+.stoom-uitlaat {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 30px;
+  background: radial-gradient(ellipse, rgba(248, 250, 252, 0.8) 0%, transparent 100%);
+  border-radius: 50%;
+  animation: stoom-uitstoot 3s ease-in-out infinite;
+  filter: blur(3px);
+}
+
+@keyframes stoom-uitstoot {
+  0% { opacity: 0.6; transform: translateX(-50%) translateY(0px) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(-15px) scale(1.2); }
+  100% { opacity: 0.3; transform: translateX(-50%) translateY(-30px) scale(1.5); }
+}
+
+/* Temperatuur Indicatoren */
+.temperatuur-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 8px;
+  background: linear-gradient(90deg, #10b981 0%, #f59e0b 50%, #ef4444 100%);
+  border-radius: 4px;
+  box-shadow: 
+    inset 0 1px 3px rgba(0,0,0,0.3),
+    0 0 10px rgba(239, 68, 68, 0.4);
+  border: 1px solid var(--gepatineerd-koper);
+}
+
+/* Kolen Oven Details */
+.kolen-oven {
+  position: absolute;
+  bottom: 5%;
+  left: 15%;
+  width: 150px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--smeedijzer) 0%, #0a0a0a 100%);
+  border-radius: 10px;
+  box-shadow: 
+    inset 0 0 20px rgba(255, 100, 0, 0.3),
+    0 5px 25px rgba(0,0,0,0.6);
+  border: 3px solid var(--gepatineerd-koper);
+}
+
+.oven-deur {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  height: 50px;
+  background: radial-gradient(circle, #4a0000 0%, #1a0000 100%);
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 0 15px rgba(255, 100, 0, 0.6),
+    0 2px 8px rgba(0,0,0,0.4);
+  border: 2px solid var(--gepatineerd-koper);
+  animation: vuur-gloed 2s ease-in-out infinite alternate;
+}
+
+@keyframes vuur-gloed {
+  0% { box-shadow: inset 0 0 15px rgba(255, 100, 0, 0.6), 0 2px 8px rgba(0,0,0,0.4); }
+  100% { box-shadow: inset 0 0 25px rgba(255, 50, 0, 0.9), 0 2px 12px rgba(255, 100, 0, 0.2); }
 }
 
 /* Kajuiten (FAQ Section) */
