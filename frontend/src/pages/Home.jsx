@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, MapPin, Clock, Users, ArrowRight, Star } from 'lucide-react';
+import { Calendar, MapPin, Clock, Users, ArrowRight, Star, Sparkles, Gift, Camera } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
@@ -9,6 +9,7 @@ import { LiveEditor } from '../components/LiveEditor';
 import { MagicCurtain } from '../components/MagicCurtain';
 import { showInfo as fallbackShowInfo, news as fallbackNews } from '../data/mock';
 import { useNews, useContent, getContentValue } from '../hooks/useApi';
+import '../styles/sinterklaas-theme.css';
 
 export default function Home() {
   const [showCurtain, setShowCurtain] = useState(true);
