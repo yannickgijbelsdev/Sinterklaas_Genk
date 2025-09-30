@@ -233,13 +233,14 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
       
       insertionPoint.addEventListener('mouseenter', () => {
         insertionPoint.style.opacity = '1';
+        insertionPoint.style.background = 'linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.2) 50%, transparent 100%)';
         insertionPoint.style.borderTopColor = '#3b82f6';
         showInsertionButton(insertionPoint, element);
       });
       
       insertionPoint.addEventListener('mouseleave', () => {
-        insertionPoint.style.opacity = '0';
-        insertionPoint.style.borderTopColor = 'transparent';
+        insertionPoint.style.opacity = '0.3';
+        insertionPoint.style.background = 'linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.1) 50%, transparent 100%)';
         hideInsertionButton();
       });
       
