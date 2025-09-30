@@ -35,24 +35,6 @@ import {
   Upload,
   Link2
 } from 'lucide-react';
-import { 
-  Edit3, 
-  Save, 
-  Eye, 
-  EyeOff, 
-  Undo, 
-  Redo,
-  Type,
-  Image as ImageIcon,
-  Palette,
-  RefreshCw,
-  Lock,
-  Link,
-  Smartphone,
-  Tablet,
-  Monitor,
-  Upload
-} from 'lucide-react';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
