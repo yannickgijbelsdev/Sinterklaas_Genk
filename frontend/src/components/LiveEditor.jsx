@@ -302,6 +302,29 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
     element.style.margin = '2px';
     element.style.minHeight = '20px';
 
+    // Add hover effects in edit mode
+    if (editMode) {
+      element.addEventListener('mouseenter', () => {
+        if (editMode) {
+          setHoveredElement(element);
+          element.style.outline = '2px solid #3b82f6';
+          element.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
+          
+          // Add floating toolbar
+          showElementToolbar(element);
+        }
+      });
+
+      element.addEventListener('mouseleave', () => {
+        if (editMode && selectedElement !== element) {
+          element.style.outline = '2px dashed #3b82f6';
+          element.style.backgroundColor = 'transparent';
+          hideElementToolbar(element);
+        }
+        setHoveredElement(null);
+      });
+    }
+
     if (type === 'text') {
       element.contentEditable = true;
       element.style.cursor = 'text';
