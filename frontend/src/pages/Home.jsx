@@ -355,6 +355,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Extra Speelse Golvende Separator */}
+      <div className="wavy-separator"></div>
+
       {/* Nieuws Section */}
       <section id="news" className="section section-light section-padding">
         <div className="container">
