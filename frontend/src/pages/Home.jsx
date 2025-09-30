@@ -109,15 +109,15 @@ export default function Home() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <Link to="/shows">
+            <Link to="/gallery">
               <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-lg font-semibold">
-                Bekijk Show Data
+                Bekijk Galerij
                 <ArrowRight className="ml-2" size={18} />
               </Button>
             </Link>
-            <Link to="/about">
+            <Link to="/contact">
               <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 text-lg">
-                Meer Info
+                Contact
               </Button>
             </Link>
           </div>
