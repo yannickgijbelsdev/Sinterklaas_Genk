@@ -12,36 +12,36 @@ export default function Home() {
 
   const faqItems = [
     {
-      question: "How do you ensure the safety of children at camps?",
-      answer: "All our camp partners undergo rigorous background checks and maintain certified safety standards. We verify insurance, staff credentials, and safety protocols before partnering with any camp."
+      question: "Hoe garandeer jullie de veiligheid tijdens shows?",
+      answer: "Al onze shows worden uitgevoerd door ervaren acteurs met achtergrondcontroles. We hanteren strikte veiligheidsprotocollen en hebben altijd EHBO-gekwalificeerde medewerkers aanwezig."
     },
     {
-      question: "What's included in the camp fee?",
-      answer: "Camp fees typically include all activities, meals, accommodation (for overnight camps), supervised activities, and safety equipment. Specific inclusions vary by camp and are clearly outlined in each listing."
+      question: "Wat is inbegrepen in de ticketprijs?",
+      answer: "Ticketprijzen omvatten de volledige show, interactie met Sinterklaas en Pieten, cadeautjes voor kinderen, en drankje en koekje tijdens de pauze. Parkeren is gratis."
     },
     {
-      question: "Can I get a refund if my child can't attend?",
-      answer: "Refund policies vary by camp partner. Most offer full refunds with adequate notice (usually 7-14 days). Emergency situations are handled case-by-case with our support team."
+      question: "Kunnen we tickets terugbetaald krijgen?",
+      answer: "Bij annulering tot 7 dagen voor de show bieden we volledige terugbetaling. In geval van ziekte of noodgevallen bekijken we elk geval individueel."
     },
     {
-      question: "Do you accommodate children with special needs?",
-      answer: "Yes! Many of our partner camps specialize in inclusive programs. During booking, you can specify any accommodations needed, and we'll match you with appropriate camps."
+      question: "Is de show geschikt voor kinderen met speciale behoeften?",
+      answer: "Absoluut! We hebben ervaring met inclusieve voorstellingen. Neem contact op bij het boeken zodat we rekening kunnen houden met specifieke behoeften."
     },
     {
-      question: "How are camp counselors vetted?",
-      answer: "All counselors undergo background checks, reference verification, and training certification. We require camps to maintain detailed staff records and ongoing professional development."
+      question: "Hoe lang duurt de show?",
+      answer: "Onze shows duren ongeveer 75 minuten inclusief een korte pauze. Dit is de perfecte lengte om kinderen betrokken te houden zonder dat ze moe worden."
     },
     {
-      question: "What if there's an emergency during camp?",
-      answer: "Every camp has emergency protocols and medical staff on-site. Parents receive immediate notification of any incidents, and our 24/7 support line is always available."
+      question: "Kunnen we foto's maken tijdens de show?",
+      answer: "Ja! Tijdens de show mogen foto's gemaakt worden. Na afloop is er altijd gelegenheid voor een meet & greet met Sinterklaas en de Pieten."
     },
     {
-      question: "Can I visit the camp before booking?",
-      answer: "Absolutely! We encourage camp visits. Use our scheduling feature to arrange tours, meet staff, and see facilities before making your decision."
+      question: "Waar vinden de shows plaats?",
+      answer: "Onze hoofdlocatie is in het cultureel centrum van Genk. Voor groepsboekingen kunnen we ook naar uw locatie komen (scholen, bedrijven, etc.)."
     },
     {
-      question: "What should my child bring to camp?",
-      answer: "Each camp provides a detailed packing list after booking. Generally includes clothes, personal items, any medications, and specific gear for specialized activities."
+      question: "Zijn er kortingen voor grote groepen?",
+      answer: "Ja, vanaf 20 personen bieden we groepskortingen. Scholen en verenigingen krijgen ook speciale tarieven. Neem contact op voor meer informatie."
     }
   ];
 
