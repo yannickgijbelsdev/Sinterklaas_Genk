@@ -446,15 +446,7 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
         } else {
           const errorText = await response.text();
           console.error('❌ Server error:', response.status, errorText);
-          
-          if (response.status === 401) {
-            toast.error('🔒 Sessie verlopen, log opnieuw in');
-            localStorage.removeItem('token');
-            localStorage.removeItem('user'); 
-            window.location.href = '/admin';
-          } else {
-            throw new Error(`Auto-save failed: ${response.status} - ${errorText}`);
-          }
+          throw new Error(`Auto-save failed: ${response.status} - ${errorText}`);
         }
       } else {
         console.log('⚠️ No content updates to save');
