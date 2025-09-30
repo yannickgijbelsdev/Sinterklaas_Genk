@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Gift, Star, Calendar, Clock, Users, Heart, Shield, Award, 
   CheckCircle, ArrowRight, Play, Download, Plus, Minus,
-  Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube
+  Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube,
+  X, Info
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import '../styles/camp-buddy-theme.css';
+import '../styles/stoomboot-theme.css';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
