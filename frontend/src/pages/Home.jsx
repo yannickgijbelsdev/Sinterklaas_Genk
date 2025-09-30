@@ -4,10 +4,8 @@ import {
   CheckCircle, Star, ArrowRight, Play, Download, Plus, Minus,
   Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube
 } from 'lucide-react';
-import { Button } from '../components/ui/button';
 import { MagicCurtain } from '../components/MagicCurtain';
-import { showInfo as fallbackShowInfo, news as fallbackNews } from '../data/mock';
-import { useNews, useContent } from '../hooks/useApi';
+import { useNews } from '../hooks/useApi';
 import '../styles/camp-buddy-theme.css';
 
 export default function Home() {
