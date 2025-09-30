@@ -1,21 +1,27 @@
-/* Sinterklaas Stoomboot Interactieve Ervaring */
+/* Professionele Sinterklaas Stoomboot Ervaring */
 
 :root {
   /* Sinterklaas Kleuren */
-  --sinterklaas-rood: #DC2626;
-  --sinterklaas-rood-light: #EF4444;
-  --sinterklaas-rood-dark: #B91C1C;
-  --sinterklaas-goud: #F59E0B;
-  --sinterklaas-goud-light: #FBBF24;
-  --sinterklaas-goud-dark: #D97706;
+  --sinterklaas-rood: #8B0000;
+  --sinterklaas-rood-light: #DC143C;
+  --sinterklaas-rood-dark: #4A0000;
+  --sinterklaas-goud: #DAA520;
+  --sinterklaas-goud-light: #FFD700;
+  --sinterklaas-goud-dark: #B8860B;
   
-  /* Stoomboot Kleuren */
-  --stoomboot-hout: #8B4513;
-  --stoomboot-hout-dark: #654321;
-  --stoomboot-metaal: #2D2D2D;
-  --stoomboot-koper: #B87333;
-  --stoomboot-water: #1E40AF;
-  --stoomboot-stoom: #F3F4F6;
+  /* Authentieke Stoomboot Materialen */
+  --mahonie-hout: #4A2C2A;
+  --eiken-hout: #8B4513;
+  --teak-hout: #B8860B;
+  --gepatineerd-koper: #8C5A3C;
+  --gepolijst-koper: #B87333;
+  --brons: #CD7F32;
+  --smeedijzer: #1C1C1C;
+  --staal-geborsteld: #36454F;
+  --messing: #B5A642;
+  --oceaan-blauw: #1e3a8a;
+  --diep-water: #1e40af;
+  --stoom-wit: #f8fafc;
   
   /* Achtergrond Kleuren */
   --warm-cream: #FEF7ED;
