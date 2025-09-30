@@ -150,199 +150,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Upcoming Shows */}
-      <section className="py-16 bg-gradient-to-b from-red-50 to-white relative overflow-hidden">
-        {/* Very subtle sparkles for sections */}
-        <SparkleBackground density="light" animation="slow" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <h2 
-              className="text-4xl font-bold text-gray-900 mb-4"
-              data-editable-text="title"
-              data-section="shows"
-              data-key="section_title"
-            >
-              {showsSectionTitle}
-            </h2>
-            <p 
-              className="text-xl text-gray-600 max-w-2xl mx-auto"
-              data-editable-text="description"
-              data-section="shows"
-              data-key="section_description"
-            >
-              {showsSectionDescription}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {upcomingShows.map((show) => (
-              <Card key={show.id} className="group fun-card bg-gradient-to-br from-white to-red-50/30">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <div className="flex items-center space-x-2 text-red-600 mb-2">
-                        <Calendar size={16} />
-                        <span className="font-semibold">{show.date}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-gray-600 mb-2">
-                        <Clock size={16} />
-                        <span>{show.time}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-gray-600">
-                        <MapPin size={16} />
-                        <span>{show.venue}, {show.city}</span>
-                      </div>
-                    </div>
-                    <Badge variant={show.ticketsAvailable ? "default" : "secondary"}>
-                      {show.ticketsAvailable ? "Beschikbaar" : "Uitverkocht"}
-                    </Badge>
-                  </div>
-                  
-                  {show.ticketsAvailable && (
-                    <a href={show.ticketUrl} target="_blank" rel="noopener noreferrer">
-                      <Button className="w-full bg-red-600 hover:bg-red-700 group-hover:scale-105 transition-transform duration-200">
-                        Tickets Kopen
-                        <ArrowRight className="ml-2" size={16} />
-                      </Button>
-                    </a>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link to="/shows">
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
-                data-editable-button="shows_button"
-                data-section="home"
-                data-key="shows_button"
-              >
-                Alle Data Bekijken
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Characters Preview */}
-      <section className="py-16 bg-white relative overflow-hidden">
-        {/* Extra subtle sparkles for character section */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute opacity-20 select-none"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                fontSize: '0.6rem',
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: '6s',
-                animation: 'subtle-twinkle 6s ease-in-out infinite'
-              }}
-            >
-              ✨
-            </div>
-          ))}
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <h2 
-              className="text-4xl font-bold text-gray-900 mb-4"
-              data-editable-text="title"
-              data-section="characters"
-              data-key="section_title"
-            >
-              {charactersSectionTitle}
-            </h2>
-            <p 
-              className="text-xl text-gray-600 max-w-2xl mx-auto"
-              data-editable-text="description"
-              data-section="characters"
-              data-key="section_description"
-            >
-              {charactersSectionDescription}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {characters.map((character) => (
-              <div key={character.id} className="text-center group">
-                <div className="relative mb-6 overflow-hidden rounded-full w-48 h-48 mx-auto">
-                  <img
-                    src={character.image}
-                    alt={character.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{character.name}</h3>
-                <p className="text-gray-600 mb-4">{character.description}</p>
-                <div className="bg-yellow-50 p-4 rounded-lg">
-                  <p className="text-sm text-yellow-800 font-medium">💡 {character.funFact}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link to="/characters">
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
-                data-editable-button="characters_button"
-                data-section="home"
-                data-key="characters_button"
-              >
-                Alle Karakters Ontdekken
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Latest News */}
       <section 
-        className="py-16 bg-gray-50 relative overflow-hidden"
+        className="py-16 bg-gradient-to-b from-red-50 to-white relative overflow-hidden"
         data-editable-color="news_section_bg"
         data-section="home"
         data-key="news_section_bg"
       >
         {/* Ultra subtle sparkles for news section */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute opacity-15 select-none"
-              style={{
-                left: `${20 + Math.random() * 60}%`,
-                top: `${20 + Math.random() * 60}%`,
-                fontSize: '0.5rem',
-                animationDelay: `${Math.random() * 8}s`,
-                animationDuration: '8s',
-                animation: 'subtle-twinkle 8s ease-in-out infinite'
-              }}
-            >
-              ⭐
-            </div>
-          ))}
+          <SparkleBackground density="light" animation="slow" />
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Laatste Nieuws</h2>
-            <p className="text-xl text-gray-600">Blijf op de hoogte van alle nieuwtjes rondom de show.</p>
+            <h2 
+              className="text-4xl font-bold text-gray-900 mb-4"
+              data-editable-text="title"
+              data-section="home"
+              data-key="news_section_title"
+            >
+              Laatste Nieuws
+            </h2>
+            <p 
+              className="text-xl text-gray-600 max-w-2xl mx-auto"
+              data-editable-text="description"
+              data-section="home"
+              data-key="news_section_description"
+            >
+              Blijf op de hoogte van alle nieuwtjes rondom de show.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {featuredNews.map((article) => (
-              <Card key={article.id} className="group hover:shadow-xl transition-all duration-300">
+              <Card key={article.id} className="group hover:shadow-xl transition-all duration-300 fun-card bg-gradient-to-br from-white to-red-50/30">
                 <div className="aspect-video overflow-hidden rounded-t-lg">
                   <img
                     src={article.image}
@@ -378,6 +220,83 @@ export default function Home() {
                 data-key="news_button"
               >
                 Alle Nieuws Bekijken
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Preview */}
+      <section className="py-16 bg-white relative overflow-hidden">
+        {/* Subtle sparkles for gallery section */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute opacity-20 select-none"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                fontSize: '0.6rem',
+                animationDelay: `${Math.random() * 6}s`,
+                animationDuration: '6s',
+                animation: 'subtle-twinkle 6s ease-in-out infinite'
+              }}
+            >
+              📸
+            </div>
+          ))}
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <h2 
+              className="text-4xl font-bold text-gray-900 mb-4"
+              data-editable-text="title"
+              data-section="gallery"
+              data-key="section_title"
+            >
+              Galerij Voorproefje
+            </h2>
+            <p 
+              className="text-xl text-gray-600 max-w-2xl mx-auto"
+              data-editable-text="description"
+              data-section="gallery"
+              data-key="section_description"
+            >
+              Bekijk de mooiste momenten van onze magische Sinterklaas shows.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[
+              "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=80",
+              "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=400&q=80",
+              "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&q=80",
+              "https://images.unsplash.com/photo-1544373022-df25aea89bd4?w=400&q=80"
+            ].map((image, index) => (
+              <div key={index} className="group relative aspect-square overflow-hidden rounded-lg">
+                <img
+                  src={image}
+                  alt={`Galerij foto ${index + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link to="/gallery">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                data-editable-button="gallery_button"
+                data-section="home"
+                data-key="gallery_button"
+              >
+                Volledige Galerij Bekijken
               </Button>
             </Link>
           </div>
