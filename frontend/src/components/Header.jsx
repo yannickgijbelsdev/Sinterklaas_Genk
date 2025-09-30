@@ -11,9 +11,6 @@ export const Header = () => {
 
   const publicNavigationItems = [
     { name: 'Home', path: '/' },
-    { name: 'Over de Show', path: '/about' },
-    { name: 'Karakters', path: '/characters' },
-    { name: 'Data & Locaties', path: '/shows' },
     { name: 'Galerij', path: '/gallery' },
     { name: 'Nieuws', path: '/news' },
     { name: 'Contact', path: '/contact' }
