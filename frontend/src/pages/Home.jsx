@@ -390,16 +390,7 @@ export default function Home() {
           </section>
 
           {/* Scroll Indicator */}
-          <div className="scroll-indicator">
-            {['home', 'gallery', 'news', 'contact'].map((section, index) => (
-              <div
-                key={section}
-                className="scroll-dot"
-                onClick={() => document.getElementById(section).scrollIntoView({behavior: 'smooth'})}
-                title={`Ga naar ${section}`}
-              />
-            ))}
-          </div>
+          <ScrollIndicator sections={['home', 'gallery', 'news', 'contact']} />
 
         </LiveEditor>
       </div>
