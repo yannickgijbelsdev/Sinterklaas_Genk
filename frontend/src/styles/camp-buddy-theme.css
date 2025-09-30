@@ -451,11 +451,11 @@ h3 {
 
 /* Hero Section - Speels Sinterklaas */
 .hero {
-  padding-top: 120px;
-  padding-bottom: 60px;
+  padding-top: 140px; /* Meer ruimte voor groter menu */
+  padding-bottom: 80px;
   text-align: center;
   background: var(--warm-cream);
-  min-height: 90vh;
+  min-height: 95vh;
   display: flex;
   align-items: center;
   position: relative;
@@ -483,30 +483,31 @@ h3 {
 }
 
 .hero-content {
-  margin-bottom: 64px;
+  margin-bottom: 80px;
   position: relative;
   z-index: 10;
 }
 
 .hero h1 {
-  margin-bottom: 24px;
-  max-width: 800px;
+  margin-bottom: 32px;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .hero-subtitle {
-  font-size: 20px;
+  font-size: 22px;
   color: var(--text-medium);
-  margin-bottom: 32px;
-  max-width: 600px;
+  margin-bottom: 40px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.6;
 }
 
 .hero-ctas {
   display: flex;
-  gap: 16px;
+  gap: 24px;
   justify-content: center;
   flex-wrap: wrap;
 }
