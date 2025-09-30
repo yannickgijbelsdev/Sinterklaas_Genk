@@ -67,9 +67,110 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
   const [selectedElement, setSelectedElement] = useState(null);
   const autoSaveTimeoutRef = useRef(null);
   const editableElementsRef = useRef(new Map());
+  const [showAddBlocks, setShowAddBlocks] = useState([]);
+  const [showPropertiesPanel, setShowPropertiesPanel] = useState(false);
+  const [hoveredElement, setHoveredElement] = useState(null);
 
   // Check if user has edit permissions
   const canEdit = isAuthenticated() && isAdmin();
+
+  // Add new block to page
+  const addNewBlock = (blockType, position) => {
+    const blockElement = createBlockElement(blockType);
+    
+    // Find insertion point based on position
+    const container = document.querySelector('.live-editor-container') || document.body;
+    
+    if (position && position.afterElement) {
+      position.afterElement.parentNode.insertBefore(blockElement, position.afterElement.nextSibling);
+    } else {
+      container.appendChild(blockElement);
+    }
+    
+    // Make new block editable
+    makeElementEditable(blockElement, pageKey, blockType, `new-${Date.now()}`);
+    setIsDirty(true);
+    toast.success(`${blockType} blok toegevoegd!`);
+  };
+
+  // Create block element based on type
+  const createBlockElement = (blockType) => {
+    const element = document.createElement('div');
+    element.className = 'live-block-element';
+    element.setAttribute('data-block-type', blockType);
+    element.setAttribute('data-editable', 'true');
+    
+    switch (blockType) {
+      case LIVE_BLOCK_TYPES.TEXT:
+        element.innerHTML = '<p>Klik om te bewerken...</p>';
+        element.setAttribute('data-section', pageKey);
+        element.setAttribute('data-key', `text-${Date.now()}`);
+        break;
+        
+      case LIVE_BLOCK_TYPES.HEADING:
+        element.innerHTML = '<h2>Nieuwe Heading</h2>';
+        element.setAttribute('data-section', pageKey);
+        element.setAttribute('data-key', `heading-${Date.now()}`);
+        break;
+        
+      case LIVE_BLOCK_TYPES.IMAGE:
+        element.innerHTML = `
+          <div class="text-center">
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800" 
+                 alt="Nieuwe afbeelding" class="max-w-full h-auto" />
+          </div>
+        `;
+        element.setAttribute('data-section', pageKey);
+        element.setAttribute('data-key', `image-${Date.now()}`);
+        break;
+        
+      case LIVE_BLOCK_TYPES.BUTTON:
+        element.innerHTML = `
+          <div class="text-center">
+            <a href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition-colors">
+              Nieuwe Knop
+            </a>
+          </div>
+        `;
+        element.setAttribute('data-section', pageKey);
+        element.setAttribute('data-key', `button-${Date.now()}`);
+        break;
+        
+      case LIVE_BLOCK_TYPES.SPACER:
+        element.innerHTML = '<div style="height: 40px; background: linear-gradient(45deg, transparent 40%, #ddd 50%, transparent 60%); opacity: 0.3;"></div>';
+        element.setAttribute('data-section', pageKey);
+        element.setAttribute('data-key', `spacer-${Date.now()}`);
+        break;
+        
+      case LIVE_BLOCK_TYPES.DIVIDER:
+        element.innerHTML = '<hr class="my-4 border-gray-300" />';
+        element.setAttribute('data-section', pageKey);
+        element.setAttribute('data-key', `divider-${Date.now()}`);
+        break;
+    }
+    
+    return element;
+  };
+
+  // Delete block
+  const deleteBlock = (element) => {
+    if (window.confirm('Weet je zeker dat je dit blok wilt verwijderen?')) {
+      element.remove();
+      setIsDirty(true);
+      setSelectedElement(null);
+      toast.success('Blok verwijderd!');
+    }
+  };
+
+  // Duplicate block  
+  const duplicateBlock = (element) => {
+    const clone = element.cloneNode(true);
+    clone.setAttribute('data-key', `${clone.getAttribute('data-key')}-copy-${Date.now()}`);
+    element.parentNode.insertBefore(clone, element.nextSibling);
+    makeElementEditable(clone, pageKey, clone.getAttribute('data-block-type'), clone.getAttribute('data-key'));
+    setIsDirty(true);
+    toast.success('Blok gedupliceerd!');
+  };
 
   // Auto-save mechanism
   useEffect(() => {
