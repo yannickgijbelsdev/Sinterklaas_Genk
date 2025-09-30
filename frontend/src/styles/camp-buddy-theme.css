@@ -254,9 +254,12 @@ h3 {
 /* Hero Section */
 .hero {
   padding-top: 120px;
-  padding-bottom: 0;
+  padding-bottom: 60px;
   text-align: center;
   background: var(--cream);
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
 }
 
 .hero-content {
