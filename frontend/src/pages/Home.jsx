@@ -47,28 +47,28 @@ export default function Home() {
 
   const blogPosts = [
     {
-      category: "Safety Tips",
-      title: "10 Essential Safety Questions to Ask Any Summer Camp",
-      excerpt: "Make sure your child's camp experience is safe and supervised with our comprehensive safety checklist...",
-      date: "March 15, 2024",
-      readTime: "5 min read",
-      icon: "🛡️"
+      category: "Achter de Schermen",
+      title: "Zo bereiden onze acteurs zich voor op het Sinterklaas seizoen",
+      excerpt: "Een kijkje achter de schermen bij de voorbereidingen voor de magische Sinterklaasshow...",
+      date: "15 november 2024",
+      readTime: "3 min lezen",
+      icon: "🎭"
     },
     {
-      category: "Camp Guide",
-      title: "First-Time Camper? Here's What to Expect",
-      excerpt: "Help your child prepare for their first camp adventure with tips from experienced counselors...",
-      date: "March 12, 2024", 
-      readTime: "3 min read",
-      icon: "🏕️"
+      category: "Tips voor Ouders", 
+      title: "Hoe bereid je je kind voor op de eerste Sinterklaasshow?",
+      excerpt: "Praktische tips om ervoor te zorgen dat je kind optimaal kan genieten van de magische ervaring...",
+      date: "10 november 2024",
+      readTime: "4 min lezen",
+      icon: "👶"
     },
     {
-      category: "Parent Tips",
-      title: "Dealing with Homesickness: A Parent's Guide",
-      excerpt: "Learn effective strategies to help your child cope with being away from home for the first time...",
-      date: "March 8, 2024",
-      readTime: "4 min read", 
-      icon: "💙"
+      category: "Tradities",
+      title: "De geschiedenis van Sinterklaas in Genk",
+      excerpt: "Ontdek hoe de Sinterklaas traditie is gegroeid in onze mooie stad en wat dit betekent voor families...",
+      date: "5 november 2024", 
+      readTime: "5 min lezen",
+      icon: "📚"
     }
   ];
 
