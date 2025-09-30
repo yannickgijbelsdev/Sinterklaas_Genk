@@ -49,7 +49,7 @@ const LIVE_BLOCK_TYPES = {
 };
 
 export const LiveEditor = ({ children, pageKey = 'home' }) => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, apiCall } = useAuth();
   
   // Check if user is admin
   const isAdmin = () => user && user.is_admin;
