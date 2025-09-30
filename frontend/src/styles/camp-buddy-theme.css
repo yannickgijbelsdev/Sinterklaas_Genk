@@ -302,7 +302,7 @@ h3 {
   border-color: var(--sinterklaas-goud-light);
 }
 
-/* Header/Navigation */
+/* Header/Navigation - Ruimer en Speelser */
 .header {
   position: fixed;
   top: 0;
@@ -310,9 +310,10 @@ h3 {
   right: 0;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--sinterklaas-goud-light);
+  border-bottom: 3px solid var(--sinterklaas-goud-light);
   z-index: 1000;
   transition: all 0.3s ease;
+  padding: 8px 0;
 }
 
 .header.scrolled {
@@ -323,14 +324,14 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 0;
+  padding: 20px 0;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 24px;
+  gap: 16px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--sinterklaas-rood);
   text-decoration: none;
@@ -339,7 +340,7 @@ h3 {
 .nav {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 48px; /* Veel meer ruimte tussen menu items */
 }
 
 .nav-link {
@@ -347,8 +348,9 @@ h3 {
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
-  padding: 8px 16px;
+  padding: 12px 20px; /* Meer padding voor ruimere knoppen */
   border-radius: var(--radius-small);
+  font-size: 16px;
 }
 
 .nav-link:hover,
@@ -361,7 +363,7 @@ h3 {
 .header-ctas {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 
 /* Hero Section - Speels Sinterklaas */
