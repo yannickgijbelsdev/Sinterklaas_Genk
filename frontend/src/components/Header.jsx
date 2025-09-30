@@ -53,9 +53,9 @@ export const Header = () => {
       <div className="container">
         <div className="header-content">
           {/* Logo */}
-          <div className="logo" onClick={() => smoothScrollTo('#hero')} style={{ cursor: 'pointer' }}>
-            <Anchor size={28} color="#DC2626" />
-            <span>🚢 Sinterklaas Stoomboot</span>
+          <div className="logo" onClick={() => smoothScrollTo('#hero')}>
+            <Gift size={28} color="#DC2626" />
+            <span>Sinterklaas Genk</span>
           </div>
 
           {/* Desktop Navigation */}
