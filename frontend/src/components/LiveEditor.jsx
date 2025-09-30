@@ -559,15 +559,25 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
     element.style.margin = '2px';
     element.style.minHeight = '20px';
 
-    // Add hover effects in edit mode
+    // Add hover effects and click handlers in edit mode
     if (editMode) {
+      // Always show toolbar on click for better visibility
+      element.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setSelectedElement(element);
+        element.style.outline = '2px solid #3b82f6';
+        element.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
+        showElementToolbar(element);
+      });
+
       element.addEventListener('mouseenter', () => {
         if (editMode) {
           setHoveredElement(element);
           element.style.outline = '2px solid #3b82f6';
-          element.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
+          element.style.backgroundColor = 'rgba(59, 130, 246, 0.05)';
           
-          // Add floating toolbar
+          // Show toolbar immediately on hover for better UX
           showElementToolbar(element);
         }
       });
@@ -576,7 +586,10 @@ export const LiveEditor = ({ children, pageKey = 'home' }) => {
         if (editMode && selectedElement !== element) {
           element.style.outline = '2px dashed #3b82f6';
           element.style.backgroundColor = 'transparent';
-          hideElementToolbar(element);
+          // Keep toolbar for selected elements, hide for others
+          if (selectedElement !== element) {
+            hideElementToolbar(element);
+          }
         }
         setHoveredElement(null);
       });
