@@ -481,7 +481,7 @@ export default function Home() {
           
           <div className="three-column">
             {blogPosts.map((post, index) => (
-              <div key={index} className="card" style={{ overflow: 'hidden', padding: '0' }}>
+              <div key={post.id || index} className="card" style={{ overflow: 'hidden', padding: '0' }}>
                 <div style={{
                   height: '200px',
                   background: 'linear-gradient(135deg, var(--sinterklaas-goud-light) 0%, var(--sinterklaas-goud) 100%)',
@@ -490,17 +490,17 @@ export default function Home() {
                   justifyContent: 'center',
                   fontSize: '64px'
                 }}>
-                  {post.icon}
+                  {post.icon || '📰'}
                 </div>
                 <div style={{ padding: '24px' }}>
                   <div className="sinterklaas-badge" style={{ marginBottom: '16px' }}>
-                    {post.category}
+                    {post.category || 'Nieuws'}
                   </div>
                   <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px', lineHeight: '1.3' }}>
                     {post.title}
                   </h3>
                   <p style={{ color: '#666', marginBottom: '16px' }}>{post.excerpt}</p>
-                  <a href="#" style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
+                  <a href={`/news/${post.id}`} style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
                     Lees meer →
                   </a>
                   <div style={{ 
@@ -514,7 +514,7 @@ export default function Home() {
                     borderTop: '1px solid #E5E7EB' 
                   }}>
                     <span>{post.date}</span>
-                    <span>{post.readTime}</span>
+                    <span>{post.readTime || '3 min lezen'}</span>
                   </div>
                 </div>
               </div>
