@@ -1,26 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Calendar, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Calendar, ArrowLeft, ArrowRight, Clock } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
-import { LiveEditor } from '../components/LiveEditor';
-import { useNews, useContent, getContentValue } from '../hooks/useApi';
-import { news as fallbackNews } from '../data/mock';
+
+const API = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001/api';
 
 export default function News() {
   const { id } = useParams();
-  const { data: newsData, loading } = useNews();
-  const { data: contentData } = useContent();
-  
-  // Use API data or fallback to mock data
-  const news = newsData || fallbackNews;
+  const [newsData, setNewsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Get dynamic content with fallbacks
-  const pageTitle = getContentValue(contentData, 'news', 'title', 'Nieuws & Updates');
-  const pageSubtitle = getContentValue(contentData, 'news', 'subtitle', 'Blijf op de hoogte van alle laatste nieuwtjes, updates en aankondigingen rondom onze Sinterklaas show.');
-  const newsletterTitle = getContentValue(contentData, 'news', 'newsletter_title', 'Blijf Op De Hoogte');
-  const newsletterSubtitle = getContentValue(contentData, 'news', 'newsletter_subtitle', 'Schrijf je in voor onze nieuwsbrief en mis geen enkel nieuwtje over de show!');
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await fetch(`${API}/news`);
+        if (response.ok) {
+          const data = await response.json();
+          setNewsData(data);
+        } else {
+          setError('Kon nieuws niet laden');
+        }
+      } catch (err) {
+        setError('Error loading news');
+        console.error('Error fetching news:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
   
   // If there's an ID in the URL, show single article
   if (id) {
