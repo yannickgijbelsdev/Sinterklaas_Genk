@@ -231,7 +231,7 @@ export default function Home() {
       {/* Over Ons Section */}
       <section 
         id="about" 
-        className="section section-padding"
+        className="section section-padding relative"
         style={{ backgroundColor: '#DC2626', color: 'white' }}
       >
         <div className="container">
