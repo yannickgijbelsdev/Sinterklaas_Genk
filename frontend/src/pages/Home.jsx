@@ -516,7 +516,7 @@ export default function Home() {
       <section id="contact" className="section section-cream section-padding relative" style={{ backgroundColor: '#DC2626', color: 'white' }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="genty-regular" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#DC2626' }}>
+            <h2 className="genty-regular" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'white' }}>
               Neem Contact Op
             </h2>
             <p style={{ fontSize: '20px', color: '#666', marginBottom: '48px' }}>
