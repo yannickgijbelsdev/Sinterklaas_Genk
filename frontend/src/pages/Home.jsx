@@ -390,7 +390,7 @@ export default function Home() {
       <section id="news" className="section section-light section-padding">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="lavishly-yours-regular" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#DC2626' }}>
+            <h2 className="genty-regular" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#DC2626' }}>
               Leuke Verhalen & Nieuws
             </h2>
             <p style={{ fontSize: '20px', color: '#666' }}>
