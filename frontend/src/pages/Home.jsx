@@ -317,7 +317,7 @@ export default function Home() {
       {/* CTA Reserveer Section */}
       <section id="reserveer" className="section section-padding relative" style={{ backgroundColor: '#FEF7ED' }}>
         <div className="container">
-          <div className="card" style={{ background: 'var(--sinterklaas-rood-dark)', color: 'white', display: 'flex', alignItems: 'center', gap: '64px' }}>
+          <div className="card" style={{ background: 'var(--sinterklaas-rood)', color: 'white', display: 'flex', alignItems: 'center', gap: '64px' }}>
             <div style={{ flex: 1 }}>
               <h2 className="genty-regular text-white mb-8" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
                 Reserveer nu jullie magische Sinterklaasavond!
