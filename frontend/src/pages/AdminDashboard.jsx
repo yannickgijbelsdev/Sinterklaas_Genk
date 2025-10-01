@@ -424,10 +424,41 @@ export default function AdminDashboard() {
             />
           </div>
           
-          <Button onClick={handleCreateNews} disabled={!newNews.title || !newNews.content}>
-            <Plus className="h-4 w-4 mr-2" />
-            Artikel Toevoegen
-          </Button>
+          <div className="flex space-x-2">
+            <Button 
+              onClick={editingNews ? handleUpdateNews : handleCreateNews} 
+              disabled={!newNews.title || !newNews.content}
+            >
+              {editingNews ? (
+                <>
+                  <Save className="h-4 w-4 mr-2" />
+                  Artikel Bijwerken
+                </>
+              ) : (
+                <>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Artikel Toevoegen
+                </>
+              )}
+            </Button>
+            {editingNews && (
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  setEditingNews(null);
+                  setNewNews({
+                    title: '',
+                    excerpt: '',
+                    content: '',
+                    category: 'Algemeen',
+                    published: true
+                  });
+                }}
+              >
+                Annuleren
+              </Button>
+            )}
+          </div>
         </CardContent>
       </Card>
 
