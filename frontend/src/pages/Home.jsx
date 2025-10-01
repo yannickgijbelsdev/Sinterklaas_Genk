@@ -270,61 +270,7 @@ export default function Home() {
 
       {/* Shows Section - REMOVED */}
 
-      {/* Waarom Section */}
-      <section id="safety" className="section section-cream section-padding">
-        <div className="container">
-          <div className="two-column">
-            <div>
-              <div className="eyebrow">Voor Families</div>
-              <h2 className="mb-8">Waarom kiezen gezinnen voor onze Sinterklaasshows?</h2>
-              <p className="mb-8" style={{ color: '#666' }}>
-                We begrijpen dat het kiezen van de juiste Sinterklaasshow belangrijk is voor uw gezin. 
-                Daarom zorgen wij voor een onvergetelijke ervaring.
-              </p>
-              
-              <div style={{ marginBottom: '32px' }}>
-                {[
-                  'Volledig achtergrond-gescreende acteurs',
-                  'Interactieve shows aangepast per leeftijdsgroep',
-                  'Flexibele data en tijdstippen',
-                  'Transparante prijzen zonder verborgen kosten',
-                  'Live updates en communicatie met ouders',
-                  'Professionele fotograaf aanwezig'
-                ].map((item, index) => (
-                  <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
-                    <CheckCircle size={20} color="#DC2626" style={{ marginRight: '12px', minWidth: '20px' }} />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div style={{ position: 'relative' }}>
-              <div style={{
-                width: '280px',
-                height: '400px',
-                background: 'var(--warm-white)',
-                borderRadius: '20px',
-                padding: '20px',
-                boxShadow: 'var(--shadow-medium)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto'
-              }}>
-                <div style={{ fontSize: '80px', marginBottom: '20px' }}>📱</div>
-                <div style={{ textAlign: 'center' }}>
-                  <h4 style={{ marginBottom: '10px' }}>Sinterklaas App</h4>
-                  <p style={{ fontSize: '14px', color: '#666' }}>
-                    Download onze app voor updates, foto's en herinneringen aan jullie magische avond!
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Waarom Section - REMOVED */}
 
       {/* Zachte Golvende Separator */}
       <div className="wavy-separator-soft"></div>
