@@ -451,7 +451,8 @@ export default function AdminDashboard() {
           excerpt: '',
           content: '',
           category: 'Algemeen',
-          published: true
+          published: true,
+          featured_image: ''
         });
         loadDashboardData();
       } else {
@@ -484,7 +485,8 @@ export default function AdminDashboard() {
           excerpt: '',
           content: '',
           category: 'Algemeen',
-          published: true
+          published: true,
+          featured_image: ''
         });
         loadDashboardData();
       } else {
