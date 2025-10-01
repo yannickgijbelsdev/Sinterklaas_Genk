@@ -67,15 +67,18 @@ export const AuthProvider = ({ children }) => {
     verifyToken();
   }, [token]);
 
-  const login = async (username, password) => {
-    console.log('🔍 DEBUG: Login attempt with API:', API);
+  const login = async (email, password) => {
+    console.log('🔍 DEBUG: Login attempt with email:', email);
     try {
       const response = await fetch(`${API}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ 
+          username: email,  // Backend expects username field but we use email
+          password 
+        })
       });
 
       console.log('🔍 DEBUG: Response status:', response.status);
