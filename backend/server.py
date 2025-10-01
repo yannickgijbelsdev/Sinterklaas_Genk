@@ -1165,18 +1165,19 @@ logger = logging.getLogger(__name__)
 async def startup_event():
     """Create default admin user if it doesn't exist"""
     try:
-        # Check if any admin user exists
-        admin_exists = await db.users.find_one({"role": "admin"})
+        # Check if admin user with correct email exists
+        admin_exists = await db.users.find_one({"email": "admin@sinterklaas.com"})
         
         if not admin_exists:
-            # Create default admin user
+            # Create default admin user with correct fields matching User model
             hashed_password = hash_password("admin123")
             admin_user = {
                 "id": str(uuid.uuid4()),
                 "username": "admin",
                 "email": "admin@sinterklaas.com", 
-                "role": "admin",
                 "hashed_password": hashed_password,
+                "is_active": True,
+                "is_admin": True,
                 "createdAt": datetime.utcnow(),
                 "updatedAt": datetime.utcnow()
             }
