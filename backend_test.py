@@ -1128,6 +1128,60 @@ class BackendTester:
             
         return passed == total
 
+    def run_sftp_tests(self):
+        """Run focused SFTP image upload functionality tests"""
+        print("=" * 70)
+        print("SINTERKLAAS GENK WEBSITE - SFTP IMAGE UPLOAD FUNCTIONALITY TESTING")
+        print("=" * 70)
+        print(f"Testing against: {BACKEND_URL}")
+        print("SFTP Server: static1.koodh.cloud")
+        print("Credentials: sinterklaasgenk@static1.koodh.cloud / KYLovie13monx")
+        print()
+        
+        # SFTP focused test sequence
+        tests = [
+            ("API Connectivity", self.test_health_check),
+            ("SFTP Connection Test", self.test_sftp_connection),
+            ("SFTP Directory Structure", self.test_sftp_directory_structure),
+            ("Image Upload to SFTP", lambda: self.test_image_upload_to_sftp()[0] is not None),
+            ("SFTP Error Handling", self.test_sftp_error_handling),
+            ("SFTP Functionality Comprehensive", self.test_sftp_functionality_comprehensive),
+        ]
+        
+        passed = 0
+        total = len(tests)
+        
+        for test_name, test_func in tests:
+            print(f"Running: {test_name}")
+            print("-" * 50)
+            if test_func():
+                passed += 1
+            print()
+        
+        # Summary
+        print("=" * 70)
+        print("SFTP IMAGE UPLOAD TESTING SUMMARY")
+        print("=" * 70)
+        print(f"Total Tests: {total}")
+        print(f"Passed: {passed}")
+        print(f"Failed: {total - passed}")
+        print(f"Success Rate: {(passed/total)*100:.1f}%")
+        print()
+        
+        if passed == total:
+            print("🎉 ALL SFTP TESTS PASSED - SFTP image upload functionality working correctly!")
+            print("✅ SFTP connection to static1.koodh.cloud working")
+            print("✅ Directory structure (public_html/news/) accessible/created")
+            print("✅ Image upload via POST /api/demo/news/upload-image working")
+            print("✅ Uploaded images accessible via https://static1.koodh.cloud/news/ URLs")
+            print("✅ Error handling and fallback to local storage working")
+            print("✅ Complete SFTP workflow operational")
+        else:
+            print("⚠️  Some SFTP tests failed - Check the details above")
+            print("ℹ️  If SFTP connection fails, the system should fall back to local storage")
+            
+        return passed == total
+
     def run_news_demo_tests(self):
         """Run focused news article creation tests"""
         print("=" * 70)
