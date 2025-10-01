@@ -150,6 +150,75 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleEditNews = (article) => {
+    setEditingNews(article);
+    setNewNews({
+      title: article.title,
+      excerpt: article.excerpt,
+      content: article.content,
+      category: article.category,
+      published: article.published || true
+    });
+  };
+
+  const handleUpdateNews = async () => {
+    if (!editingNews) return;
+
+    try {
+      const response = await fetch(`${API}/admin/news/${editingNews.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newNews)
+      });
+
+      if (response.ok) {
+        toast.success('Artikel bijgewerkt!');
+        setEditingNews(null);
+        setNewNews({
+          title: '',
+          excerpt: '',
+          content: '',
+          category: 'Algemeen',
+          published: true
+        });
+        loadDashboardData();
+      } else {
+        toast.error('Fout bij bijwerken artikel');
+      }
+    } catch (error) {
+      console.error('Error updating news:', error);
+      toast.error('Verbindingsfout');
+    }
+  };
+
+  const handleCreateUser = async () => {
+    try {
+      const response = await fetch(`${API}/admin/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser)
+      });
+
+      if (response.ok) {
+        toast.success('Gebruiker aangemaakt!');
+        setNewUser({
+          email: '',
+          password: '',
+          role: 'admin'
+        });
+      } else {
+        toast.error('Fout bij aanmaken gebruiker');
+      }
+    } catch (error) {
+      console.error('Error creating user:', error);
+      toast.error('Verbindingsfout');
+    }
+  };
+
   const DashboardOverview = () => (
     <div className="space-y-6">
       {/* Stats Cards */}
