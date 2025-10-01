@@ -194,6 +194,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "DEMO NEWS ARTICLES CREATION SUCCESSFUL: Created 3 demo news articles for Sinterklaas Genk website as requested by user. ✅ ALL ARTICLES CREATED: 1) 'Zo bereiden onze acteurs zich voor op het Sinterklaas seizoen' (Achter de Schermen), 2) 'Hoe bereid je je kind voor op de eerste Sinterklaasshow?' (Tips & Tricks), 3) 'De geschiedenis van Sinterklaas in Genk' (Algemeen). ✅ PUBLIC ACCESS VERIFIED: All articles accessible via /api/news endpoint with proper Dutch content, categories, and placeholder images. ✅ NEWS SYSTEM FUNCTIONAL: POST /api/admin/news endpoint working correctly with authentication, articles stored in database and publicly accessible. News system ready for demonstration."
+      - working: true
+        agent: "testing"
+        comment: "NEWS ENDPOINT COMPREHENSIVE TESTING COMPLETED: Performed detailed testing of /api/news endpoint to debug frontend 'Error loading news' issue. ✅ BACKEND FULLY FUNCTIONAL: GET /api/news returns HTTP 200 with 7 news articles (including all 3 demo articles). ✅ RESPONSE STRUCTURE VERIFIED: Valid JSON array with all required fields (id, title, excerpt, content, category, date, published). ✅ DUTCH CONTENT CONFIRMED: All articles contain proper Dutch content with categories 'Achter de Schermen', 'Algemeen', 'Tips & Tricks'. ✅ CORS WORKING: Proper CORS headers present for cross-origin requests. ✅ PERFORMANCE GOOD: Response time 55.93ms. CONCLUSION: Backend /api/news endpoint is working perfectly. If frontend shows 'Error loading news', the issue is in frontend implementation, not backend API."
 
 frontend:
   - task: "Scroll-based Navigation & Animations"
