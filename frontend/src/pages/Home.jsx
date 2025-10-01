@@ -548,7 +548,7 @@ export default function Home() {
                 <Phone size={28} color="white" />
               </div>
               <h3 style={{ fontWeight: '600', marginBottom: '12px' }}>Bel Ons</h3>
-              <p style={{ color: '#666' }}>+32 (0)89 123 456</p>
+              <p style={{ color: '#666' }}>{content.phone || '+32 (0)89 123 456'}</p>
             </div>
 
             <div className="card text-center">
@@ -565,7 +565,7 @@ export default function Home() {
                 <Mail size={28} color="white" />
               </div>
               <h3 style={{ fontWeight: '600', marginBottom: '12px' }}>Email Ons</h3>
-              <p style={{ color: '#666' }}>info@sinterklaasgenk.be</p>
+              <p style={{ color: '#666' }}>{content.email || 'info@sinterklaasgenk.be'}</p>
             </div>
 
             <div className="card text-center">
@@ -582,7 +582,17 @@ export default function Home() {
                 <MapPin size={28} color="white" />
               </div>
               <h3 style={{ fontWeight: '600', marginBottom: '12px' }}>Locatie</h3>
-              <p style={{ color: '#666' }}>Cultureel Centrum Genk<br/>Dieplaan 17, 3600 Genk</p>
+              <div style={{ color: '#666' }}>
+                {content.address ? 
+                  content.address.split('\n').map((line, i) => (
+                    <div key={i}>{line}</div>
+                  )) : 
+                  <>
+                    <div>Cultureel Centrum Genk</div>
+                    <div>Dieplaan 17, 3600 Genk</div>
+                  </>
+                }
+              </div>
             </div>
           </div>
           
