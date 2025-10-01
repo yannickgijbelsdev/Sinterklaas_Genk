@@ -207,9 +207,12 @@ export default function AdminDashboard() {
   const loadDashboardData = async () => {
     setLoading(true);
     try {
+      // Use authenticated API call from AuthContext
+      const { apiCall } = useAuth();
+      
       const [newsRes, showsRes] = await Promise.all([
-        fetch(`${API}/news`),
-        fetch(`${API}/admin/shows`)
+        apiCall('/admin/news'),
+        apiCall('/admin/shows')
       ]);
 
       if (newsRes.ok) {
