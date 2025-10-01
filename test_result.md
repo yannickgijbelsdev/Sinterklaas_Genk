@@ -315,7 +315,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Admin Login Functionality Testing Complete"
+    - "JWT Authentication Persistence Testing Complete"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
