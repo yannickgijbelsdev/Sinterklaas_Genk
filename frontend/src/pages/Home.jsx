@@ -302,7 +302,8 @@ export default function Home() {
                   style={{ 
                     padding: '24px',
                     border: 'none',
-                    background: 'none',
+                    background: 'white',
+                    borderRadius: '12px',
                     width: '100%',
                     textAlign: 'left',
                     fontSize: 'var(--body-size)',
@@ -310,15 +311,17 @@ export default function Home() {
                     cursor: 'pointer',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    color: '#1F2937',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
                   }}
                 >
                   <span>{item.question}</span>
-                  {openFaq === index ? <Minus size={20} color="#DC2626" /> : <Plus size={20} color="#DC2626" />}
+                  {openFaq === index ? <Minus size={20} color="#B91C1C" /> : <Plus size={20} color="#B91C1C" />}
                 </button>
                 {openFaq === index && (
-                  <div style={{ padding: '0 24px 24px', color: '#666' }}>
-                    <p>{item.answer}</p>
+                  <div style={{ padding: '20px 24px 24px', color: '#374151', background: 'white', marginTop: '2px', borderRadius: '0 0 12px 12px', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)' }}>
+                    <p style={{ lineHeight: '1.7' }}>{item.answer}</p>
                   </div>
                 )}
               </div>
