@@ -418,142 +418,16 @@ export default function Home() {
 
       {/* Contact Section - REMOVED */}
 
-      {/* Footer */}
-      <footer style={{ background: 'var(--warm-cream)', padding: '64px 0 32px' }}>
+      {/* Simple Footer */}
+      <footer style={{ background: '#FEF7ED', padding: '40px 0', textAlign: 'center' }}>
         <div className="container">
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', 
-            gap: '48px', 
-            marginBottom: '48px' 
-          }}>
-            <div style={{ maxWidth: '300px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <Gift size={28} color="#DC2626" />
-                <span style={{ fontSize: '24px', fontWeight: '700' }}>Sinterklaas Genk</span>
-              </div>
-              <p style={{ marginBottom: '24px' }}>
-                Al meer dan 15 jaar de meest magische Sinterklaasshows van België. 
-                Voor onvergetelijke herinneringen van het hele gezin.
-              </p>
-              <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
-                <input 
-                  type="email" 
-                  placeholder="Jouw email adres" 
-                  style={{ 
-                    flex: 1, 
-                    padding: '12px 16px', 
-                    border: '1px solid #E5E7EB', 
-                    borderRadius: '12px', 
-                    fontSize: '14px' 
-                  }} 
-                />
-                <button className="btn btn-primary" style={{ padding: '12px 20px' }}>
-                  Inschrijven
-                </button>
-              </div>
-            </div>
-            
-            <div>
-              <h4 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: 'var(--sinterklaas-rood)' }}>
-                Shows
-              </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Sinterklaasavond</a>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Schoolshows</a>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Privé Events</a>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Groepsarrangementen</a>
-              </div>
-            </div>
-            
-            <div>
-              <h4 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: 'var(--sinterklaas-rood)' }}>
-                Info
-              </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Over Ons</a>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Het Team</a>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Locaties</a>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Contact</a>
-              </div>
-            </div>
-            
-            <div>
-              <h4 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: 'var(--sinterklaas-rood)' }}>
-                Service
-              </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Klantenservice</a>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Veelgestelde Vragen</a>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Tickets Omruilen</a>
-                <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Groepskortingen</a>
-              </div>
-            </div>
-            
-            <div>
-              <h4 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: 'var(--sinterklaas-rood)' }}>
-                Volg Ons
-              </h4>
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <a href="#" style={{
-                  width: '40px',
-                  height: '40px',
-                  background: '#F3F4F6',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <Facebook size={20} />
-                </a>
-                <a href="#" style={{
-                  width: '40px',
-                  height: '40px',
-                  background: '#F3F4F6',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <Instagram size={20} />
-                </a>
-                <a href="#" style={{
-                  width: '40px',
-                  height: '40px',
-                  background: '#F3F4F6',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <Youtube size={20} />
-                </a>
-              </div>
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
+            <Gift size={24} color="#DC2626" />
+            <span style={{ fontSize: '20px', fontWeight: '700', color: '#DC2626' }}>Sinterklaas Genk</span>
           </div>
-          
-          <div style={{ 
-            paddingTop: '32px', 
-            borderTop: '1px solid #E5E7EB', 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            color: '#666', 
-            fontSize: '14px' 
-          }}>
-            <div>© 2024 Sinterklaas Genk. Alle rechten voorbehouden.</div>
-            <div style={{ display: 'flex', gap: '24px' }}>
-              <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Privacy</a>
-              <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Voorwaarden</a>
-              <a href="#" style={{ color: '#666', textDecoration: 'none' }}>Cookies</a>
-            </div>
-          </div>
+          <p style={{ color: '#666', fontSize: '14px' }}>
+            © 2025 Sinterklaas Genk. Alle rechten voorbehouden.
+          </p>
         </div>
       </footer>
 
