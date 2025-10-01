@@ -268,47 +268,7 @@ export default function Home() {
       {/* Speelse Golvende Separator Goud */}
       <div className="wavy-separator-gold"></div>
 
-      {/* Shows Section */}
-      <section id="shows" className="section section-light section-padding">
-        <div className="sinterklaas-decoration" style={{top: '10%', left: '5%'}}>🎁</div>
-        <div className="sinterklaas-decoration" style={{top: '20%', right: '10%'}}>⭐</div>
-        <div className="sinterklaas-decoration" style={{bottom: '15%', left: '8%'}}>🎅</div>
-        
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2>Magische, Veilige en Ervaren Shows</h2>
-            <p style={{ fontSize: '20px', color: '#666' }}>
-              Al onze shows voldoen aan de hoogste standaarden voor kwaliteit en plezier.
-            </p>
-          </div>
-          
-          <div className="three-column">
-            <div className="card feature-card">
-              <div className="feature-icon">
-                <Heart size={32} color="#DC2626" />
-              </div>
-              <h3 className="feature-title">Hartverwarming</h3>
-              <p>Elke show wordt uitgevoerd met liefde en passie. We zorgen ervoor dat elk kind zich speciaal en geliefd voelt tijdens onze magische voorstelling.</p>
-            </div>
-            
-            <div className="card feature-card">
-              <div className="feature-icon">
-                <Shield size={32} color="#DC2626" />
-              </div>
-              <h3 className="feature-title">Veilig & Vertrouwd</h3>
-              <p>Al onze acteurs hebben achtergrondcontroles ondergaan en zijn getraind in kindvriendelijke interactie. Veiligheid staat altijd voorop.</p>
-            </div>
-            
-            <div className="card feature-card">
-              <div className="feature-icon">
-                <Award size={32} color="#DC2626" />
-              </div>
-              <h3 className="feature-title">Award-winning Team</h3>
-              <p>Ons team heeft meerdere prijzen gewonnen voor de beste kindervoorstellingen in de regio. Ervaring en kwaliteit gegarandeerd.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Shows Section - REMOVED */}
 
       {/* Waarom Section */}
       <section id="safety" className="section section-cream section-padding">
