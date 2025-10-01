@@ -68,11 +68,14 @@ export default function Admin() {
   const fetchAllData = async () => {
     setLoading(true);
     try {
+      const token = localStorage.getItem('token');
+      const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+
       const [newsRes, showsRes, contentRes, galleryRes] = await Promise.all([
-        fetch(`${API}/admin/news`),
-        fetch(`${API}/admin/shows`),
-        fetch(`${API}/admin/content`),
-        fetch(`${API}/admin/gallery`)
+        fetch(`${API}/admin/news`, { headers }),
+        fetch(`${API}/admin/shows`, { headers }),
+        fetch(`${API}/admin/content`, { headers }),
+        fetch(`${API}/admin/gallery`, { headers })
       ]);
 
       if (newsRes.ok) setNews(await newsRes.json());
