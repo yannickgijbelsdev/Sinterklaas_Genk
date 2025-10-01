@@ -192,10 +192,9 @@ export default function Home() {
         <div className="container">
           <div className="hero-content">
             <div className="eyebrow">Ho ho ho, welkom!</div>
-            <h1>De Magische Sinterklaas Show in Genk</h1>
+            <h1>{content.hero_title || 'De Magische Sinterklaas Show in Genk'}</h1>
             <p className="hero-subtitle">
-              Beleef samen met je kinderen de meest interactieve en magische Sinterklaasshow van België. 
-              Vol verrassingen, liedjes en natuurlijk echte magie!
+              {content.hero_subtitle || 'Beleef samen met je kinderen de meest interactieve en magische Sinterklaasshow van België. Vol verrassingen, liedjes en natuurlijk echte magie!'}
             </p>
             <div className="hero-ctas">
               <button className="btn btn-primary">
