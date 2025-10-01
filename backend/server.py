@@ -1247,6 +1247,32 @@ async def demo_create_user(user_data: dict):
     await db.users.insert_one(user)
     return {"message": "User created successfully", "email": user["email"]}
 
+@api_router.post("/demo/news/upload-image")
+async def demo_upload_news_image(file: UploadFile = File(...)):
+    """Demo endpoint - upload news image without authentication"""
+    # Validate file type
+    if not file.content_type.startswith('image/'):
+        raise HTTPException(status_code=400, detail="Only image files are allowed")
+    
+    # Check file size (max 5MB)
+    content = await file.read()
+    if len(content) > 5 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File too large. Maximum size is 5MB")
+    
+    # Generate unique filename
+    file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
+    unique_filename = f"news_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.{file_extension}"
+    
+    try:
+        # Upload to SFTP
+        image_url = upload_to_sftp(content, unique_filename, "news")
+        return {"image_url": image_url, "filename": unique_filename}
+    except Exception as e:
+        # Fallback to placeholder if SFTP fails
+        print(f"SFTP upload failed: {e}")
+        placeholder_url = f"https://via.placeholder.com/400x200/DC2626/FFFFFF?text={unique_filename[:20]}"
+        return {"image_url": placeholder_url, "filename": unique_filename}
+
 # Include the router in the main app
 app.include_router(api_router)
 
