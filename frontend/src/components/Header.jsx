@@ -44,21 +44,51 @@ export const Header = () => {
 
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="container">
-        <div className="header-content">
+      <div className="header-container" style={{ 
+        maxWidth: '1400px', 
+        margin: '0 auto', 
+        padding: '0 24px',
+        background: 'white',
+        borderRadius: '50px',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+        marginTop: '16px'
+      }}>
+        <div className="flex items-center justify-between" style={{ padding: '12px 0' }}>
+          
           {/* Logo */}
-          <div className="logo" onClick={() => smoothScrollTo('#hero')}>
-            <Gift size={28} color="#DC2626" />
-            <span>Sinterklaas Genk</span>
+          <div className="header-logo">
+            <a href="/" className="flex items-center space-x-3">
+              <div style={{
+                width: '40px',
+                height: '40px',
+                background: '#DC2626',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '20px'
+              }}>
+                🎅
+              </div>
+              <div>
+                <div className="text-xl font-bold" style={{ color: '#DC2626' }}>
+                  Sinterklaas
+                </div>
+                <div className="text-sm font-bold text-gray-600">
+                  GENK
+                </div>
+              </div>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="nav">
+          <nav className="hidden lg:flex items-center space-x-8">
             {navigationItems.map((item) => (
               <button
-                key={item.href}
+                key={item.name}
                 onClick={() => smoothScrollTo(item.href)}
-                className="nav-link"
+                className="text-gray-700 font-semibold text-sm hover:text-red-600 transition-colors cursor-pointer"
+                style={{ fontWeight: '600' }}
               >
                 {item.name}
               </button>
@@ -66,23 +96,44 @@ export const Header = () => {
           </nav>
 
           {/* Header CTAs */}
-          <div className="header-ctas">
-            <Globe size={20} className="text-gray-500 cursor-pointer" />
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <div style={{
+                width: '32px',
+                height: '32px',
+                background: '#F3F4F6',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <User size={16} color="#666" />
+              </div>
+            </div>
+            
             <button 
-              onClick={() => smoothScrollTo('#reserveer')}
-              className="btn btn-outline"
-              style={{ padding: '12px 24px', fontSize: '14px' }}
+              className="flex items-center space-x-2 font-bold text-white px-6 py-3 rounded-full transition-all hover:scale-105"
+              style={{ 
+                background: 'linear-gradient(45deg, #DC2626, #EF4444)',
+                fontSize: '14px',
+                boxShadow: '0 4px 15px rgba(220, 38, 38, 0.3)'
+              }}
             >
-              Reserveer Nu
+              <Gift size={16} />
+              <span>MIJN BESTELLING</span>
+              <span className="bg-white text-red-600 px-2 py-1 rounded-full text-xs font-bold ml-1">
+                0
+              </span>
             </button>
+            
             {/* Admin button only visible if admin session exists */}
             {sessionStorage.getItem('adminAuthenticated') === 'true' && (
               <a 
                 href="/admin"
-                className="btn btn-primary"
-                style={{ padding: '12px 24px', fontSize: '14px' }}
+                className="btn btn-outline text-xs"
+                style={{ padding: '8px 16px' }}
               >
-                <Settings size={16} />
+                <Settings size={14} />
                 Admin
               </a>
             )}
