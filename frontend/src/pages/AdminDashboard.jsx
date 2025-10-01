@@ -601,6 +601,11 @@ export default function AdminDashboard() {
     </div>
   );
 
+  // Show login screen if not authenticated
+  if (!isAuthenticated) {
+    return <AdminLogin onLogin={setIsAuthenticated} />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar */}
