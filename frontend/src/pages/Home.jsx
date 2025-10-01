@@ -245,16 +245,7 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 animate-bounce" style={{ animationDelay: '0s' }}>
-          <div style={{ fontSize: '40px', opacity: 0.8, filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}>🎁</div>
-        </div>
-        <div className="absolute top-32 right-20 animate-bounce" style={{ animationDelay: '1s' }}>
-          <div style={{ fontSize: '35px', opacity: 0.7, filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}>⭐</div>
-        </div>
-        <div className="absolute bottom-32 left-20 animate-bounce" style={{ animationDelay: '2s' }}>
-          <div style={{ fontSize: '45px', opacity: 0.9, filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}>🎪</div>
-        </div>
+        {/* Floating Elements - REMOVED */}
         
         {/* Simple Wave Shape Bottom */}
         <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
