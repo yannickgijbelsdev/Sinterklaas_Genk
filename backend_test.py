@@ -62,8 +62,47 @@ class BackendTester:
             self.log_test("API Health Check", False, f"Connection error: {str(e)}")
             return False
 
+    def test_admin_user_creation(self):
+        """Test that default admin user exists with correct credentials"""
+        try:
+            # Try to login with expected admin credentials
+            login_data = {
+                "username": "admin", 
+                "password": "admin123"
+            }
+            
+            response = self.session.post(f"{API_BASE}/auth/login", json=login_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if 'user' in data:
+                    user_info = data['user']
+                    expected_email = "admin@sinterklaas.com"
+                    
+                    if (user_info.get('email') == expected_email and 
+                        user_info.get('username') == 'admin' and
+                        user_info.get('is_admin', False)):
+                        self.log_test("Admin User Creation", True, 
+                                    f"Default admin user exists: {user_info['email']} with admin privileges")
+                        return True
+                    else:
+                        self.log_test("Admin User Creation", False, 
+                                    f"Admin user exists but incorrect details: email={user_info.get('email')}, admin={user_info.get('is_admin')}")
+                        return False
+                else:
+                    self.log_test("Admin User Creation", False, "No user info in login response")
+                    return False
+            else:
+                self.log_test("Admin User Creation", False, 
+                            f"Cannot login with admin/admin123 credentials (Status: {response.status_code})")
+                return False
+                
+        except Exception as e:
+            self.log_test("Admin User Creation", False, f"Error: {str(e)}")
+            return False
+
     def test_admin_login(self):
-        """Test admin authentication with admin/admin123"""
+        """Test admin authentication with admin@sinterklaas.com/admin123"""
         try:
             login_data = {
                 "username": "admin",
@@ -78,10 +117,11 @@ class BackendTester:
                     self.auth_token = data['access_token']
                     user_info = data['user']
                     
-                    # Verify admin privileges
-                    if user_info.get('is_admin', False):
-                        self.log_test("Admin Login", True, 
-                                    f"Logged in as {user_info['username']} (Admin: {user_info['is_admin']})")
+                    # Verify admin privileges and correct email
+                    if (user_info.get('is_admin', False) and 
+                        user_info.get('email') == 'admin@sinterklaas.com'):
+                        self.log_test("Admin Login API", True, 
+                                    f"Successfully logged in as {user_info['username']} ({user_info['email']}) with admin privileges")
                         
                         # Set authorization header for future requests
                         self.session.headers.update({
@@ -89,18 +129,52 @@ class BackendTester:
                         })
                         return True
                     else:
-                        self.log_test("Admin Login", False, "User is not admin")
+                        self.log_test("Admin Login API", False, 
+                                    f"User logged in but missing admin privileges or wrong email: admin={user_info.get('is_admin')}, email={user_info.get('email')}")
                         return False
                 else:
-                    self.log_test("Admin Login", False, "Missing token or user info in response")
+                    self.log_test("Admin Login API", False, "Missing token or user info in response")
                     return False
             else:
-                self.log_test("Admin Login", False, 
+                self.log_test("Admin Login API", False, 
                             f"Status: {response.status_code}, Response: {response.text}")
                 return False
                 
         except Exception as e:
-            self.log_test("Admin Login", False, f"Error: {str(e)}")
+            self.log_test("Admin Login API", False, f"Error: {str(e)}")
+            return False
+
+    def test_login_with_wrong_credentials(self):
+        """Test login API with incorrect credentials for error handling"""
+        try:
+            wrong_credentials = [
+                {"username": "admin", "password": "wrongpassword"},
+                {"username": "wronguser", "password": "admin123"},
+                {"username": "admin", "password": ""},
+                {"username": "", "password": "admin123"}
+            ]
+            
+            success_count = 0
+            for i, creds in enumerate(wrong_credentials):
+                response = self.session.post(f"{API_BASE}/auth/login", json=creds)
+                
+                if response.status_code == 401:
+                    success_count += 1
+                    print(f"   ✅ Wrong credentials test {i+1}: Correctly rejected (401)")
+                else:
+                    print(f"   ❌ Wrong credentials test {i+1}: Should have returned 401, got {response.status_code}")
+            
+            if success_count == len(wrong_credentials):
+                self.log_test("Login Error Handling", True, 
+                            f"All {success_count} wrong credential attempts correctly rejected with 401")
+                return True
+            else:
+                self.log_test("Login Error Handling", False, 
+                            f"Only {success_count}/{len(wrong_credentials)} wrong credentials properly rejected")
+                return False
+                
+        except Exception as e:
+            self.log_test("Login Error Handling", False, f"Error: {str(e)}")
             return False
 
     def test_token_verification(self):
