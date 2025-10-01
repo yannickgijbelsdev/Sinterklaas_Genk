@@ -56,8 +56,19 @@ export default function AdminDashboard() {
   });
 
   useEffect(() => {
-    loadDashboardData();
+    // Check if user is authenticated
+    const authenticated = sessionStorage.getItem('adminAuthenticated');
+    if (authenticated === 'true') {
+      setIsAuthenticated(true);
+      loadDashboardData();
+    }
   }, []);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('adminAuthenticated');
+    setIsAuthenticated(false);
+    toast.info('Uitgelogd');
+  };
 
   const loadDashboardData = async () => {
     setLoading(true);
