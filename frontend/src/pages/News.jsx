@@ -151,178 +151,114 @@ export default function News() {
     );
   }
 
-  // Show news overview
+  // Main news listing page
   return (
-    <LiveEditor pageKey="news">
-      <div className="min-h-screen">
-        {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-b from-red-50 to-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 
-              className="text-5xl font-bold text-gray-900 mb-6"
-              data-editable-text="title"
-              data-section="news"
-              data-key="title"
-            >
-              {pageTitle}
+    <div className="min-h-screen">
+      {/* Header Section */}
+      <section className="py-20 bg-gradient-to-r from-red-600 to-red-700">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Nieuws & Updates
             </h1>
-            <p 
-              className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
-              data-editable-text="subtitle"
-              data-section="news"
-              data-key="subtitle"
-            >
-              {pageSubtitle}
+            <p className="text-xl text-red-100 max-w-3xl mx-auto">
+              Blijf op de hoogte van alle laatste nieuwtjes, updates en aankondigingen rondom onze Sinterklaas show.
             </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Featured Article */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-8">
-              <Badge className="bg-red-100 text-red-800 mb-4">Hoofdartikel</Badge>
+      {/* News Grid */}
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {newsData.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📰</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Geen nieuws beschikbaar</h3>
+              <p className="text-gray-600">Er zijn momenteel geen nieuwsartikelen om te tonen.</p>
             </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="aspect-video overflow-hidden rounded-lg shadow-lg">
-                  <img
-                    src={news[0].image}
-                    alt={news[0].title}
-                    className="w-full h-full object-cover"
-                    data-editable-image="featured_image"
-                    data-section="news"
-                    data-key="featured_image"
-                    key={news[0].image}
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <div className="flex items-center space-x-2 text-gray-500 mb-4">
-                  <Calendar size={16} />
-                  <span>{news[0].date}</span>
-                </div>
-                <h2 
-                  className="text-3xl font-bold text-gray-900 mb-4"
-                  data-editable-text="featured_title"
-                  data-section="news"
-                  data-key="featured_title"
-                >
-                  {news[0].title}
-                </h2>
-                <p 
-                  className="text-lg text-gray-600 mb-6 leading-relaxed"
-                  data-editable-text="featured_excerpt"
-                  data-section="news"
-                  data-key="featured_excerpt"
-                >
-                  {news[0].excerpt}
-                </p>
-                <Link to={`/news/${news[0].id}`}>
-                  <Button className="bg-red-600 hover:bg-red-700">
-                    Lees volledig artikel
-                    <ArrowRight className="ml-2" size={16} />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* All Articles */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 
-              className="text-3xl font-bold text-gray-900 mb-12 text-center"
-              data-editable-text="all_news_title"
-              data-section="news"
-              data-key="all_news_title"
-            >
-              Alle Nieuws
-            </h2>
-            
+          ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {news.map((article) => (
-                <Card key={article.id} className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                  <div className="aspect-video overflow-hidden rounded-t-lg">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      data-editable-image={`news_${article.id}_image`}
-                      data-section="news"
-                      data-key={`news_${article.id}_image`}
-                      key={article.image}
-                    />
+              {newsData.map((article) => (
+                <Card key={article.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                  {/* Featured Image */}
+                  <div className="aspect-video overflow-hidden">
+                    {(article.featured_image || article.image) ? (
+                      <img
+                        src={article.featured_image || article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
+                        <div className="text-4xl">📰</div>
+                      </div>
+                    )}
                   </div>
+                  
                   <CardContent className="p-6">
-                    <div className="flex items-center space-x-2 text-gray-500 mb-3">
-                      <Calendar size={14} />
-                      <span className="text-sm">{article.date}</span>
+                    {/* Category and Date */}
+                    <div className="flex items-center justify-between mb-3">
+                      <Badge variant="outline" className="text-red-600 border-red-200">
+                        {article.category || 'Algemeen'}
+                      </Badge>
+                      <div className="flex items-center text-gray-500 text-sm">
+                        <Calendar size={14} className="mr-1" />
+                        {new Date(article.date).toLocaleDateString('nl-NL')}
+                      </div>
                     </div>
-                    <h3 
-                      className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200"
-                      data-editable-text={`news_${article.id}_title`}
-                      data-section="news"
-                      data-key={`news_${article.id}_title`}
-                    >
+                    
+                    {/* Title */}
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
                       {article.title}
                     </h3>
-                    <p 
-                      className="text-gray-600 mb-4 line-clamp-3"
-                      data-editable-text={`news_${article.id}_excerpt`}
-                      data-section="news"
-                      data-key={`news_${article.id}_excerpt`}
-                    >
-                      {article.excerpt}
-                    </p>
+                    
+                    {/* Excerpt */}
+                    {article.excerpt && (
+                      <p className="text-gray-600 mb-4 line-clamp-3">
+                        {article.excerpt}
+                      </p>
+                    )}
+                    
+                    {/* Read More */}
                     <Link to={`/news/${article.id}`}>
-                      <Button variant="ghost" className="p-0 text-red-600 hover:text-red-700 group">
+                      <Button variant="outline" className="w-full group">
                         Lees meer
-                        <ArrowRight className="ml-1 group-hover:translate-x-1 transition-transform duration-200" size={16} />
+                        <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </Link>
                   </CardContent>
                 </Card>
               ))}
             </div>
-          </div>
-        </section>
+          )}
+        </div>
+      </section>
 
-        {/* Newsletter Signup */}
-        <section className="py-16 bg-gradient-to-r from-red-600 to-red-700 text-white">
-          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h2 
-              className="text-4xl font-bold mb-4"
-              data-editable-text="newsletter_title"
-              data-section="news"
-              data-key="newsletter_title"
-            >
-              {newsletterTitle}
-            </h2>
-            <p 
-              className="text-xl mb-8 opacity-90"
-              data-editable-text="newsletter_subtitle"
-              data-section="news"
-              data-key="newsletter_subtitle"
-            >
-              {newsletterSubtitle}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Je e-mailadres"
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
-              />
-              <Button className="bg-white text-red-600 hover:bg-gray-100 px-6">
-                Aanmelden
-              </Button>
-            </div>
+      {/* Newsletter Section */}
+      <section className="py-20 bg-gradient-to-r from-yellow-50 to-orange-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Blijf Op De Hoogte
+          </h2>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Schrijf je in voor onze nieuwsbrief en mis geen enkel nieuwtje over de show!
+          </p>
+          <div className="flex max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Je email adres"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+            />
+            <Button className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-r-lg">
+              Inschrijven
+            </Button>
           </div>
-        </section>
-      </div>
-    </LiveEditor>
+          <p className="text-sm text-gray-500 mt-4">
+            We respecteren je privacy en sturen geen spam.
+          </p>
+        </div>
+      </section>
+    </div>
   );
 }
