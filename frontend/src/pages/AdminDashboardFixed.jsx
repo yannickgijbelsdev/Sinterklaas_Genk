@@ -433,7 +433,7 @@ export default function AdminDashboard() {
     if (!editingNews) return;
 
     try {
-      const response = await fetch(`${API}/admin/news/${editingNews.id}`, {
+      const response = await fetch(`${API}/demo/news/${editingNews.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
