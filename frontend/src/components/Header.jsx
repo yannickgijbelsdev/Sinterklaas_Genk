@@ -84,8 +84,16 @@ export const Header = () => {
               <button
                 key={item.name}
                 onClick={() => smoothScrollTo(item.href)}
-                className="text-gray-700 font-semibold hover:text-red-600 transition-colors cursor-pointer"
-                style={{ fontWeight: '600', fontSize: '14px' }}
+                className="text-gray-700 font-semibold hover:text-red-600 transition-all cursor-pointer"
+                style={{ 
+                  fontWeight: '600', 
+                  fontSize: '14px',
+                  background: 'rgba(255,255,255,0.95)',
+                  padding: '8px 16px',
+                  borderRadius: '25px',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+                }}
               >
                 {item.name}
               </button>
