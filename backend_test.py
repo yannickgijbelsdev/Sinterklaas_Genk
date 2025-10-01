@@ -468,6 +468,158 @@ class BackendTester:
                         f"Only {success_count}/{len(sections_to_test)} sections updated successfully")
             return False
 
+    def test_create_demo_news_articles(self):
+        """Create demo news articles for the Sinterklaas Genk website"""
+        if not self.auth_token:
+            self.log_test("Create Demo News Articles", False, "No authentication token")
+            return False
+            
+        # Define the 3 news articles as specified in the request
+        demo_articles = [
+            {
+                "title": "Zo bereiden onze acteurs zich voor op het Sinterklaas seizoen",
+                "excerpt": "Een kijkje achter de schermen bij de voorbereidingen voor de magische Sinterklaasshow...",
+                "content": "Onze getalenteerde acteurs beginnen al maanden van tevoren met de voorbereidingen voor het Sinterklaasseizoen. Van het instuderen van liedjes tot het perfectioneren van de interactie met kinderen - er komt veel meer kijken bij het spelen van Sinterklaas en zijn Pieten dan je zou denken.\n\nDe voorbereiding begint met uitgebreide audities waarbij we niet alleen kijken naar acteervaardigheid, maar ook naar de natuurlijke verbinding die kandidaten kunnen maken met kinderen. Onze Sinterklaas moet niet alleen overtuigend zijn in zijn rol, maar ook de warmte en wijsheid uitstralen die kinderen van hem verwachten.",
+                "category": "Achter de Schermen",
+                "date": "2024-11-15",
+                "published": True,
+                "featured_image": "https://via.placeholder.com/400x200/FF6B35/FFFFFF?text=Acteurs+Voorbereiden",
+                "image": "https://via.placeholder.com/400x200/FF6B35/FFFFFF?text=Acteurs+Voorbereiden"
+            },
+            {
+                "title": "Hoe bereid je je kind voor op de eerste Sinterklaasshow?",
+                "excerpt": "Praktische tips om ervoor te zorgen dat je kind optimaal kan genieten van de magische ervaring...",
+                "content": "De eerste ontmoeting met Sinterklaas kan voor kleine kinderen overweldigend zijn. Daarom hebben we een aantal praktische tips om je kind optimaal voor te bereiden op deze magische ervaring.\n\nBegin een paar dagen van tevoren met verhalen vertellen over Sinterklaas en zijn Pieten. Leg uit dat ze vriendelijk zijn en komen om cadeautjes te brengen. Oefen eventueel het zingen van Sinterklaasliedjes thuis, zodat je kind kan meedoen tijdens de show.\n\nHet is ook belangrijk om realistische verwachtingen te scheppen. Vertel je kind dat het normaal is om een beetje zenuwachtig te zijn en dat mama of papa er altijd bij zijn.",
+                "category": "Tips & Tricks",
+                "date": "2024-11-10",
+                "published": True,
+                "featured_image": "https://via.placeholder.com/400x200/FFA500/FFFFFF?text=Tips+Voor+Ouders",
+                "image": "https://via.placeholder.com/400x200/FFA500/FFFFFF?text=Tips+Voor+Ouders"
+            },
+            {
+                "title": "De geschiedenis van Sinterklaas in Genk",
+                "excerpt": "Ontdek hoe de Sinterklaas traditie is gegroeid in onze mooie stad en wat dit betekent voor families...",
+                "content": "De Sinterklaas traditie heeft in Genk een bijzondere plaats ingenomen sinds de jaren '60. Wat begon als kleine buurtfeestjes is uitgegroeid tot de grote, professionele shows die we vandaag de dag kennen.\n\nIn 1967 organiseerde het toenmalige Cultureel Centrum Genk voor het eerst een officiële Sinterklaasviering. Dit evenement trok meteen honderden families en legde de basis voor wat later zou uitgroeien tot een van de populairste Sinterklaas shows van België.\n\nVandaag de dag trekt onze jaarlijkse Sinterklaasshow meer dan 5000 bezoekers uit heel Limburg en ver daarbuiten. Het is uitgegroeid tot een ware traditie die van generatie op generatie wordt doorgegeven.",
+                "category": "Algemeen",
+                "date": "2024-11-05",
+                "published": True,
+                "featured_image": "https://via.placeholder.com/400x200/32CD32/FFFFFF?text=Geschiedenis+Genk",
+                "image": "https://via.placeholder.com/400x200/32CD32/FFFFFF?text=Geschiedenis+Genk"
+            }
+        ]
+        
+        created_articles = []
+        success_count = 0
+        
+        try:
+            for i, article_data in enumerate(demo_articles):
+                print(f"   Creating article {i+1}: {article_data['title']}")
+                
+                response = self.session.post(f"{API_BASE}/admin/news", json=article_data)
+                
+                if response.status_code == 200:
+                    created_article = response.json()
+                    created_articles.append(created_article)
+                    success_count += 1
+                    print(f"   ✅ Article {i+1} created successfully (ID: {created_article.get('id', 'N/A')})")
+                else:
+                    print(f"   ❌ Article {i+1} creation failed (Status: {response.status_code})")
+                    print(f"      Response: {response.text}")
+            
+            if success_count == len(demo_articles):
+                self.log_test("Create Demo News Articles", True, 
+                            f"Successfully created all {success_count} demo news articles")
+                
+                # Verify articles are accessible via public endpoint
+                return self.verify_demo_articles_public_access(created_articles)
+            else:
+                self.log_test("Create Demo News Articles", False, 
+                            f"Only {success_count}/{len(demo_articles)} articles created successfully")
+                return False
+                
+        except Exception as e:
+            self.log_test("Create Demo News Articles", False, f"Error: {str(e)}")
+            return False
+
+    def verify_demo_articles_public_access(self, created_articles):
+        """Verify that created demo articles are accessible via public news endpoint"""
+        try:
+            # Test public news endpoint (no auth required)
+            response = self.session.get(f"{API_BASE}/news")
+            
+            if response.status_code == 200:
+                public_articles = response.json()
+                
+                # Check if our created articles are in the public list
+                found_count = 0
+                for created_article in created_articles:
+                    for public_article in public_articles:
+                        if public_article.get('id') == created_article.get('id'):
+                            found_count += 1
+                            print(f"   ✅ Article '{created_article['title']}' found in public news")
+                            break
+                
+                if found_count == len(created_articles):
+                    self.log_test("Demo Articles Public Access", True, 
+                                f"All {found_count} demo articles accessible via public endpoint")
+                    return True
+                else:
+                    self.log_test("Demo Articles Public Access", False, 
+                                f"Only {found_count}/{len(created_articles)} articles found in public news")
+                    return False
+            else:
+                self.log_test("Demo Articles Public Access", False, 
+                            f"Public news endpoint failed (Status: {response.status_code})")
+                return False
+                
+        except Exception as e:
+            self.log_test("Demo Articles Public Access", False, f"Error: {str(e)}")
+            return False
+
+    def test_news_management_system(self):
+        """Test complete news management system"""
+        if not self.auth_token:
+            self.log_test("News Management System", False, "No authentication token")
+            return False
+            
+        try:
+            # First, get existing news count
+            response = self.session.get(f"{API_BASE}/admin/news")
+            if response.status_code == 200:
+                existing_news = response.json()
+                initial_count = len(existing_news)
+                print(f"   Initial news count: {initial_count}")
+            else:
+                print(f"   Could not get initial news count (Status: {response.status_code})")
+                initial_count = 0
+            
+            # Create demo articles
+            demo_success = self.test_create_demo_news_articles()
+            
+            if demo_success:
+                # Verify final count
+                response = self.session.get(f"{API_BASE}/admin/news")
+                if response.status_code == 200:
+                    final_news = response.json()
+                    final_count = len(final_news)
+                    added_count = final_count - initial_count
+                    
+                    self.log_test("News Management System", True, 
+                                f"News system working: {added_count} articles added, total now {final_count}")
+                    return True
+                else:
+                    self.log_test("News Management System", False, 
+                                "Could not verify final news count")
+                    return False
+            else:
+                self.log_test("News Management System", False, 
+                            "Demo article creation failed")
+                return False
+                
+        except Exception as e:
+            self.log_test("News Management System", False, f"Error: {str(e)}")
+            return False
+
     def run_admin_login_tests(self):
         """Run focused admin login functionality tests"""
         print("=" * 70)
