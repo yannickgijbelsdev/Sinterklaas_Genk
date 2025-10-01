@@ -397,7 +397,7 @@ export default function AdminDashboard() {
 
   const handleCreateNews = useCallback(async () => {
     try {
-      const response = await fetch(`${API}/admin/news`, {
+      const response = await fetch(`${API}/demo/news`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
