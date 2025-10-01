@@ -444,8 +444,77 @@ export default function Admin() {
     );
   };
 
-  // Dashboard Overview
-  const Dashboard = () => (
+  // Content Management
+  const ContentManager = () => {
+    const [contentItems, setContentItems] = useState([
+      { id: 'hero_title', label: 'Hero Titel', value: 'De Magische Sinterklaas Show in Genk', type: 'text' },
+      { id: 'hero_subtitle', label: 'Hero Subtitel', value: 'Beleef samen met je kinderen de meest interactieve en magische Sinterklaasshow van België.', type: 'textarea' },
+      { id: 'about_title', label: 'Over Ons Titel', value: 'Wat maakt onze show zo speciaal?', type: 'text' },
+      { id: 'phone', label: 'Telefoonnummer', value: '+32 (0)89 123 456', type: 'text' },
+      { id: 'email', label: 'Email', value: 'info@sinterklaasgenk.be', type: 'email' },
+      { id: 'address', label: 'Adres', value: 'Cultureel Centrum Genk\nDieplaan 17, 3600 Genk', type: 'textarea' },
+    ]);
+
+    const handleUpdateContent = async (id, value) => {
+      try {
+        const response = await fetch(`${API}/admin/content/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ value })
+        });
+
+        if (response.ok) {
+          setContentItems(contentItems.map(item => 
+            item.id === id ? { ...item, value } : item
+          ));
+          toast.success('Content bijgewerkt!');
+        }
+      } catch (error) {
+        toast.error('Error updating content: ' + error.message);
+      }
+    };
+
+    return (
+      <div className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Settings size={20} />
+              Website Content Beheer
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {contentItems.map((item) => (
+              <div key={item.id} className="space-y-2">
+                <Label htmlFor={item.id}>{item.label}</Label>
+                {item.type === 'textarea' ? (
+                  <Textarea
+                    id={item.id}
+                    value={item.value}
+                    onChange={(e) => setContentItems(contentItems.map(ci => 
+                      ci.id === item.id ? { ...ci, value: e.target.value } : ci
+                    ))}
+                    onBlur={(e) => handleUpdateContent(item.id, e.target.value)}
+                    rows={item.id === 'address' ? 3 : 2}
+                  />
+                ) : (
+                  <Input
+                    id={item.id}
+                    type={item.type}
+                    value={item.value}
+                    onChange={(e) => setContentItems(contentItems.map(ci => 
+                      ci.id === item.id ? { ...ci, value: e.target.value } : ci
+                    ))}
+                    onBlur={(e) => handleUpdateContent(item.id, e.target.value)}
+                  />
+                )}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <Card>
         <CardContent className="p-6">
