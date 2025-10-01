@@ -88,25 +88,36 @@ export const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('🔍 DEBUG: Login success, setting user and token');
+        console.log('🔍 DEBUG: Login response:', data);
         
-        // Set localStorage first, then state
-        localStorage.setItem('token', data.access_token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        
-        // Then update state
-        setUser(data.user);
-        setToken(data.access_token);
-        
-        console.log('🔍 DEBUG: Token saved to localStorage:', localStorage.getItem('token') ? 'SUCCESS' : 'FAILED');
-        
-        toast.success('Succesvol ingelogd!');
-        return { success: true };
+        if (data.access_token) {
+          const token = data.access_token;
+          const user = data.user || { email: data.email || email };
+          
+          // Store in localStorage
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(user));
+          
+          // Update state
+          setToken(token);
+          setUser(user);
+          
+          console.log('✅ Login successful, token stored:', token.substring(0, 20) + '...');
+          
+          toast.success('Succesvol ingelogd!');
+          return { success: true, user, token };
+        } else {
+          const errorMsg = 'No access token received';
+          console.log('❌ Login failed:', errorMsg);
+          toast.error(errorMsg);
+          return { success: false, error: errorMsg };
+        }
       } else {
         const error = await response.json();
-        console.log('🔍 DEBUG: Login error:', error);
-        toast.error(error.detail || 'Login failed');
-        return { success: false, error: error.detail };
+        const errorMsg = error.detail || 'Login failed';
+        console.log('❌ Login failed:', errorMsg);
+        toast.error(errorMsg);
+        return { success: false, error: errorMsg };
       }
     } catch (error) {
       console.log('🔍 DEBUG: Fetch error:', error);
