@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: Test de volledige interactieve stoomboot-ervaring van de Sinterklaas website: scroll-based navigation & animations, interactive story elements, character interactions, FAQ functionality, mobile responsiveness, and all stoomboot-themed features.
+user_problem_statement: Test de admin login functionaliteit van de Sinterklaas Genk website: admin user creation, login API endpoint, authentication flow, JWT token verification, admin-protected endpoints, en database verificatie.
 
 backend:
   - task: "Content management endpoints"
