@@ -22,7 +22,8 @@ import {
   Settings,
   BarChart,
   LogOut,
-  Shield
+  Shield,
+  X
 } from 'lucide-react';
 
 const API = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001/api';
