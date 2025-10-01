@@ -515,54 +515,77 @@ export default function Admin() {
       </div>
     );
   };
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+  // Dashboard Overview
+  const Dashboard = () => (
+    <div className="space-y-6">
+      {/* Welcome Card */}
       <Card>
         <CardContent className="p-6">
-          <div className="flex items-center justify-between">
+          <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm font-medium text-gray-600">Nieuws Artikelen</p>
-              <p className="text-3xl font-bold">{news.length}</p>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Welkom terug, {user?.email}!
+              </h2>
+              <p className="text-gray-600">Beheer de Sinterklaas Genk website</p>
             </div>
-            <FileText className="h-8 w-8 text-blue-600" />
+            <Button onClick={logout} variant="outline" className="flex items-center gap-2">
+              <LogOut size={16} />
+              Uitloggen
+            </Button>
           </div>
         </CardContent>
       </Card>
 
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Shows</p>
-              <p className="text-3xl font-bold">{shows.length}</p>
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Nieuws Artikelen</p>
+                <p className="text-3xl font-bold">{news.length}</p>
+              </div>
+              <FileText className="h-8 w-8 text-blue-600" />
             </div>
-            <Calendar className="h-8 w-8 text-green-600" />
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Galerij Items</p>
-              <p className="text-3xl font-bold">{gallery.length}</p>
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Shows</p>
+                <p className="text-3xl font-bold">{shows.length}</p>
+              </div>
+              <Calendar className="h-8 w-8 text-green-600" />
             </div>
-            <ImageIcon className="h-8 w-8 text-purple-600" />
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Content Items</p>
-              <p className="text-3xl font-bold">{content.length}</p>
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Galerij Items</p>
+                <p className="text-3xl font-bold">{gallery.length}</p>
+              </div>
+              <ImageIcon className="h-8 w-8 text-purple-600" />
             </div>
-            <Settings className="h-8 w-8 text-orange-600" />
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Content Items</p>
+                <p className="text-3xl font-bold">{content.length}</p>
+              </div>
+              <Settings className="h-8 w-8 text-orange-600" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 
