@@ -212,7 +212,7 @@ export default function Home() {
         
         {/* Floating Elements - REMOVED */}
         
-        {/* Simple Wave Shape Bottom */}
+        {/* Wave Shape Bottom - Hero to About */}
         <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
           <svg 
             className="relative block w-full h-24" 
