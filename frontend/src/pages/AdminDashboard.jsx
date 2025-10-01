@@ -368,10 +368,12 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Add New Article Form */}
+      {/* Add/Edit Article Form */}
       <Card>
         <CardHeader>
-          <CardTitle>Nieuw Artikel Toevoegen</CardTitle>
+          <CardTitle>
+            {editingNews ? `Artikel Bewerken: ${editingNews.title}` : 'Nieuw Artikel Toevoegen'}
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
