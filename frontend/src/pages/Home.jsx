@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Gift, Star, Calendar, Clock, Users, Heart, Shield, Award, 
   CheckCircle, ArrowRight, Play, Download, Plus, Minus,
@@ -6,6 +6,8 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import '../styles/camp-buddy-theme.css';
+
+const API = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001/api';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
