@@ -189,12 +189,12 @@ export default function Home() {
         <div className="container relative z-10">
           <div className="max-w-4xl">
             <h1 style={{
-              fontSize: 'clamp(3rem, 8vw, 5.5rem)',
-              fontWeight: '900',
+              fontSize: 'clamp(3rem, 8vw, 6rem)',
+              fontWeight: '400',
               textShadow: '3px 6px 12px rgba(0,0,0,0.8)',
               marginBottom: '24px',
               lineHeight: '1.1',
-              fontFamily: '"Mountains of Christmas", "Fredoka One", cursive',
+              fontFamily: '"Lavishly Yours", cursive',
               textTransform: 'none'
             }}>
               <span style={{ color: '#DC2626' }}>Sint</span>
