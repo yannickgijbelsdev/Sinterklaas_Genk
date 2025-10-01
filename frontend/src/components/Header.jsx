@@ -72,13 +72,25 @@ export const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
+          <nav className="hidden lg:flex items-center justify-end flex-1" style={{ gap: '32px', paddingRight: '8px' }}>
             {navigationItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => smoothScrollTo(item.href)}
-                className="text-gray-700 font-semibold hover:text-red-600 transition-colors cursor-pointer"
-                style={{ fontWeight: '600', fontSize: '14px' }}
+                className="text-gray-700 font-medium hover:text-red-600 transition-all duration-200 cursor-pointer hover:scale-105"
+                style={{ 
+                  fontWeight: '500', 
+                  fontSize: '15px',
+                  whiteSpace: 'nowrap',
+                  padding: '8px 12px',
+                  borderRadius: '8px'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = 'rgba(220, 38, 38, 0.05)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                }}
               >
                 {item.name}
               </button>
