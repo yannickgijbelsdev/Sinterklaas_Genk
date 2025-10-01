@@ -152,36 +152,35 @@ export const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-yellow-100">
-              {allNavigationItems.map((item) => (
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-t shadow-lg rounded-b-3xl" style={{ marginTop: '8px' }}>
+            <nav className="p-6 space-y-4">
+              {navigationItems.map((item, index) => (
                 <button
-                  key={item.href}
-                  onClick={() => smoothScrollTo(item.href)}
-                  className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-red-600"
+                  key={index}
+                  onClick={() => {
+                    smoothScrollTo(item.href);
+                    setIsMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 text-gray-700 font-semibold hover:text-red-600 transition-colors"
                 >
                   {item.name}
                 </button>
               ))}
-              <div className="pt-4 pb-2 space-y-2">
+              <div className="pt-4 border-t">
                 <button 
-                  onClick={() => smoothScrollTo('#reserveer')}
-                  className="btn btn-outline w-full"
+                  className="w-full flex items-center justify-center space-x-2 font-bold text-white px-6 py-3 rounded-full"
+                  style={{ 
+                    background: 'linear-gradient(45deg, #DC2626, #EF4444)',
+                  }}
                 >
-                  Reserveer Nu
+                  <Gift size={16} />
+                  <span>MIJN BESTELLING</span>
+                  <span className="bg-white text-red-600 px-2 py-1 rounded-full text-xs font-bold ml-1">
+                    0
+                  </span>
                 </button>
-                {/* Admin button only visible if admin session exists */}
-                {sessionStorage.getItem('adminAuthenticated') === 'true' && (
-                  <a 
-                    href="/admin"
-                    className="btn btn-primary w-full"
-                  >
-                    <Settings size={16} />
-                    Admin
-                  </a>
-                )}
               </div>
-            </div>
+            </nav>
           </div>
         )}
 
