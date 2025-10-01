@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Gift, Star, Calendar, Clock, Users, Heart, Shield, Award, 
   CheckCircle, ArrowRight, Play, Download, Plus, Minus,
