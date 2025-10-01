@@ -149,53 +149,19 @@ export const Header = () => {
                 </button>
               ))}
               <div className="pt-4 pb-2 space-y-2">
-                {!isAuthenticated() ? (
-                  <>
-                    <button 
-                      onClick={() => smoothScrollTo('#reserveer')}
-                      className="btn btn-outline w-full"
-                    >
-                      Reserveer Nu
-                    </button>
-                    <button 
-                      onClick={() => {
-                        setShowLoginForm(true);
-                        setIsMenuOpen(false);
-                      }}
-                      className="btn btn-primary w-full"
-                    >
-                      <User size={16} />
-                      Login
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <div className="text-center py-2">
-                      <span className="text-sm text-gray-600">
-                        Welkom, {user?.email}
-                      </span>
-                    </div>
-                    {isAdmin() && (
-                      <a 
-                        href="/admin"
-                        className="btn btn-outline w-full"
-                      >
-                        <Settings size={16} />
-                        Admin
-                      </a>
-                    )}
-                    <button 
-                      onClick={() => {
-                        logout();
-                        setIsMenuOpen(false);
-                      }}
-                      className="btn btn-secondary w-full"
-                    >
-                      <LogOut size={16} />
-                      Logout
-                    </button>
-                  </>
-                )}
+                <button 
+                  onClick={() => smoothScrollTo('#reserveer')}
+                  className="btn btn-outline w-full"
+                >
+                  Reserveer Nu
+                </button>
+                <a 
+                  href="/admin"
+                  className="btn btn-primary w-full"
+                >
+                  <Settings size={16} />
+                  Admin
+                </a>
               </div>
             </div>
           </div>
