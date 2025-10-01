@@ -620,6 +620,193 @@ class BackendTester:
             self.log_test("News Management System", False, f"Error: {str(e)}")
             return False
 
+    def test_demo_news_endpoints(self):
+        """Test the new demo news endpoints (no authentication required)"""
+        try:
+            # Test data as specified in the request
+            test_article = {
+                "title": "Test Artikel",
+                "excerpt": "Test samenvatting", 
+                "content": "Test inhoud",
+                "category": "Algemeen",
+                "published": True,
+                "date": "2024-12-19"
+            }
+            
+            print("   Testing POST /api/demo/news (create article without auth)")
+            
+            # Remove auth header temporarily for demo endpoints
+            temp_headers = self.session.headers.copy()
+            if 'Authorization' in self.session.headers:
+                del self.session.headers['Authorization']
+            
+            try:
+                # Test POST /api/demo/news
+                response = self.session.post(f"{API_BASE}/demo/news", json=test_article)
+                
+                if response.status_code == 200:
+                    created_article = response.json()
+                    article_id = created_article.get('id')
+                    print(f"   ✅ POST /api/demo/news successful (ID: {article_id})")
+                    
+                    # Test PUT /api/demo/news/{id}
+                    print(f"   Testing PUT /api/demo/news/{article_id} (update article)")
+                    update_data = {
+                        "title": "Test Artikel - Bijgewerkt",
+                        "content": "Test inhoud - bijgewerkt via demo endpoint"
+                    }
+                    
+                    response = self.session.put(f"{API_BASE}/demo/news/{article_id}", json=update_data)
+                    
+                    if response.status_code == 200:
+                        updated_article = response.json()
+                        print(f"   ✅ PUT /api/demo/news/{article_id} successful")
+                        
+                        # Test DELETE /api/demo/news/{id}
+                        print(f"   Testing DELETE /api/demo/news/{article_id} (delete article)")
+                        response = self.session.delete(f"{API_BASE}/demo/news/{article_id}")
+                        
+                        if response.status_code == 200:
+                            print(f"   ✅ DELETE /api/demo/news/{article_id} successful")
+                            
+                            self.log_test("Demo News Endpoints", True, 
+                                        "All demo news endpoints (POST, PUT, DELETE) working correctly without authentication")
+                            return True
+                        else:
+                            self.log_test("Demo News Endpoints", False, 
+                                        f"DELETE /api/demo/news/{article_id} failed (Status: {response.status_code})")
+                            return False
+                    else:
+                        self.log_test("Demo News Endpoints", False, 
+                                    f"PUT /api/demo/news/{article_id} failed (Status: {response.status_code})")
+                        return False
+                else:
+                    self.log_test("Demo News Endpoints", False, 
+                                f"POST /api/demo/news failed (Status: {response.status_code}, Response: {response.text})")
+                    return False
+                    
+            finally:
+                # Restore auth headers
+                self.session.headers.update(temp_headers)
+                
+        except Exception as e:
+            self.log_test("Demo News Endpoints", False, f"Error: {str(e)}")
+            return False
+
+    def test_demo_user_endpoint(self):
+        """Test the demo user creation endpoint (no authentication required)"""
+        try:
+            # Test data for user creation
+            test_user = {
+                "email": "demo.user@sinterklaas.com",
+                "password": "demo123",
+                "role": "user"
+            }
+            
+            print("   Testing POST /api/demo/users (create user without auth)")
+            
+            # Remove auth header temporarily for demo endpoints
+            temp_headers = self.session.headers.copy()
+            if 'Authorization' in self.session.headers:
+                del self.session.headers['Authorization']
+            
+            try:
+                response = self.session.post(f"{API_BASE}/demo/users", json=test_user)
+                
+                if response.status_code == 200:
+                    created_user = response.json()
+                    print(f"   ✅ POST /api/demo/users successful")
+                    print(f"      Created user: {created_user.get('email', 'N/A')}")
+                    
+                    self.log_test("Demo User Endpoint", True, 
+                                f"Demo user creation successful: {created_user.get('email', 'N/A')}")
+                    return True
+                else:
+                    self.log_test("Demo User Endpoint", False, 
+                                f"POST /api/demo/users failed (Status: {response.status_code}, Response: {response.text})")
+                    return False
+                    
+            finally:
+                # Restore auth headers
+                self.session.headers.update(temp_headers)
+                
+        except Exception as e:
+            self.log_test("Demo User Endpoint", False, f"Error: {str(e)}")
+            return False
+
+    def test_demo_endpoints_comprehensive(self):
+        """Test all demo endpoints comprehensively"""
+        print("   Testing demo endpoints without authentication...")
+        
+        # Test demo news endpoints
+        news_success = self.test_demo_news_endpoints()
+        
+        # Test demo user endpoint  
+        user_success = self.test_demo_user_endpoint()
+        
+        if news_success and user_success:
+            self.log_test("Demo Endpoints Comprehensive", True, 
+                        "All demo endpoints (news CRUD + user creation) working correctly")
+            return True
+        else:
+            failed_tests = []
+            if not news_success:
+                failed_tests.append("news endpoints")
+            if not user_success:
+                failed_tests.append("user endpoint")
+                
+            self.log_test("Demo Endpoints Comprehensive", False, 
+                        f"Failed demo endpoints: {', '.join(failed_tests)}")
+            return False
+
+    def run_demo_endpoints_tests(self):
+        """Run focused demo endpoints tests"""
+        print("=" * 70)
+        print("SINTERKLAAS GENK WEBSITE - DEMO ADMIN ENDPOINTS TESTING")
+        print("=" * 70)
+        print(f"Testing against: {BACKEND_URL}")
+        print()
+        
+        # Demo endpoints focused test sequence
+        tests = [
+            ("API Connectivity", self.test_health_check),
+            ("Demo News Endpoints (POST/PUT/DELETE)", self.test_demo_news_endpoints),
+            ("Demo User Endpoint (POST)", self.test_demo_user_endpoint),
+            ("Demo Endpoints Comprehensive", self.test_demo_endpoints_comprehensive),
+        ]
+        
+        passed = 0
+        total = len(tests)
+        
+        for test_name, test_func in tests:
+            print(f"Running: {test_name}")
+            print("-" * 50)
+            if test_func():
+                passed += 1
+            print()
+        
+        # Summary
+        print("=" * 70)
+        print("DEMO ENDPOINTS TESTING SUMMARY")
+        print("=" * 70)
+        print(f"Total Tests: {total}")
+        print(f"Passed: {passed}")
+        print(f"Failed: {total - passed}")
+        print(f"Success Rate: {(passed/total)*100:.1f}%")
+        print()
+        
+        if passed == total:
+            print("🎉 ALL DEMO ENDPOINT TESTS PASSED - Demo admin endpoints working correctly!")
+            print("✅ POST /api/demo/news - artikel aanmaken zonder authenticatie")
+            print("✅ PUT /api/demo/news/{id} - artikel bijwerken")
+            print("✅ DELETE /api/demo/news/{id} - artikel verwijderen")
+            print("✅ POST /api/demo/users - gebruiker aanmaken")
+            print("✅ All endpoints accessible without authentication as intended")
+        else:
+            print("⚠️  Some demo endpoint tests failed - Check the details above")
+            
+        return passed == total
+
     def run_news_demo_tests(self):
         """Run focused news article creation tests"""
         print("=" * 70)
