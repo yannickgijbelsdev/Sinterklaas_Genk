@@ -107,46 +107,54 @@ export default function Home() {
     return iconMap[category] || '📰';
   };
 
-  // Use real news data with fallback to demo data
-  console.log('🔍 DEBUG: Homepage news state length:', news.length);
-  const blogPosts = news.length > 0 ? news.map(article => ({
-    id: article.id,
-    category: article.category || 'Algemeen',
-    title: article.title,
-    excerpt: article.excerpt,
-    date: new Date(article.date).toLocaleDateString('nl-NL'),
-    readTime: '3 min lezen', // Default reading time
-    icon: getCategoryIcon(article.category || 'Algemeen'),
-    image: article.featured_image || article.image
-  })) : [
-    {
-      id: 'demo-1',
-      category: "Achter de Schermen",
-      title: "Zo bereiden onze acteurs zich voor op het Sinterklaas seizoen",
-      excerpt: "Een kijkje achter de schermen bij de voorbereidingen voor de magische Sinterklaasshow...",
-      date: "15 november 2024",
-      readTime: "3 min lezen",
-      icon: "🎭"
-    },
-    {
-      id: 'demo-2',
-      category: "Tips voor Ouders", 
-      title: "Hoe bereid je je kind voor op de eerste Sinterklaasshow?",
-      excerpt: "Praktische tips om ervoor te zorgen dat je kind optimaal kan genieten van de magische ervaring...",
-      date: "10 november 2024",
-      readTime: "4 min lezen",
-      icon: "👶"
-    },
-    {
-      id: 'demo-3',
-      category: "Tradities",
-      title: "De geschiedenis van Sinterklaas in Genk",
-      excerpt: "Ontdek hoe de Sinterklaas traditie is gegroeid in onze mooie stad en wat dit betekent voor families...",
-      date: "5 november 2024", 
-      readTime: "5 min lezen",
-      icon: "📚"
+  // Use real news data with fallback to demo data - using useMemo to ensure re-computation when news changes
+  const blogPosts = useMemo(() => {
+    console.log('🔍 DEBUG: Computing blogPosts with news length:', news.length);
+    
+    if (news.length > 0) {
+      return news.map(article => ({
+        id: article.id,
+        category: article.category || 'Algemeen',
+        title: article.title,
+        excerpt: article.excerpt,
+        date: new Date(article.date).toLocaleDateString('nl-NL'),
+        readTime: '3 min lezen', // Default reading time
+        icon: getCategoryIcon(article.category || 'Algemeen'),
+        image: article.featured_image || article.image
+      }));
+    } else {
+      console.log('📰 DEBUG: Using fallback demo articles');
+      return [
+        {
+          id: 'demo-1',
+          category: "Achter de Schermen",
+          title: "Zo bereiden onze acteurs zich voor op het Sinterklaas seizoen",
+          excerpt: "Een kijkje achter de schermen bij de voorbereidingen voor de magische Sinterklaasshow...",
+          date: "15 november 2024",
+          readTime: "3 min lezen",
+          icon: "🎭"
+        },
+        {
+          id: 'demo-2',
+          category: "Tips voor Ouders", 
+          title: "Hoe bereid je je kind voor op de eerste Sinterklaasshow?",
+          excerpt: "Praktische tips om ervoor te zorgen dat je kind optimaal kan genieten van de magische ervaring...",
+          date: "10 november 2024",
+          readTime: "4 min lezen",
+          icon: "👶"
+        },
+        {
+          id: 'demo-3',
+          category: "Tradities",
+          title: "De geschiedenis van Sinterklaas in Genk",
+          excerpt: "Ontdek hoe de Sinterklaas traditie is gegroeid in onze mooie stad en wat dit betekent voor families...",
+          date: "5 november 2024", 
+          readTime: "5 min lezen",
+          icon: "📚"
+        }
+      ];
     }
-  ];
+  }, [news]);
 
   if (loading) {
     return (
