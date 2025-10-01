@@ -725,6 +725,9 @@ export default function AdminDashboard() {
               <Button variant="outline" size="sm">
                 <Bell className="h-4 w-4" />
               </Button>
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                <LogOut className="h-4 w-4" />
+              </Button>
               <div className="h-8 w-8 bg-red-100 rounded-full flex items-center justify-center">
                 <span className="text-sm font-medium text-red-700">A</span>
               </div>
