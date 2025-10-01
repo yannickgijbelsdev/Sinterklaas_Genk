@@ -285,10 +285,10 @@ export default function Home() {
       <section id="faq" className="section section-padding relative" style={{ backgroundColor: '#FFF5F5' }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="genty-regular" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#DC2626' }}>
+            <h2 className="genty-regular" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#B91C1C' }}>
               Veelgestelde Vragen
             </h2>
-            <p style={{ fontSize: '20px', color: '#666' }}>
+            <p style={{ fontSize: '20px', color: '#374151' }}>
               Antwoorden op de meest gestelde vragen over onze Sinterklaasshows.
             </p>
           </div>
