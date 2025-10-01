@@ -772,9 +772,18 @@ def main():
     """Main test execution"""
     tester = BackendTester()
     
-    # Check if we should run focused admin login tests
-    if len(sys.argv) > 1 and sys.argv[1] == "--admin-login":
-        success = tester.run_admin_login_tests()
+    # Check command line arguments for specific test types
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "--admin-login":
+            success = tester.run_admin_login_tests()
+        elif sys.argv[1] == "--news-demo":
+            success = tester.run_news_demo_tests()
+        else:
+            print("Available options:")
+            print("  --admin-login  : Run focused admin login tests")
+            print("  --news-demo    : Run news article creation demo tests")
+            print("  (no args)      : Run all comprehensive tests")
+            success = tester.run_all_tests()
     else:
         success = tester.run_all_tests()
     
