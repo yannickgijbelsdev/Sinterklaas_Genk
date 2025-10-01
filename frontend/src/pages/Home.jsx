@@ -451,17 +451,30 @@ export default function Home() {
           </div>
           
           <div className="three-column">
-            {blogPosts.map((post, index) => (
+            {blogPosts.slice(0, 3).map((post, index) => (
               <div key={post.id || index} className="card" style={{ overflow: 'hidden', padding: '0' }}>
                 <div style={{
                   height: '200px',
-                  background: 'linear-gradient(135deg, var(--sinterklaas-goud-light) 0%, var(--sinterklaas-goud) 100%)',
+                  background: post.image ? 'transparent' : 'linear-gradient(135deg, var(--sinterklaas-goud-light) 0%, var(--sinterklaas-goud) 100%)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '64px'
+                  fontSize: '64px',
+                  position: 'relative'
                 }}>
-                  {post.icon || '📰'}
+                  {post.image ? (
+                    <img 
+                      src={post.image} 
+                      alt={post.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  ) : (
+                    <span>{post.icon || '📰'}</span>
+                  )}
                 </div>
                 <div style={{ padding: '24px' }}>
                   <div className="sinterklaas-badge" style={{ marginBottom: '16px' }}>
@@ -471,7 +484,7 @@ export default function Home() {
                     {post.title}
                   </h3>
                   <p style={{ color: '#666', marginBottom: '16px' }}>{post.excerpt}</p>
-                  <a href={`/news/${post.id}`} style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
+                  <a href={post.id && post.id.startsWith('demo-') ? '#' : `/news/${post.id}`} style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
                     Lees meer →
                   </a>
                   <div style={{ 
