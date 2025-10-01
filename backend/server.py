@@ -643,10 +643,24 @@ async def delete_show_date(show_id: str):
     return {"message": "Show deleted successfully"}
 
 # Admin Routes - Content Management (Protected)
+@api_router.put("/admin/content/{content_id}")
+async def update_single_content(content_id: str, value: dict, current_user: User = Depends(get_admin_user)):
+    # Update or create content item with simple id/value structure
+    await db.simple_content.update_one(
+        {"id": content_id},
+        {"$set": {
+            "id": content_id,
+            "value": value.get("value", ""),
+            "updatedAt": datetime.utcnow()
+        }},
+        upsert=True
+    )
+    return {"message": "Content updated successfully"}
+
 @api_router.get("/admin/content")
 async def get_all_content(current_user: User = Depends(get_admin_user)):
-    content_items = await db.content.find().to_list(1000)
-    return [ContentItem(**item) for item in content_items]
+    content_items = await db.simple_content.find().to_list(1000)
+    return content_items
 
 @api_router.put("/admin/content")
 async def update_content(content_updates: List[ContentUpdate], current_user: User = Depends(get_admin_user)):
