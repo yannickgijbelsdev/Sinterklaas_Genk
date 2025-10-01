@@ -327,7 +327,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "JWT Authentication Persistence Testing Complete"
+    - "Featured Image Upload Functionality"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
