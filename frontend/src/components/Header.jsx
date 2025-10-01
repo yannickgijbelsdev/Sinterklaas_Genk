@@ -75,14 +75,17 @@ export const Header = () => {
             >
               Reserveer Nu
             </button>
-            <a 
-              href="/admin"
-              className="btn btn-primary"
-              style={{ padding: '12px 24px', fontSize: '14px' }}
-            >
-              <Settings size={16} />
-              Admin
-            </a>
+            {/* Admin button only visible if admin session exists */}
+            {sessionStorage.getItem('adminAuthenticated') === 'true' && (
+              <a 
+                href="/admin"
+                className="btn btn-primary"
+                style={{ padding: '12px 24px', fontSize: '14px' }}
+              >
+                <Settings size={16} />
+                Admin
+              </a>
+            )}
           </div>
 
           {/* Admin info removed - direct access via /admin */}
