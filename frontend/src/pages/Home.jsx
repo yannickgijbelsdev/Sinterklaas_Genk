@@ -191,16 +191,19 @@ export default function Home() {
             <h1 style={{
               fontSize: 'clamp(3rem, 8vw, 5.5rem)',
               fontWeight: '900',
-              color: 'white',
               textShadow: '3px 6px 12px rgba(0,0,0,0.8)',
               marginBottom: '24px',
               lineHeight: '1.1',
               fontFamily: '"Mountains of Christmas", "Fredoka One", cursive',
               textTransform: 'none'
             }}>
-              Sinterklaas en de
+              <span style={{ color: '#DC2626' }}>Sint</span>
+              <span style={{ color: 'white' }}>erklaas</span>
+              <span style={{ color: '#DC2626' }}> en</span>
+              <span style={{ color: 'white' }}> de</span>
               <br />
-              <span style={{ color: '#FDE047' }}>Wensmachine</span>
+              <span style={{ color: '#DC2626' }}>Wens</span>
+              <span style={{ color: 'white' }}>machine</span>
             </h1>
             
             <p style={{
