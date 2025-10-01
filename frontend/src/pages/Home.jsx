@@ -321,7 +321,7 @@ export default function Home() {
       <div className="wavy-separator-soft"></div>
 
       {/* CTA Reserveer Section */}
-      <section id="reserveer" className="section section-dark section-padding">
+      <section id="reserveer" className="section section-dark section-padding relative">
         <div className="container">
           <div className="card" style={{ background: 'var(--sinterklaas-rood-dark)', color: 'white', display: 'flex', alignItems: 'center', gap: '64px' }}>
             <div style={{ flex: 1 }}>
