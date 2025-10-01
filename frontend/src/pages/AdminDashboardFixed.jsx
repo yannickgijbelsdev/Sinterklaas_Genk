@@ -527,7 +527,8 @@ export default function AdminDashboard() {
       excerpt: article.excerpt,
       content: article.content,
       category: article.category,
-      published: article.published || true
+      published: article.published || true,
+      featured_image: article.featured_image || ''
     });
   }, []);
 
