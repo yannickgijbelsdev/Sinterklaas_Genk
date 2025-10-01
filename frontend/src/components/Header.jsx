@@ -50,8 +50,11 @@ export const Header = () => {
         maxWidth: '1400px', 
         margin: '0 auto', 
         padding: '0 16px',
-        background: 'transparent',
-        marginTop: '8px'
+        background: 'rgba(255,255,255,0.95)',
+        borderRadius: '50px',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+        marginTop: '8px',
+        backdropFilter: 'blur(10px)'
       }}>
         <div className="flex items-center justify-between" style={{ padding: '4px 0' }}>
           
