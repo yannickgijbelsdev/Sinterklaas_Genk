@@ -140,20 +140,7 @@ export const Header = () => {
                   {item.name}
                 </button>
               ))}
-              <div className="pt-4 border-t">
-                <button 
-                  className="w-full flex items-center justify-center space-x-2 font-bold text-white px-6 py-3 rounded-full"
-                  style={{ 
-                    background: 'linear-gradient(45deg, #DC2626, #EF4444)',
-                  }}
-                >
-                  <Gift size={16} />
-                  <span>MIJN BESTELLING</span>
-                  <span className="bg-white text-red-600 px-2 py-1 rounded-full text-xs font-bold ml-1">
-                    0
-                  </span>
-                </button>
-              </div>
+              {/* Mobile CTAs removed */}
             </nav>
           </div>
         )}
