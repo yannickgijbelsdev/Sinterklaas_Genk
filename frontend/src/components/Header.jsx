@@ -6,9 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [loginForm, setLoginForm] = useState({ email: '', password: '' });
-  const { isAuthenticated, isAdmin, login, logout, user } = useAuth();
+  // Removed login functionality - direct admin access
 
   useEffect(() => {
     const handleScroll = () => {
