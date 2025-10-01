@@ -43,15 +43,18 @@ export const Header = () => {
   };
 
   return (
-    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}
+    >
       <div className="header-container" style={{ 
         maxWidth: '1400px', 
         margin: '0 auto', 
         padding: '0 24px',
-        background: 'white',
+        background: isScrolled ? 'white' : 'rgba(255,255,255,0.95)',
         borderRadius: '50px',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-        marginTop: '16px'
+        boxShadow: isScrolled ? '0 4px 20px rgba(0,0,0,0.15)' : '0 4px 20px rgba(0,0,0,0.1)',
+        marginTop: '16px',
+        backdropFilter: 'blur(10px)'
       }}>
         <div className="flex items-center justify-between" style={{ padding: '12px 0' }}>
           
