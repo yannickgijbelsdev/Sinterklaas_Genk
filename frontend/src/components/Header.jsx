@@ -85,24 +85,7 @@ export const Header = () => {
             </a>
           </div>
 
-          {/* Admin info and logout */}
-          {isAuthenticated() && isAdmin() && (
-            <div className="hidden md:flex items-center space-x-4">
-              <div className="bg-red-100 px-3 py-1 rounded-full">
-                <span className="text-sm font-medium text-red-700">
-                  👋 {user?.username}
-                </span>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={logout}
-                className="text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl"
-              >
-                <LogOut size={16} />
-              </Button>
-            </div>
-          )}
+          {/* Admin info removed - direct access via /admin */}
 
           {/* Mobile menu button */}
           <div className="md:hidden">
