@@ -19,8 +19,16 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Sinterklaas Genk navigation items
-  const navigationItems = [
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(loginForm.email, loginForm.password);
+      setShowLoginForm(false);
+      setLoginForm({ email: '', password: '' });
+    } catch (error) {
+      // Error is handled by the login function
+    }
+  };
     { name: 'Over Ons', href: '#about' },
     { name: 'Shows', href: '#shows' },
     { name: 'Veiligheid', href: '#safety' },
