@@ -134,7 +134,7 @@ export const Header = () => {
                     smoothScrollTo(item.href);
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left px-4 py-2 text-gray-700 font-semibold hover:text-red-600 transition-colors"
+                  className="block w-full text-left px-4 py-3 text-gray-700 font-medium hover:text-red-600 hover:bg-red-50 transition-all duration-200 rounded-lg"
                 >
                   {item.name}
                 </button>
