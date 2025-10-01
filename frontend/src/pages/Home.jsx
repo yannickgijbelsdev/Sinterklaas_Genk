@@ -209,10 +209,10 @@ export default function Home() {
             
             <div>
               <div className="card card-white" style={{ height: '320px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ fontSize: '80px', textAlign: 'center' }}>
-                  🎅👧👦
+                <div style={{ fontSize: '80px', textAlign: 'center', color: '#DC2626' }}>
+                  🎭
                   <div style={{ fontSize: '16px', marginTop: '16px', color: '#666' }}>
-                    Sinterklaas met blije kinderen
+                    Professionele Sinterklaas Shows
                   </div>
                 </div>
               </div>
