@@ -965,11 +965,14 @@ def main():
             success = tester.run_admin_login_tests()
         elif sys.argv[1] == "--news-demo":
             success = tester.run_news_demo_tests()
+        elif sys.argv[1] == "--demo-endpoints":
+            success = tester.run_demo_endpoints_tests()
         else:
             print("Available options:")
-            print("  --admin-login  : Run focused admin login tests")
-            print("  --news-demo    : Run news article creation demo tests")
-            print("  (no args)      : Run all comprehensive tests")
+            print("  --admin-login     : Run focused admin login tests")
+            print("  --news-demo       : Run news article creation demo tests")
+            print("  --demo-endpoints  : Run demo admin endpoints tests (no auth)")
+            print("  (no args)         : Run all comprehensive tests")
             success = tester.run_all_tests()
     else:
         success = tester.run_all_tests()
