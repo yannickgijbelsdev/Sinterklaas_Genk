@@ -31,7 +31,7 @@ function App() {
               <Route path="/news" element={<News />} />
               <Route path="/news/:id" element={<News />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin" element={<AdminDashboard />} />
             </Routes>
           </main>
           <Footer />
