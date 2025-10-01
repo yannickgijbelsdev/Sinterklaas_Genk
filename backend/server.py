@@ -21,7 +21,7 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta
 import json
 import asyncio
-import pysftp
+# import pysftp  # Temporarily disabled due to paramiko compatibility issue
 import tempfile
 import mimetypes
 
