@@ -459,7 +459,9 @@ export default function Home() {
       <section id="contact" className="section section-cream section-padding">
         <div className="container">
           <div className="text-center mb-16">
-            <h2>Neem Contact Op</h2>
+            <h2 className="lavishly-yours-regular" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#DC2626' }}>
+              Neem Contact Op
+            </h2>
             <p style={{ fontSize: '20px', color: '#666', marginBottom: '48px' }}>
               Vragen over onze shows? We helpen jullie graag verder!
             </p>
