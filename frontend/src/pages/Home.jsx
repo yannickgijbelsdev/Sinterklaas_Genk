@@ -238,7 +238,16 @@ export default function Home() {
               justifyContent: 'center',
               fontSize: '64px'
             }}>
-              🗓️✨
+              <img 
+                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/tf62t3u6_MRTN1802.jpg" 
+                alt="Sinterklaas karakter" 
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '16px'
+                }}
+              />
             </div>
           </div>
         </div>
