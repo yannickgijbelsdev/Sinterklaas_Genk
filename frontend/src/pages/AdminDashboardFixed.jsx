@@ -555,6 +555,52 @@ export default function AdminDashboard() {
     }
   }, [newUser]);
 
+  const handleImageUpload = useCallback(async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Alleen afbeeldingen zijn toegestaan');
+      return;
+    }
+
+    // Validate file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Bestand te groot. Maximum 5MB toegestaan');
+      return;
+    }
+
+    setUploadingImage(true);
+    
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch(`${API}/demo/news/upload-image`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setNewNews(prev => ({
+          ...prev,
+          featured_image: data.image_url
+        }));
+        toast.success('Afbeelding succesvol geüpload!');
+      } else {
+        const errorData = await response.json();
+        toast.error(`Upload gefaald: ${errorData.detail || 'Onbekende fout'}`);
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error('Verbindingsfout tijdens upload');
+    } finally {
+      setUploadingImage(false);
+    }
+  }, []);
+
   // Show login screen if not authenticated
   if (!isAuthenticated) {
     return <AdminLogin onLogin={setIsAuthenticated} />;
