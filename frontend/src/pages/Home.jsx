@@ -439,7 +439,7 @@ export default function Home() {
               <div key={post.id || index} className="card" style={{ overflow: 'hidden', padding: '0' }}>
                 <div style={{
                   height: '200px',
-                  background: post.image ? 'transparent' : 'linear-gradient(135deg, var(--sinterklaas-goud-light) 0%, var(--sinterklaas-goud) 100%)',
+                  background: post.image ? 'transparent' : '#DC2626',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
