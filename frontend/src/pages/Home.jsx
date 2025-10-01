@@ -192,14 +192,15 @@ export default function Home() {
               fontSize: 'clamp(3rem, 8vw, 5.5rem)',
               fontWeight: '900',
               color: 'white',
-              textShadow: '3px 6px 12px rgba(0,0,0,0.5)',
+              textShadow: '3px 6px 12px rgba(0,0,0,0.8)',
               marginBottom: '24px',
               lineHeight: '1.1',
-              fontFamily: '"Fredoka One", cursive'
+              fontFamily: '"Mountains of Christmas", "Fredoka One", cursive',
+              textTransform: 'none'
             }}>
-              JOUW EIGEN SINTERKLAAS
+              Sinterklaas en de
               <br />
-              <span style={{ color: '#FDE047' }}>SHOW IN GENK</span>
+              <span style={{ color: '#FDE047' }}>Wensmachine</span>
             </h1>
             
             <p style={{
