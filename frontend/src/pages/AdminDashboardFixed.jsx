@@ -720,6 +720,8 @@ export default function AdminDashboard() {
                   handleEditNews={handleEditNews}
                   handleDeleteNews={handleDeleteNews}
                   setEditingNews={setEditingNews}
+                  handleImageUpload={handleImageUpload}
+                  uploadingImage={uploadingImage}
                 />
               )}
             </>
