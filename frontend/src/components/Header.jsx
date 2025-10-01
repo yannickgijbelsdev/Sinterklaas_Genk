@@ -88,7 +88,7 @@ export const Header = () => {
           </nav>
 
           {/* Header CTAs */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
             {/* Admin button only visible if admin session exists */}
             {sessionStorage.getItem('adminAuthenticated') === 'true' && (
               <a 
