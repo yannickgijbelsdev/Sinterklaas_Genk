@@ -1270,17 +1270,22 @@ async def demo_upload_news_image(file: UploadFile = File(...)):
     os.makedirs(uploads_dir, exist_ok=True)
     
     try:
-        # Save file locally first
+        # Save file locally as backup
         local_file_path = f"{uploads_dir}/{unique_filename}"
         with open(local_file_path, "wb") as f:
             f.write(content)
         
-        # For now, just serve from local backend (SFTP has dependency issues)
-        # In production, you can enable SFTP once pysftp compatibility is resolved
-        backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001')
-        local_url = f"{backend_url}/uploads/news/{unique_filename}"
-        print(f"✅ Image saved locally and will be served from: {local_url}")
-        return {"image_url": local_url, "filename": unique_filename}
+        # Try to upload to SFTP first
+        try:
+            sftp_url = upload_to_sftp_working(content, unique_filename, "news")
+            return {"image_url": sftp_url, "filename": unique_filename}
+        except Exception as sftp_error:
+            print(f"SFTP upload failed, falling back to local: {sftp_error}")
+            # Fallback to local serving with correct production URL
+            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001')
+            local_url = f"{backend_url}/uploads/news/{unique_filename}"
+            print(f"✅ Image saved locally and will be served from: {local_url}")
+            return {"image_url": local_url, "filename": unique_filename}
             
     except Exception as e:
         print(f"Upload failed: {e}")
