@@ -233,13 +233,20 @@ export default function Home() {
               </button>
               
               {/* Reviews */}
-              <div className="flex items-center space-x-4 bg-white/15 backdrop-blur-md px-6 py-3 rounded-full border border-white/20">
+              <div 
+                className="flex items-center space-x-4 px-6 py-3 rounded-full"
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  border: '1px solid rgba(0, 0, 0, 0.1)',
+                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
+                }}
+              >
                 <div className="flex items-center space-x-1">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={20} fill="#FDE047" color="#FDE047" />
+                    <Star key={i} size={20} fill="#FDE047" color="#F59E0B" />
                   ))}
                 </div>
-                <div className="text-white font-semibold">
+                <div className="text-gray-800 font-semibold">
                   4.9 • 500+ Tevreden Families
                 </div>
               </div>
