@@ -116,7 +116,75 @@ export default function Home() {
     }
   ];
 
-  return (
+  // FAQ Data
+  const faqItems = [
+    {
+      question: "Hoe lang duurt de show?",
+      answer: "Onze Sinterklaasshows duren ongeveer 1 uur en 30 minuten, inclusief een pauze van 15 minuten. De show is interactief en houdt kinderen van alle leeftijden geboeid."
+    },
+    {
+      question: "Voor welke leeftijden is de show geschikt?",
+      answer: "Onze shows zijn speciaal ontwikkeld voor kinderen van 3 tot 12 jaar. We passen de interactie aan de leeftijdsgroep van het publiek aan."
+    },
+    {
+      question: "Kunnen ouders ook deelnemen?",
+      answer: "Absoluut! We moedigen ouders aan om samen met hun kinderen te genieten van de show. Er zijn speciale momenten waarbij het hele gezin kan meedoen."
+    },
+    {
+      question: "Zijn er parkeermogelijkheden?",
+      answer: "Ja, er is voldoende gratis parkeergelegenheid beschikbaar bij alle onze locaties. We raden aan om 20 minuten voor aanvang te arriveren."
+    },
+    {
+      question: "Wat als mijn kind bang is voor Sinterklaas?",
+      answer: "Onze acteurs zijn speciaal getraind om met schuchtere kinderen om te gaan. De shows zijn warm en vriendelijk, niet eng. Kinderen kunnen altijd dichtbij hun ouders blijven."
+    },
+    {
+      question: "Kunnen we foto's maken tijdens de show?",
+      answer: "Ja, foto's maken is toegestaan! Na de show is er ook gelegenheid voor een persoonlijke ontmoeting en fotomoment met Sinterklaas en zijn Pieten."
+    }
+  ];
+
+  // Blog Posts Data  
+  const blogPosts = news.length > 0 ? news : [
+    {
+      id: 1,
+      category: "Show Nieuws",
+      title: "Nieuwe Sinterklaasshow 2024 aangekondigd!",
+      excerpt: "Dit jaar hebben we een compleet nieuwe show ontwikkeld vol verrassingen en interactieve elementen.",
+      date: "15 oktober 2024",
+      readTime: "3 min lezen",
+      icon: "🎭"
+    },
+    {
+      id: 2,
+      category: "Achter de Schermen",
+      title: "Ontmoet onze Pieten",
+      excerpt: "Leer meer over de mensen achter de magie en hoe zij zich voorbereiden op elke voorstelling.",
+      date: "12 oktober 2024", 
+      readTime: "5 min lezen",
+      icon: "👥"
+    },
+    {
+      id: 3,
+      category: "Tips",
+      title: "5 tips voor een perfecte Sinterklaasavond",
+      excerpt: "Hoe maak je de avond extra speciaal voor je kinderen? Onze experts delen hun beste tips.",
+      date: "10 oktober 2024",
+      readTime: "4 min lezen", 
+      icon: "💡"
+    }
+  ];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4">🎅</div>
+          <div className="text-xl">Website laden...</div>
+        </div>
+      </div>
+    );
+  }
     <div>
       
       {/* Hero Section */}
