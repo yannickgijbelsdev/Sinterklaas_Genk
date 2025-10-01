@@ -27,15 +27,8 @@ export const Header = () => {
     { name: 'Nieuws', href: '#news' }
   ];
 
-  const adminNavigationItems = [
-    { name: '🎛️ Admin', href: '/admin' },
-    { name: '✏️ Live Editor', href: '/live-editor' }
-  ];
-
-  const allNavigationItems = [
-    ...navigationItems,
-    ...(isAuthenticated() && isAdmin() ? adminNavigationItems : [])
-  ];
+  // Navigation items for mobile menu
+  const allNavigationItems = navigationItems;
 
   const smoothScrollTo = (href) => {
     if (href.startsWith('#')) {
