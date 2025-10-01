@@ -620,6 +620,54 @@ class BackendTester:
             self.log_test("News Management System", False, f"Error: {str(e)}")
             return False
 
+    def run_news_demo_tests(self):
+        """Run focused news article creation tests"""
+        print("=" * 70)
+        print("SINTERKLAAS GENK WEBSITE - DEMO NEWS ARTICLES CREATION")
+        print("=" * 70)
+        print(f"Testing against: {BACKEND_URL}")
+        print()
+        
+        # News demo focused test sequence
+        tests = [
+            ("API Connectivity", self.test_health_check),
+            ("Admin Authentication", self.test_admin_login),
+            ("News Management System", self.test_news_management_system),
+        ]
+        
+        passed = 0
+        total = len(tests)
+        
+        for test_name, test_func in tests:
+            print(f"Running: {test_name}")
+            print("-" * 50)
+            if test_func():
+                passed += 1
+            print()
+        
+        # Summary
+        print("=" * 70)
+        print("NEWS DEMO CREATION SUMMARY")
+        print("=" * 70)
+        print(f"Total Tests: {total}")
+        print(f"Passed: {passed}")
+        print(f"Failed: {total - passed}")
+        print(f"Success Rate: {(passed/total)*100:.1f}%")
+        print()
+        
+        if passed == total:
+            print("🎉 ALL NEWS DEMO TESTS PASSED - Demo articles created successfully!")
+            print("✅ 3 demo news articles created:")
+            print("   1. 'Zo bereiden onze acteurs zich voor op het Sinterklaas seizoen' (Achter de Schermen)")
+            print("   2. 'Hoe bereid je je kind voor op de eerste Sinterklaasshow?' (Tips & Tricks)")
+            print("   3. 'De geschiedenis van Sinterklaas in Genk' (Algemeen)")
+            print("✅ Articles are accessible via public news endpoint")
+            print("✅ News management system is working correctly")
+        else:
+            print("⚠️  Some news demo tests failed - Check the details above")
+            
+        return passed == total
+
     def run_admin_login_tests(self):
         """Run focused admin login functionality tests"""
         print("=" * 70)
