@@ -362,7 +362,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="section section-padding relative" style={{ backgroundColor: '#FFFFFF' }}>
+      <section id="faq" className="section section-padding relative" style={{ backgroundColor: '#EF4444' }}>
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="genty-regular" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#DC2626' }}>
