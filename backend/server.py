@@ -653,6 +653,27 @@ async def delete_news_article(article_id: str, current_user: User = Depends(get_
         raise HTTPException(status_code=404, detail="Article not found")
     return {"message": "Article deleted successfully"}
 
+# News Image Upload (Protected)
+@api_router.post("/admin/news/upload-image")
+async def upload_news_image(file: UploadFile = File(...), current_user: User = Depends(get_admin_user)):
+    # Validate file type
+    if not file.content_type.startswith('image/'):
+        raise HTTPException(status_code=400, detail="Only image files are allowed")
+    
+    # Check file size (max 5MB)
+    content = await file.read()
+    if len(content) > 5 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File too large. Maximum size is 5MB")
+    
+    # Generate unique filename
+    file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
+    unique_filename = f"news_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.{file_extension}"
+    
+    # Upload to SFTP
+    image_url = upload_to_sftp(content, unique_filename, "news")
+    
+    return {"image_url": image_url, "filename": unique_filename}
+
 # Admin Routes - Show Management
 @api_router.get("/admin/shows", response_model=List[ShowDate])
 async def get_all_shows():
