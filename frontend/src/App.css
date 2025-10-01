@@ -1,3 +1,10 @@
+/* Lavishly Yours Font */
+.lavishly-yours-regular {
+  font-family: "Lavishly Yours", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* Fun animations for kids! */
 @keyframes float {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
