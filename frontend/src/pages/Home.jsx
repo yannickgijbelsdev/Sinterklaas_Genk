@@ -165,27 +165,104 @@ export default function Home() {
     <div>
       
       {/* Hero Section */}
-      <section id="hero" className="hero">
-        <div className="container">
-          <div className="hero-content">
-            <div className="eyebrow">Ho ho ho, welkom!</div>
-            <h1>{content.hero_title || 'De Magische Sinterklaas Show in Genk'}</h1>
-            <p className="hero-subtitle">
-              {content.hero_subtitle || 'Beleef samen met je kinderen de meest interactieve en magische Sinterklaasshow van België. Vol verrassingen, liedjes en natuurlijk echte magie!'}
-            </p>
-            <div className="hero-ctas">
-              <button className="btn btn-primary">
-                <Gift size={20} />
-                Reserveer Tickets
-              </button>
-              <button className="btn btn-secondary">
-                <Calendar size={20} />
-                Bekijk Data
-              </button>
+      <section 
+        id="hero" 
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%)',
+          backgroundImage: `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="grad"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="300" r="150" fill="url(%23grad)"/><circle cx="800" cy="200" r="100" fill="url(%23grad)"/><circle cx="600" cy="700" r="120" fill="url(%23grad)"/></svg>')`,
+        }}
+      >
+        {/* Background Characters */}
+        <div className="absolute inset-0 flex items-center justify-end pr-32">
+          <div className="relative">
+            <div style={{
+              fontSize: '300px',
+              opacity: 0.3,
+              transform: 'rotate(-10deg)',
+              userSelect: 'none'
+            }}>
+              🎅
+            </div>
+            <div style={{
+              fontSize: '200px',
+              position: 'absolute',
+              top: '50px',
+              right: '-100px',
+              opacity: 0.25,
+              transform: 'rotate(15deg)',
+              userSelect: 'none'
+            }}>
+              👨🏾
             </div>
           </div>
-          
-          {/* Hero illustration - REMOVED */}
+        </div>
+        
+        <div className="container relative z-10">
+          <div className="max-w-4xl">
+            <h1 style={{
+              fontSize: 'clamp(3rem, 8vw, 5.5rem)',
+              fontWeight: '900',
+              color: 'white',
+              textShadow: '2px 4px 8px rgba(0,0,0,0.3)',
+              marginBottom: '24px',
+              lineHeight: '1.1',
+              fontFamily: '"Fredoka One", cursive'
+            }}>
+              JOUW EIGEN SINTERKLAAS
+              <br />
+              <span style={{ color: '#FDE047' }}>SHOW IN GENK</span>
+            </h1>
+            
+            <p style={{
+              fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
+              color: 'rgba(255,255,255,0.9)',
+              marginBottom: '48px',
+              fontWeight: '600',
+              textShadow: '1px 2px 4px rgba(0,0,0,0.2)'
+            }}>
+              AL MEER DAN 15 JAAR EEN GROOT SUCCES!
+            </p>
+            
+            <div className="flex flex-col items-start space-y-6">
+              <button 
+                className="group flex items-center space-x-4 px-8 py-4 rounded-full font-bold text-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                style={{
+                  background: 'linear-gradient(45deg, #FDE047, #FACC15)',
+                  color: '#1F2937',
+                  boxShadow: '0 8px 25px rgba(253, 224, 71, 0.4)'
+                }}
+                onClick={() => smoothScrollTo('#book')}
+              >
+                <Gift size={24} />
+                <span>BOEK EEN SINTERKLAAS SHOW</span>
+                <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+              
+              {/* Reviews */}
+              <div className="flex items-center space-x-4 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
+                <div className="flex items-center space-x-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={20} fill="#FDE047" color="#FDE047" />
+                  ))}
+                </div>
+                <div className="text-white font-semibold">
+                  4.9 • 500+ Tevreden Families
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Floating Elements */}
+        <div className="absolute top-20 left-10 animate-bounce" style={{ animationDelay: '0s' }}>
+          <div style={{ fontSize: '40px', opacity: 0.7 }}>🎁</div>
+        </div>
+        <div className="absolute top-32 right-20 animate-bounce" style={{ animationDelay: '1s' }}>
+          <div style={{ fontSize: '35px', opacity: 0.6 }}>⭐</div>
+        </div>
+        <div className="absolute bottom-32 left-20 animate-bounce" style={{ animationDelay: '2s' }}>
+          <div style={{ fontSize: '45px', opacity: 0.8 }}>🎪</div>
         </div>
       </section>
 
