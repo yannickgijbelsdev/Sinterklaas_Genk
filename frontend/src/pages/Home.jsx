@@ -273,7 +273,11 @@ export default function Home() {
       </section>
 
       {/* Over Ons Section */}
-      <section id="about" className="section section-dark section-padding">
+      <section 
+        id="about" 
+        className="section section-padding"
+        style={{ backgroundColor: '#DC2626', color: 'white' }}
+      >
         <div className="container">
           <div className="two-column">
             <div>
