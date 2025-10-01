@@ -16,6 +16,14 @@ export default function Home() {
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Smooth scroll function
+  const smoothScrollTo = (elementId) => {
+    const element = document.querySelector(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Fetch content data
   useEffect(() => {
     const fetchData = async () => {
