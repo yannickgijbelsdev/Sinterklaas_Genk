@@ -1296,65 +1296,6 @@ async def startup_event():
     except Exception as e:
         print(f"❌ Error creating default admin user: {e}")
 
-# ==========================================
-# DEMO ADMIN ENDPOINTS (NO AUTHENTICATION)
-# ==========================================
-# These are simplified endpoints for demo purposes
-# In production, you should use the protected endpoints above
-
-@api_router.post("/demo/news", response_model=NewsArticle)
-async def demo_create_news_article(article: NewsArticleCreate):
-    """Demo endpoint - create news article without authentication"""
-    article_dict = article.dict()
-    article_obj = NewsArticle(**article_dict)
-    await db.news.insert_one(article_obj.dict())
-    return article_obj
-
-@api_router.put("/demo/news/{article_id}", response_model=NewsArticle)
-async def demo_update_news_article(article_id: str, update_data: NewsArticleUpdate):
-    """Demo endpoint - update news article without authentication"""
-    existing_article = await db.news.find_one({"id": article_id})
-    if not existing_article:
-        raise HTTPException(status_code=404, detail="Article not found")
-    
-    update_dict = {k: v for k, v in update_data.dict().items() if v is not None}
-    update_dict["updatedAt"] = datetime.utcnow()
-    
-    await db.news.update_one({"id": article_id}, {"$set": update_dict})
-    
-    updated_article = await db.news.find_one({"id": article_id})
-    return NewsArticle(**updated_article)
-
-@api_router.delete("/demo/news/{article_id}")
-async def demo_delete_news_article(article_id: str):
-    """Demo endpoint - delete news article without authentication"""
-    result = await db.news.delete_one({"id": article_id})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=404, detail="Article not found")
-    return {"message": "Article deleted successfully"}
-
-@api_router.post("/demo/users")
-async def demo_create_user(user_data: dict):
-    """Demo endpoint - create user without authentication"""
-    from passlib.context import CryptContext
-    
-    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    hashed_password = pwd_context.hash(user_data["password"])
-    
-    user = {
-        "id": str(uuid.uuid4()),
-        "email": user_data["email"],
-        "username": user_data["email"],
-        "hashed_password": hashed_password,
-        "is_active": True,
-        "is_admin": user_data.get("role") == "admin",
-        "createdAt": datetime.utcnow(),
-        "updatedAt": datetime.utcnow()
-    }
-    
-    await db.users.insert_one(user)
-    return {"message": "User created successfully", "email": user["email"]}
-
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
