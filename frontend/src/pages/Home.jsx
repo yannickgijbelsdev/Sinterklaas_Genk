@@ -106,8 +106,6 @@ export default function Home() {
 
   // Use real news data with fallback to demo data - using useMemo to ensure re-computation when news changes
   const blogPosts = useMemo(() => {
-    console.log('🔍 DEBUG: Computing blogPosts with news length:', news.length);
-    
     if (news.length > 0) {
       return news.map(article => ({
         id: article.id,
@@ -120,7 +118,6 @@ export default function Home() {
         image: article.featured_image || article.image
       }));
     } else {
-      console.log('📰 DEBUG: Using fallback demo articles');
       return [
         {
           id: 'demo-1',
