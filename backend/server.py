@@ -59,7 +59,9 @@ class NewsArticle(BaseModel):
     title: str
     excerpt: str
     content: str
-    image: str
+    category: str = "Algemeen"
+    featured_image: Optional[str] = None
+    image: str = ""  # Keep for backward compatibility
     date: str
     published: bool = True
     createdAt: datetime = Field(default_factory=datetime.utcnow)
@@ -69,7 +71,9 @@ class NewsArticleCreate(BaseModel):
     title: str
     excerpt: str
     content: str
-    image: str
+    category: str = "Algemeen"
+    featured_image: Optional[str] = None
+    image: str = ""
     date: str
     published: bool = True
 
@@ -77,6 +81,8 @@ class NewsArticleUpdate(BaseModel):
     title: Optional[str] = None
     excerpt: Optional[str] = None
     content: Optional[str] = None
+    category: Optional[str] = None
+    featured_image: Optional[str] = None
     image: Optional[str] = None
     date: Optional[str] = None
     published: Optional[bool] = None
