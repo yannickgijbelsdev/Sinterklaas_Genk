@@ -233,7 +233,7 @@ export default function Home() {
           <div className="two-column">
             <div>
               <div className="eyebrow text-white">Over Sinterklaas Genk</div>
-              <h2 className="text-white mb-8">Wat maakt onze show zo speciaal?</h2>
+              <h2 className="text-white mb-8">{content.about_title || 'Wat maakt onze show zo speciaal?'}</h2>
               <p className="text-white mb-8" style={{ opacity: 0.9 }}>
                 Al meer dan 15 jaar brengen wij de magie van Sinterklaas tot leven in Genk. 
                 Onze interactieve shows zorgen ervoor dat elk kind zich de hoofdpersoon voelt 
