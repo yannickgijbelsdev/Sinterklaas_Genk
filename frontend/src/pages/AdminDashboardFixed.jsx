@@ -248,6 +248,36 @@ const NewsManagement = React.memo(({
           />
         </div>
         
+        {/* Featured Image Upload */}
+        <div>
+          <Label htmlFor="featured-image">Featured Image</Label>
+          <div className="space-y-2">
+            <input
+              id="featured-image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+            />
+            {uploadingImage && (
+              <div className="flex items-center space-x-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600"></div>
+                <span className="text-sm text-gray-600">Uploading...</span>
+              </div>
+            )}
+            {newNews.featured_image && (
+              <div className="mt-2">
+                <img 
+                  src={newNews.featured_image} 
+                  alt="Preview" 
+                  className="w-32 h-20 object-cover rounded-lg border"
+                />
+                <p className="text-xs text-gray-500 mt-1">Featured image preview</p>
+              </div>
+            )}
+          </div>
+        </div>
+        
         <div className="flex space-x-2">
           <Button 
             onClick={editingNews ? handleUpdateNews : handleCreateNews} 
