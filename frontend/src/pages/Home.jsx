@@ -500,7 +500,7 @@ export default function Home() {
           >
             <path 
               d="M0,120 C300,60 900,60 1200,120 L1200,120 L0,120 Z" 
-              style={{ fill: '#DC2626' }}
+              style={{ fill: '#B91C1C' }}
             ></path>
           </svg>
         </div>
