@@ -100,35 +100,6 @@ export const Header = () => {
 
           {/* Header CTAs */}
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <div style={{
-                width: '32px',
-                height: '32px',
-                background: '#F3F4F6',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <User size={16} color="#666" />
-              </div>
-            </div>
-            
-            <button 
-              className="flex items-center space-x-2 font-bold text-white px-6 py-3 rounded-full transition-all hover:scale-105"
-              style={{ 
-                background: 'linear-gradient(45deg, #DC2626, #EF4444)',
-                fontSize: '14px',
-                boxShadow: '0 4px 15px rgba(220, 38, 38, 0.3)'
-              }}
-            >
-              <Gift size={16} />
-              <span>MIJN BESTELLING</span>
-              <span className="bg-white text-red-600 px-2 py-1 rounded-full text-xs font-bold ml-1">
-                0
-              </span>
-            </button>
-            
             {/* Admin button only visible if admin session exists */}
             {sessionStorage.getItem('adminAuthenticated') === 'true' && (
               <a 
