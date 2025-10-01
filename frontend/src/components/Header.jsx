@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, LogOut, Gift, Globe } from 'lucide-react';
+import { Menu, X, LogOut, Gift, Globe, User, Settings } from 'lucide-react';
 import { Button } from './ui/button';
 import { useAuth } from '../contexts/AuthContext';
 
