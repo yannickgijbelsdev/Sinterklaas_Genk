@@ -30,6 +30,7 @@ import {
 const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
 
 export default function AdminDashboard() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [news, setNews] = useState([]);
   const [shows, setShows] = useState([]);
@@ -41,6 +42,11 @@ export default function AdminDashboard() {
     content: '',
     category: 'Algemeen',
     published: true
+  });
+  const [newUser, setNewUser] = useState({
+    email: '',
+    password: '',
+    role: 'admin'
   });
   const [stats, setStats] = useState({
     totalNews: 0,
