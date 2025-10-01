@@ -327,7 +327,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Featured Image Upload Functionality"
+    - "Featured Image Upload Functionality Testing Complete"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
