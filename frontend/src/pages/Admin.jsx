@@ -84,22 +84,75 @@ export default function Admin() {
     setLoading(false);
   };
 
-  // News Management
+  // News Management with Grid System
   const NewsManager = () => {
     const [newArticle, setNewArticle] = useState({
       title: '',
       excerpt: '',
       content: '',
+      category: 'Algemeen',
+      featured_image: '',
       image: '',
       date: new Date().toISOString().split('T')[0],
       published: true
     });
+    const [uploadingImage, setUploadingImage] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    // News Categories
+    const categories = [
+      'Algemeen',
+      'Show Nieuws', 
+      'Achter de Schermen',
+      'Tips & Tricks',
+      'Evenementen',
+      'Interviews'
+    ];
+
+    const handleImageUpload = async (file) => {
+      setUploadingImage(true);
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        const response = await fetch(`${API}/admin/news/upload-image`, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setNewArticle({...newArticle, featured_image: data.image_url, image: data.image_url});
+          toast.success('Afbeelding geüpload!');
+        } else {
+          throw new Error('Upload failed');
+        }
+      } catch (error) {
+        toast.error('Error uploading image: ' + error.message);
+      }
+      setUploadingImage(false);
+    };
+
+    const handleFileSelect = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        setSelectedFile(file);
+        handleImageUpload(file);
+      }
+    };
 
     const handleCreateNews = async () => {
       try {
+        const token = localStorage.getItem('token');
         const response = await fetch(`${API}/admin/news`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify(newArticle)
         });
 
@@ -109,10 +162,13 @@ export default function Admin() {
             title: '',
             excerpt: '',
             content: '',
+            category: 'Algemeen',
+            featured_image: '',
             image: '',
             date: new Date().toISOString().split('T')[0],
             published: true
           });
+          setSelectedFile(null);
           fetchAllData();
         }
       } catch (error) {
@@ -122,9 +178,13 @@ export default function Admin() {
 
     const handleUpdateNews = async (id, updateData) => {
       try {
+        const token = localStorage.getItem('token');
         const response = await fetch(`${API}/admin/news/${id}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify(updateData)
         });
 
@@ -141,8 +201,12 @@ export default function Admin() {
     const handleDeleteNews = async (id) => {
       if (window.confirm('Weet je zeker dat je dit artikel wilt verwijderen?')) {
         try {
+          const token = localStorage.getItem('token');
           const response = await fetch(`${API}/admin/news/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
           });
 
           if (response.ok) {
@@ -162,7 +226,7 @@ export default function Admin() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Plus size={20} />
-              Nieuw Artikel
+              Nieuw Nieuwsartikel
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -184,6 +248,43 @@ export default function Admin() {
                 />
               </div>
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label>Categorie</Label>
+                <select
+                  value={newArticle.category}
+                  onChange={(e) => setNewArticle({...newArticle, category: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                >
+                  {categories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <Label>Featured Afbeelding</Label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileSelect}
+                    className="hidden"
+                    id="image-upload"
+                  />
+                  <label 
+                    htmlFor="image-upload"
+                    className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50"
+                  >
+                    <Upload size={16} />
+                    {uploadingImage ? 'Uploading...' : 'Kies Afbeelding'}
+                  </label>
+                  {newArticle.featured_image && (
+                    <Badge variant="default">Afbeelding geüpload</Badge>
+                  )}
+                </div>
+              </div>
+            </div>
             
             <div>
               <Label>Excerpt (Samenvatting)</Label>
@@ -201,16 +302,7 @@ export default function Admin() {
                 value={newArticle.content}
                 onChange={(e) => setNewArticle({...newArticle, content: e.target.value})}
                 placeholder="Volledige artikel inhoud"
-                rows={4}
-              />
-            </div>
-            
-            <div>
-              <Label>Afbeelding URL</Label>
-              <Input
-                value={newArticle.image}
-                onChange={(e) => setNewArticle({...newArticle, image: e.target.value})}
-                placeholder="https://..."
+                rows={6}
               />
             </div>
 
@@ -229,56 +321,182 @@ export default function Admin() {
           </CardContent>
         </Card>
 
-        {/* Existing Articles */}
-        <div className="grid grid-cols-1 gap-4">
-          {news.map((article) => (
-            <Card key={article.id}>
-              <CardContent className="p-4">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="font-bold text-lg">{article.title}</h3>
+        {/* News Grid */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Nieuws Artikelen</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {news.map((article) => (
+                <div key={article.id} className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  {/* Featured Image */}
+                  <div className="h-48 bg-gray-200 relative">
+                    {article.featured_image || article.image ? (
+                      <img
+                        src={article.featured_image || article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <ImageIcon size={48} className="text-gray-400" />
+                      </div>
+                    )}
+                    <div className="absolute top-2 right-2">
                       <Badge variant={article.published ? "default" : "secondary"}>
                         {article.published ? "Live" : "Draft"}
                       </Badge>
                     </div>
-                    <p className="text-gray-600 text-sm mb-2">{article.excerpt}</p>
-                    <div className="text-xs text-gray-500">
-                      {new Date(article.date).toLocaleDateString('nl-NL')}
-                    </div>
                   </div>
                   
-                  <div className="flex gap-2 ml-4">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => setEditingNews(article)}
-                    >
-                      <Edit size={14} />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleDeleteNews(article.id)}
-                    >
-                      <Trash2 size={14} />
-                    </Button>
+                  {/* Content */}
+                  <div className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="outline" className="text-xs">
+                        {article.category || 'Algemeen'}
+                      </Badge>
+                      <span className="text-xs text-gray-500">
+                        {new Date(article.date).toLocaleDateString('nl-NL')}
+                      </span>
+                    </div>
+                    
+                    <h3 className="font-semibold text-lg mb-2 line-clamp-2">
+                      {article.title}
+                    </h3>
+                    
+                    <p className="text-sm text-gray-600 line-clamp-3 mb-4">
+                      {article.excerpt}
+                    </p>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setEditingNews(article)}
+                        className="flex-1"
+                      >
+                        <Edit size={14} className="mr-1" />
+                        Bewerken
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleDeleteNews(article.id)}
+                        className="flex-1 hover:bg-red-50 hover:text-red-600"
+                      >
+                        <Trash2 size={14} className="mr-1" />
+                        Verwijderen
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {news.length === 0 && (
+              <div className="text-center py-12">
+                <FileText size={48} className="mx-auto text-gray-400 mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Geen nieuws artikelen</h3>
+                <p className="text-gray-500">Maak je eerste nieuwsartikel aan om te beginnen.</p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Edit Modal */}
+        {editingNews && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl max-h-screen overflow-y-auto">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold">Artikel Bewerken</h2>
+                <button 
+                  onClick={() => setEditingNews(null)}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Titel</Label>
+                    <Input
+                      value={editingNews.title}
+                      onChange={(e) => setEditingNews({...editingNews, title: e.target.value})}
+                    />
+                  </div>
+                  <div>
+                    <Label>Datum</Label>
+                    <Input
+                      type="date"
+                      value={editingNews.date}
+                      onChange={(e) => setEditingNews({...editingNews, date: e.target.value})}
+                    />
                   </div>
                 </div>
                 
-                {article.image && (
-                  <div className="mt-3">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      className="w-full h-32 object-cover rounded"
-                    />
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                <div>
+                  <Label>Categorie</Label>
+                  <select
+                    value={editingNews.category || 'Algemeen'}
+                    onChange={(e) => setEditingNews({...editingNews, category: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                  >
+                    {categories.map(cat => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div>
+                  <Label>Excerpt</Label>
+                  <Textarea
+                    value={editingNews.excerpt}
+                    onChange={(e) => setEditingNews({...editingNews, excerpt: e.target.value})}
+                    rows={2}
+                  />
+                </div>
+                
+                <div>
+                  <Label>Content</Label>
+                  <Textarea
+                    value={editingNews.content}
+                    onChange={(e) => setEditingNews({...editingNews, content: e.target.value})}
+                    rows={6}
+                  />
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    checked={editingNews.published}
+                    onCheckedChange={(checked) => setEditingNews({...editingNews, published: checked})}
+                  />
+                  <Label>Gepubliceerd</Label>
+                </div>
+
+                <div className="flex space-x-3">
+                  <Button
+                    variant="outline"
+                    onClick={() => setEditingNews(null)}
+                    className="flex-1"
+                  >
+                    Annuleren
+                  </Button>
+                  <Button
+                    onClick={() => handleUpdateNews(editingNews.id, editingNews)}
+                    className="flex-1"
+                  >
+                    <Save size={16} className="mr-2" />
+                    Opslaan
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   };
