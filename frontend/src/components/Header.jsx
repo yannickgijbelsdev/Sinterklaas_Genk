@@ -20,11 +20,11 @@ export const Header = () => {
   // Login functionality removed - direct admin access
 
   const navigationItems = [
-    { name: 'BOEK EEN SHOW', href: '#book' },
-    { name: 'HOE WERKT HET?', href: '#how-it-works' },
-    { name: 'VOORBEELDEN', href: '#examples' },
+    { name: 'OVER ONS', href: '#about' },
+    { name: 'RESERVEREN', href: '#reserveer' },
+    { name: 'FAQ', href: '#faq' },
     { name: 'NIEUWS', href: '#news' },
-    { name: 'MEER', href: '#more' }
+    { name: 'CONTACT', href: '#contact' }
   ];
 
   // Navigation items for mobile menu
