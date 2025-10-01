@@ -38,7 +38,10 @@ export default function Home() {
 
         if (newsRes.ok) {
           const newsData = await newsRes.json();
+          console.log('🔍 DEBUG: Homepage fetched news data:', newsData.length, 'articles');
           setNews(newsData.slice(0, 3)); // Get latest 3 articles
+        } else {
+          console.log('❌ DEBUG: Homepage news fetch failed with status:', newsRes.status);
         }
 
         if (showsRes.ok) {
