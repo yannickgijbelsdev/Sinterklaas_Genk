@@ -212,7 +212,7 @@ export default function Home() {
         
         {/* Floating Elements - REMOVED */}
         
-        {/* Wave Shape Bottom - Hero to About */}
+        {/* Wave Shape Bottom - Hero to Reserveer */}
         <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
           <svg 
             className="relative block w-full h-24" 
@@ -222,7 +222,7 @@ export default function Home() {
           >
             <path 
               d="M0,120 C300,60 900,60 1200,120 L1200,120 L0,120 Z" 
-              style={{ fill: '#DC2626' }}
+              style={{ fill: '#B91C1C' }}
             ></path>
           </svg>
         </div>
