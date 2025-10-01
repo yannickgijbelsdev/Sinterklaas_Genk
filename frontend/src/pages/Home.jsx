@@ -108,6 +108,7 @@ export default function Home() {
   };
 
   // Use real news data with fallback to demo data
+  console.log('🔍 DEBUG: Homepage news state length:', news.length);
   const blogPosts = news.length > 0 ? news.map(article => ({
     id: article.id,
     category: article.category || 'Algemeen',
