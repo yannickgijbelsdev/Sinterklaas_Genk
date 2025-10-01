@@ -310,7 +310,7 @@ export default function Home() {
         <div className="container">
           <div className="card" style={{ background: 'var(--sinterklaas-rood-dark)', color: 'white', display: 'flex', alignItems: 'center', gap: '64px' }}>
             <div style={{ flex: 1 }}>
-              <h2 className="lavishly-yours-regular text-white mb-8" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+              <h2 className="genty-regular text-white mb-8" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
                 Reserveer nu jullie magische Sinterklaasavond!
               </h2>
               <p className="text-white mb-8" style={{ opacity: 0.9 }}>
