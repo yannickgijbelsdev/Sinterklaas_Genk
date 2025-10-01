@@ -20,11 +20,9 @@ export const Header = () => {
   // Login functionality removed - direct admin access
 
   const navigationItems = [
-    { name: 'OVER ONS', href: '#about' },
     { name: 'RESERVEREN', href: '#reserveer' },
     { name: 'FAQ', href: '#faq' },
-    { name: 'NIEUWS', href: '#news' },
-    { name: 'CONTACT', href: '#contact' }
+    { name: 'NIEUWS', href: '#news' }
   ];
 
   // Navigation items for mobile menu
