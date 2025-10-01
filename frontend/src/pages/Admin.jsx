@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -8,7 +9,6 @@ import { Label } from '../components/ui/label';
 import { Switch } from '../components/ui/switch';
 import { Badge } from '../components/ui/badge';
 import { toast } from 'sonner';
-import { BannerEditor } from '../components/BannerEditor';
 import { 
   Plus, 
   Edit, 
@@ -20,10 +20,12 @@ import {
   Image as ImageIcon,
   FileText,
   Settings,
-  BarChart
+  BarChart,
+  LogOut,
+  Shield
 } from 'lucide-react';
 
-const API = 'http://localhost:8001/api';
+const API = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001/api';
 
 export default function Admin() {
   const [news, setNews] = useState([]);
