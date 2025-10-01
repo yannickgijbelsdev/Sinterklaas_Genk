@@ -86,49 +86,21 @@ export const Header = () => {
           {/* Header CTAs */}
           <div className="header-ctas">
             <Globe size={20} className="text-gray-500 cursor-pointer" />
-            {!isAuthenticated() ? (
-              <>
-                <button 
-                  onClick={() => smoothScrollTo('#reserveer')}
-                  className="btn btn-outline"
-                  style={{ padding: '12px 24px', fontSize: '14px' }}
-                >
-                  Reserveer Nu
-                </button>
-                <button 
-                  onClick={() => setShowLoginForm(true)}
-                  className="btn btn-primary"
-                  style={{ padding: '12px 24px', fontSize: '14px' }}
-                >
-                  <User size={16} />
-                  Login
-                </button>
-              </>
-            ) : (
-              <>
-                <span className="text-white text-sm mr-4">
-                  Welkom, {user?.email}
-                </span>
-                {isAdmin() && (
-                  <a 
-                    href="/admin"
-                    className="btn btn-outline"
-                    style={{ padding: '12px 24px', fontSize: '14px' }}
-                  >
-                    <Settings size={16} />
-                    Admin
-                  </a>
-                )}
-                <button 
-                  onClick={logout}
-                  className="btn btn-secondary"
-                  style={{ padding: '12px 24px', fontSize: '14px' }}
-                >
-                  <LogOut size={16} />
-                  Logout
-                </button>
-              </>
-            )}
+            <button 
+              onClick={() => smoothScrollTo('#reserveer')}
+              className="btn btn-outline"
+              style={{ padding: '12px 24px', fontSize: '14px' }}
+            >
+              Reserveer Nu
+            </button>
+            <a 
+              href="/admin"
+              className="btn btn-primary"
+              style={{ padding: '12px 24px', fontSize: '14px' }}
+            >
+              <Settings size={16} />
+              Admin
+            </a>
           </div>
 
           {/* Admin info and logout */}
