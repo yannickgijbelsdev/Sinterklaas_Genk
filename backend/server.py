@@ -1263,15 +1263,71 @@ async def demo_upload_news_image(file: UploadFile = File(...)):
     file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
     unique_filename = f"news_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.{file_extension}"
     
+    # Create uploads directory if it doesn't exist
+    import os
+    uploads_dir = "uploads/news"
+    os.makedirs(uploads_dir, exist_ok=True)
+    
     try:
-        # Upload to SFTP
-        image_url = upload_to_sftp(content, unique_filename, "news")
-        return {"image_url": image_url, "filename": unique_filename}
+        # Save file locally first
+        local_file_path = f"{uploads_dir}/{unique_filename}"
+        with open(local_file_path, "wb") as f:
+            f.write(content)
+        
+        # Try to upload to SFTP, but serve locally if it fails
+        try:
+            sftp_url = upload_to_sftp_working(content, unique_filename, "news")
+            return {"image_url": sftp_url, "filename": unique_filename}
+        except Exception as sftp_error:
+            print(f"SFTP upload failed: {sftp_error}")
+            # Serve from local backend
+            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001')
+            local_url = f"{backend_url}/uploads/news/{unique_filename}"
+            return {"image_url": local_url, "filename": unique_filename}
+            
     except Exception as e:
-        # Fallback to placeholder if SFTP fails
-        print(f"SFTP upload failed: {e}")
+        print(f"Upload failed: {e}")
+        # Fallback to placeholder if everything fails
         placeholder_url = f"https://via.placeholder.com/400x200/DC2626/FFFFFF?text={unique_filename[:20]}"
         return {"image_url": placeholder_url, "filename": unique_filename}
+
+def upload_to_sftp_working(file_content: bytes, filename: str, subfolder: str = "images") -> str:
+    """Working SFTP upload function"""
+    try:
+        import pysftp
+        
+        # SFTP connection settings
+        sftp_config = {
+            'host': 'static1.koodh.cloud',
+            'username': 'sinterklaasgenk@static1.koodh.cloud',
+            'password': 'KYLovie13monx',
+            'port': 22
+        }
+        
+        # Disable host key checking for simplicity (not recommended for production)
+        cnopts = pysftp.CnOpts()
+        cnopts.hostkeys = None
+        
+        # Connect to SFTP server
+        with pysftp.Connection(**sftp_config, cnopts=cnopts) as sftp:
+            # Create remote directory if it doesn't exist
+            remote_dir = f"public_html/{subfolder}"
+            try:
+                sftp.makedirs(remote_dir)
+            except:
+                pass  # Directory might already exist
+            
+            # Upload file
+            remote_path = f"{remote_dir}/{filename}"
+            sftp.putfo(io.BytesIO(file_content), remote_path)
+            
+        # Return public URL
+        return f"https://static1.koodh.cloud/{subfolder}/{filename}"
+        
+    except ImportError:
+        raise Exception("pysftp not available")
+    except Exception as e:
+        raise Exception(f"SFTP upload failed: {str(e)}")
 
 # Include the router in the main app
 app.include_router(api_router)
