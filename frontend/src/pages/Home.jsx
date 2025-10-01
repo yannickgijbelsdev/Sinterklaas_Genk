@@ -206,51 +206,7 @@ export default function Home() {
               <span style={{ color: 'white' }}>machine</span>
             </h1>
             
-            <p style={{
-              fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
-              color: 'rgba(255,255,255,0.95)',
-              marginBottom: '48px',
-              fontWeight: '600',
-              textShadow: '2px 4px 8px rgba(0,0,0,0.4)'
-            }}>
-              AL MEER DAN 15 JAAR EEN GROOT SUCCES!
-            </p>
-            
-            <div className="flex flex-col items-start space-y-6">
-              <button 
-                className="group flex items-center space-x-4 px-8 py-4 rounded-full font-bold text-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
-                style={{
-                  background: '#FDE047',
-                  color: '#1F2937',
-                  border: '2px solid #F59E0B',
-                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
-                }}
-                onClick={() => smoothScrollTo('#book')}
-              >
-                <Gift size={24} />
-                <span>BOEK EEN SINTERKLAAS SHOW</span>
-                <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              
-              {/* Reviews */}
-              <div 
-                className="flex items-center space-x-4 px-6 py-3 rounded-full"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                  border: '1px solid rgba(0, 0, 0, 0.1)',
-                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
-                }}
-              >
-                <div className="flex items-center space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={20} fill="#FDE047" color="#F59E0B" />
-                  ))}
-                </div>
-                <div className="text-gray-800 font-semibold">
-                  4.9 • 500+ Tevreden Families
-                </div>
-              </div>
-            </div>
+            {/* Subtitel en buttons verwijderd */}
           </div>
         </div>
         
