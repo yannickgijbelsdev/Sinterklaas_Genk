@@ -89,8 +89,19 @@ export default function Home() {
     }
   ];
 
-  const blogPosts = [
+  // Use real news data with fallback to demo data
+  const blogPosts = news.length > 0 ? news.map(article => ({
+    id: article.id,
+    category: article.category || 'Algemeen',
+    title: article.title,
+    excerpt: article.excerpt,
+    date: new Date(article.date).toLocaleDateString('nl-NL'),
+    readTime: '3 min lezen', // Default reading time
+    icon: getCategoryIcon(article.category || 'Algemeen'),
+    image: article.featured_image || article.image
+  })) : [
     {
+      id: 'demo-1',
       category: "Achter de Schermen",
       title: "Zo bereiden onze acteurs zich voor op het Sinterklaas seizoen",
       excerpt: "Een kijkje achter de schermen bij de voorbereidingen voor de magische Sinterklaasshow...",
@@ -99,6 +110,7 @@ export default function Home() {
       icon: "🎭"
     },
     {
+      id: 'demo-2',
       category: "Tips voor Ouders", 
       title: "Hoe bereid je je kind voor op de eerste Sinterklaasshow?",
       excerpt: "Praktische tips om ervoor te zorgen dat je kind optimaal kan genieten van de magische ervaring...",
@@ -107,6 +119,7 @@ export default function Home() {
       icon: "👶"
     },
     {
+      id: 'demo-3',
       category: "Tradities",
       title: "De geschiedenis van Sinterklaas in Genk",
       excerpt: "Ontdek hoe de Sinterklaas traditie is gegroeid in onze mooie stad en wat dit betekent voor families...",
@@ -115,6 +128,21 @@ export default function Home() {
       icon: "📚"
     }
   ];
+
+  // Helper function to get category icon
+  const getCategoryIcon = (category) => {
+    const iconMap = {
+      'Achter de Schermen': '🎭',
+      'Tips & Tricks': '💡', 
+      'Tips voor Ouders': '👶',
+      'Tradities': '📚',
+      'Algemeen': '📰',
+      'Show Nieuws': '🎪',
+      'Evenementen': '🎉',
+      'Interviews': '🎤'
+    };
+    return iconMap[category] || '📰';
+  };
 
   if (loading) {
     return (
