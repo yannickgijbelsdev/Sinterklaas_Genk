@@ -177,34 +177,17 @@ export default function Home() {
         id="hero" 
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{
-          background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%)',
-          backgroundImage: `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="grad"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="300" r="150" fill="url(%23grad)"/><circle cx="800" cy="200" r="100" fill="url(%23grad)"/><circle cx="600" cy="700" r="120" fill="url(%23grad)"/></svg>')`,
+          backgroundImage: `
+            linear-gradient(135deg, rgba(30, 58, 138, 0.8) 0%, rgba(59, 130, 246, 0.7) 50%, rgba(96, 165, 250, 0.6) 100%),
+            url('https://images.unsplash.com/photo-1545622783-b3e021430fee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80')
+          `,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat'
         }}
       >
-        {/* Background Characters */}
-        <div className="absolute inset-0 flex items-center justify-end pr-32">
-          <div className="relative">
-            <div style={{
-              fontSize: '300px',
-              opacity: 0.3,
-              transform: 'rotate(-10deg)',
-              userSelect: 'none'
-            }}>
-              🎅
-            </div>
-            <div style={{
-              fontSize: '200px',
-              position: 'absolute',
-              top: '50px',
-              right: '-100px',
-              opacity: 0.25,
-              transform: 'rotate(15deg)',
-              userSelect: 'none'
-            }}>
-              👨🏾
-            </div>
-          </div>
-        </div>
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 via-blue-800/60 to-blue-700/50"></div>
         
         <div className="container relative z-10">
           <div className="max-w-4xl">
@@ -212,7 +195,7 @@ export default function Home() {
               fontSize: 'clamp(3rem, 8vw, 5.5rem)',
               fontWeight: '900',
               color: 'white',
-              textShadow: '2px 4px 8px rgba(0,0,0,0.3)',
+              textShadow: '3px 6px 12px rgba(0,0,0,0.5)',
               marginBottom: '24px',
               lineHeight: '1.1',
               fontFamily: '"Fredoka One", cursive'
@@ -224,10 +207,10 @@ export default function Home() {
             
             <p style={{
               fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
-              color: 'rgba(255,255,255,0.9)',
+              color: 'rgba(255,255,255,0.95)',
               marginBottom: '48px',
               fontWeight: '600',
-              textShadow: '1px 2px 4px rgba(0,0,0,0.2)'
+              textShadow: '2px 4px 8px rgba(0,0,0,0.4)'
             }}>
               AL MEER DAN 15 JAAR EEN GROOT SUCCES!
             </p>
@@ -248,7 +231,7 @@ export default function Home() {
               </button>
               
               {/* Reviews */}
-              <div className="flex items-center space-x-4 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
+              <div className="flex items-center space-x-4 bg-white/15 backdrop-blur-md px-6 py-3 rounded-full border border-white/20">
                 <div className="flex items-center space-x-1">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} size={20} fill="#FDE047" color="#FDE047" />
@@ -264,13 +247,39 @@ export default function Home() {
         
         {/* Floating Elements */}
         <div className="absolute top-20 left-10 animate-bounce" style={{ animationDelay: '0s' }}>
-          <div style={{ fontSize: '40px', opacity: 0.7 }}>🎁</div>
+          <div style={{ fontSize: '40px', opacity: 0.8, filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}>🎁</div>
         </div>
         <div className="absolute top-32 right-20 animate-bounce" style={{ animationDelay: '1s' }}>
-          <div style={{ fontSize: '35px', opacity: 0.6 }}>⭐</div>
+          <div style={{ fontSize: '35px', opacity: 0.7, filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}>⭐</div>
         </div>
         <div className="absolute bottom-32 left-20 animate-bounce" style={{ animationDelay: '2s' }}>
-          <div style={{ fontSize: '45px', opacity: 0.8 }}>🎪</div>
+          <div style={{ fontSize: '45px', opacity: 0.9, filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}>🎪</div>
+        </div>
+        
+        {/* Wave Shape Bottom */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+          <svg 
+            className="relative block w-full h-32" 
+            data-name="Layer 1" 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 1200 120" 
+            preserveAspectRatio="none"
+          >
+            <path 
+              d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" 
+              opacity=".25" 
+              className="fill-white"
+            ></path>
+            <path 
+              d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" 
+              opacity=".5" 
+              className="fill-white"
+            ></path>
+            <path 
+              d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" 
+              className="fill-white"
+            ></path>
+          </svg>
         </div>
       </section>
 
