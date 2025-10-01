@@ -89,6 +89,21 @@ export default function Home() {
     }
   ];
 
+  // Helper function to get category icon
+  const getCategoryIcon = (category) => {
+    const iconMap = {
+      'Achter de Schermen': '🎭',
+      'Tips & Tricks': '💡', 
+      'Tips voor Ouders': '👶',
+      'Tradities': '📚',
+      'Algemeen': '📰',
+      'Show Nieuws': '🎪',
+      'Evenementen': '🎉',
+      'Interviews': '🎤'
+    };
+    return iconMap[category] || '📰';
+  };
+
   // Use real news data with fallback to demo data
   const blogPosts = news.length > 0 ? news.map(article => ({
     id: article.id,
@@ -128,21 +143,6 @@ export default function Home() {
       icon: "📚"
     }
   ];
-
-  // Helper function to get category icon
-  const getCategoryIcon = (category) => {
-    const iconMap = {
-      'Achter de Schermen': '🎭',
-      'Tips & Tricks': '💡', 
-      'Tips voor Ouders': '👶',
-      'Tradities': '📚',
-      'Algemeen': '📰',
-      'Show Nieuws': '🎪',
-      'Evenementen': '🎉',
-      'Interviews': '🎤'
-    };
-    return iconMap[category] || '📰';
-  };
 
   if (loading) {
     return (
