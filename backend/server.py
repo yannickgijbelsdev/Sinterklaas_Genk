@@ -1288,8 +1288,63 @@ async def demo_upload_news_image(file: UploadFile = File(...)):
         placeholder_url = f"https://via.placeholder.com/400x200/DC2626/FFFFFF?text={unique_filename[:20]}"
         return {"image_url": placeholder_url, "filename": unique_filename}
 
-# SFTP function temporarily disabled due to pysftp/paramiko compatibility issues
-# Images will be served locally from the backend for now
+def upload_to_sftp_working(file_content: bytes, filename: str, subfolder: str = "news") -> str:
+    """Working SFTP upload function using paramiko"""
+    import paramiko
+    import stat
+    
+    try:
+        # SFTP connection settings
+        hostname = 'static1.koodh.cloud'
+        username = 'sinterklaasgenk@static1.koodh.cloud'
+        password = 'KYLovie13monx'
+        port = 22
+        
+        # Create SSH client
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        
+        # Connect
+        ssh.connect(hostname=hostname, username=username, password=password, port=port)
+        
+        # Open SFTP session
+        sftp = ssh.open_sftp()
+        
+        # Create remote directory if it doesn't exist
+        remote_dir = f"public_html/{subfolder}"
+        try:
+            # Try to list the directory, create if it doesn't exist
+            sftp.listdir(remote_dir)
+        except FileNotFoundError:
+            # Directory doesn't exist, create it
+            try:
+                # Create parent directory first
+                sftp.mkdir("public_html")
+            except:
+                pass  # public_html might already exist
+            
+            try:
+                sftp.mkdir(remote_dir)
+            except:
+                pass  # Directory might already exist
+        
+        # Upload file
+        remote_path = f"{remote_dir}/{filename}"
+        with io.BytesIO(file_content) as file_obj:
+            sftp.putfo(file_obj, remote_path)
+        
+        # Close connections
+        sftp.close()
+        ssh.close()
+        
+        # Return public URL
+        public_url = f"https://static1.koodh.cloud/{subfolder}/{filename}"
+        print(f"✅ Image uploaded to SFTP successfully: {public_url}")
+        return public_url
+        
+    except Exception as e:
+        print(f"❌ SFTP upload failed: {str(e)}")
+        raise Exception(f"SFTP upload failed: {str(e)}")
 
 # Include the router in the main app
 app.include_router(api_router)
