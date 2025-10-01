@@ -641,7 +641,7 @@ export default function Admin() {
           </TabsContent>
 
           <TabsContent value="content">
-            <BannerEditor />
+            <ContentManager />
           </TabsContent>
         </Tabs>
       </div>
