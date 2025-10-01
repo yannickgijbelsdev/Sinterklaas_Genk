@@ -123,13 +123,16 @@ export const Header = () => {
                 >
                   Reserveer Nu
                 </button>
-                <a 
-                  href="/admin"
-                  className="btn btn-primary w-full"
-                >
-                  <Settings size={16} />
-                  Admin
-                </a>
+                {/* Admin button only visible if admin session exists */}
+                {sessionStorage.getItem('adminAuthenticated') === 'true' && (
+                  <a 
+                    href="/admin"
+                    className="btn btn-primary w-full"
+                  >
+                    <Settings size={16} />
+                    Admin
+                  </a>
+                )}
               </div>
             </div>
           </div>
