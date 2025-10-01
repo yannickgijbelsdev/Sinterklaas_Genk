@@ -7,6 +7,7 @@ import { Label } from '../components/ui/label';
 import { Badge } from '../components/ui/badge';
 import { toast } from 'sonner';
 import AdminLogin from '../components/AdminLogin';
+import { useAuth } from '../contexts/AuthContext';
 import { 
   Plus, 
   Edit, 
