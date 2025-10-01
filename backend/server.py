@@ -13,6 +13,7 @@ from sendgrid.helpers.mail import Mail, From, To, Subject, HtmlContent
 from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
+from enum import Enum
 import uuid
 import shutil
 import jwt
