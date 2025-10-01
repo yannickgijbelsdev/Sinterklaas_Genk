@@ -315,7 +315,7 @@ export default function Home() {
       {/* Waarom Section - REMOVED */}
 
       {/* CTA Reserveer Section */}
-      <section id="reserveer" className="section section-padding relative" style={{ backgroundColor: '#FEF7ED' }}>
+      <section id="reserveer" className="section section-padding relative" style={{ backgroundColor: '#B91C1C' }}>
         <div className="container">
           <div className="card" style={{ background: 'var(--sinterklaas-rood)', color: 'white', display: 'flex', alignItems: 'center', gap: '64px' }}>
             <div style={{ flex: 1 }}>
