@@ -198,6 +198,18 @@ backend:
         agent: "testing"
         comment: "NEWS ENDPOINT COMPREHENSIVE TESTING COMPLETED: Performed detailed testing of /api/news endpoint to debug frontend 'Error loading news' issue. ✅ BACKEND FULLY FUNCTIONAL: GET /api/news returns HTTP 200 with 7 news articles (including all 3 demo articles). ✅ RESPONSE STRUCTURE VERIFIED: Valid JSON array with all required fields (id, title, excerpt, content, category, date, published). ✅ DUTCH CONTENT CONFIRMED: All articles contain proper Dutch content with categories 'Achter de Schermen', 'Algemeen', 'Tips & Tricks'. ✅ CORS WORKING: Proper CORS headers present for cross-origin requests. ✅ PERFORMANCE GOOD: Response time 55.93ms. CONCLUSION: Backend /api/news endpoint is working perfectly. If frontend shows 'Error loading news', the issue is in frontend implementation, not backend API."
 
+  - task: "Demo Admin Endpoints (No Authentication)"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "DEMO ADMIN ENDPOINTS TESTING COMPLETED SUCCESSFULLY: Fixed route registration issue and implemented comprehensive testing for all demo endpoints. ✅ ALL ENDPOINTS WORKING (100% success rate): POST /api/demo/news (artikel aanmaken zonder authenticatie), PUT /api/demo/news/{id} (artikel bijwerken), DELETE /api/demo/news/{id} (artikel verwijderen), POST /api/demo/users (gebruiker aanmaken). ✅ ROUTE REGISTRATION FIXED: Moved demo endpoint definitions before app.include_router(api_router) to ensure proper registration with FastAPI router. ✅ COMPREHENSIVE TESTING: All endpoints tested with exact test data provided by user - 'Test Artikel', 'Test samenvatting', 'Test inhoud', 'Algemeen' category. ✅ CRUD OPERATIONS VERIFIED: Article creation returns proper JSON with UUID, update operations modify content correctly with updatedAt timestamp, delete operations return success messages. ✅ USER CREATION FUNCTIONAL: Demo user endpoint creates users with bcrypt password hashing and proper role assignment (admin/user). ✅ NO AUTHENTICATION REQUIRED: All demo endpoints accessible without JWT tokens as intended for admin dashboard demo functionality. Demo endpoints are production-ready and fully operational for admin dashboard integration."
+
 frontend:
   - task: "Scroll-based Navigation & Animations"
     implemented: true
