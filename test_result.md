@@ -331,6 +331,21 @@ test_plan:
       - working: true
         agent: "testing"
         comment: "COMPREHENSIVE ADMIN DASHBOARD TESTING COMPLETED SUCCESSFULLY: Performed complete testing of the Sinterklaas Genk admin panel as requested. ✅ ALL SECURITY TESTS PASSED: /admin without login correctly shows login screen, wrong password displays error message 'Onjuist wachtwoord', correct login with 'sinterklaas2024' password works perfectly. ✅ DASHBOARD FUNCTIONALITY VERIFIED: Dashboard loads with sidebar navigation, all 4 statistics cards visible (News: 0, Shows: 0, Website Views: 1,234, Visitors: 89), sidebar navigation working for all tabs (Dashboard, Nieuws, Shows, Gebruikers). ✅ NEWS MANAGEMENT OPERATIONAL: 'Nieuw Artikel Toevoegen' form complete with title input, content textarea, and add button. Edit and delete buttons functional for existing articles. ✅ USER MANAGEMENT FUNCTIONAL: 'Nieuwe Gebruiker Toevoegen' form complete with email field, password field, and role selection. ✅ LOGOUT SECURITY WORKING: Logout button in sidebar works correctly, returns to login screen, and requires re-authentication to access /admin. Complete admin workflow tested and operational."
+      - working: true
+        agent: "testing"
+        comment: "CRITICAL INPUT FIELD FOCUS ISSUE TESTING COMPLETED - PROBLEMS RESOLVED: Comprehensive testing of the reported 1-letter input field focus jumping bug completed with EXCELLENT RESULTS. ✅ TITLE FIELD: Successfully typed all 18 characters ('Test Artikel Titel') without ANY focus issues - cursor remained stable throughout typing. ✅ EXCERPT FIELD: Successfully typed all 23 characters ('Test samenvatting tekst') without ANY focus issues - no cursor jumping detected. ✅ CONTENT FIELD: Successfully typed all 35 characters ('Test artikel inhoud voor focus test') without ANY focus issues - focus remained consistent. ✅ CATEGORY DROPDOWN: Working perfectly, selection changes without issues. ✅ NAVIGATION STABILITY: Dashboard ↔ Nieuws navigation working flawlessly. ✅ LOGIN FUNCTIONALITY: Password 'sinterklaas2024' works correctly. CONCLUSION: The reported 1-letter input field focus jumping bug has been COMPLETELY RESOLVED. All text input fields now maintain proper focus during typing. Users can type complete sentences without interruption. The admin dashboard is fully functional for content management."
+
+  - task: "Admin Dashboard Article Management API Integration"
+    implemented: true
+    working: false
+    file: "AdminDashboard.jsx"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "ARTICLE MANAGEMENT API INTEGRATION ISSUES IDENTIFIED: Testing revealed backend API endpoint problems preventing full article management functionality. ❌ CREATE ARTICLE FAILING: POST /api/demo/news returns 404 Not Found - endpoint does not exist or is incorrectly configured. ❌ NO EXISTING ARTICLES: 'Bestaande Artikels (0)' shows no articles available for edit/delete testing. ❌ EDIT/UPDATE FUNCTIONALITY: Cannot test edit functionality due to no existing articles and failed article creation. ❌ DELETE FUNCTIONALITY: No delete buttons available due to empty article list. ✅ FORM VALIDATION: All input fields working correctly with proper focus behavior. ✅ UI COMPONENTS: All form elements, buttons, and navigation working perfectly. BACKEND ISSUE: The admin dashboard frontend is working correctly, but backend API endpoints for article management (/api/demo/news) are not properly configured or accessible. This prevents the complete article CRUD workflow from functioning."
 
 agent_communication:
   - agent: "main"
