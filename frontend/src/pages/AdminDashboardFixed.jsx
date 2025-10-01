@@ -440,7 +440,7 @@ export default function AdminDashboard() {
         body: JSON.stringify({
           ...newNews,
           date: new Date().toISOString(),
-          featured_image: `https://via.placeholder.com/400x200/DC2626/FFFFFF?text=${encodeURIComponent(newNews.title.substring(0, 20))}`
+          featured_image: newNews.featured_image || `https://via.placeholder.com/400x200/DC2626/FFFFFF?text=${encodeURIComponent(newNews.title.substring(0, 20))}`
         })
       });
 
