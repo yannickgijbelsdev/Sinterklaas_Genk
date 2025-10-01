@@ -17,16 +17,7 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await login(loginForm.email, loginForm.password);
-      setShowLoginForm(false);
-      setLoginForm({ email: '', password: '' });
-    } catch (error) {
-      // Error is handled by the login function
-    }
-  };
+  // Login functionality removed - direct admin access
 
   const navigationItems = [
     { name: 'Over Ons', href: '#about' },
