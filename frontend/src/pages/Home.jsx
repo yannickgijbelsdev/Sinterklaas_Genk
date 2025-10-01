@@ -281,7 +281,7 @@ export default function Home() {
               <div style={{ 
                 width: '200px', 
                 height: '150px', 
-                background: 'linear-gradient(135deg, var(--sinterklaas-goud-light) 0%, var(--sinterklaas-goud) 100%)',
+                background: '#B91C1C',
                 borderRadius: '16px',
                 display: 'flex',
                 alignItems: 'center',
