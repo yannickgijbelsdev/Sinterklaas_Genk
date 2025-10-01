@@ -28,6 +28,7 @@ import {
 const API = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001/api';
 
 export default function Admin() {
+  const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const [news, setNews] = useState([]);
   const [shows, setShows] = useState([]);
   const [content, setContent] = useState([]);
@@ -35,6 +36,28 @@ export default function Admin() {
   const [loading, setLoading] = useState(false);
   const [editingNews, setEditingNews] = useState(null);
   const [editingShow, setEditingShow] = useState(null);
+
+  // Authentication check
+  if (!isAuthenticated() || !isAdmin()) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="max-w-md w-full space-y-8">
+          <div className="text-center">
+            <Shield className="mx-auto h-12 w-12 text-red-500" />
+            <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+              Geen Toegang
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              Je hebt admin rechten nodig om deze pagina te bekijken.
+            </p>
+            <p className="mt-4 text-xs text-gray-500">
+              Login met admin account via de header.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Fetch all data
   useEffect(() => {
