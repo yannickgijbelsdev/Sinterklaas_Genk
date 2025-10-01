@@ -371,8 +371,10 @@ export default function AdminDashboard() {
     excerpt: '',
     content: '',
     category: 'Algemeen',
-    published: true
+    published: true,
+    featured_image: ''
   });
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [newUser, setNewUser] = useState({
     email: '',
     password: '',
