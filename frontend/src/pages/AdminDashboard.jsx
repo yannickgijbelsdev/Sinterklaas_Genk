@@ -688,11 +688,18 @@ export default function AdminDashboard() {
         </nav>
         
         {/* Bottom Links */}
-        <div className="absolute bottom-0 w-full p-4">
+        <div className="absolute bottom-0 w-full p-4 space-y-2">
           <a href="/" className="flex items-center px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">
             <Home className="h-4 w-4 mr-2" />
             Terug naar Website
           </a>
+          <button 
+            onClick={handleLogout}
+            className="w-full flex items-center px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
+          >
+            <LogOut className="h-4 w-4 mr-2" />
+            Uitloggen
+          </button>
         </div>
       </div>
 
