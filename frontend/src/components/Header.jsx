@@ -49,11 +49,11 @@ export const Header = () => {
       <div className="header-container" style={{ 
         maxWidth: '1400px', 
         margin: '0 auto', 
-        padding: '0 20px',
+        padding: '0 16px',
         background: isScrolled ? 'white' : 'rgba(255,255,255,0.95)',
         borderRadius: '50px',
         boxShadow: isScrolled ? '0 4px 20px rgba(0,0,0,0.15)' : '0 4px 20px rgba(0,0,0,0.1)',
-        marginTop: '12px',
+        marginTop: '8px',
         backdropFilter: 'blur(10px)'
       }}>
         <div className="flex items-center justify-between" style={{ padding: '4px 0' }}>
