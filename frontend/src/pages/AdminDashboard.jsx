@@ -713,6 +713,7 @@ export default function AdminDashboard() {
                 {activeTab === 'dashboard' && 'Dashboard Overzicht'}
                 {activeTab === 'news' && 'Nieuws Beheer'}
                 {activeTab === 'shows' && 'Shows Beheer'}
+                {activeTab === 'users' && 'Gebruikers Beheer'}
                 {activeTab === 'media' && 'Media Beheer'}
                 {activeTab === 'settings' && 'Instellingen'}
               </h2>
