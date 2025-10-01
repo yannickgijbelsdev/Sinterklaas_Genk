@@ -749,6 +749,7 @@ export default function AdminDashboard() {
               {activeTab === 'dashboard' && <DashboardOverview />}
               {activeTab === 'news' && <NewsManagement />}
               {activeTab === 'shows' && <ShowsManagement />}
+              {activeTab === 'users' && <UserManagement />}
               {activeTab === 'media' && (
                 <Card>
                   <CardContent className="p-8 text-center">
