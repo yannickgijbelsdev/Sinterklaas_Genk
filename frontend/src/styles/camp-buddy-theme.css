@@ -320,16 +320,16 @@ h3 {
 }
 
 .btn-secondary {
-  background: var(--sinterklaas-goud);
-  color: var(--text-dark);
+  background: var(--sinterklaas-rood-light);
+  color: white;
   box-shadow: var(--shadow-soft);
 }
 
 .btn-secondary:hover {
-  background: var(--sinterklaas-goud-dark);
+  background: var(--sinterklaas-rood-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow-medium);
-  color: var(--warm-white);
+  color: white;
 }
 
 .btn-outline {
