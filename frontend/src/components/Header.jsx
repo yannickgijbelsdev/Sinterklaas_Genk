@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, LogOut, Gift, Globe, User, Settings } from 'lucide-react';
 import { Button } from './ui/button';
-import { useAuth } from '../contexts/AuthContext';
+// Removed useAuth import - no longer needed
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
