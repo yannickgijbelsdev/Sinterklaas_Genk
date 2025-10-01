@@ -6,6 +6,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Label } from '../components/ui/label';
 import { Badge } from '../components/ui/badge';
 import { toast } from 'sonner';
+import AdminLogin from '../components/AdminLogin';
 import { 
   Plus, 
   Edit, 
@@ -21,7 +22,9 @@ import {
   Home,
   Bell,
   Search,
-  Filter
+  Filter,
+  LogOut,
+  UserPlus
 } from 'lucide-react';
 
 const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
