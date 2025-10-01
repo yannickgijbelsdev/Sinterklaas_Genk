@@ -65,7 +65,7 @@ export const Header = () => {
                 src="/sinterklaas-logo.png" 
                 alt="Sinterklaas Genk Logo" 
                 style={{ 
-                  height: '150px',
+                  height: '100px',
                   width: 'auto',
                   objectFit: 'contain'
                 }}
