@@ -185,22 +185,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="hero-illustration">
-            <div style={{
-              fontSize: '120px',
-              display: 'flex',
-              gap: '20px',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexWrap: 'wrap'
-            }}>
-              <span>🎅</span>
-              <span>🎁</span>
-              <span>👧</span>
-              <span>👦</span>
-              <span>⭐</span>
-            </div>
-          </div>
+          {/* Hero illustration - REMOVED */}
         </div>
       </section>
 
