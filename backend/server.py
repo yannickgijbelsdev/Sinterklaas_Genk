@@ -1288,43 +1288,8 @@ async def demo_upload_news_image(file: UploadFile = File(...)):
         placeholder_url = f"https://via.placeholder.com/400x200/DC2626/FFFFFF?text={unique_filename[:20]}"
         return {"image_url": placeholder_url, "filename": unique_filename}
 
-def upload_to_sftp_working(file_content: bytes, filename: str, subfolder: str = "images") -> str:
-    """Working SFTP upload function"""
-    try:
-        import pysftp
-        
-        # SFTP connection settings
-        sftp_config = {
-            'host': 'static1.koodh.cloud',
-            'username': 'sinterklaasgenk@static1.koodh.cloud',
-            'password': 'KYLovie13monx',
-            'port': 22
-        }
-        
-        # Disable host key checking for simplicity (not recommended for production)
-        cnopts = pysftp.CnOpts()
-        cnopts.hostkeys = None
-        
-        # Connect to SFTP server
-        with pysftp.Connection(**sftp_config, cnopts=cnopts) as sftp:
-            # Create remote directory if it doesn't exist
-            remote_dir = f"public_html/{subfolder}"
-            try:
-                sftp.makedirs(remote_dir)
-            except:
-                pass  # Directory might already exist
-            
-            # Upload file
-            remote_path = f"{remote_dir}/{filename}"
-            sftp.putfo(io.BytesIO(file_content), remote_path)
-            
-        # Return public URL
-        return f"https://static1.koodh.cloud/{subfolder}/{filename}"
-        
-    except ImportError:
-        raise Exception("pysftp not available")
-    except Exception as e:
-        raise Exception(f"SFTP upload failed: {str(e)}")
+# SFTP function temporarily disabled due to pysftp/paramiko compatibility issues
+# Images will be served locally from the backend for now
 
 # Include the router in the main app
 app.include_router(api_router)
