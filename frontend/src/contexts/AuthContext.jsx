@@ -70,13 +70,16 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     console.log('🔍 DEBUG: Login attempt with email:', email);
     try {
+      // Use 'admin' as username for the admin@sinterklaas.com email
+      const username = email === 'admin@sinterklaas.com' ? 'admin' : email;
+      
       const response = await fetch(`${API}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ 
-          username: email,  // Backend expects username field but we use email
+          username,
           password 
         })
       });
