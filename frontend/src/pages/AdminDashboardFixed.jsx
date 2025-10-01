@@ -496,7 +496,7 @@ export default function AdminDashboard() {
 
   const handleCreateUser = useCallback(async () => {
     try {
-      const response = await fetch(`${API}/admin/users`, {
+      const response = await fetch(`${API}/demo/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
