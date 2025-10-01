@@ -485,6 +485,85 @@ export default function AdminDashboard() {
     </div>
   );
 
+  const UserManagement = () => (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold">Gebruikers Beheer</h2>
+      
+      {/* Add New User Form */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Nieuwe Gebruiker Toevoegen</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="userEmail">Email</Label>
+              <Input
+                id="userEmail"
+                type="email"
+                value={newUser.email}
+                onChange={(e) => setNewUser({...newUser, email: e.target.value})}
+                placeholder="gebruiker@example.com"
+              />
+            </div>
+            <div>
+              <Label htmlFor="userPassword">Wachtwoord</Label>
+              <Input
+                id="userPassword"
+                type="password"
+                value={newUser.password}
+                onChange={(e) => setNewUser({...newUser, password: e.target.value})}
+                placeholder="Veilig wachtwoord..."
+              />
+            </div>
+          </div>
+          
+          <div>
+            <Label htmlFor="userRole">Rol</Label>
+            <select
+              id="userRole"
+              value={newUser.role}
+              onChange={(e) => setNewUser({...newUser, role: e.target.value})}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+            >
+              <option value="admin">Admin</option>
+              <option value="editor">Editor</option>
+            </select>
+          </div>
+          
+          <Button 
+            onClick={handleCreateUser} 
+            disabled={!newUser.email || !newUser.password}
+          >
+            <UserPlus className="h-4 w-4 mr-2" />
+            Gebruiker Toevoegen
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Current Users Info */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Huidige Gebruikers</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div>
+                <p className="font-medium">admin@sinterklaas.com</p>
+                <p className="text-sm text-gray-600">Standaard admin account</p>
+              </div>
+              <Badge>Admin</Badge>
+            </div>
+            <p className="text-sm text-gray-600 mt-4">
+              Nieuwe gebruikers worden toegevoegd aan de database en kunnen inloggen met hun email en wachtwoord.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar */}
