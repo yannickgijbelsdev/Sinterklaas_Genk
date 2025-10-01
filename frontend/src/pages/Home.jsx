@@ -310,15 +310,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Speelse Golvende Separator Goud */}
-      <div className="wavy-separator-gold"></div>
-
       {/* Shows Section - REMOVED */}
 
       {/* Waarom Section - REMOVED */}
-
-      {/* Zachte Golvende Separator */}
-      <div className="wavy-separator-soft"></div>
 
       {/* CTA Reserveer Section */}
       <section id="reserveer" className="section section-dark section-padding relative">
