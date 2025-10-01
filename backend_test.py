@@ -1342,11 +1342,14 @@ def main():
             success = tester.run_news_demo_tests()
         elif sys.argv[1] == "--demo-endpoints":
             success = tester.run_demo_endpoints_tests()
+        elif sys.argv[1] == "--sftp":
+            success = tester.run_sftp_tests()
         else:
             print("Available options:")
             print("  --admin-login     : Run focused admin login tests")
             print("  --news-demo       : Run news article creation demo tests")
             print("  --demo-endpoints  : Run demo admin endpoints tests (no auth)")
+            print("  --sftp            : Run SFTP image upload functionality tests")
             print("  (no args)         : Run all comprehensive tests")
             success = tester.run_all_tests()
     else:
