@@ -56,7 +56,7 @@ export const Header = () => {
         marginTop: '16px',
         backdropFilter: 'blur(10px)'
       }}>
-        <div className="flex items-center justify-between" style={{ padding: '20px 0' }}>
+        <div className="flex items-center justify-between" style={{ padding: '16px 0' }}>
           
           {/* Logo */}
           <div className="header-logo">
