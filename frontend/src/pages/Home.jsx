@@ -11,6 +11,48 @@ const API = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001/api';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
+  const [content, setContent] = useState({});
+  const [news, setNews] = useState([]);
+  const [shows, setShows] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch content data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [contentRes, newsRes, showsRes] = await Promise.all([
+          fetch(`${API}/admin/content`),
+          fetch(`${API}/news`),
+          fetch(`${API}/admin/shows`)
+        ]);
+
+        if (contentRes.ok) {
+          const contentData = await contentRes.json();
+          // Convert array to object for easier access
+          const contentObj = {};
+          contentData.forEach(item => {
+            contentObj[item.id] = item.value;
+          });
+          setContent(contentObj);
+        }
+
+        if (newsRes.ok) {
+          const newsData = await newsRes.json();
+          setNews(newsData.slice(0, 3)); // Get latest 3 articles
+        }
+
+        if (showsRes.ok) {
+          const showsData = await showsRes.json();
+          setShows(showsData.slice(0, 5)); // Get next 5 shows
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
 
   const faqItems = [
     {
