@@ -218,11 +218,12 @@ export default function Home() {
             
             <div className="flex flex-col items-start space-y-6">
               <button 
-                className="group flex items-center space-x-4 px-8 py-4 rounded-full font-bold text-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                className="group flex items-center space-x-4 px-8 py-4 rounded-full font-bold text-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
                 style={{
-                  background: 'linear-gradient(45deg, #FDE047, #FACC15)',
+                  background: '#FDE047',
                   color: '#1F2937',
-                  boxShadow: '0 8px 25px rgba(253, 224, 71, 0.4)'
+                  border: '2px solid #F59E0B',
+                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
                 }}
                 onClick={() => smoothScrollTo('#book')}
               >
