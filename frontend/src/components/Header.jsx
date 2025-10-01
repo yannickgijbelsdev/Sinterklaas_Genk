@@ -79,8 +79,8 @@ export const Header = () => {
               <button
                 key={item.name}
                 onClick={() => smoothScrollTo(item.href)}
-                className="text-gray-700 font-semibold text-sm hover:text-red-600 transition-colors cursor-pointer"
-                style={{ fontWeight: '600' }}
+                className="text-gray-700 font-semibold hover:text-red-600 transition-colors cursor-pointer"
+                style={{ fontWeight: '600', fontSize: '14px' }}
               >
                 {item.name}
               </button>
