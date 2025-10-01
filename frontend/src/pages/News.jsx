@@ -34,111 +34,120 @@ export default function News() {
     fetchNews();
   }, []);
   
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4">📰</div>
+          <div className="text-xl">Nieuws laden...</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Fout bij laden van nieuws</h1>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <Button onClick={() => window.location.reload()}>Probeer opnieuw</Button>
+        </div>
+      </div>
+    );
+  }
+
   // If there's an ID in the URL, show single article
   if (id) {
-    const article = news.find(item => item.id === id);
+    const article = newsData.find(item => item.id === id);
     
     if (!article) {
       return (
-        <LiveEditor pageKey="news-error">
-          <div className="min-h-screen flex items-center justify-center">
-            <div className="text-center">
-              <h1 className="text-2xl font-bold text-gray-900 mb-4">Artikel niet gevonden</h1>
-              <Link to="/news">
-                <Button>Terug naar nieuws</Button>
-              </Link>
-            </div>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Artikel niet gevonden</h1>
+            <Link to="/news">
+              <Button>Terug naar nieuws</Button>
+            </Link>
           </div>
-        </LiveEditor>
+        </div>
       );
     }
 
     return (
-      <LiveEditor pageKey="news-article">
-        <div className="min-h-screen">
-          <article className="py-20">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="mb-6">
+      <div className="min-h-screen">
+        <article className="py-20">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-6">
+              <Link to="/news">
+                <Button variant="outline" className="mb-6">
+                  <ArrowLeft size={16} className="mr-2" />
+                  Terug naar nieuws
+                </Button>
+              </Link>
+            </div>
+            
+            {/* Featured Image */}
+            {(article.featured_image || article.image) && (
+              <div className="mb-8">
+                <img
+                  src={article.featured_image || article.image}
+                  alt={article.title}
+                  className="w-full h-96 object-cover rounded-lg shadow-lg"
+                />
+              </div>
+            )}
+            
+            {/* Article Header */}
+            <div className="mb-8">
+              <div className="flex items-center gap-4 mb-4">
+                <Badge variant="outline" className="text-red-600 border-red-200">
+                  {article.category || 'Algemeen'}
+                </Badge>
+                <div className="flex items-center text-gray-500 text-sm">
+                  <Calendar size={16} className="mr-2" />
+                  {new Date(article.date).toLocaleDateString('nl-NL', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </div>
+              </div>
+              
+              <h1 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                {article.title}
+              </h1>
+              
+              {article.excerpt && (
+                <p className="text-xl text-gray-600 leading-relaxed">
+                  {article.excerpt}
+                </p>
+              )}
+            </div>
+            
+            {/* Article Content */}
+            <div className="prose max-w-none">
+              <div className="text-lg leading-relaxed text-gray-700 whitespace-pre-wrap">
+                {article.content}
+              </div>
+            </div>
+            
+            {/* Navigation */}
+            <div className="mt-12 pt-8 border-t border-gray-200">
+              <div className="flex justify-between">
                 <Link to="/news">
-                  <Button variant="ghost" className="text-red-600 hover:text-red-700">
-                    <ArrowLeft className="mr-2" size={16} />
-                    Terug naar nieuws
+                  <Button variant="outline">
+                    <ArrowLeft size={16} className="mr-2" />
+                    Alle nieuws
                   </Button>
                 </Link>
               </div>
-
-              <div className="mb-8">
-                <div className="flex items-center space-x-2 text-gray-500 mb-4">
-                  <Calendar size={16} />
-                  <span>{article.date}</span>
-                </div>
-                <h1 
-                  className="text-4xl font-bold text-gray-900 mb-6"
-                  data-editable-text={`article_${article.id}_title`}
-                  data-section="news-article"
-                  data-key={`article_${article.id}_title`}
-                >
-                  {article.title}
-                </h1>
-              </div>
-
-              <div className="aspect-video mb-8 overflow-hidden rounded-lg">
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-full h-full object-cover"
-                  data-editable-image={`article_${article.id}_image`}
-                  data-section="news-article"
-                  data-key={`article_${article.id}_image`}
-                  key={article.image}
-                />
-              </div>
-
-              <div className="prose prose-lg max-w-none">
-                <p 
-                  className="text-xl text-gray-600 mb-6 leading-relaxed"
-                  data-editable-text={`article_${article.id}_excerpt`}
-                  data-section="news-article"
-                  data-key={`article_${article.id}_excerpt`}
-                >
-                  {article.excerpt}
-                </p>
-                <div 
-                  className="text-gray-700 leading-relaxed space-y-4"
-                  data-editable-text={`article_${article.id}_content`}
-                  data-section="news-article"
-                  data-key={`article_${article.id}_content`}
-                >
-                  <p>{article.content}</p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                  <p>
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-                    eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-                    sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-12 pt-8 border-t">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Deel dit artikel</h3>
-                    <div className="flex space-x-4">
-                      <Button variant="outline" size="sm">Facebook</Button>
-                      <Button variant="outline" size="sm">Twitter</Button>
-                      <Button variant="outline" size="sm">WhatsApp</Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </article>
-        </div>
-      </LiveEditor>
+          </div>
+        </article>
+      </div>
     );
   }
 
