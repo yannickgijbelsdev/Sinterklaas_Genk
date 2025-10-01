@@ -178,9 +178,9 @@ class BackendTester:
             return False
 
     def test_token_verification(self):
-        """Test JWT token verification"""
+        """Test JWT token verification via POST /api/auth/verify"""
         if not self.auth_token:
-            self.log_test("Token Verification", False, "No auth token available")
+            self.log_test("JWT Token Verification", False, "No auth token available")
             return False
             
         try:
@@ -189,19 +189,25 @@ class BackendTester:
             if response.status_code == 200:
                 data = response.json()
                 if data.get('valid', False) and 'user' in data:
-                    self.log_test("Token Verification", True, 
-                                f"Token valid for user: {data['user']['username']}")
-                    return True
+                    user_info = data['user']
+                    if user_info.get('is_admin', False):
+                        self.log_test("JWT Token Verification", True, 
+                                    f"Token valid for admin user: {user_info['username']} ({user_info.get('email', 'N/A')})")
+                        return True
+                    else:
+                        self.log_test("JWT Token Verification", False, 
+                                    f"Token valid but user is not admin: {user_info}")
+                        return False
                 else:
-                    self.log_test("Token Verification", False, "Token not valid")
+                    self.log_test("JWT Token Verification", False, "Token not valid or missing user info")
                     return False
             else:
-                self.log_test("Token Verification", False, 
-                            f"Status: {response.status_code}")
+                self.log_test("JWT Token Verification", False, 
+                            f"Status: {response.status_code}, Response: {response.text}")
                 return False
                 
         except Exception as e:
-            self.log_test("Token Verification", False, f"Error: {str(e)}")
+            self.log_test("JWT Token Verification", False, f"Error: {str(e)}")
             return False
 
     def test_protected_endpoint_without_auth(self):
