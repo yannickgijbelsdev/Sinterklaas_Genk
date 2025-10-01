@@ -365,6 +365,18 @@ test_plan:
         agent: "testing"
         comment: "FINAL COMPREHENSIVE ADMIN DASHBOARD TEST COMPLETED SUCCESSFULLY: Performed complete end-to-end testing of the entire admin dashboard workflow as requested by user. ✅ ALL CRITICAL TESTS PASSED (8/8): 1) Login with password 'sinterklaas2024' working perfectly, 2) Input field focus stability COMPLETELY RESOLVED - all fields (title, category, summary, content) maintain perfect focus during typing with no cursor jumping, 3) Article creation successful with proper success toast messages, 4) Navigation between Dashboard and Nieuws tabs working flawlessly, 5) Logout functionality working correctly, 6) Wrong password error handling working, 7) Dashboard overview with statistics cards displaying correctly, 8) News management interface fully functional. ✅ FOCUS JUMPING BUG COMPLETELY FIXED: Tested character-by-character typing in all input fields - Title field (27 chars), Summary field (44 chars), Content field (95 chars) - ALL maintained perfect focus without any interruption. ✅ ARTICLE MANAGEMENT STATUS: Article creation working (success toast confirmed), but articles list shows 'Bestaande Artikels (0)' indicating potential data synchronization issue between frontend and backend - this is a minor issue that doesn't affect core functionality. ✅ ADMIN WORKFLOW COMPLETE: Full admin workflow from login → dashboard → news management → article creation → navigation → logout all working perfectly. The admin dashboard is production-ready and all previously reported critical issues have been resolved."
 
+  - task: "Featured Image Upload Functionality"
+    implemented: true
+    working: "NA"
+    file: "AdminDashboardFixed.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "New Featured Image upload functionality implemented in admin dashboard. Includes file input, upload progress indicator, image preview, and backend integration with /api/demo/news/upload-image endpoint. Needs comprehensive testing."
+
 agent_communication:
   - agent: "main"
     message: "CRITICAL ISSUE IDENTIFIED: User reported that LiveEditor is not working - no edit buttons, floating toolbars, or block insertion functionality visible despite being logged in as admin. Screenshots confirm that even when authenticated, no live editor UI elements are showing up. This is a critical bug preventing the core live editing functionality from working. Need to debug and fix the LiveEditor component immediately."
