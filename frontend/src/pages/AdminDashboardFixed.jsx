@@ -173,7 +173,9 @@ const NewsManagement = React.memo(({
   handleUpdateNews,
   handleEditNews,
   handleDeleteNews,
-  setEditingNews 
+  setEditingNews,
+  handleImageUpload,
+  uploadingImage
 }) => (
   <div className="space-y-6">
     <div className="flex justify-between items-center">
