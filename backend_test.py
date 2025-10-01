@@ -759,6 +759,327 @@ class BackendTester:
                         f"Failed demo endpoints: {', '.join(failed_tests)}")
             return False
 
+    def test_sftp_connection(self):
+        """Test SFTP connection to static1.koodh.cloud"""
+        try:
+            import paramiko
+            
+            # SFTP connection settings from server.py
+            hostname = 'static1.koodh.cloud'
+            username = 'sinterklaasgenk@static1.koodh.cloud'
+            password = 'KYLovie13monx'
+            port = 22
+            
+            print(f"   Testing SFTP connection to {hostname}...")
+            
+            # Create SSH client
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            
+            # Connect with timeout
+            ssh.connect(hostname=hostname, username=username, password=password, port=port, timeout=10)
+            
+            # Open SFTP session
+            sftp = ssh.open_sftp()
+            
+            # Test directory listing
+            try:
+                files = sftp.listdir('.')
+                print(f"   ✅ SFTP connection successful, found {len(files)} items in root directory")
+            except Exception as e:
+                print(f"   ⚠️  SFTP connected but directory listing failed: {e}")
+            
+            # Test public_html directory
+            try:
+                public_files = sftp.listdir('public_html')
+                print(f"   ✅ public_html directory accessible, found {len(public_files)} items")
+            except Exception as e:
+                print(f"   ⚠️  public_html directory not accessible: {e}")
+            
+            # Close connections
+            sftp.close()
+            ssh.close()
+            
+            self.log_test("SFTP Connection Test", True, 
+                        f"Successfully connected to {hostname} with provided credentials")
+            return True
+            
+        except Exception as e:
+            self.log_test("SFTP Connection Test", False, 
+                        f"SFTP connection failed: {str(e)}")
+            return False
+
+    def test_sftp_directory_structure(self):
+        """Test SFTP directory structure creation"""
+        try:
+            import paramiko
+            import io
+            
+            # SFTP connection settings
+            hostname = 'static1.koodh.cloud'
+            username = 'sinterklaasgenk@static1.koodh.cloud'
+            password = 'KYLovie13monx'
+            port = 22
+            
+            print("   Testing SFTP directory structure...")
+            
+            # Create SSH client
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.connect(hostname=hostname, username=username, password=password, port=port, timeout=10)
+            
+            # Open SFTP session
+            sftp = ssh.open_sftp()
+            
+            # Check if public_html/news directory exists or can be created
+            remote_dir = "public_html/news"
+            try:
+                # Try to list the directory
+                files = sftp.listdir(remote_dir)
+                print(f"   ✅ Directory {remote_dir} exists with {len(files)} files")
+                directory_exists = True
+            except FileNotFoundError:
+                print(f"   ⚠️  Directory {remote_dir} doesn't exist, attempting to create...")
+                try:
+                    # Create parent directory first if needed
+                    try:
+                        sftp.mkdir("public_html")
+                        print("   ✅ Created public_html directory")
+                    except:
+                        print("   ℹ️  public_html directory already exists")
+                    
+                    # Create news subdirectory
+                    sftp.mkdir(remote_dir)
+                    print(f"   ✅ Created {remote_dir} directory")
+                    directory_exists = True
+                except Exception as create_error:
+                    print(f"   ❌ Failed to create directory: {create_error}")
+                    directory_exists = False
+            
+            # Close connections
+            sftp.close()
+            ssh.close()
+            
+            if directory_exists:
+                self.log_test("SFTP Directory Structure Test", True, 
+                            f"Directory structure {remote_dir} is accessible/created successfully")
+                return True
+            else:
+                self.log_test("SFTP Directory Structure Test", False, 
+                            f"Could not access or create directory structure {remote_dir}")
+                return False
+                
+        except Exception as e:
+            self.log_test("SFTP Directory Structure Test", False, 
+                        f"Directory structure test failed: {str(e)}")
+            return False
+
+    def test_image_upload_to_sftp(self):
+        """Test image upload via POST /api/demo/news/upload-image"""
+        try:
+            # Create a test image file (1x1 PNG)
+            png_data = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\tpHYs\x00\x00\x0b\x13\x00\x00\x0b\x13\x01\x00\x9a\x9c\x18\x00\x00\x00\x17IDATx\xda\x62\xf8\x0f\x00\x01\x01\x01\x00\x18\xdd\x8d\xb4\x00\x00\x00\x00IEND\xaeB`\x82'
+            
+            print("   Testing image upload to SFTP via /api/demo/news/upload-image...")
+            
+            # Remove auth header for demo endpoint
+            temp_headers = self.session.headers.copy()
+            if 'Authorization' in self.session.headers:
+                del self.session.headers['Authorization']
+            
+            try:
+                # Create temporary file
+                with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as temp_file:
+                    temp_file.write(png_data)
+                    temp_file_path = temp_file.name
+                
+                try:
+                    # Upload the file
+                    with open(temp_file_path, 'rb') as f:
+                        files = {'file': ('test_sftp_image.png', f, 'image/png')}
+                        response = self.session.post(f"{API_BASE}/demo/news/upload-image", files=files)
+                    
+                    if response.status_code == 200:
+                        data = response.json()
+                        image_url = data.get('image_url', '')
+                        filename = data.get('filename', '')
+                        
+                        print(f"   ✅ Upload successful - URL: {image_url}")
+                        print(f"   ✅ Generated filename: {filename}")
+                        
+                        # Check if URL is SFTP URL (https://static1.koodh.cloud/news/...)
+                        if 'static1.koodh.cloud/news/' in image_url:
+                            self.log_test("Image Upload to SFTP", True, 
+                                        f"Image uploaded to SFTP successfully: {image_url}")
+                            return image_url, filename
+                        else:
+                            print(f"   ⚠️  Upload succeeded but fell back to local storage: {image_url}")
+                            self.log_test("Image Upload to SFTP", False, 
+                                        f"Upload fell back to local storage instead of SFTP: {image_url}")
+                            return image_url, filename
+                    else:
+                        self.log_test("Image Upload to SFTP", False, 
+                                    f"Upload failed with status {response.status_code}: {response.text}")
+                        return None, None
+                        
+                finally:
+                    # Clean up temp file
+                    os.unlink(temp_file_path)
+                    
+            finally:
+                # Restore auth headers
+                self.session.headers.update(temp_headers)
+                
+        except Exception as e:
+            self.log_test("Image Upload to SFTP", False, f"Upload test failed: {str(e)}")
+            return None, None
+
+    def test_uploaded_image_accessibility(self, image_url):
+        """Test if uploaded image is accessible via public URL"""
+        if not image_url:
+            self.log_test("Image Accessibility Test", False, "No image URL provided")
+            return False
+            
+        try:
+            print(f"   Testing image accessibility at: {image_url}")
+            
+            # Test image accessibility
+            response = self.session.get(image_url, timeout=10)
+            
+            if response.status_code == 200:
+                # Check if it's actually an image
+                content_type = response.headers.get('content-type', '')
+                content_length = len(response.content)
+                
+                print(f"   ✅ Image accessible - Content-Type: {content_type}, Size: {content_length} bytes")
+                
+                if content_type.startswith('image/') and content_length > 0:
+                    self.log_test("Image Accessibility Test", True, 
+                                f"Image is accessible and valid: {image_url} ({content_length} bytes)")
+                    return True
+                else:
+                    self.log_test("Image Accessibility Test", False, 
+                                f"URL accessible but not a valid image: {content_type}")
+                    return False
+            else:
+                self.log_test("Image Accessibility Test", False, 
+                            f"Image not accessible - Status: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Image Accessibility Test", False, 
+                        f"Image accessibility test failed: {str(e)}")
+            return False
+
+    def test_sftp_error_handling(self):
+        """Test error handling when SFTP fails (fallback to local storage)"""
+        try:
+            print("   Testing SFTP error handling and fallback to local storage...")
+            
+            # We'll test this by trying to upload when SFTP might fail
+            # The backend should gracefully fall back to local storage
+            
+            # Create a test image
+            png_data = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\tpHYs\x00\x00\x0b\x13\x00\x00\x0b\x13\x01\x00\x9a\x9c\x18\x00\x00\x00\x17IDATx\xda\x62\xf8\x0f\x00\x01\x01\x01\x00\x18\xdd\x8d\xb4\x00\x00\x00\x00IEND\xaeB`\x82'
+            
+            # Remove auth header for demo endpoint
+            temp_headers = self.session.headers.copy()
+            if 'Authorization' in self.session.headers:
+                del self.session.headers['Authorization']
+            
+            try:
+                with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as temp_file:
+                    temp_file.write(png_data)
+                    temp_file_path = temp_file.name
+                
+                try:
+                    # Upload the file
+                    with open(temp_file_path, 'rb') as f:
+                        files = {'file': ('test_fallback_image.png', f, 'image/png')}
+                        response = self.session.post(f"{API_BASE}/demo/news/upload-image", files=files)
+                    
+                    if response.status_code == 200:
+                        data = response.json()
+                        image_url = data.get('image_url', '')
+                        
+                        # Check if we got any valid URL (SFTP or local fallback)
+                        if image_url:
+                            if 'static1.koodh.cloud' in image_url:
+                                print(f"   ✅ SFTP upload successful: {image_url}")
+                                self.log_test("SFTP Error Handling Test", True, 
+                                            "SFTP upload working, no fallback needed")
+                            else:
+                                print(f"   ✅ Fallback to local storage working: {image_url}")
+                                self.log_test("SFTP Error Handling Test", True, 
+                                            f"Fallback to local storage working: {image_url}")
+                            return True
+                        else:
+                            self.log_test("SFTP Error Handling Test", False, 
+                                        "No image URL returned from upload")
+                            return False
+                    else:
+                        self.log_test("SFTP Error Handling Test", False, 
+                                    f"Upload failed completely: {response.status_code}")
+                        return False
+                        
+                finally:
+                    os.unlink(temp_file_path)
+                    
+            finally:
+                self.session.headers.update(temp_headers)
+                
+        except Exception as e:
+            self.log_test("SFTP Error Handling Test", False, f"Error handling test failed: {str(e)}")
+            return False
+
+    def test_sftp_functionality_comprehensive(self):
+        """Comprehensive SFTP image upload functionality test"""
+        print("   Running comprehensive SFTP functionality tests...")
+        
+        # Test 1: SFTP Connection
+        connection_success = self.test_sftp_connection()
+        
+        # Test 2: Directory Structure
+        directory_success = self.test_sftp_directory_structure()
+        
+        # Test 3: Image Upload
+        image_url, filename = self.test_image_upload_to_sftp()
+        upload_success = image_url is not None
+        
+        # Test 4: Image Accessibility (only if upload succeeded)
+        accessibility_success = False
+        if upload_success and image_url:
+            accessibility_success = self.test_uploaded_image_accessibility(image_url)
+        
+        # Test 5: Error Handling
+        error_handling_success = self.test_sftp_error_handling()
+        
+        # Calculate overall success
+        tests_passed = sum([connection_success, directory_success, upload_success, 
+                           accessibility_success, error_handling_success])
+        total_tests = 5
+        
+        if tests_passed == total_tests:
+            self.log_test("SFTP Functionality Comprehensive", True, 
+                        f"All {total_tests} SFTP tests passed - Full functionality working")
+            return True
+        else:
+            failed_tests = []
+            if not connection_success:
+                failed_tests.append("SFTP connection")
+            if not directory_success:
+                failed_tests.append("directory structure")
+            if not upload_success:
+                failed_tests.append("image upload")
+            if not accessibility_success:
+                failed_tests.append("image accessibility")
+            if not error_handling_success:
+                failed_tests.append("error handling")
+                
+            self.log_test("SFTP Functionality Comprehensive", False, 
+                        f"Failed tests: {', '.join(failed_tests)} ({tests_passed}/{total_tests} passed)")
+            return False
+
     def run_demo_endpoints_tests(self):
         """Run focused demo endpoints tests"""
         print("=" * 70)
