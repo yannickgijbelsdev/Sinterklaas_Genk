@@ -468,6 +468,56 @@ class BackendTester:
                         f"Only {success_count}/{len(sections_to_test)} sections updated successfully")
             return False
 
+    def run_admin_login_tests(self):
+        """Run focused admin login functionality tests"""
+        print("=" * 70)
+        print("SINTERKLAAS GENK WEBSITE - ADMIN LOGIN FUNCTIONALITY TESTING")
+        print("=" * 70)
+        print(f"Testing against: {BACKEND_URL}")
+        print()
+        
+        # Admin login focused test sequence
+        tests = [
+            ("API Connectivity", self.test_health_check),
+            ("Admin User Creation Check", self.test_admin_user_creation),
+            ("Admin Login API Endpoint", self.test_admin_login),
+            ("Login Error Handling", self.test_login_with_wrong_credentials),
+            ("JWT Token Verification", self.test_token_verification),
+            ("Admin Protected Endpoints", self.test_admin_protected_endpoints),
+            ("Protected Endpoint Security", self.test_protected_endpoint_without_auth),
+        ]
+        
+        passed = 0
+        total = len(tests)
+        
+        for test_name, test_func in tests:
+            print(f"Running: {test_name}")
+            print("-" * 50)
+            if test_func():
+                passed += 1
+            print()
+        
+        # Summary
+        print("=" * 70)
+        print("ADMIN LOGIN TESTING SUMMARY")
+        print("=" * 70)
+        print(f"Total Tests: {total}")
+        print(f"Passed: {passed}")
+        print(f"Failed: {total - passed}")
+        print(f"Success Rate: {(passed/total)*100:.1f}%")
+        print()
+        
+        if passed == total:
+            print("🎉 ALL ADMIN LOGIN TESTS PASSED - Authentication system working correctly!")
+            print("✅ Default admin user (admin@sinterklaas.com/admin123) is properly configured")
+            print("✅ JWT authentication flow is working")
+            print("✅ Admin-protected endpoints are accessible with proper credentials")
+            print("✅ Error handling for wrong credentials is working")
+        else:
+            print("⚠️  Some admin login tests failed - Check the details above")
+            
+        return passed == total
+
     def run_all_tests(self):
         """Run comprehensive backend testing suite"""
         print("=" * 60)
@@ -479,8 +529,11 @@ class BackendTester:
         # Test sequence
         tests = [
             ("API Connectivity", self.test_health_check),
+            ("Admin User Creation Check", self.test_admin_user_creation),
             ("Admin Authentication", self.test_admin_login),
+            ("Login Error Handling", self.test_login_with_wrong_credentials),
             ("JWT Token Verification", self.test_token_verification),
+            ("Admin Protected Endpoints", self.test_admin_protected_endpoints),
             ("Protected Endpoint Security", self.test_protected_endpoint_without_auth),
             ("Content Retrieval", self.test_get_content),
             ("Content Updates", self.test_update_content),
