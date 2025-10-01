@@ -305,7 +305,8 @@ const NewsManagement = React.memo(({
                   excerpt: '',
                   content: '',
                   category: 'Algemeen',
-                  published: true
+                  published: true,
+                  featured_image: ''
                 });
               }}
             >
