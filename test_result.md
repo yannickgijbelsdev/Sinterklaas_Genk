@@ -183,6 +183,18 @@ backend:
         agent: "testing"
         comment: "ERROR HANDLING COMPREHENSIVE: All wrong credential combinations (wrong password, wrong username, empty fields) correctly rejected with 401 status and clear error messages. Protected endpoints without authentication properly return 403 status. Error responses have appropriate HTTP status codes and descriptive messages."
 
+  - task: "Demo News Articles Creation"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "DEMO NEWS ARTICLES CREATION SUCCESSFUL: Created 3 demo news articles for Sinterklaas Genk website as requested by user. ✅ ALL ARTICLES CREATED: 1) 'Zo bereiden onze acteurs zich voor op het Sinterklaas seizoen' (Achter de Schermen), 2) 'Hoe bereid je je kind voor op de eerste Sinterklaasshow?' (Tips & Tricks), 3) 'De geschiedenis van Sinterklaas in Genk' (Algemeen). ✅ PUBLIC ACCESS VERIFIED: All articles accessible via /api/news endpoint with proper Dutch content, categories, and placeholder images. ✅ NEWS SYSTEM FUNCTIONAL: POST /api/admin/news endpoint working correctly with authentication, articles stored in database and publicly accessible. News system ready for demonstration."
+
 frontend:
   - task: "Scroll-based Navigation & Animations"
     implemented: true
