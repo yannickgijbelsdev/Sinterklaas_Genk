@@ -194,7 +194,7 @@ export default function Home() {
               textShadow: '3px 6px 12px rgba(0,0,0,0.8)',
               marginBottom: '24px',
               lineHeight: '1.1',
-              fontFamily: '"Lavishly Yours", cursive',
+              fontFamily: '"Genty", cursive',
               textTransform: 'none'
             }}>
               <span style={{ color: '#DC2626' }}>Sint</span>
