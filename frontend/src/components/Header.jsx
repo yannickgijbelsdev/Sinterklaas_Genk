@@ -29,6 +29,8 @@ export const Header = () => {
       // Error is handled by the login function
     }
   };
+
+  const navigationItems = [
     { name: 'Over Ons', href: '#about' },
     { name: 'Shows', href: '#shows' },
     { name: 'Veiligheid', href: '#safety' },
