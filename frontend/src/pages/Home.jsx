@@ -345,72 +345,269 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Nieuws Section */}
-      <section id="news" className="section section-padding relative" style={{ backgroundColor: '#FCA5A5' }}>
+      {/* Modern Nieuws Section */}
+      <section id="news" className="section section-padding relative" style={{ backgroundColor: '#FFF5F5' }}>
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="genty-regular" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#DC2626' }}>
-              Leuke Verhalen & Nieuws
-            </h2>
-            <p style={{ fontSize: '20px', color: '#666' }}>
-              Blijf op de hoogte van alle nieuwtjes en verhalen rondom Sinterklaas Genk.
+          {/* News Header */}
+          <div className="text-center mb-12">
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <span style={{ fontSize: '2rem' }}>📰</span>
+              <h2 className="genty-regular" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color: '#B91C1C', margin: '0' }}>
+                Sinterklaas Nieuws
+              </h2>
+              <span style={{ fontSize: '2rem' }}>✨</span>
+            </div>
+            <p style={{ fontSize: '18px', color: '#4B5563', maxWidth: '600px', margin: '0 auto' }}>
+              De leukste verhalen, nieuwtjes en behind-the-scenes van onze magische shows
             </p>
           </div>
-          
-          <div className="three-column">
-            {blogPosts.slice(0, 3).map((post, index) => (
-              <div key={post.id || index} className="card" style={{ overflow: 'hidden', padding: '0' }}>
+
+          {blogPosts.length > 0 && (
+            <>
+              {/* Headline Article */}
+              <div style={{ marginBottom: '48px' }}>
                 <div style={{
-                  height: '200px',
-                  background: post.image ? 'transparent' : '#DC2626',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '64px',
-                  position: 'relative'
+                  background: 'white',
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                  border: '3px solid #DC2626'
                 }}>
-                  {post.image ? (
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }}
-                    />
-                  ) : (
-                    <span>{post.icon || '📰'}</span>
-                  )}
-                </div>
-                <div style={{ padding: '24px' }}>
-                  <div className="sinterklaas-badge" style={{ marginBottom: '16px' }}>
-                    {post.category || 'Nieuws'}
-                  </div>
-                  <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px', lineHeight: '1.3' }}>
-                    {post.title}
-                  </h3>
-                  <p style={{ color: '#666', marginBottom: '16px' }}>{post.excerpt}</p>
-                  <a href={post.id && post.id.startsWith('demo-') ? '#' : `/news/${post.id}`} style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
-                    Lees meer →
-                  </a>
                   <div style={{ 
-                    fontSize: '14px', 
-                    color: '#999', 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center', 
-                    marginTop: '16px', 
-                    paddingTop: '16px', 
-                    borderTop: '1px solid #E5E7EB' 
+                    display: 'grid', 
+                    gridTemplateColumns: '1fr 1fr', 
+                    alignItems: 'center',
+                    minHeight: '400px'
                   }}>
-                    <span>{post.date}</span>
-                    <span>{post.readTime || '3 min lezen'}</span>
+                    <div style={{ padding: '40px' }}>
+                      <div style={{
+                        background: 'linear-gradient(135deg, #DC2626, #B91C1C)',
+                        color: 'white',
+                        padding: '8px 16px',
+                        borderRadius: '20px',
+                        display: 'inline-block',
+                        fontSize: '14px',
+                        fontWeight: '700',
+                        textTransform: 'uppercase',
+                        marginBottom: '16px',
+                        letterSpacing: '0.5px'
+                      }}>
+                        🔥 Hoofdverhaal
+                      </div>
+                      <h3 style={{ 
+                        fontSize: 'clamp(1.5rem, 3vw, 2rem)', 
+                        fontWeight: '800', 
+                        marginBottom: '16px', 
+                        lineHeight: '1.2',
+                        color: '#1F2937'
+                      }}>
+                        {blogPosts[0].title}
+                      </h3>
+                      <p style={{ 
+                        color: '#6B7280', 
+                        fontSize: '16px', 
+                        lineHeight: '1.6', 
+                        marginBottom: '24px' 
+                      }}>
+                        {blogPosts[0].excerpt}
+                      </p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+                        <span style={{ 
+                          background: '#FEF3C7', 
+                          color: '#D97706', 
+                          padding: '4px 12px', 
+                          borderRadius: '12px', 
+                          fontSize: '12px', 
+                          fontWeight: '600'
+                        }}>
+                          {blogPosts[0].category}
+                        </span>
+                        <span style={{ color: '#9CA3AF', fontSize: '14px' }}>📅 {blogPosts[0].date}</span>
+                        <span style={{ color: '#9CA3AF', fontSize: '14px' }}>⏱️ {blogPosts[0].readTime}</span>
+                      </div>
+                      <a 
+                        href={blogPosts[0].id && blogPosts[0].id.startsWith('demo-') ? '#' : `/news/${blogPosts[0].id}`}
+                        style={{
+                          background: 'linear-gradient(135deg, #DC2626, #B91C1C)',
+                          color: 'white',
+                          padding: '12px 24px',
+                          borderRadius: '12px',
+                          textDecoration: 'none',
+                          fontWeight: '600',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          transition: 'transform 0.2s ease'
+                        }}
+                        onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
+                        onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                      >
+                        Lees het hele verhaal 
+                        <span style={{ fontSize: '16px' }}>🚀</span>
+                      </a>
+                    </div>
+                    <div style={{ height: '400px', position: 'relative' }}>
+                      {blogPosts[0].image ? (
+                        <img 
+                          src={blogPosts[0].image} 
+                          alt={blogPosts[0].title}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                        />
+                      ) : (
+                        <div style={{
+                          background: 'linear-gradient(135deg, #FEF3C7, #FDE68A)',
+                          height: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '4rem'
+                        }}>
+                          {blogPosts[0].icon || '🎭'}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* Other Articles Grid */}
+              {blogPosts.length > 1 && (
+                <>
+                  <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+                    <h3 style={{ 
+                      fontSize: 'clamp(1.5rem, 3vw, 2rem)', 
+                      color: '#B91C1C', 
+                      marginBottom: '8px',
+                      fontWeight: '700'
+                    }}>
+                      Meer Sinterklaas Verhalen
+                    </h3>
+                    <div style={{ width: '60px', height: '4px', background: 'linear-gradient(135deg, #DC2626, #B91C1C)', margin: '0 auto', borderRadius: '2px' }}></div>
+                  </div>
+                  
+                  <div style={{ 
+                    display: 'grid', 
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+                    gap: '24px' 
+                  }}>
+                    {blogPosts.slice(1, 4).map((post, index) => (
+                      <div 
+                        key={post.id || index} 
+                        style={{
+                          background: 'white',
+                          borderRadius: '16px',
+                          overflow: 'hidden',
+                          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                          transition: 'all 0.3s ease',
+                          border: '2px solid transparent'
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.transform = 'translateY(-4px)';
+                          e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+                          e.currentTarget.style.borderColor = '#FCA5A5';
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+                          e.currentTarget.style.borderColor = 'transparent';
+                        }}
+                      >
+                        <div style={{ height: '180px', position: 'relative' }}>
+                          {post.image ? (
+                            <img 
+                              src={post.image} 
+                              alt={post.title}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover'
+                              }}
+                            />
+                          ) : (
+                            <div style={{
+                              background: `linear-gradient(135deg, ${['#FEF3C7', '#DBEAFE', '#F3E8FF'][index % 3]}, ${['#FDE68A', '#BFDBFE', '#E9D5FF'][index % 3]})`,
+                              height: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '3rem'
+                            }}>
+                              {post.icon || ['🎪', '🎁', '⭐'][index % 3]}
+                            </div>
+                          )}
+                        </div>
+                        <div style={{ padding: '20px' }}>
+                          <div style={{
+                            background: '#FEF3C7',
+                            color: '#D97706',
+                            padding: '4px 10px',
+                            borderRadius: '8px',
+                            fontSize: '11px',
+                            fontWeight: '600',
+                            textTransform: 'uppercase',
+                            display: 'inline-block',
+                            marginBottom: '12px'
+                          }}>
+                            {post.category || 'Nieuws'}
+                          </div>
+                          <h4 style={{ 
+                            fontSize: '16px', 
+                            fontWeight: '700', 
+                            marginBottom: '8px', 
+                            lineHeight: '1.3',
+                            color: '#1F2937'
+                          }}>
+                            {post.title}
+                          </h4>
+                          <p style={{ 
+                            color: '#6B7280', 
+                            fontSize: '14px', 
+                            lineHeight: '1.5', 
+                            marginBottom: '16px',
+                            display: '-webkit-box',
+                            WebkitLineClamp: '2',
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden'
+                          }}>
+                            {post.excerpt}
+                          </p>
+                          <div style={{ 
+                            display: 'flex', 
+                            justifyContent: 'space-between', 
+                            alignItems: 'center',
+                            fontSize: '12px',
+                            color: '#9CA3AF',
+                            marginBottom: '12px'
+                          }}>
+                            <span>📅 {post.date}</span>
+                            <span>⏱️ {post.readTime}</span>
+                          </div>
+                          <a 
+                            href={post.id && post.id.startsWith('demo-') ? '#' : `/news/${post.id}`}
+                            style={{
+                              color: '#DC2626',
+                              textDecoration: 'none',
+                              fontWeight: '600',
+                              fontSize: '14px',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px'
+                            }}
+                          >
+                            Lees meer <span style={{ fontSize: '12px' }}>📖</span>
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </>
+          )}
         </div>
         
         {/* Wave Shape Bottom - News to Contact */}
