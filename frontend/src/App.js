@@ -12,8 +12,7 @@ import Shows from "./pages/Shows";
 import Gallery from "./pages/Gallery";
 import News from "./pages/News";
 import Contact from "./pages/Contact";
-import SecureAdmin from "./pages/SecureAdmin";
-import LiveAdmin from "./pages/LiveAdmin";
+import Admin from "./pages/Admin";
 import { Toaster } from "./components/ui/sonner";
 
 function App() {
@@ -32,8 +31,7 @@ function App() {
               <Route path="/news" element={<News />} />
               <Route path="/news/:id" element={<News />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<SecureAdmin />} />
-              <Route path="/live-editor" element={<LiveAdmin />} />
+              <Route path="/admin" element={<Admin />} />
             </Routes>
           </main>
           <Footer />
