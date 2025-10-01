@@ -654,6 +654,12 @@ async def delete_news_article(article_id: str, current_user: User = Depends(get_
         raise HTTPException(status_code=404, detail="Article not found")
     return {"message": "Article deleted successfully"}
 
+# Admin Routes - News Management (Protected)
+@api_router.get("/news", response_model=List[NewsArticle])
+async def get_published_news():
+    news_items = await db.news.find({"published": True}).sort("date", -1).to_list(100)
+    return [NewsArticle(**item) for item in news_items]
+
 # News Image Upload (Protected)
 @api_router.post("/admin/news/upload-image")
 async def upload_news_image(file: UploadFile = File(...), current_user: User = Depends(get_admin_user)):
