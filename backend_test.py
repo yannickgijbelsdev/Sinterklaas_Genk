@@ -210,6 +210,30 @@ class BackendTester:
             self.log_test("JWT Token Verification", False, f"Error: {str(e)}")
             return False
 
+    def test_admin_protected_endpoints(self):
+        """Test admin-protected endpoints like GET /api/admin/content"""
+        if not self.auth_token:
+            self.log_test("Admin Protected Endpoints", False, "No auth token available")
+            return False
+            
+        try:
+            # Test GET /api/admin/content with valid admin token
+            response = self.session.get(f"{API_BASE}/admin/content")
+            
+            if response.status_code == 200:
+                data = response.json()
+                self.log_test("Admin Protected Endpoints", True, 
+                            f"Admin endpoint accessible with valid token, returned {len(data)} items")
+                return True
+            else:
+                self.log_test("Admin Protected Endpoints", False, 
+                            f"Admin endpoint not accessible with valid token (Status: {response.status_code})")
+                return False
+                
+        except Exception as e:
+            self.log_test("Admin Protected Endpoints", False, f"Error: {str(e)}")
+            return False
+
     def test_protected_endpoint_without_auth(self):
         """Test that protected endpoints require authentication"""
         # Temporarily remove auth header
