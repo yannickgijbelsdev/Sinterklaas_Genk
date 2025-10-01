@@ -1246,7 +1246,7 @@ async def startup_event():
             hashed_password = hash_password("admin123")
             admin_user = {
                 "id": str(uuid.uuid4()),
-                "username": "admin",
+                "username": "admin@sinterklaas.com",  # Use email as username
                 "email": "admin@sinterklaas.com", 
                 "hashed_password": hashed_password,
                 "is_active": True,
