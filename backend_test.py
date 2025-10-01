@@ -571,7 +571,12 @@ class BackendTester:
 def main():
     """Main test execution"""
     tester = BackendTester()
-    success = tester.run_all_tests()
+    
+    # Check if we should run focused admin login tests
+    if len(sys.argv) > 1 and sys.argv[1] == "--admin-login":
+        success = tester.run_admin_login_tests()
+    else:
+        success = tester.run_all_tests()
     
     # Exit with appropriate code
     sys.exit(0 if success else 1)
