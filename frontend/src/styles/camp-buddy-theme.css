@@ -129,7 +129,7 @@ h3 {
 .wavy-separator-gold {
   position: relative;
   height: 100px;
-  background: var(--sinterklaas-goud);
+  background: var(--sinterklaas-rood);
   overflow: hidden;
 }
 
@@ -140,7 +140,7 @@ h3 {
   left: 0;
   right: 0;
   height: 100%;
-  background: var(--sinterklaas-goud);
+  background: var(--sinterklaas-rood);
   clip-path: polygon(0 60%, 25% 30%, 50% 70%, 75% 20%, 100% 50%, 100% 100%, 0 100%);
 }
 
