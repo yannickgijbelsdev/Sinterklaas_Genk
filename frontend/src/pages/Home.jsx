@@ -238,7 +238,7 @@ export default function Home() {
           <div className="two-column">
             <div>
               <div className="eyebrow text-white">Over Sinterklaas Genk</div>
-              <h2 className="lavishly-yours-regular text-white mb-8" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+              <h2 className="genty-regular text-white mb-8" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
                 {content.about_title || 'Wat maakt onze show zo speciaal?'}
               </h2>
               <p className="text-white mb-8" style={{ opacity: 0.9 }}>
