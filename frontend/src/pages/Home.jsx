@@ -186,29 +186,7 @@ export default function Home() {
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black/40"></div>
         
-        <div className="container relative z-10">
-          <div className="max-w-4xl">
-            <h1 style={{
-              fontSize: 'clamp(3rem, 8vw, 6rem)',
-              fontWeight: '400',
-              textShadow: '3px 6px 12px rgba(0,0,0,0.8)',
-              marginBottom: '24px',
-              lineHeight: '1.1',
-              fontFamily: '"Genty", cursive',
-              textTransform: 'none'
-            }}>
-              <span style={{ color: '#DC2626' }}>Sint</span>
-              <span style={{ color: 'white' }}>erklaas</span>
-              <span style={{ color: '#DC2626' }}> en</span>
-              <span style={{ color: 'white' }}> de</span>
-              <br />
-              <span style={{ color: '#DC2626' }}>Wens</span>
-              <span style={{ color: 'white' }}>machine</span>
-            </h1>
-            
-            {/* Subtitel en buttons verwijderd */}
-          </div>
-        </div>
+        {/* Title removed - clean banner */}
         
         {/* Floating Elements - REMOVED */}
         
