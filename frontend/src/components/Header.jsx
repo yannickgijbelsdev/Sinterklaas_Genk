@@ -61,23 +61,15 @@ export const Header = () => {
           {/* Logo */}
           <div className="header-logo">
             <a href="/" className="flex items-center">
-              <div style={{
-                background: 'rgba(255,255,255,0.95)',
-                borderRadius: '20px',
-                padding: '8px 16px',
-                backdropFilter: 'blur(10px)',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
-              }}>
-                <img 
-                  src="/sinterklaas-logo.png" 
-                  alt="Sinterklaas Genk Logo" 
-                  style={{ 
-                    height: '80px',
-                    width: 'auto',
-                    objectFit: 'contain'
-                  }}
-                />
-              </div>
+              <img 
+                src="/sinterklaas-logo.png" 
+                alt="Sinterklaas Genk Logo" 
+                style={{ 
+                  height: '80px',
+                  width: 'auto',
+                  objectFit: 'contain'
+                }}
+              />
             </a>
           </div>
 
