@@ -253,6 +253,15 @@ export default function MenuEditor() {
     useSensor(KeyboardSensor)
   );
 
+  // useCallback handlers to prevent focus issues
+  const handleNewItemLabelChange = useCallback((e) => {
+    setNewItem({...newItem, label: e.target.value});
+  }, [newItem]);
+
+  const handleNewItemUrlChange = useCallback((e) => {
+    setNewItem({...newItem, url: e.target.value});
+  }, [newItem]);
+
   // Find item by ID (recursive)
   const findItem = (items, id) => {
     for (let item of items) {
