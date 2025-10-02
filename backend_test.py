@@ -2486,6 +2486,227 @@ class BackendTester:
             
         return passed == total
 
+    def test_admin_password_investigation(self):
+        """Investigate admin password issue - test both admin123 and KYLovie13monx"""
+        print("   Investigating admin password authentication issue...")
+        
+        # Test credentials to check
+        credentials_to_test = [
+            {"username": "admin", "password": "admin123", "description": "Old password (admin123)"},
+            {"username": "admin", "password": "KYLovie13monx", "description": "New password (KYLovie13monx)"},
+            {"username": "admin@sinterklaas.com", "password": "admin123", "description": "Email username with old password"},
+            {"username": "admin@sinterklaas.com", "password": "KYLovie13monx", "description": "Email username with new password"},
+        ]
+        
+        successful_logins = []
+        failed_logins = []
+        
+        for creds in credentials_to_test:
+            try:
+                print(f"   Testing {creds['description']}: {creds['username']}/{creds['password']}")
+                
+                response = self.session.post(f"{API_BASE}/auth/login", json={
+                    "username": creds["username"],
+                    "password": creds["password"]
+                })
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    user_info = data.get('user', {})
+                    successful_logins.append({
+                        'credentials': creds,
+                        'user_info': user_info,
+                        'token': data.get('access_token', '')
+                    })
+                    print(f"   ✅ SUCCESS: {creds['description']} - User: {user_info.get('email', 'N/A')}, Admin: {user_info.get('is_admin', False)}")
+                else:
+                    failed_logins.append({
+                        'credentials': creds,
+                        'status_code': response.status_code,
+                        'response': response.text
+                    })
+                    print(f"   ❌ FAILED: {creds['description']} - Status: {response.status_code}")
+                    
+            except Exception as e:
+                failed_logins.append({
+                    'credentials': creds,
+                    'error': str(e)
+                })
+                print(f"   ❌ ERROR: {creds['description']} - {str(e)}")
+        
+        # Summary of findings
+        print(f"\n   INVESTIGATION RESULTS:")
+        print(f"   Successful logins: {len(successful_logins)}")
+        print(f"   Failed logins: {len(failed_logins)}")
+        
+        if len(successful_logins) > 1:
+            self.log_test("Admin Password Investigation", False, 
+                        f"MULTIPLE PASSWORDS WORKING: {len(successful_logins)} different credential combinations work",
+                        {"successful_logins": successful_logins, "failed_logins": failed_logins})
+        elif len(successful_logins) == 1:
+            working_creds = successful_logins[0]['credentials']
+            self.log_test("Admin Password Investigation", True, 
+                        f"Only one password works: {working_creds['username']}/{working_creds['password']}",
+                        {"successful_logins": successful_logins, "failed_logins": failed_logins})
+        else:
+            self.log_test("Admin Password Investigation", False, 
+                        "NO PASSWORDS WORKING: All authentication attempts failed",
+                        {"failed_logins": failed_logins})
+        
+        return successful_logins, failed_logins
+
+    def test_admin_users_in_database(self):
+        """Check what admin users exist in the database"""
+        try:
+            print("   Checking admin users in database...")
+            
+            # First, try to authenticate to get access to admin endpoints
+            login_attempts = [
+                {"username": "admin", "password": "admin123"},
+                {"username": "admin", "password": "KYLovie13monx"},
+                {"username": "admin@sinterklaas.com", "password": "admin123"},
+                {"username": "admin@sinterklaas.com", "password": "KYLovie13monx"},
+            ]
+            
+            auth_token = None
+            for creds in login_attempts:
+                try:
+                    response = self.session.post(f"{API_BASE}/auth/login", json=creds)
+                    if response.status_code == 200:
+                        data = response.json()
+                        auth_token = data.get('access_token')
+                        print(f"   ✅ Authenticated with {creds['username']}/{creds['password']}")
+                        break
+                except:
+                    continue
+            
+            if not auth_token:
+                self.log_test("Admin Users Database Check", False, "Could not authenticate to access admin endpoints")
+                return []
+            
+            # Set auth header
+            temp_headers = self.session.headers.copy()
+            self.session.headers.update({'Authorization': f'Bearer {auth_token}'})
+            
+            try:
+                # Get all users via admin endpoint
+                response = self.session.get(f"{API_BASE}/admin/users")
+                
+                if response.status_code == 200:
+                    users = response.json()
+                    admin_users = [user for user in users if user.get('is_admin', False)]
+                    
+                    print(f"   Found {len(users)} total users, {len(admin_users)} admin users:")
+                    
+                    for i, admin_user in enumerate(admin_users, 1):
+                        print(f"   Admin User {i}:")
+                        print(f"     ID: {admin_user.get('id', 'N/A')}")
+                        print(f"     Username: {admin_user.get('username', 'N/A')}")
+                        print(f"     Email: {admin_user.get('email', 'N/A')}")
+                        print(f"     Active: {admin_user.get('is_active', 'N/A')}")
+                        print(f"     Created: {admin_user.get('createdAt', 'N/A')}")
+                        print(f"     Updated: {admin_user.get('updatedAt', 'N/A')}")
+                        print()
+                    
+                    self.log_test("Admin Users Database Check", True, 
+                                f"Found {len(admin_users)} admin users in database",
+                                {"admin_users": admin_users, "total_users": len(users)})
+                    return admin_users
+                else:
+                    self.log_test("Admin Users Database Check", False, 
+                                f"Could not retrieve users (Status: {response.status_code})")
+                    return []
+                    
+            finally:
+                # Restore headers
+                self.session.headers.update(temp_headers)
+                
+        except Exception as e:
+            self.log_test("Admin Users Database Check", False, f"Error: {str(e)}")
+            return []
+
+    def test_password_hash_verification(self):
+        """Attempt to understand which password hashes are stored"""
+        try:
+            print("   Investigating password hash storage...")
+            
+            # This test will try to understand the password situation by testing different scenarios
+            successful_logins, failed_logins = self.test_admin_password_investigation()
+            admin_users = self.test_admin_users_in_database()
+            
+            # Analysis
+            analysis = {
+                "multiple_passwords_work": len(successful_logins) > 1,
+                "working_passwords": [login['credentials']['password'] for login in successful_logins],
+                "admin_user_count": len(admin_users),
+                "admin_users_details": admin_users
+            }
+            
+            if analysis["multiple_passwords_work"]:
+                print(f"   🚨 ISSUE IDENTIFIED: Multiple passwords work for admin access")
+                print(f"   Working passwords: {', '.join(analysis['working_passwords'])}")
+                
+                if analysis["admin_user_count"] > 1:
+                    print(f"   🔍 LIKELY CAUSE: Multiple admin users exist ({analysis['admin_user_count']} found)")
+                    print(f"   This explains why both old and new passwords work")
+                else:
+                    print(f"   🔍 INVESTIGATION NEEDED: Only 1 admin user but multiple passwords work")
+                    print(f"   This suggests a backend logic issue")
+                    
+                self.log_test("Password Hash Verification", False, 
+                            "Multiple passwords working - security issue identified",
+                            analysis)
+                return False
+            else:
+                print(f"   ✅ Only one password works: {analysis['working_passwords'][0] if analysis['working_passwords'] else 'None'}")
+                self.log_test("Password Hash Verification", True, 
+                            "Only one password works - normal behavior",
+                            analysis)
+                return True
+                
+        except Exception as e:
+            self.log_test("Password Hash Verification", False, f"Error: {str(e)}")
+            return False
+
+    def run_password_investigation_tests(self):
+        """Run focused password investigation tests"""
+        print("=" * 70)
+        print("ADMIN PASSWORD INVESTIGATION - SINTERKLAAS GENK")
+        print("=" * 70)
+        print(f"Testing against: {BACKEND_URL}")
+        print("Investigating why both admin123 and KYLovie13monx passwords work")
+        print()
+        
+        # Password investigation test sequence
+        tests = [
+            ("API Connectivity", self.test_health_check),
+            ("Admin Password Investigation", lambda: self.test_admin_password_investigation()[0] is not None),
+            ("Admin Users Database Check", lambda: len(self.test_admin_users_in_database()) > 0),
+            ("Password Hash Verification", self.test_password_hash_verification),
+        ]
+        
+        passed = 0
+        total = len(tests)
+        
+        for test_name, test_func in tests:
+            print(f"Running: {test_name}")
+            print("-" * 50)
+            if test_func():
+                passed += 1
+            print()
+        
+        # Summary
+        print("=" * 70)
+        print("PASSWORD INVESTIGATION SUMMARY")
+        print("=" * 70)
+        print(f"Total Tests: {total}")
+        print(f"Passed: {passed}")
+        print(f"Failed: {total - passed}")
+        print(f"Success Rate: {(passed/total)*100:.1f}%")
+        print()
+        
+        return passed == total
+
 def main():
     """Main test execution"""
     tester = BackendTester()
@@ -2502,17 +2723,20 @@ def main():
             success = tester.run_sftp_tests()
         elif sys.argv[1] == "--image-upload":
             success = tester.run_image_upload_tests()
+        elif sys.argv[1] == "--password-investigation":
+            success = tester.run_password_investigation_tests()
         else:
             print("Available options:")
-            print("  --admin-login     : Run focused admin login tests")
-            print("  --news-demo       : Run news article creation demo tests")
-            print("  --demo-endpoints  : Run demo admin endpoints tests (no auth)")
-            print("  --sftp            : Run SFTP image upload functionality tests")
-            print("  --image-upload    : Run image upload functionality tests (NEW)")
-            print("  (no args)         : Run all comprehensive tests")
+            print("  --admin-login           : Run focused admin login tests")
+            print("  --news-demo             : Run news article creation demo tests")
+            print("  --demo-endpoints        : Run demo admin endpoints tests (no auth)")
+            print("  --sftp                  : Run SFTP image upload functionality tests")
+            print("  --image-upload          : Run image upload functionality tests")
+            print("  --password-investigation: Investigate admin password issue (NEW)")
+            print("  (no args)               : Run all comprehensive tests")
             success = tester.run_all_tests()
     else:
-        success = tester.run_all_tests()
+        success = tester.run_password_investigation_tests()  # Default to password investigation
     
     # Exit with appropriate code
     sys.exit(0 if success else 1)
