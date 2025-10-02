@@ -444,7 +444,12 @@ export default function Home() {
                 </button>
                 {openFaq === index && (
                   <div style={{ padding: '20px 24px 24px', color: '#374151', background: 'white', marginTop: '2px', borderRadius: '0 0 12px 12px', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)' }}>
-                    <p style={{ lineHeight: '1.7' }}>{item.answer}</p>
+                    <p 
+                      style={{ lineHeight: '1.7' }}
+                      data-edit-id={`faq_answer_${index}`}
+                    >
+                      {item.answer}
+                    </p>
                   </div>
                 )}
               </div>
