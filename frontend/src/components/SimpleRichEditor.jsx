@@ -70,19 +70,29 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
 
   // Upload audio file
   const uploadAudio = async (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
 
-    const response = await apiCall('/admin/upload', {
-      method: 'POST',
-      body: formData
-    });
+      const response = await apiCall('/admin/upload', {
+        method: 'POST',
+        body: formData
+      });
 
-    if (response.ok) {
-      const result = await response.json();
-      return `${process.env.REACT_APP_BACKEND_URL}${result.url}`;
+      if (response.ok) {
+        const result = await response.json();
+        const audioUrl = `${process.env.REACT_APP_BACKEND_URL}${result.url}`;
+        console.log('Audio uploaded successfully:', audioUrl);
+        return audioUrl;
+      } else {
+        const errorText = await response.text();
+        console.error('Audio upload failed:', response.status, errorText);
+        throw new Error(`Audio upload failed: ${response.status} ${errorText}`);
+      }
+    } catch (error) {
+      console.error('Audio upload error:', error);
+      throw error;
     }
-    throw new Error('Audio upload failed');
   };
 
   // Handle featured image upload
