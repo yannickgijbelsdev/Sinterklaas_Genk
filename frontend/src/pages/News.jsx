@@ -184,6 +184,16 @@ export default function News() {
     );
   }
 
+  // Show loading state while fetching
+  if (loading) {
+    return <div className="min-h-screen"></div>;
+  }
+
+  // Show nothing if no news available
+  if (newsData.length === 0) {
+    return <div className="min-h-screen"></div>;
+  }
+
   // Main news listing page
   return (
     <div className="min-h-screen">
@@ -204,72 +214,64 @@ export default function News() {
       {/* News Grid */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {newsData.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📰</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Geen nieuws beschikbaar</h3>
-              <p className="text-gray-600">Er zijn momenteel geen nieuwsartikelen om te tonen.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {newsData.map((article) => (
-                <Card key={article.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  {/* Featured Image */}
-                  <div className="aspect-video overflow-hidden">
-                    {(article.featured_image || article.image) ? (
-                      <img
-                        src={(() => {
-                          const imgUrl = article.featured_image || article.image;
-                          return imgUrl.startsWith('/') 
-                            ? `${process.env.REACT_APP_BACKEND_URL}${imgUrl}`
-                            : imgUrl;
-                        })()}
-                        alt={article.title}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
-                        <div className="text-4xl">📰</div>
-                      </div>
-                    )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {newsData.map((article) => (
+              <Card key={article.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                {/* Featured Image */}
+                <div className="aspect-video overflow-hidden">
+                  {(article.featured_image || article.image) ? (
+                    <img
+                      src={(() => {
+                        const imgUrl = article.featured_image || article.image;
+                        return imgUrl.startsWith('/') 
+                          ? `${process.env.REACT_APP_BACKEND_URL}${imgUrl}`
+                          : imgUrl;
+                      })()}
+                      alt={article.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
+                      <div className="text-4xl">📰</div>
+                    </div>
+                  )}
+                </div>
+                
+                <CardContent className="p-6">
+                  {/* Category and Date */}
+                  <div className="flex items-center justify-between mb-3">
+                    <Badge variant="outline" className="text-red-600 border-red-200">
+                      {article.category || 'Algemeen'}
+                    </Badge>
+                    <div className="flex items-center text-gray-500 text-sm">
+                      <Calendar size={14} className="mr-1" />
+                      {new Date(article.date).toLocaleDateString('nl-NL')}
+                    </div>
                   </div>
                   
-                  <CardContent className="p-6">
-                    {/* Category and Date */}
-                    <div className="flex items-center justify-between mb-3">
-                      <Badge variant="outline" className="text-red-600 border-red-200">
-                        {article.category || 'Algemeen'}
-                      </Badge>
-                      <div className="flex items-center text-gray-500 text-sm">
-                        <Calendar size={14} className="mr-1" />
-                        {new Date(article.date).toLocaleDateString('nl-NL')}
-                      </div>
-                    </div>
-                    
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                      {article.title}
-                    </h3>
-                    
-                    {/* Excerpt */}
-                    {article.excerpt && (
-                      <p className="text-gray-600 mb-4 line-clamp-3">
-                        {article.excerpt}
-                      </p>
-                    )}
-                    
-                    {/* Read More */}
-                    <Link to={`/news/${article.id}`}>
-                      <Button variant="outline" className="w-full group">
-                        Lees meer
-                        <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                    {article.title}
+                  </h3>
+                  
+                  {/* Excerpt */}
+                  {article.excerpt && (
+                    <p className="text-gray-600 mb-4 line-clamp-3">
+                      {article.excerpt}
+                    </p>
+                  )}
+                  
+                  {/* Read More */}
+                  <Link to={`/news/${article.id}`}>
+                    <Button variant="outline" className="w-full group">
+                      Lees meer
+                      <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
