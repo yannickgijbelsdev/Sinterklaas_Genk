@@ -122,9 +122,7 @@ export default function AdminDashboard() {
   });
   const [users, setUsers] = useState([]);
   const [stats, setStats] = useState({
-    totalNews: 0,
-    totalViews: 1234,
-    totalUsers: 89
+    totalNews: 0
   });
 
   // useCallback handlers to prevent input focus issues
