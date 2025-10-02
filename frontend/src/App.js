@@ -45,9 +45,11 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
+      <LiveEditorProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </LiveEditorProvider>
     </AuthProvider>
   );
 }
