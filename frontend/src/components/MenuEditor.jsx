@@ -422,7 +422,7 @@ export default function MenuEditor() {
                   <Input
                     placeholder="Menu label (bijv: Over Ons)"
                     value={newItem.label}
-                    onChange={(e) => setNewItem({...newItem, label: e.target.value})}
+                    onChange={handleNewItemLabelChange}
                   />
                   <Input
                     placeholder="URL (bijv: /about)"
