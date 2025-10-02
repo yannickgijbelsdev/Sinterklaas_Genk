@@ -812,38 +812,7 @@ async def update_single_content(content_id: str, value: dict, current_user: User
             "value": value.get("value", ""),
             "updatedAt": datetime.utcnow()
         }},
-        upsert=True
     )
-    return {"message": "Content updated successfully"}
-
-@api_router.get("/admin/content")
-async def get_all_content(current_user: User = Depends(get_admin_user)):
-    content_items = await db.simple_content.find().to_list(1000)
-    return content_items
-
-@api_router.put("/admin/content")
-async def update_content(content_updates: List[ContentUpdate], current_user: User = Depends(get_admin_user)):
-    for update in content_updates:
-        # Check if content item exists
-        existing = await db.content.find_one({
-            "section": update.section,
-            "key": update.key
-        })
-        
-        if existing:
-            # Update existing
-            await db.content.update_one(
-                {"section": update.section, "key": update.key},
-                {"$set": {
-                    "value": update.value,
-                    "updatedAt": datetime.utcnow()
-                }}
-            )
-        else:
-            # Create new
-            content_item = ContentItem(**update.dict())
-            await db.content.insert_one(content_item.dict())
-    
     return {"message": "Content updated successfully"}
 
 # File Upload (Protected) - REMOVED: Duplicate of enhanced upload endpoint below
