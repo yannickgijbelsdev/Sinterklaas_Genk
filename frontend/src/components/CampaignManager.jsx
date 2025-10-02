@@ -513,7 +513,7 @@ export function CampaignManager({ subscribers = [] }) {
                 <Input
                   type="email"
                   value={campaignData.reply_to}
-                  onChange={(e) => setCampaignData({...campaignData, reply_to: e.target.value})}
+                  onChange={handleReplyToChange}
                 />
               </div>
             </div>
