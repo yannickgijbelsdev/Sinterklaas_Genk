@@ -48,6 +48,11 @@ export const AdvancedLiveEditor = () => {
     if (file) handleFileUpload(file);
   }, []);
 
+  const handleColorChange = useCallback((e) => {
+    handleColorChange(managementPanel.data.section, e.target.value);
+    setManagementPanel({ show: false, type: '' });
+  }, [managementPanel.data]);
+
   if (!isAuthenticated() || !isAdmin()) {
     return null;
   }
