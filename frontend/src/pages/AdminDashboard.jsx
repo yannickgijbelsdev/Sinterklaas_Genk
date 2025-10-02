@@ -719,7 +719,7 @@ const PasswordManagement = ({
                             type="password"
                             placeholder="Nieuw wachtwoord (min. 6 karakters)"
                             value={newUserPassword}
-                            onChange={(e) => setNewUserPassword(e.target.value)}
+                            onChange={handleNewUserPasswordChange}
                             className="w-48"
                           />
                           <Button 
