@@ -1,5 +1,8 @@
 // Utility functions for custom wave audio player
 export const initializeAudioPlayers = () => {
+  // First, convert existing HTML5 audio elements to wave players
+  convertExistingAudioElements();
+  
   // Initialize all audio players on the page
   document.querySelectorAll('.wave-audio-container').forEach(container => {
     const audio = container.querySelector('.hidden-audio');
