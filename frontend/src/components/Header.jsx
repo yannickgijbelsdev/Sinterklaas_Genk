@@ -20,7 +20,7 @@ export const Header = () => {
   // Login functionality removed - direct admin access
 
   const navigationItems = [
-    { name: 'Reserveren', href: '#reserveer' },
+    { name: 'Bestel je tickets', href: 'https://events.flextickets.nl/event/sinterklaas-en-de-wensmachine' },
     { name: 'Veelgestelde vragen', href: '#faq' },
     { name: 'Nieuws', href: '#news' }
   ];
