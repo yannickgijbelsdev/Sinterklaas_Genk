@@ -39,41 +39,31 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
             const formData = new FormData();
             formData.append('file', compressedFile);
 
-            const xhr = new XMLHttpRequest();
-            
-            xhr.upload.onprogress = (e) => {
-              if (e.lengthComputable) {
-                const percentComplete = (e.loaded / e.total) * 100;
-                onProgress(percentComplete);
-              }
-            };
+            // Use apiCall instead of XMLHttpRequest for proper auth
+            const response = await apiCall('/admin/upload', {
+              method: 'POST',
+              body: formData
+            });
 
-            xhr.onload = () => {
-              if (xhr.status === 200) {
-                const result = JSON.parse(xhr.responseText);
-                const imageUrl = `${process.env.REACT_APP_BACKEND_URL}${result.url}`;
-                resolve(imageUrl);
-              } else {
-                reject(new Error('Upload failed'));
-              }
-            };
-
-            xhr.onerror = () => reject(new Error('Network error'));
-
-            xhr.open('POST', `${process.env.REACT_APP_BACKEND_URL}/api/admin/upload`);
-            
-            // Add authorization header
-            const token = localStorage.getItem('token');
-            if (token) {
-              xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+            if (response.ok) {
+              const result = await response.json();
+              const imageUrl = `${process.env.REACT_APP_BACKEND_URL}${result.url}`;
+              console.log('Image uploaded successfully:', imageUrl);
+              resolve(imageUrl);
+            } else {
+              const errorText = await response.text();
+              console.error('Upload failed:', response.status, errorText);
+              reject(new Error(`Upload failed: ${response.status} ${errorText}`));
             }
-            
-            xhr.send(formData);
           } catch (error) {
+            console.error('Upload error:', error);
             reject(error);
           }
         },
-        error: (error) => reject(error)
+        error: (error) => {
+          console.error('Compression error:', error);
+          reject(error);
+        }
       });
     });
   };
