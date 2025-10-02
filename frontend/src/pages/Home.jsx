@@ -54,13 +54,44 @@ export default function Home() {
       }
     };
 
+    // Handle real-time updates from live editor
+    const handleContentUpdate = (event) => {
+      if (event.key === 'contentUpdate') {
+        try {
+          const update = JSON.parse(event.newValue);
+          if (update && update.id && update.value) {
+            const element = document.querySelector(`[data-edit-id="${update.id}"]`);
+            if (element) {
+              if (element.tagName === 'IMG') {
+                element.src = update.value;
+              } else if (element.tagName === 'VIDEO') {
+                element.src = update.value;
+                const source = element.querySelector('source');
+                if (source) source.src = update.value;
+              } else {
+                element.textContent = update.value;
+              }
+            }
+          }
+        } catch (error) {
+          console.log('Error handling content update:', error);
+        }
+      }
+    };
+
     // Load content immediately when component mounts
     loadStoredContent();
     
-    // Also reload content periodically to catch updates (every 30 seconds)
+    // Listen for real-time updates
+    window.addEventListener('storage', handleContentUpdate);
+    
+    // Also reload content periodically as backup (every 30 seconds)
     const interval = setInterval(loadStoredContent, 30000);
     
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('storage', handleContentUpdate);
+    };
   }, []);
 
   // Smooth scroll function
