@@ -407,7 +407,7 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
             <Textarea
               id="excerpt"
               value={formData.excerpt}
-              onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
+              onChange={handleExcerptChange}
               placeholder="Korte samenvatting van het artikel..."
               rows={3}
               className="mt-1"
