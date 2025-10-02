@@ -784,7 +784,7 @@ const PasswordManagement = ({
                 id="userEmail"
                 type="email"
                 value={newUser.email}
-                onChange={(e) => setNewUser({...newUser, email: e.target.value})}
+                onChange={handleNewUserEmailChange}
                 placeholder="gebruiker@example.com"
               />
             </div>
