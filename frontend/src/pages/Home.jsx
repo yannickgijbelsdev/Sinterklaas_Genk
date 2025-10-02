@@ -863,7 +863,7 @@ export default function Home() {
             preserveAspectRatio="none"
           >
             <path 
-              d="M0,120 C300,60 900,60 1200,120 L1200,120 L0,120 Z" 
+              d="M0,0 C300,60 900,60 1200,0 L1200,120 L0,120 Z" 
               style={{ fill: '#FEF7ED' }}
             ></path>
           </svg>
