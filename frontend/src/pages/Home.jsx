@@ -262,17 +262,39 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Trailer Button - Bottom Right */}
-        <button
+        {/* Main Title - Center */}
+        <div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 15 }}>
+          <div className="text-center text-white">
+            <h1 
+              className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 drop-shadow-2xl"
+              data-edit-id="hero_title"
+              style={{ 
+                textShadow: '0 4px 12px rgba(0,0,0,0.8)',
+                fontFamily: 'serif'
+              }}
+            >
+              De Magische Sinterklaas Show
+            </h1>
+            <p 
+              className="text-xl md:text-2xl lg:text-3xl mb-8 drop-shadow-xl"
+              data-edit-id="hero_subtitle"
+              style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}
+            >
+              Een onvergetelijke ervaring in Genk
+            </p>
+          </div>
+        </div>
+
+        {/* View Trailer Button - Bottom Right */}
+        <button 
           onClick={() => setShowTrailerModal(true)}
-          className="absolute bottom-8 right-8 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-2"
-          style={{ zIndex: 10 }}
+          className="absolute bottom-20 right-12 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl flex items-center font-semibold text-lg transition-all duration-300 hover:scale-105 shadow-2xl backdrop-blur-sm"
+          style={{ zIndex: 20 }}
+          data-edit-id="trailer_button_text"
         >
-          <Play size={20} />
+          <Play size={24} className="mr-3" fill="white" />
           Bekijk de trailer
         </button>
-        
-        {/* Title removed - clean banner */}
         
         {/* Floating Elements - REMOVED */}
         
