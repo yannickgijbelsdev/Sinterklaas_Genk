@@ -752,84 +752,210 @@ const PasswordManagement = ({
   );
 };
 
-  const UserManagement = ({ newUser, setNewUser, handleCreateUser }) => (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold">Gebruikers Beheer</h2>
-      
-      {/* Add New User Form */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Nieuwe Gebruiker Toevoegen</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="userEmail">Email</Label>
-              <Input
-                id="userEmail"
-                type="email"
-                value={newUser.email}
-                onChange={handleNewUserEmailChange}
-                placeholder="gebruiker@example.com"
-              />
-            </div>
-            <div>
-              <Label htmlFor="userPassword">Wachtwoord</Label>
-              <Input
-                id="userPassword"
-                type="password"
-                value={newUser.password}
-                onChange={handleNewUserPasswordChange}
-                placeholder="Veilig wachtwoord..."
-              />
-            </div>
-          </div>
-          
-          <div>
-            <Label htmlFor="userRole">Rol</Label>
-            <select
-              id="userRole"
-              value={newUser.role}
-              onChange={handleNewUserRoleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-            >
-              <option value="admin">Admin</option>
-              <option value="editor">Editor</option>
-            </select>
-          </div>
-          
-          <Button 
-            onClick={handleCreateUser} 
-            disabled={!newUser.email || !newUser.password}
-          >
-            <UserPlus className="h-4 w-4 mr-2" />
-            Gebruiker Toevoegen
-          </Button>
-        </CardContent>
-      </Card>
+  const UserManagement = ({ 
+    newUser, 
+    setNewUser, 
+    handleCreateUser,
+    passwordChange, 
+    setPasswordChange, 
+    handleChangePassword, 
+    users, 
+    loadUsers, 
+    handleResetUserPassword,
+    user 
+  }) => {
+    const [selectedUser, setSelectedUser] = React.useState(null);
+    const [newUserPassword, setNewUserPassword] = React.useState('');
 
-      {/* Current Users Info */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Huidige Gebruikers</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+    const handleNewUserPasswordChange = React.useCallback((e) => {
+      setNewUserPassword(e.target.value);
+    }, []);
+
+    React.useEffect(() => {
+      loadUsers();
+    }, []);
+
+    return (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Gebruikers Beheer</h2>
+        
+        {/* Add New User Form */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Nieuwe Gebruiker Toevoegen</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="font-medium">admin@sinterklaas.com</p>
-                <p className="text-sm text-gray-600">Standaard admin account</p>
+                <Label htmlFor="userEmail">Email</Label>
+                <Input
+                  id="userEmail"
+                  type="email"
+                  value={newUser.email}
+                  onChange={handleNewUserEmailChange}
+                  placeholder="gebruiker@example.com"
+                />
               </div>
-              <Badge>Admin</Badge>
+              <div>
+                <Label htmlFor="userPassword">Wachtwoord</Label>
+                <Input
+                  id="userPassword"
+                  type="password"
+                  value={newUser.password}
+                  onChange={handleNewUserPasswordChange}
+                  placeholder="Veilig wachtwoord..."
+                />
+              </div>
             </div>
-            <p className="text-sm text-gray-600 mt-4">
-              Nieuwe gebruikers worden toegevoegd aan de database en kunnen inloggen met hun email en wachtwoord.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
+            
+            <div>
+              <Label htmlFor="userRole">Rol</Label>
+              <select
+                id="userRole"
+                value={newUser.role}
+                onChange={handleNewUserRoleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                <option value="admin">Admin</option>
+                <option value="editor">Editor</option>
+              </select>
+            </div>
+            
+            <Button 
+              onClick={handleCreateUser} 
+              disabled={!newUser.email || !newUser.password}
+            >
+              <UserPlus className="h-4 w-4 mr-2" />
+              Gebruiker Toevoegen
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Change Own Password */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Shield className="h-5 w-5 mr-2" />
+              Eigen Wachtwoord Wijzigen
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="current_password">Huidig Wachtwoord</Label>
+              <Input
+                id="current_password"
+                type="password"
+                value={passwordChange.current_password}
+                onChange={handlePasswordCurrentChange}
+                placeholder="Voer huidig wachtwoord in"
+              />
+            </div>
+            <div>
+              <Label htmlFor="new_password">Nieuw Wachtwoord</Label>
+              <Input
+                id="new_password"
+                type="password"
+                value={passwordChange.new_password}
+                onChange={handlePasswordNewChange}
+                placeholder="Voer nieuw wachtwoord in (min. 6 karakters)"
+              />
+            </div>
+            <div>
+              <Label htmlFor="confirm_password">Bevestig Nieuw Wachtwoord</Label>
+              <Input
+                id="confirm_password"
+                type="password"
+                value={passwordChange.confirm_password}
+                onChange={handlePasswordConfirmChange}
+                placeholder="Bevestig nieuw wachtwoord"
+              />
+            </div>
+            <Button onClick={handleChangePassword} className="bg-red-600 hover:bg-red-700">
+              <Lock className="h-4 w-4 mr-2" />
+              Wachtwoord Wijzigen
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Reset Other Users' Passwords */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Users className="h-5 w-5 mr-2" />
+              Gebruikers Wachtwoorden Beheren
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {users.length > 0 ? (
+                <div className="space-y-3">
+                  {users.filter(u => u.id !== user?.id).map((userItem) => (
+                    <div key={userItem.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                      <div>
+                        <p className="font-medium">{userItem.username}</p>
+                        <p className="text-sm text-gray-500">{userItem.email}</p>
+                        <Badge variant={userItem.is_admin ? "default" : "secondary"} className="text-xs mt-1">
+                          {userItem.is_admin ? 'Admin' : 'Gebruiker'}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {selectedUser === userItem.id ? (
+                          <>
+                            <Input
+                              type="password"
+                              placeholder="Nieuw wachtwoord (min. 6 karakters)"
+                              value={newUserPassword}
+                              onChange={handleNewUserPasswordChange}
+                              className="w-48"
+                            />
+                            <Button 
+                              size="sm" 
+                              onClick={() => {
+                                handleResetUserPassword(userItem.id, newUserPassword);
+                                setSelectedUser(null);
+                                setNewUserPassword('');
+                              }}
+                              className="bg-green-600 hover:bg-green-700"
+                            >
+                              Opslaan
+                            </Button>
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => {
+                                setSelectedUser(null);
+                                setNewUserPassword('');
+                              }}
+                            >
+                              Annuleren
+                            </Button>
+                          </>
+                        ) : (
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => setSelectedUser(userItem.id)}
+                          >
+                            <Key className="h-4 w-4 mr-1" />
+                            Reset Wachtwoord
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-gray-500">
+                  <Users className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                  <p>Geen andere gebruikers gevonden</p>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
 
   // Show login screen if not authenticated
   if (authLoading) {
