@@ -34,7 +34,7 @@ async def create_admin_user():
         "id": str(uuid.uuid4()),
         "username": "admin",
         "email": "admin@sinterklaasshow.nl",
-        "hashed_password": hash_password("admin123"),  # Change this password!
+        "hashed_password": hash_password("KYLovie13monx"),  # Admin password changed
         "is_active": True,
         "is_admin": True,
         "createdAt": datetime.utcnow(),
