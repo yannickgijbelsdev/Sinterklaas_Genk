@@ -343,7 +343,7 @@ const RichNewsEditor = ({ article, onSave, onCancel }) => {
           <Input
             id="excerpt"
             value={formData.excerpt}
-            onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
+            onChange={handleExcerptChange}
             placeholder="Korte samenvatting van het artikel..."
             className="mt-1"
           />
