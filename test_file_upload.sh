@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BACKEND_URL="https://genk-santa-admin.preview.emergentagent.com"
+BACKEND_URL="https://genk-sint-site.preview.emergentagent.com"
 API_BASE="${BACKEND_URL}/api"
 
 echo "=== FILE UPLOAD TEST ==="
