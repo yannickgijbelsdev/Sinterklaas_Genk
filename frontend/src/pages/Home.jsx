@@ -599,9 +599,9 @@ export default function Home() {
               >
                 Sinterklaas en de Wensmachine komt dit jaar naar de Stadsschouwburg Genk met een betoverende mix van muziek, film en dans.<br />
                 <br />
-                Sinterklaas' Wensmachine loopt in de soep wanneer de buren het geheime speculaasrecept erin laten vallen. Gelukkig gaat detective Speurneus Romeo op zoek om het feest voor de kinderen te redden.<br />
+                De Wensmachine loopt in de soep wanneer de buren het geheime speculaasrecept erin laten vallen. Gelukkig gaat detective Speurneus Romeo op zoek om het feest voor de kinderen te redden.<br />
                 <br />
-                Ook dit jaar duikt een bekend gezicht op in de filmpjes: Loes Van den Heuvel schittert als Marie Antoinette in een Middeleeuws avontuur.<br />
+                Ook dit jaar duikt een bekend gezicht op in de filmpjes: Loes Van den Heuvel schittert als koningin Marie Antoinette.<br />
                 <br />
                 Breng bij de voorstelling kinderspeelgoed mee: Rotary Genk Noord zamelt in voor Sint-Vincentius, ten voordele van kinderen die het moeilijk hebben.
               </p>
