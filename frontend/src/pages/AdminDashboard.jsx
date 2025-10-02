@@ -229,11 +229,8 @@ export default function AdminDashboard() {
 
   const handleCreateNews = async () => {
     try {
-      const response = await fetch(`${API}/admin/news`, {
+      const response = await apiCall('/admin/news', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           ...newNews,
           date: new Date().toISOString(),
