@@ -82,7 +82,8 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
 
       if (response.ok) {
         const result = await response.json();
-        const audioUrl = `${process.env.REACT_APP_BACKEND_URL}${result.url}`;
+        const backendUrl = process.env.REACT_APP_BACKEND_URL || window.location.origin;
+        const audioUrl = `${backendUrl}${result.url}`;
         console.log('Audio uploaded successfully:', audioUrl);
         return audioUrl;
       } else {
