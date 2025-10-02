@@ -183,25 +183,37 @@ export default function Home() {
           muted
           loop
           playsInline
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ 
             width: '100%', 
             height: '100%', 
             objectFit: 'cover',
-            zIndex: -1
+            zIndex: 1
+          }}
+          onError={(e) => {
+            console.log('Video failed to load, showing fallback image');
+            e.target.style.display = 'none';
+          }}
+          onLoadedData={(e) => {
+            console.log('Video loaded successfully');
+            e.target.play().catch(err => console.log('Autoplay prevented:', err));
           }}
         >
           <source 
             src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ynr147fs_trailer%20zonder%20OT.mp4" 
             type="video/mp4" 
           />
-          {/* Fallback image if video doesn't load */}
-          <img 
-            src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg"
-            alt="Sinterklaas"
-            className="w-full h-full object-cover"
-          />
         </video>
+        
+        {/* Fallback image if video doesn't load */}
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: `url('https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg')`,
+            zIndex: 0
+          }}
+        ></div>
         
         {/* Dark overlay for text readability (optional - can be removed for cleaner video) */}
         <div className="absolute inset-0 bg-black/20"></div>
