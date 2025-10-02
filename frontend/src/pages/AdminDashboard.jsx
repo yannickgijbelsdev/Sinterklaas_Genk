@@ -1039,6 +1039,17 @@ const PasswordManagement = ({
               )}
               {activeTab === 'shows' && <ShowsManagement />}
               {activeTab === 'users' && <UserManagement newUser={newUser} setNewUser={setNewUser} handleCreateUser={handleCreateUser} />}
+              {activeTab === 'passwords' && (
+                <PasswordManagement 
+                  passwordChange={passwordChange}
+                  setPasswordChange={setPasswordChange}
+                  handleChangePassword={handleChangePassword}
+                  users={users}
+                  loadUsers={loadUsers}
+                  handleResetUserPassword={handleResetUserPassword}
+                  user={user}
+                />
+              )}
               {activeTab === 'media' && (
                 <Card>
                   <CardContent className="p-8 text-center">
