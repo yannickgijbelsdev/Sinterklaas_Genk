@@ -75,7 +75,12 @@ export default function News() {
             {(article.featured_image || article.image) && (
               <div className="mb-8">
                 <img
-                  src={article.featured_image || article.image}
+                  src={(() => {
+                    const imgUrl = article.featured_image || article.image;
+                    return imgUrl.startsWith('/') 
+                      ? `${process.env.REACT_APP_BACKEND_URL}${imgUrl}`
+                      : imgUrl;
+                  })()}
                   alt={article.title}
                   className="w-full h-96 object-cover rounded-lg shadow-lg"
                 />
