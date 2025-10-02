@@ -48,19 +48,15 @@ export default function News() {
 
   // If there's an ID in the URL, show single article
   if (id) {
+    // Don't try to find article if newsData is not loaded yet
+    if (!newsData) {
+      return <div className="min-h-screen"></div>;
+    }
+    
     const article = newsData.find(item => item.id === id);
     
     if (!article) {
-      return (
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Artikel niet gevonden</h1>
-            <Link to="/news">
-              <Button>Terug naar nieuws</Button>
-            </Link>
-          </div>
-        </div>
-      );
+      return <div className="min-h-screen"></div>;
     }
 
     return (
