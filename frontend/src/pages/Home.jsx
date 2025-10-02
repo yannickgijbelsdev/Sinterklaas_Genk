@@ -214,6 +214,7 @@ export default function Home() {
             zIndex: 1
           }}
           onContextMenu={(e) => e.preventDefault()}
+          data-edit-id="hero_background_video"
         >
           <source 
             src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ynr147fs_trailer%20zonder%20OT.mp4" 
