@@ -357,8 +357,16 @@ export default function AdminDashboard() {
       excerpt: article.excerpt,
       content: article.content,
       category: article.category,
-      published: article.published || true
+      published: article.published || true,
+      featured_image: article.featured_image || ''
     });
+    // Set current image as preview if exists
+    if (article.featured_image) {
+      setImagePreview(article.featured_image);
+    } else {
+      setImagePreview('');
+    }
+    setSelectedImage(null);
   };
 
   const handleUpdateNews = async () => {
