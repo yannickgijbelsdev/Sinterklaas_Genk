@@ -16,6 +16,8 @@ export default function Home() {
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showTrailerModal, setShowTrailerModal] = useState(false);
+  const [newsDisplayCount, setNewsDisplayCount] = useState(3);
+  const [loadingMoreNews, setLoadingMoreNews] = useState(false);
 
   // Smooth scroll function
   const smoothScrollTo = (elementId) => {
