@@ -22,6 +22,10 @@ export default function Home() {
   const [newsDisplayCount, setNewsDisplayCount] = useState(3);
   const [loadingMoreNews, setLoadingMoreNews] = useState(false);
   const [currentPartnerSet, setCurrentPartnerSet] = useState(0);
+  
+  // Gallery lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Partner logo sets that will rotate - Expanded with all 7 logos
   const partnerSets = [
