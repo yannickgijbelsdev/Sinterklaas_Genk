@@ -99,20 +99,24 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
   const handleFeaturedImageUpload = async (file) => {
     if (!file) return;
 
+    console.log('Starting featured image upload:', file.name, file.size, file.type);
+    
     setUploading(true);
     setUploadProgress(0);
 
     try {
       const imageUrl = await compressAndUploadImage(file, (progress) => {
+        console.log('Upload progress:', progress);
         setUploadProgress(Math.round(progress));
       });
 
+      console.log('Featured image uploaded successfully:', imageUrl);
       setFormData(prev => ({ ...prev, featured_image: imageUrl }));
       setFeaturedImagePreview(imageUrl);
-      toast.success('Afbeelding geüpload!');
+      toast.success('Uitgelichte afbeelding geüpload!');
     } catch (error) {
-      console.error('Error uploading image:', error);
-      toast.error('Fout bij uploaden afbeelding');
+      console.error('Error uploading featured image:', error);
+      toast.error(`Fout bij uploaden afbeelding: ${error.message}`);
     } finally {
       setUploading(false);
       setUploadProgress(0);
