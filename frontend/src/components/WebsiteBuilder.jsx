@@ -25,6 +25,11 @@ export default function WebsiteBuilder() {
   const [activeTab, setActiveTab] = useState('page-builder');
   const [currentPage, setCurrentPage] = useState('home');
   const [unsavedChanges, setUnsavedChanges] = useState(false);
+
+  // useCallback handler to prevent focus issues
+  const handleCurrentPageChange = useCallback((e) => {
+    setCurrentPage(e.target.value);
+  }, []);
   
   // Pages configuration
   const pages = [
