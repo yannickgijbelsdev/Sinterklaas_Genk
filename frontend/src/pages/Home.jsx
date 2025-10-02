@@ -210,6 +210,7 @@ export default function Home() {
       >
         {/* Video Background */}
         <video
+          id="hero-video"
           autoPlay
           muted
           loop
@@ -220,15 +221,8 @@ export default function Home() {
             width: '100%', 
             height: '100%', 
             objectFit: 'cover',
-            zIndex: 1
-          }}
-          onError={(e) => {
-            console.log('Video failed to load, showing fallback image');
-            e.target.style.display = 'none';
-          }}
-          onLoadedData={(e) => {
-            console.log('Video loaded successfully');
-            e.target.play().catch(err => console.log('Autoplay prevented:', err));
+            zIndex: 1,
+            display: videoLoaded ? 'block' : 'none'
           }}
         >
           <source 
