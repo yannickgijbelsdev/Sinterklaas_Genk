@@ -857,9 +857,11 @@ export default function Home() {
           {/* Section Header */}
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
             <h2 
+              className="genty-regular"
               style={{ 
-                fontSize: '48px', 
-                fontWeight: '800', 
+                fontSize: 'clamp(2rem, 4vw, 3rem)', 
+                fontWeight: '700',
+                color: 'white',
                 marginBottom: '20px',
                 textShadow: '2px 4px 8px rgba(0,0,0,0.3)'
               }}
