@@ -368,7 +368,7 @@ export default function Home() {
         {/* Subtle overlay for content readability */}
         <div className="absolute inset-0 bg-black/10" style={{ zIndex: 2 }}></div>
         
-        {/* Partner Logos Banner - Bottom Left */}
+        {/* Partner Logos Banner - Bottom Left - Rotating Carousel */}
         <div 
           className="absolute bottom-8 left-8 bg-white/90 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-lg"
           style={{ zIndex: 10 }}
@@ -381,28 +381,36 @@ export default function Home() {
             >
               Partners:
             </span>
-            <div className="flex items-center gap-4">
-              {/* Genk Logo */}
-              <img 
-                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/m50ye00m_GENK-LOGO-SCREEN-POSITIEF-RGB.png"
-                alt="Genk Logo"
-                className="h-16 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity duration-200"
-                data-edit-id="partner_genk_logo"
-              />
-              {/* RC Genk Logo */}
-              <img 
-                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/v8z8d4ru_Logo-RC-Genk-1.jpg"
-                alt="RC Genk Logo"
-                className="h-16 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity duration-200"
-                data-edit-id="partner_rc_genk_logo"
-              />
-              {/* SW 2025 Logo */}
-              <img 
-                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/tk3ymnog_SW-2025-LOGO-RGB.png"
-                alt="SW 2025 Logo"
-                className="h-16 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity duration-200"
-                data-edit-id="partner_wonderland_logo"
-              />
+            <div className="flex items-center gap-4 transition-all duration-500 ease-in-out">
+              {partnerSets[currentPartnerSet].map((partner, index) => (
+                <img 
+                  key={`${currentPartnerSet}-${index}`}
+                  src={partner.src}
+                  alt={partner.alt}
+                  className="h-16 w-auto object-contain opacity-85 hover:opacity-100 transition-all duration-300 transform hover:scale-105"
+                  data-edit-id={partner.id}
+                  style={{
+                    animation: `fadeInScale 0.5s ease-in-out ${index * 0.1}s both`,
+                    maxWidth: '120px'
+                  }}
+                />
+              ))}
+            </div>
+            
+            {/* Rotation indicator dots */}
+            <div className="flex gap-1 ml-2">
+              {partnerSets.map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentPartnerSet 
+                      ? 'bg-red-600 w-6' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setCurrentPartnerSet(index)}
+                />
+              ))}
             </div>
           </div>
         </div>
