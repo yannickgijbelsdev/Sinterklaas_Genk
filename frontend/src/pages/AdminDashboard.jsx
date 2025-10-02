@@ -213,6 +213,52 @@ export default function AdminDashboard() {
     logout();
   };
 
+  const handleImageUpload = async (file) => {
+    if (!file) return null;
+    
+    setUploadingImage(true);
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await apiCall('/admin/upload-image', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          // Don't set Content-Type, let browser set it for FormData
+        }
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        return result.image_url;
+      } else {
+        toast.error('Fout bij uploaden van afbeelding');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error('Verbindingsfout bij uploaden');
+      return null;
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleImageSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const loadDashboardData = async () => {
     setLoading(true);
     try {
