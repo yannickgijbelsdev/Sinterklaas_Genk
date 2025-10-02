@@ -94,6 +94,7 @@ export const Header = () => {
                 onMouseOut={(e) => {
                   e.target.style.backgroundColor = 'transparent';
                 }}
+                data-edit-id={`menu_item_${item.name.toLowerCase().replace(/\s+/g, '_')}`}
               >
                 {item.name}
               </button>
