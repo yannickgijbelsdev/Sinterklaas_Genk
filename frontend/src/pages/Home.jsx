@@ -479,6 +479,30 @@ export default function Home() {
               </div>
             ))}
           </div>
+          
+          {/* Load More News Button */}
+          {blogPosts.length > newsDisplayCount && (
+            <div className="text-center mt-12">
+              <button
+                onClick={loadMoreNews}
+                disabled={loadingMoreNews}
+                className="bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white px-8 py-4 rounded-full font-semibold shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-3 mx-auto"
+                style={{ fontSize: '16px' }}
+              >
+                {loadingMoreNews ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                    Nieuws laden...
+                  </>
+                ) : (
+                  <>
+                    <Download size={20} />
+                    Meer nieuws laden
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </div>
         
         {/* Wave Shape Bottom - REMOVED */}
