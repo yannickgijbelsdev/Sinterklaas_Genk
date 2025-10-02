@@ -288,12 +288,23 @@ export default function AdminDashboard() {
 
   const handleCreateNews = async () => {
     try {
+      let imageUrl = '';
+      
+      // Upload image if selected
+      if (selectedImage) {
+        imageUrl = await handleImageUpload(selectedImage);
+        if (!imageUrl) {
+          toast.error('Fout bij uploaden van afbeelding');
+          return;
+        }
+      }
+
       const response = await apiCall('/admin/news', {
         method: 'POST',
         body: JSON.stringify({
           ...newNews,
           date: new Date().toISOString(),
-          featured_image: `https://via.placeholder.com/400x200/DC2626/FFFFFF?text=${encodeURIComponent(newNews.title.substring(0, 20))}`
+          featured_image: imageUrl || `https://via.placeholder.com/400x200/DC2626/FFFFFF?text=${encodeURIComponent(newNews.title.substring(0, 20))}`
         })
       });
 
@@ -304,8 +315,11 @@ export default function AdminDashboard() {
           excerpt: '',
           content: '',
           category: 'Algemeen',
-          published: true
+          published: true,
+          featured_image: ''
         });
+        setSelectedImage(null);
+        setImagePreview('');
         loadDashboardData();
       } else {
         toast.error('Fout bij toevoegen artikel');
