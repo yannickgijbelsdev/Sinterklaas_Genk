@@ -111,17 +111,17 @@ export default function News() {
               </h1>
               
               {article.excerpt && (
-                <p className="text-xl text-gray-600 leading-relaxed">
+                <p className="text-xl text-gray-600 leading-relaxed mb-8">
                   {article.excerpt}
                 </p>
               )}
             </div>
             
             {/* Article Content */}
-            <div className="prose max-w-none">
-              <div className="text-lg leading-relaxed text-gray-700 whitespace-pre-wrap">
+            <div className="prose prose-lg max-w-none mb-16">
+              <p style={{ lineHeight: '1.8', color: '#374151', fontSize: '18px' }}>
                 {article.content}
-              </div>
+              </p>
             </div>
             
           </div>
