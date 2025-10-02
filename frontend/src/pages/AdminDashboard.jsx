@@ -349,6 +349,82 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleChangePassword = async () => {
+    if (passwordChange.new_password !== passwordChange.confirm_password) {
+      toast.error('Nieuwe wachtwoorden komen niet overeen');
+      return;
+    }
+
+    if (passwordChange.new_password.length < 6) {
+      toast.error('Nieuw wachtwoord moet minimaal 6 karakters lang zijn');
+      return;
+    }
+
+    try {
+      const response = await apiCall('/auth/change-password', {
+        method: 'POST',
+        body: JSON.stringify({
+          current_password: passwordChange.current_password,
+          new_password: passwordChange.new_password
+        })
+      });
+
+      if (response.ok) {
+        toast.success('Wachtwoord succesvol gewijzigd!');
+        setPasswordChange({
+          current_password: '',
+          new_password: '',
+          confirm_password: ''
+        });
+      } else {
+        const error = await response.json();
+        toast.error(error.detail || 'Fout bij wijzigen wachtwoord');
+      }
+    } catch (error) {
+      console.error('Error changing password:', error);
+      toast.error('Verbindingsfout');
+    }
+  };
+
+  const loadUsers = async () => {
+    try {
+      const response = await apiCall('/admin/users');
+      if (response.ok) {
+        const userData = await response.json();
+        setUsers(userData);
+      }
+    } catch (error) {
+      console.error('Error loading users:', error);
+    }
+  };
+
+  const handleResetUserPassword = async (userId, newPassword) => {
+    if (!newPassword || newPassword.length < 6) {
+      toast.error('Wachtwoord moet minimaal 6 karakters lang zijn');
+      return;
+    }
+
+    try {
+      const response = await apiCall(`/admin/users/${userId}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          password: newPassword
+        })
+      });
+
+      if (response.ok) {
+        toast.success('Gebruiker wachtwoord succesvol gewijzigd!');
+        loadUsers(); // Refresh users list
+      } else {
+        const error = await response.json();
+        toast.error(error.detail || 'Fout bij wijzigen gebruiker wachtwoord');
+      }
+    } catch (error) {
+      console.error('Error changing user password:', error);
+      toast.error('Verbindingsfout');
+    }
+  };
+
 // Duplicate code removed - DashboardOverview component is properly defined above
 
 const NewsManagement = ({ 
