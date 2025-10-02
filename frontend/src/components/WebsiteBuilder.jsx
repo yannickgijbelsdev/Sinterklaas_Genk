@@ -86,7 +86,7 @@ export default function WebsiteBuilder() {
             <span className="text-sm font-medium">Pagina:</span>
             <select
               value={currentPage}
-              onChange={(e) => setCurrentPage(e.target.value)}
+              onChange={handleCurrentPageChange}
               className="p-2 border rounded"
             >
               {pages.map(page => (
