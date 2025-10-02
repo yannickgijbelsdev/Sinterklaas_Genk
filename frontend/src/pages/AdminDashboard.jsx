@@ -124,26 +124,12 @@ const DashboardOverview = ({ stats, news, setActiveTab }) => (
               Nieuw Artikel Toevoegen
             </Button>
             <Button 
-              onClick={() => setActiveTab('shows')} 
+              onClick={() => setActiveTab('users')} 
               className="w-full justify-start"
               variant="outline"
             >
-              <Calendar className="h-4 w-4 mr-2" />
-              Shows Beheren
-            </Button>
-            <Button 
-              className="w-full justify-start"
-              variant="outline"
-            >
-              <ImageIcon className="h-4 w-4 mr-2" />
-              Media Uploaden
-            </Button>
-            <Button 
-              className="w-full justify-start"
-              variant="outline"
-            >
-              <Settings className="h-4 w-4 mr-2" />
-              Website Instellingen
+              <UserPlus className="h-4 w-4 mr-2" />
+              Gebruiker Toevoegen
             </Button>
           </div>
         </CardContent>
