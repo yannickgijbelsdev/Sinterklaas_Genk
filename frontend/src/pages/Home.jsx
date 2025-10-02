@@ -77,6 +77,16 @@ export default function Home() {
     }
   }, []);
 
+  // Function to load more news
+  const loadMoreNews = () => {
+    setLoadingMoreNews(true);
+    // Simulate loading delay
+    setTimeout(() => {
+      setNewsDisplayCount(prev => prev + 3);
+      setLoadingMoreNews(false);
+    }, 1000);
+  };
+
   const faqItems = [
     {
       question: "Hoe garandeer jullie de veiligheid tijdens shows?",
