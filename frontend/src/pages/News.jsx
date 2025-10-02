@@ -171,8 +171,8 @@ export default function News() {
     );
   }
 
-  // Show loading state while fetching or if no data
-  if (loading || !newsData || newsData.length === 0) {
+  // Don't show anything until fully initialized and we have data
+  if (!initialized || loading || error || !newsData || newsData.length === 0) {
     return <div className="min-h-screen"></div>;
   }
 
