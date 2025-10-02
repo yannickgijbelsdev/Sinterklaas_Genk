@@ -575,6 +575,62 @@ export default function Home() {
 
       {/* Waarom Section - REMOVED */}
 
+      {/* Mobile Partners Section - Shown only on mobile/tablet */}
+      <section 
+        className="bg-gradient-to-r from-red-600 to-red-700 py-8 lg:hidden"
+        data-edit-id="mobile_partners_section"
+      >
+        <div className="container mx-auto px-4">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 mx-4 shadow-lg">
+            <div className="text-center mb-6">
+              <h3 
+                className="text-lg font-semibold text-gray-800 mb-4"
+                data-edit-id="mobile_partners_title"
+              >
+                Onze Partners
+              </h3>
+              
+              {/* Mobile Partners Grid - Responsive 2x2 on small screens */}
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 justify-items-center">
+                {partnerSets[currentPartnerSet].map((partner, index) => (
+                  <div 
+                    key={`mobile-${currentPartnerSet}-${index}`}
+                    className="flex items-center justify-center bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300"
+                    style={{ minHeight: '80px' }}
+                  >
+                    <img 
+                      src={partner.src}
+                      alt={partner.alt}
+                      className="max-h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                      data-edit-id={`mobile_${partner.id}`}
+                      style={{
+                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+              
+              {/* Mobile Rotation indicator dots */}
+              <div className="flex justify-center gap-2 mt-6">
+                {partnerSets.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 focus:outline-none ${
+                      index === currentPartnerSet 
+                        ? 'bg-red-600 w-8' 
+                        : 'bg-gray-300 hover:bg-gray-400'
+                    }`}
+                    onClick={() => setCurrentPartnerSet(index)}
+                    aria-label={`Ga naar partner set ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Reserveer Section */}
       <section 
         id="reserveer" 
