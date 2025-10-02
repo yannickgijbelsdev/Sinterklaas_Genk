@@ -1527,61 +1527,52 @@ async def get_public_shows():
     except Exception as e:
         return []
 
-# Simple Upload Endpoint - Fixed Version
-@api_router.post("/admin/upload", dependencies=[Depends(get_admin_user)])
-async def upload_media_file(file: UploadFile = File(...)):
+# General Upload Endpoint (Protected) - Based on working news upload
+@api_router.post("/admin/upload")
+async def upload_general_file(file: UploadFile = File(...), current_user: User = Depends(get_admin_user)):
     """Upload media files (images, audio, video)"""
-    try:
-        # Validate file type
-        allowed_types = {
-            'image/jpeg', 'image/png', 'image/gif', 'image/webp',
-            'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4', 'audio/aac',
-            'video/mp4', 'video/mpeg', 'video/quicktime', 'video/webm'
-        }
-        
-        if file.content_type not in allowed_types:
-            raise HTTPException(status_code=400, detail=f"Unsupported file type: {file.content_type}")
-        
-        # Read file contents
-        contents = await file.read()
-        
-        # Check file size (max 50MB)
-        max_size = 50 * 1024 * 1024
-        if len(contents) > max_size:
-            raise HTTPException(status_code=400, detail="File too large. Max size: 50MB")
-        
-        # Determine directory
-        if file.content_type.startswith('image/'):
-            subdir = "images"
-        elif file.content_type.startswith('audio/'):
-            subdir = "audio"
-        else:
-            subdir = "video"
-            
-        upload_dir = Path(f"uploads/{subdir}")
-        upload_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Generate filename
-        file_extension = Path(file.filename).suffix if file.filename else '.bin'
-        unique_filename = f"{uuid.uuid4()}{file_extension}"
-        file_path = upload_dir / unique_filename
-        
-        # Save file
-        with open(file_path, "wb") as f:
-            f.write(contents)
-        
-        # Return URL
-        return {
-            "url": f"/api/uploads/{subdir}/{unique_filename}",
-            "filename": unique_filename,
-            "size": len(contents),
-            "type": file.content_type
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
+    # Validate file type
+    allowed_types = {
+        'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/jpg',
+        'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4', 'audio/aac',
+        'video/mp4', 'video/mpeg', 'video/quicktime', 'video/webm'
+    }
+    
+    if file.content_type not in allowed_types:
+        raise HTTPException(status_code=400, detail=f"Unsupported file type: {file.content_type}")
+    
+    # Check file size (max 50MB)
+    content = await file.read()
+    if len(content) > 50 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File too large. Maximum size is 50MB")
+    
+    # Determine directory based on file type
+    if file.content_type.startswith('image/'):
+        subdir = "images"
+    elif file.content_type.startswith('audio/'):
+        subdir = "audio"
+    else:
+        subdir = "video"
+    
+    # Generate unique filename
+    file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'bin'
+    unique_filename = f"upload_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.{file_extension}"
+    
+    # Save file
+    upload_dir = Path(f"uploads/{subdir}")
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    
+    file_path = upload_dir / unique_filename
+    with open(file_path, "wb") as f:
+        f.write(content)
+    
+    # Return URL path with API prefix
+    return {
+        "url": f"/api/uploads/{subdir}/{unique_filename}",
+        "filename": unique_filename,
+        "size": len(content),
+        "type": file.content_type
+    }
 
 # Configuration Management Endpoints
 @api_router.get("/admin/config")
