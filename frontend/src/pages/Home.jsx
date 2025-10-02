@@ -304,9 +304,12 @@ export default function Home() {
               <p className="text-white mb-8" style={{ opacity: 0.9 }}>
                 Wacht niet te lang - onze populaire data zijn snel uitverkocht. Zorg dat jullie gezin bij dit magische gebeuren kan zijn!
               </p>
-              <button className="btn btn-secondary">
+              <button 
+                className="btn btn-secondary"
+                onClick={() => window.open('https://events.flextickets.nl/event/sinterklaas-en-de-wensmachine', '_blank')}
+              >
                 <Calendar size={20} />
-                Reserveer Direct
+                Bestel nu je tickets
               </button>
             </div>
             <div style={{
