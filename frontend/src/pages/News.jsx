@@ -116,19 +116,21 @@ export default function News() {
               </div>
             </div>
             
-            {/* Navigation */}
-            <div className="mt-12 pt-8 border-t border-gray-200">
-              <div className="flex justify-between">
-                <Link to="/news">
-                  <Button variant="outline">
-                    <ArrowLeft size={16} className="mr-2" />
-                    Alle nieuws
-                  </Button>
-                </Link>
-              </div>
-            </div>
           </div>
         </article>
+        
+        {/* Footer */}
+        <footer style={{ background: '#FEF7ED', padding: '40px 0', textAlign: 'center' }}>
+          <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
+              <Gift size={24} color="#DC2626" />
+              <span style={{ fontSize: '20px', fontWeight: '700', color: '#DC2626' }}>Sinterklaas Genk</span>
+            </div>
+            <p style={{ color: '#666', fontSize: '14px' }}>
+              © 2025 Sinterklaas Genk. Alle rechten voorbehouden.
+            </p>
+          </div>
+        </footer>
       </div>
     );
   }
