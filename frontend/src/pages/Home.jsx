@@ -954,7 +954,7 @@ export default function Home() {
                     className="gallery-overlay"
                   >
                     <div style={{ textAlign: 'center', color: 'white' }}>
-                      <div style={{ fontSize: '48px', marginBottom: '12px' }}>🔍</div>
+                      <Eye size={48} style={{ marginBottom: '12px' }} />
                       <p style={{ fontSize: '16px', fontWeight: '600' }}>Bekijk groter</p>
                     </div>
                   </div>
