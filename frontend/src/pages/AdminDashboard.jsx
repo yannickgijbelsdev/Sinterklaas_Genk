@@ -269,21 +269,12 @@ export default function AdminDashboard() {
   const loadDashboardData = async () => {
     setLoading(true);
     try {
-      const [newsRes, showsRes] = await Promise.all([
-        apiCall('/admin/news'),
-        apiCall('/admin/shows')
-      ]);
+      const newsRes = await apiCall('/admin/news');
 
       if (newsRes.ok) {
         const newsData = await newsRes.json();
         setNews(newsData);
         setStats(prev => ({ ...prev, totalNews: newsData.length }));
-      }
-
-      if (showsRes.ok) {
-        const showsData = await showsRes.json();
-        setShows(showsData);
-        setStats(prev => ({ ...prev, totalShows: showsData.length }));
       }
     } catch (error) {
       console.error('Error loading data:', error);
