@@ -122,17 +122,45 @@ export default function News() {
               <div 
                 style={{ lineHeight: '1.8', color: '#374151', fontSize: '18px' }}
                 dangerouslySetInnerHTML={{
-                  __html: article.content
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-red-600 hover:text-red-800">$1</a>')
-                    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;" />')
-                    .replace(/\n\n/g, '</p><p>')
-                    .replace(/^/, '<p>')
-                    .replace(/$/, '</p>')
-                    .replace(/<div class="audio-container">/g, '<div style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">')
-                    .replace(/<h4>/g, '<h4 style="margin: 0 0 10px 0; color: #374151;">')
-                    .replace(/<audio controls>/g, '<audio controls style="width: 100%; margin-top: 10px;">')
+                  __html: (() => {
+                    let content = article.content;
+                    
+                    // First handle images (before links to prevent conflict)
+                    content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, 
+                      '<div style="text-align: center; margin: 20px 0;"><img src="$2" alt="$1" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" /></div>');
+                    
+                    // Handle audio containers
+                    content = content.replace(/<div class="audio-container">/g, 
+                      '<div style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">');
+                    content = content.replace(/<h4>/g, 
+                      '<h4 style="margin: 0 0 10px 0; color: #374151;">');
+                    content = content.replace(/<audio controls>/g, 
+                      '<audio controls style="width: 100%; margin-top: 10px;">');
+                    
+                    // Handle text formatting
+                    content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    content = content.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                    content = content.replace(/<u>(.*?)<\/u>/g, '<u>$1</u>');
+                    
+                    // Handle links (after images)
+                    content = content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, 
+                      '<a href="$2" target="_blank" style="color: #DC2626; text-decoration: underline; font-weight: 500;">$1</a>');
+                    
+                    // Handle lists
+                    content = content.replace(/\n- /g, '<br/>• ');
+                    content = content.replace(/\n(\d+)\. /g, '<br/>$1. ');
+                    
+                    // Handle paragraphs (but preserve existing HTML)
+                    if (!content.includes('<div') && !content.includes('<img') && !content.includes('<audio')) {
+                      content = content.replace(/\n\n/g, '</p><p>');
+                      content = '<p>' + content + '</p>';
+                    } else {
+                      // Just handle line breaks for mixed content
+                      content = content.replace(/\n\n/g, '<br/><br/>');
+                    }
+                    
+                    return content;
+                  })()
                 }}
               />
             </div>
