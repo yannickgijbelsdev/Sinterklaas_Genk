@@ -474,13 +474,25 @@ export default function Home() {
       </section>
 
       {/* Nieuws Section */}
-      <section id="news" className="section section-padding relative" style={{ backgroundColor: '#FEF3C7' }}>
+      <section 
+        id="news" 
+        className="section section-padding relative" 
+        style={{ backgroundColor: '#FEF3C7' }}
+        data-section-id="news_section"
+      >
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="genty-regular" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#DC2626' }}>
+            <h2 
+              className="genty-regular" 
+              style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#DC2626' }}
+              data-edit-id="news_title"
+            >
               Leuke Verhalen & Nieuws
             </h2>
-            <p style={{ fontSize: '20px', color: '#666' }}>
+            <p 
+              style={{ fontSize: '20px', color: '#666' }}
+              data-edit-id="news_subtitle"
+            >
               Blijf op de hoogte van alle nieuwtjes en verhalen rondom Sinterklaas Genk.
             </p>
           </div>
