@@ -158,7 +158,6 @@ export default function AdminDashboard() {
   const { user, isAuthenticated, isAdmin, logout, apiCall, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [news, setNews] = useState([]);
-  const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editingNews, setEditingNews] = useState(null);
   const [newNews, setNewNews] = useState({
