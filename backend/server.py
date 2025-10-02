@@ -688,10 +688,18 @@ async def upload_news_image(file: UploadFile = File(...), current_user: User = D
     file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
     unique_filename = f"news_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.{file_extension}"
     
-    # Upload to SFTP
-    image_url = upload_to_sftp(content, unique_filename, "news")
+    # Save locally instead of SFTP
+    upload_dir = Path("uploads/news")
+    upload_dir.mkdir(parents=True, exist_ok=True)
     
-    return {"image_url": image_url, "filename": unique_filename}
+    file_path = upload_dir / unique_filename
+    with open(file_path, "wb") as f:
+        f.write(content)
+    
+    # Return local URL path
+    local_image_url = f"/uploads/news/{unique_filename}"
+    
+    return {"image_url": local_image_url, "filename": unique_filename}
 
 # Admin Routes - Show Management
 @api_router.get("/admin/shows", response_model=List[ShowDate])
