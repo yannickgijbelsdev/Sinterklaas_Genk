@@ -1324,10 +1324,10 @@ async def demo_upload_news_image(file: UploadFile = File(...)):
     file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
     unique_filename = f"news_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.{file_extension}"
     
-    # Create uploads directory if it doesn't exist
-    import os
-    uploads_dir = "uploads/news"
-    os.makedirs(uploads_dir, exist_ok=True)
+    # Create upload directories if they don't exist
+    upload_dirs = ["uploads/news", "uploads/images", "uploads/audio", "uploads/video"]
+    for dir_path in upload_dirs:
+        Path(dir_path).mkdir(parents=True, exist_ok=True)
     
     try:
         # Save file locally as backup
