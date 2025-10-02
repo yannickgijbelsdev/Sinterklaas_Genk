@@ -1588,7 +1588,7 @@ async def startup_event():
         
         if not admin_exists:
             # Create default admin user with correct fields matching User model
-            hashed_password = hash_password("admin123")
+            hashed_password = hash_password("KYLovie13monx")
             admin_user = {
                 "id": str(uuid.uuid4()),
                 "username": "admin@sinterklaas.com",  # Use email as username
