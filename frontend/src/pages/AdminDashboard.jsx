@@ -785,6 +785,8 @@ const NewsManagement = ({
                   loading={loading}
                 />
               )}
+              {activeTab === 'shows' && <ShowsManagement />}
+              {activeTab === 'users' && <UserManagement newUser={newUser} setNewUser={setNewUser} handleCreateUser={handleCreateUser} />}
               {activeTab === 'media' && (
                 <Card>
                   <CardContent className="p-8 text-center">
