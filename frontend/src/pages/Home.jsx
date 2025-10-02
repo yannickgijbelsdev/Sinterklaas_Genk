@@ -862,8 +862,7 @@ export default function Home() {
                 fontSize: 'clamp(2rem, 4vw, 3rem)', 
                 fontWeight: '700',
                 color: 'white',
-                marginBottom: '20px',
-                textShadow: '2px 4px 8px rgba(0,0,0,0.3)'
+                marginBottom: '20px'
               }}
               data-edit-id="gallery_title"
             >
