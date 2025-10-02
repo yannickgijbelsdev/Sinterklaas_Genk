@@ -850,9 +850,24 @@ export default function Home() {
         style={{ 
           background: 'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)',
           padding: '80px 0',
-          color: 'white'
+          color: 'white',
+          position: 'relative'
         }}
       >
+        {/* Wave Shape Top - News to Gallery */}
+        <div className="absolute top-0 left-0 w-full overflow-hidden leading-none rotate-180">
+          <svg 
+            className="relative block w-full h-24" 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 1200 120" 
+            preserveAspectRatio="none"
+          >
+            <path 
+              d="M0,120 C300,60 900,60 1200,120 L1200,120 L0,120 Z" 
+              style={{ fill: '#FEF7ED' }}
+            ></path>
+          </svg>
+        </div>
         <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
           {/* Section Header */}
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
