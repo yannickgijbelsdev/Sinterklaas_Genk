@@ -729,8 +729,19 @@ export default function AdminDashboard() {
   );
 
   // Show login screen if not authenticated
-  if (!isAuthenticated) {
-    return <AdminLogin onLogin={setIsAuthenticated} />;
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4">🎅</div>
+          <div className="text-xl">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated() || !isAdmin()) {
+    return <AdminLogin />;
   }
 
   return (
