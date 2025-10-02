@@ -344,7 +344,7 @@ export default function News() {
                   )}
                   
                   {/* Read More */}
-                  <Link to={`/news/${article.id}`}>
+                  <Link to={`/nieuws/${createSlug(article.title)}`}>
                     <Button variant="outline" className="w-full group">
                       Lees meer
                       <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
