@@ -1020,7 +1020,6 @@ const PasswordManagement = ({
                   loading={loading}
                 />
               )}
-              {activeTab === 'shows' && <ShowsManagement />}
               {activeTab === 'users' && <UserManagement newUser={newUser} setNewUser={setNewUser} handleCreateUser={handleCreateUser} />}
               {activeTab === 'passwords' && (
                 <PasswordManagement 
@@ -1032,24 +1031,6 @@ const PasswordManagement = ({
                   handleResetUserPassword={handleResetUserPassword}
                   user={user}
                 />
-              )}
-              {activeTab === 'media' && (
-                <Card>
-                  <CardContent className="p-8 text-center">
-                    <ImageIcon className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                    <h3 className="text-lg font-medium mb-2">Media Beheer</h3>
-                    <p className="text-gray-600">Upload en beheer afbeeldingen en media bestanden.</p>
-                  </CardContent>
-                </Card>
-              )}
-              {activeTab === 'settings' && (
-                <Card>
-                  <CardContent className="p-8 text-center">
-                    <Settings className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                    <h3 className="text-lg font-medium mb-2">Website Instellingen</h3>
-                    <p className="text-gray-600">Configureer website instellingen en voorkeuren.</p>
-                  </CardContent>
-                </Card>
               )}
             </>
           )}
