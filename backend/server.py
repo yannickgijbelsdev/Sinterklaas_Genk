@@ -1528,7 +1528,7 @@ async def get_public_shows():
         return []
 
 # Simple Upload Endpoint - Fixed Version
-@api_router.post("/admin/upload")
+@api_router.post("/admin/upload", dependencies=[Depends(get_admin_user)])
 async def upload_media_file(
     file: UploadFile = File(...),
     current_user: User = Depends(get_admin_user)
