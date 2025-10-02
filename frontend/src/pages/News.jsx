@@ -218,15 +218,11 @@ export default function News() {
                 </div>
                 
                 <CardContent className="p-6">
-                  {/* Category and Date */}
+                  {/* Category only */}
                   <div className="flex items-center justify-between mb-3">
                     <Badge variant="outline" className="text-red-600 border-red-200">
                       {article.category || 'Algemeen'}
                     </Badge>
-                    <div className="flex items-center text-gray-500 text-sm">
-                      <Calendar size={14} className="mr-1" />
-                      {new Date(article.date).toLocaleDateString('nl-NL')}
-                    </div>
                   </div>
                   
                   {/* Title */}
