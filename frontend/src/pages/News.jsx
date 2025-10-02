@@ -166,10 +166,7 @@ export default function News() {
     );
   }
 
-  // Don't show anything until fully initialized and we have data
-  if (!initialized || loading || error || !newsData || newsData.length === 0) {
-    return <div className="min-h-screen"></div>;
-  }
+  // This check is now handled at the top of the component
 
   // Main news listing page
   return (
