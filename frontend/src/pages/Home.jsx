@@ -499,7 +499,7 @@ export default function Home() {
                 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
                 data-edit-id="reserveer_title"
               >
-                Reserveer nu jullie magische Sinterklaasavond!
+                Reserveer nu voor "Sinterklaas en de Wensmachine"
               </h2>
               <p 
                 className="text-white mb-8" 
