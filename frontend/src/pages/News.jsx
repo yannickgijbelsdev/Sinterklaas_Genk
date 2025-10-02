@@ -216,7 +216,7 @@ export default function News() {
                 </h3>
                 <div style={{ color: '#666', fontSize: '15px', lineHeight: '1.6' }}>
                   <div style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ color: '#DC2626', fontSize: '18px' }}>📧</span>
+                    <Mail size={18} color="#DC2626" />
                     <a 
                       href="mailto:info@sinterklaasgenk.be" 
                       style={{ color: '#DC2626', textDecoration: 'none' }}
