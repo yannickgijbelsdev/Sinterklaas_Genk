@@ -487,7 +487,7 @@ export function CampaignManager({ subscribers = [] }) {
                 <Label>Campaign Naam</Label>
                 <Input
                   value={campaignData.name}
-                  onChange={(e) => setCampaignData({...campaignData, name: e.target.value})}
+                  onChange={handleCampaignNameChange}
                   placeholder="Bijv: Sinterklaas Show December 2024"
                 />
               </div>
