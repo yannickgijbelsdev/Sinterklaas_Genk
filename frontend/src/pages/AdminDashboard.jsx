@@ -610,6 +610,7 @@ const NewsManagement = ({
             <Label htmlFor="image">Uitgelichte Afbeelding</Label>
             <div className="mt-2">
               <input
+                key="image-input"
                 id="image"
                 type="file"
                 accept="image/*"
