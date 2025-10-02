@@ -165,7 +165,7 @@ const DashboardOverview = ({ stats, news, setActiveTab }) => (
 );
 
 export default function AdminDashboard() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { user, isAuthenticated, isAdmin, logout, apiCall, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [news, setNews] = useState([]);
   const [shows, setShows] = useState([]);
@@ -191,13 +191,10 @@ export default function AdminDashboard() {
   });
 
   useEffect(() => {
-    // Check if user is authenticated
-    const authenticated = sessionStorage.getItem('adminAuthenticated');
-    if (authenticated === 'true') {
-      setIsAuthenticated(true);
+    if (isAuthenticated() && isAdmin()) {
       loadDashboardData();
     }
-  }, []);
+  }, [isAuthenticated, isAdmin]);
 
   const handleLogout = () => {
     sessionStorage.removeItem('adminAuthenticated');
