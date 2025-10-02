@@ -618,6 +618,7 @@ const PasswordManagement = ({
   handleResetUserPassword,
   user 
 }) => {
+  const { useState, useEffect } = React;
   const [selectedUser, setSelectedUser] = useState(null);
   const [newUserPassword, setNewUserPassword] = useState('');
 
