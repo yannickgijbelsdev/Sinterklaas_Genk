@@ -1015,7 +1015,20 @@ export default function Home() {
           )}
         </div>
         
-        {/* Wave Shape Bottom - REMOVED */}
+        {/* Wave Shape Bottom - News to Footer */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+          <svg 
+            className="relative block w-full h-24" 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 1200 120" 
+            preserveAspectRatio="none"
+          >
+            <path 
+              d="M0,0 C300,60 900,60 1200,0 L1200,120 L0,120 Z" 
+              style={{ fill: '#FEF7ED' }}
+            ></path>
+          </svg>
+        </div>
       </section>
 
       {/* Contact Section - REMOVED */}
