@@ -490,13 +490,13 @@ export default function Home() {
               }}
             >
               <source 
-                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ynr147fs_trailer%20zonder%20OT.mp4" 
+                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/mgim5w9w_trailer%20met%20OT.mp4" 
                 type="video/mp4" 
               />
               <p className="text-white p-4">
                 Uw browser ondersteunt geen video afspelen. 
                 <a 
-                  href="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ynr147fs_trailer%20zonder%20OT.mp4" 
+                  href="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/mgim5w9w_trailer%20met%20OT.mp4" 
                   className="text-red-400 underline ml-1"
                   target="_blank" 
                   rel="noopener noreferrer"
