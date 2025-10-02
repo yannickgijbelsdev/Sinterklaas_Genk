@@ -321,7 +321,7 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
             <Input
               id="title"
               value={formData.title}
-              onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+              onChange={handleTitleChange}
               placeholder="Artikel titel..."
               className="mt-1"
             />
