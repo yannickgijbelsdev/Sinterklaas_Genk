@@ -426,7 +426,7 @@ export default function Home() {
           </div>
           
           <div className="three-column">
-            {blogPosts.slice(0, 3).map((post, index) => (
+            {blogPosts.slice(0, newsDisplayCount).map((post, index) => (
               <div key={post.id || index} className="card" style={{ overflow: 'hidden', padding: '0' }}>
                 <div style={{
                   height: '200px',
