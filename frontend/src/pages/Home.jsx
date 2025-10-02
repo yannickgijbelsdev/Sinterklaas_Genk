@@ -227,6 +227,15 @@ export default function Home() {
     return () => clearInterval(rotationInterval);
   }, [partnerSets.length]);
 
+  // Initialize audio players when news content is loaded
+  useEffect(() => {
+    if (news && news.length > 0) {
+      setTimeout(() => {
+        initializeAudioPlayers();
+      }, 100);
+    }
+  }, [news]);
+
   // Gallery lightbox functions
   const openLightbox = (index) => {
     setCurrentImageIndex(index);
