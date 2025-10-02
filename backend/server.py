@@ -1457,6 +1457,16 @@ async def startup_event():
     except Exception as e:
         print(f"❌ Error creating default admin user: {e}")
 
+# Public Content Endpoint (no auth required)
+@api_router.get("/content")
+async def get_public_content():
+    """Get all public content for page rendering"""
+    try:
+        content = list(await db.content.find().to_list(1000))
+        return content
+    except Exception as e:
+        return []
+
 # Configuration Management Endpoints
 @api_router.get("/admin/config")
 async def get_configuration(current_user: User = Depends(get_admin_user)):
