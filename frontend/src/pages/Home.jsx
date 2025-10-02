@@ -5,8 +5,9 @@ import {
   Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import LiveEditor from '../components/LiveEditor';
+import AdvancedLiveEditor from '../components/AdvancedLiveEditor';
 import { useAuth } from '../contexts/AuthContext';
+import { useLiveEditor } from '../contexts/LiveEditorContext';
 import '../styles/camp-buddy-theme.css';
 
 const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
