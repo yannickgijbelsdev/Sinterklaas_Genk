@@ -150,6 +150,27 @@ export const LiveEditorProvider = ({ children }) => {
         [contentId]: value
       }));
       
+      // Immediately apply the change to the DOM for instant feedback
+      const element = document.querySelector(`[data-edit-id="${contentId}"]`);
+      if (element) {
+        if (element.tagName === 'IMG') {
+          element.src = value;
+        } else if (element.tagName === 'VIDEO') {
+          element.src = value;
+          const source = element.querySelector('source');
+          if (source) source.src = value;
+        } else {
+          element.textContent = value;
+        }
+      }
+      
+      // Broadcast change to other users/tabs (using localStorage event)
+      localStorage.setItem('contentUpdate', JSON.stringify({
+        id: contentId,
+        value: value,
+        timestamp: Date.now()
+      }));
+      
       toast.success('Content opgeslagen!');
     } catch (error) {
       console.error('Error saving content:', error);
