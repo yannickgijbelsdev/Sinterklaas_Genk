@@ -948,10 +948,10 @@ export default function Home() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       opacity: '0',
-                      transition: 'opacity 0.3s ease'
+                      transition: 'opacity 0.3s ease',
+                      pointerEvents: 'none' // Allow clicks to pass through to parent
                     }}
-                    onMouseEnter={(e) => e.target.style.opacity = '1'}
-                    onMouseLeave={(e) => e.target.style.opacity = '0'}
+                    className="gallery-overlay"
                   >
                     <div style={{ textAlign: 'center', color: 'white' }}>
                       <div style={{ fontSize: '48px', marginBottom: '12px' }}>🔍</div>
