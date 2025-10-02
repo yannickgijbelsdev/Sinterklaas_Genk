@@ -47,10 +47,8 @@ export default function News() {
     if (newsData && newsData.length > 0) {
       // Small delay to ensure DOM is updated
       setTimeout(() => {
-        // Use safer CSS-only approach to hide HTML5 audio
-        hideHTML5AudioElements();
         initializeAudioPlayers();
-      }, 500);
+      }, 100);
     }
   }, [newsData]);
 
