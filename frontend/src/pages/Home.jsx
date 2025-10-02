@@ -22,14 +22,16 @@ export default function Home() {
   const [newsDisplayCount, setNewsDisplayCount] = useState(3);
   const [loadingMoreNews, setLoadingMoreNews] = useState(false);
 
-  // Load and apply stored content on page load
+  // Load and apply stored content on page load - for ALL users
   useEffect(() => {
     const loadStoredContent = async () => {
       try {
-        // Try to load stored content from backend
+        // Load stored content from backend (public endpoint)
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/content`);
         if (response.ok) {
           const contentData = await response.json();
+          
+          console.log('Loading content data:', contentData); // Debug log
           
           // Apply content to elements
           contentData.forEach(item => {
@@ -52,9 +54,13 @@ export default function Home() {
       }
     };
 
-    // Wait a bit for DOM to be ready, then load content
-    const timer = setTimeout(loadStoredContent, 1000);
-    return () => clearTimeout(timer);
+    // Load content immediately when component mounts
+    loadStoredContent();
+    
+    // Also reload content periodically to catch updates (every 30 seconds)
+    const interval = setInterval(loadStoredContent, 30000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   // Smooth scroll function
