@@ -1324,8 +1324,8 @@ export default function Home() {
         </div>
       )}
 
-      {/* Advanced Live Editor Component */}
-      <AdvancedLiveEditor />
+      {/* Advanced Live Editor Component - HIDDEN */}
+      {/* <AdvancedLiveEditor /> */}
 
     </div>
   );
