@@ -9,17 +9,18 @@ const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND
 
 export default function News() {
   const { id } = useParams();
-  const [newsData, setNewsData] = useState(null); // Start with null instead of empty array
+  const [newsData, setNewsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`${API}/news`);
         if (response.ok) {
           const data = await response.json();
-          // Only set data if we actually have articles
           if (data && data.length > 0) {
             setNewsData(data);
           } else {
@@ -33,6 +34,7 @@ export default function News() {
         console.error('Error fetching news:', err);
       } finally {
         setLoading(false);
+        setInitialized(true);
       }
     };
 
