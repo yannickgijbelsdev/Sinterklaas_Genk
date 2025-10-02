@@ -362,7 +362,11 @@ export default function AdminDashboard() {
     });
     // Set current image as preview if exists
     if (article.featured_image) {
-      setImagePreview(article.featured_image);
+      // If it's a relative URL, make it absolute with backend URL
+      const imageUrl = article.featured_image.startsWith('/') 
+        ? `${process.env.REACT_APP_BACKEND_URL}${article.featured_image}`
+        : article.featured_image;
+      setImagePreview(imageUrl);
     } else {
       setImagePreview('');
     }
