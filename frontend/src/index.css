@@ -136,3 +136,8 @@ code {
     transform: translateX(0);
   }
 }
+
+/* Gallery hover effects */
+[style*="cursor: pointer"]:hover .gallery-overlay {
+  opacity: 1 !important;
+}
