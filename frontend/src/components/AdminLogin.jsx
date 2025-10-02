@@ -53,7 +53,7 @@ export default function AdminLogin() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@sinterklaas.com"
+                  placeholder="admin"
                   className="pl-9"
                   required
                 />
