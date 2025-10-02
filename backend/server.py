@@ -720,6 +720,53 @@ async def upload_news_image(file: UploadFile = File(...), current_user: User = D
     
     return {"image_url": local_image_url, "filename": unique_filename}
 
+# General Media Upload Endpoint (Protected)
+@api_router.post("/admin/upload")
+async def upload_general_file(file: UploadFile = File(...), current_user: User = Depends(get_admin_user)):
+    """Upload media files (images, audio, video)"""
+    # Validate file type
+    allowed_types = {
+        'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/jpg',
+        'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4', 'audio/aac',
+        'video/mp4', 'video/mpeg', 'video/quicktime', 'video/webm'
+    }
+    
+    if file.content_type not in allowed_types:
+        raise HTTPException(status_code=400, detail=f"Unsupported file type: {file.content_type}")
+    
+    # Check file size (max 50MB)
+    content = await file.read()
+    if len(content) > 50 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File too large. Maximum size is 50MB")
+    
+    # Determine directory based on file type
+    if file.content_type.startswith('image/'):
+        subdir = "images"
+    elif file.content_type.startswith('audio/'):
+        subdir = "audio"  
+    else:
+        subdir = "video"
+    
+    # Generate unique filename
+    file_extension = file.filename.split('.')[-1] if file.filename and '.' in file.filename else 'bin'
+    unique_filename = f"upload_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.{file_extension}"
+    
+    # Create directory and save file
+    upload_dir = Path(f"uploads/{subdir}")
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    
+    file_path = upload_dir / unique_filename
+    with open(file_path, "wb") as f:
+        f.write(content)
+    
+    # Return URL with API prefix
+    return {
+        "url": f"/api/uploads/{subdir}/{unique_filename}",
+        "filename": unique_filename,
+        "size": len(content),
+        "type": file.content_type
+    }
+
 # Admin Routes - Show Management
 @api_router.get("/admin/shows", response_model=List[ShowDate])
 async def get_all_shows():
