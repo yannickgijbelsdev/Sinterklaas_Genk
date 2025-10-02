@@ -899,18 +899,6 @@ const PasswordManagement = ({
               <Users className="h-5 w-5 mr-3" />
               Gebruikers
             </button>
-            
-            <button
-              onClick={() => setActiveTab('passwords')}
-              className={`w-full flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                activeTab === 'passwords' 
-                  ? 'bg-red-100 text-red-700 border-r-4 border-red-600' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              <Lock className="h-5 w-5 mr-3" />
-              Wachtwoorden
-            </button>
           </div>
         </nav>
         
