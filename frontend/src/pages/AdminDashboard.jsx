@@ -656,10 +656,7 @@ const PasswordManagement = ({
               id="current_password"
               type="password"
               value={passwordChange.current_password}
-              onChange={(e) => setPasswordChange(prev => ({
-                ...prev, 
-                current_password: e.target.value
-              }))}
+              onChange={handlePasswordCurrentChange}
               placeholder="Voer huidig wachtwoord in"
             />
           </div>
