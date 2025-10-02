@@ -63,6 +63,36 @@ export default function Home() {
     fetchData();
   }, []);
 
+  // Video handling useEffect
+  useEffect(() => {
+    const video = document.querySelector('#hero-video');
+    if (video) {
+      const handleVideoLoad = () => {
+        setVideoLoaded(true);
+        // Try to play video programmatically if autoplay failed
+        video.play().catch(err => {
+          console.log('Video autoplay prevented by browser:', err);
+        });
+      };
+
+      const handleVideoError = () => {
+        console.log('Video failed to load, using fallback image');
+        setVideoLoaded(false);
+      };
+
+      video.addEventListener('loadeddata', handleVideoLoad);
+      video.addEventListener('error', handleVideoError);
+      video.addEventListener('canplay', handleVideoLoad);
+
+      // Cleanup
+      return () => {
+        video.removeEventListener('loadeddata', handleVideoLoad);
+        video.removeEventListener('error', handleVideoError);
+        video.removeEventListener('canplay', handleVideoLoad);
+      };
+    }
+  }, []);
+
   const faqItems = [
     {
       question: "Hoe garandeer jullie de veiligheid tijdens shows?",
