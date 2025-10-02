@@ -67,13 +67,16 @@ export default function News() {
     }
 
     return (
-      <div className="min-h-screen">
-        <article className="py-20">
+      <div className="min-h-screen flex flex-col">
+        {/* Header Spacer */}
+        <div className="pt-24"></div>
+        
+        <article className="flex-1 py-12">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {/* Featured Image */}
             {(article.featured_image || article.image) && (
-              <div className="mb-8">
+              <div className="mb-12">
                 <img
                   src={(() => {
                     const imgUrl = article.featured_image || article.image;
