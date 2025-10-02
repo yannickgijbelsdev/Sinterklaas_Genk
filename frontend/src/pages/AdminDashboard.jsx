@@ -248,7 +248,24 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleImageSelect = (e) => {
+  // Optimized onChange handlers to prevent re-renders
+  const handleTitleChange = useCallback((e) => {
+    setNewNews(prev => ({ ...prev, title: e.target.value }));
+  }, []);
+
+  const handleExcerptChange = useCallback((e) => {
+    setNewNews(prev => ({ ...prev, excerpt: e.target.value }));
+  }, []);
+
+  const handleContentChange = useCallback((e) => {
+    setNewNews(prev => ({ ...prev, content: e.target.value }));
+  }, []);
+
+  const handleCategoryChange = useCallback((e) => {
+    setNewNews(prev => ({ ...prev, category: e.target.value }));
+  }, []);
+
+  const handleImageSelect = useCallback((e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(file);
@@ -260,7 +277,7 @@ export default function AdminDashboard() {
       };
       reader.readAsDataURL(file);
     }
-  };
+  }, []);
 
   const loadDashboardData = async () => {
     setLoading(true);
