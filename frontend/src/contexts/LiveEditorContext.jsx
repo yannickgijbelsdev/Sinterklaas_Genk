@@ -23,12 +23,56 @@ export const LiveEditorProvider = ({ children }) => {
   const [partners, setPartners] = useState([]);
   const [faqItems, setFaqItems] = useState([]);
 
-  // Load all content on mount
+  // Load all content on mount and apply to page elements
   useEffect(() => {
     if (isAuthenticated() && isAdmin()) {
-      loadAllContent();
+      loadAllContent().then(() => {
+        // Apply loaded content to page elements
+        applyStoredContentToPage();
+      });
     }
   }, [isAuthenticated, isAdmin]);
+
+  // Apply stored content to page elements
+  const applyStoredContentToPage = () => {
+    Object.keys(pageContent).forEach(contentId => {
+      const element = document.querySelector(`[data-edit-id="${contentId}"]`);
+      if (element && pageContent[contentId]) {
+        const value = pageContent[contentId];
+        
+        if (element.tagName === 'IMG') {
+          element.src = value;
+        } else if (element.tagName === 'VIDEO') {
+          element.src = value;
+          const source = element.querySelector('source');
+          if (source) source.src = value;
+        } else if (element.style.backgroundImage !== undefined) {
+          element.style.backgroundImage = `url(${value})`;
+        } else {
+          element.textContent = value;
+        }
+      }
+    });
+
+    // Apply section colors
+    Object.keys(pageContent).forEach(key => {
+      if (key.endsWith('_color')) {
+        const sectionId = key.replace('_color', '');
+        const section = document.querySelector(`[data-section-id="${sectionId}"]`);
+        if (section) {
+          section.style.backgroundColor = pageContent[key];
+        }
+      }
+    });
+
+    // Apply hidden sections
+    hiddenSections.forEach(sectionId => {
+      const section = document.querySelector(`[data-section-id="${sectionId}"]`);
+      if (section) {
+        section.style.display = 'none';
+      }
+    });
+  };
 
   // Only load content if user is authenticated and admin
   if (!isAuthenticated() || !isAdmin()) {
