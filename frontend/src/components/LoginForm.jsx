@@ -100,11 +100,10 @@ export const LoginForm = ({ onSuccess }) => {
             </Button>
           </form>
 
-          <div className="mt-6 p-4 bg-yellow-50 rounded-lg">
-            <p className="text-sm text-yellow-800">
-              <strong>Demo Credentials:</strong><br />
-              Gebruikersnaam: admin<br />
-              Wachtwoord: KYLovie13monx
+          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+            <p className="text-sm text-blue-800">
+              <strong>Admin Toegang:</strong><br />
+              Vraag de beheerder om login gegevens
             </p>
           </div>
         </CardContent>
