@@ -542,136 +542,32 @@ const NewsManagement = ({
         </div>
       </div>
 
-      {/* Add/Edit Article Form */}
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            {editingNews ? `Artikel Bewerken: ${editingNews.title}` : 'Nieuw Artikel Toevoegen'}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="title">Titel</Label>
-              <Input
-                key="title-input"
-                id="title"
-                value={newNews.title}
-                onChange={handleTitleChange}
-                placeholder="Artikel titel..."
-              />
-            </div>
-            <div>
-              <Label htmlFor="category">Categorie</Label>
-              <select
-                key="category-select"
-                id="category"
-                value={newNews.category}
-                onChange={handleCategoryChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-              >
-                <option value="Algemeen">Algemeen</option>
-                <option value="Tips & Tricks">Tips & Tricks</option>
-                <option value="Achter de Schermen">Achter de Schermen</option>
-                <option value="Show Nieuws">Show Nieuws</option>
-              </select>
-            </div>
-          </div>
-          
-          {/* Featured Image Upload */}
-          <div>
-            <Label htmlFor="image">Uitgelichte Afbeelding</Label>
-            <div className="mt-2">
-              <input
-                key="image-input"
-                id="image"
-                type="file"
-                accept="image/*"
-                onChange={handleImageSelect}
-                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
-              />
-              {uploadingImage && (
-                <div className="mt-2 flex items-center text-sm text-gray-600">
-                  <div className="animate-spin mr-2 h-4 w-4 border-2 border-red-500 border-t-transparent rounded-full"></div>
-                  Afbeelding uploaden...
-                </div>
-              )}
-              {imagePreview && (
-                <div className="mt-3">
-                  <img
-                    src={imagePreview}
-                    alt="Preview"
-                    className="h-32 w-48 object-cover rounded-lg border"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          
-          <div>
-            <Label htmlFor="excerpt">Samenvatting</Label>
-            <Textarea
-              key="excerpt-textarea"
-              id="excerpt"
-              value={newNews.excerpt}
-              onChange={handleExcerptChange}
-              placeholder="Korte samenvatting..."
-              rows={2}
-            />
-          </div>
-          
-          <div>
-            <Label htmlFor="content">Inhoud</Label>
-            <Textarea
-              key="content-textarea"
-              id="content"
-              value={newNews.content}
-              onChange={handleContentChange}
-              placeholder="Volledige artikel inhoud..."
-              rows={6}
-            />
-          </div>
-          
-          <div className="flex space-x-2">
-            <Button 
-              onClick={editingNews ? handleUpdateNews : handleCreateNews} 
-              disabled={!newNews.title || !newNews.content}
-            >
-              {editingNews ? (
-                <>
-                  <Save className="h-4 w-4 mr-2" />
-                  Artikel Bijwerken
-                </>
-              ) : (
-                <>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Artikel Toevoegen
-                </>
-              )}
-            </Button>
-            {editingNews && (
+      {/* Rich News Editor or Simple Button */}
+      {showRichEditor ? (
+        <RichNewsEditor
+          article={editingArticle}
+          onSave={handleSaveNewsFromEditor}
+          onCancel={() => {
+            setShowRichEditor(false);
+            setEditingArticle(null);
+          }}
+        />
+      ) : (
+        <Card>
+          <CardContent className="py-8">
+            <div className="text-center">
               <Button 
-                variant="outline" 
-                onClick={() => {
-                  setEditingNews(null);
-                  setNewNews({
-                    title: '',
-                    excerpt: '',
-                    content: '',
-                    category: 'Algemeen',
-                    published: true,
-                    featured_image: ''
-                  });
-                  setSelectedImage(null);
-                  setImagePreview('');
-                }}
+                onClick={handleCreateNews}
+                className="bg-red-600 hover:bg-red-700"
+                size="lg"
               >
-                Annuleren
+                <Plus className="h-5 w-5 mr-2" />
+                Nieuw Artikel Maken
               </Button>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Articles List */}
       <Card>
