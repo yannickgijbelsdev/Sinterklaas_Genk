@@ -900,10 +900,26 @@ const NewsManagement = ({
           
           {!loading && (
             <>
-              {activeTab === 'dashboard' && <DashboardOverview />}
-              {activeTab === 'news' && <NewsManagement />}
-              {activeTab === 'shows' && <ShowsManagement />}
-              {activeTab === 'users' && <UserManagement />}
+              {activeTab === 'dashboard' && (
+                <DashboardOverview 
+                  stats={stats} 
+                  news={news} 
+                  setActiveTab={setActiveTab} 
+                />
+              )}
+              {activeTab === 'news' && (
+                <NewsManagement 
+                  news={news}
+                  editingNews={editingNews}
+                  setEditingNews={setEditingNews}
+                  newNews={newNews}
+                  setNewNews={setNewNews}
+                  handleCreateNews={handleCreateNews}
+                  handleUpdateNews={handleUpdateNews}
+                  handleDeleteNews={handleDeleteNews}
+                  loading={loading}
+                />
+              )}
               {activeTab === 'media' && (
                 <Card>
                   <CardContent className="p-8 text-center">
