@@ -591,9 +591,10 @@ const NewsManagement = ({
             <div>
               <Label htmlFor="category">Categorie</Label>
               <select
+                key="category-select"
                 id="category"
                 value={newNews.category}
-                onChange={(e) => setNewNews({...newNews, category: e.target.value})}
+                onChange={handleCategoryChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
               >
                 <option value="Algemeen">Algemeen</option>
