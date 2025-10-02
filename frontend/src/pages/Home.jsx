@@ -900,7 +900,6 @@ export default function Home() {
                   borderRadius: '16px',
                   overflow: 'hidden',
                   cursor: 'pointer',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
                   transition: 'all 0.3s ease',
                   backgroundColor: '#fff'
                 }}
