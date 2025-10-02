@@ -8,8 +8,31 @@ import { initializeAudioPlayers } from '../utils/audioPlayerUtils';
 
 const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
 
+// Utility function to create URL slug from title
+const createSlug = (title) => {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single
+    .trim('-'); // Remove leading/trailing hyphens
+};
+
+// Utility function to find article by slug or ID
+const findArticleBySlugOrId = (articles, slugOrId) => {
+  if (!articles || !slugOrId) return null;
+  
+  // First try to find by ID (for backward compatibility)
+  let article = articles.find(item => item.id === slugOrId);
+  if (article) return article;
+  
+  // Then try to find by matching slug
+  return articles.find(item => createSlug(item.title) === slugOrId);
+};
+
 export default function News() {
-  const { id } = useParams();
+  const { slug, id } = useParams(); // Get both slug and id for backward compatibility
+  const paramValue = slug || id; // Use slug if available, fallback to id
   const [newsData, setNewsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
