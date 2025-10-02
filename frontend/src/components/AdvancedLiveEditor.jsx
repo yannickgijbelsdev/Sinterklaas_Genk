@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   Edit, Save, X, Upload, Settings, Palette, Link as LinkIcon, 
   Eye, EyeOff, Plus, Trash2, Menu, Image as ImageIcon, Video,
