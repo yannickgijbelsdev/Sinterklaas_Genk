@@ -1457,6 +1457,81 @@ async def startup_event():
     except Exception as e:
         print(f"❌ Error creating default admin user: {e}")
 
+# Configuration Management Endpoints
+@api_router.get("/admin/config")
+async def get_configuration(current_user: User = Depends(get_admin_user)):
+    """Get all configuration data"""
+    try:
+        config = await db.configuration.find_one({"type": "site_config"})
+        if not config:
+            # Return default configuration
+            default_config = {
+                "menuItems": [
+                    {"id": "1", "name": "Bestel je tickets", "href": "https://events.flextickets.nl/event/sinterklaas-en-de-wensmachine", "type": "external"},
+                    {"id": "2", "name": "Veelgestelde vragen", "href": "#faq", "type": "scroll"},
+                    {"id": "3", "name": "Nieuws", "href": "#news", "type": "scroll"}
+                ],
+                "partners": [
+                    {"id": "1", "name": "Genk", "imageUrl": "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/m50ye00m_GENK-LOGO-SCREEN-POSITIEF-RGB.png", "website": ""},
+                    {"id": "2", "name": "Rotary Club Genk", "imageUrl": "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/v8z8d4ru_Logo-RC-Genk-1.jpg", "website": ""},
+                    {"id": "3", "name": "Wonderland", "imageUrl": "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ef6r6w98_Wonderland.png", "website": ""}
+                ],
+                "faqItems": [
+                    {"question": "Hoe garandeer jullie de veiligheid tijdens shows?", "answer": "Al onze shows worden uitgevoerd door ervaren acteurs met achtergrondcontroles. We hanteren strikte veiligheidsprotocollen en hebben altijd EHBO-gekwalificeerde medewerkers aanwezig."},
+                    {"question": "Wat is inbegrepen in de ticketprijs?", "answer": "Ticketprijzen omvatten de volledige show, interactie met Sinterklaas en Pieten, cadeautjes voor kinderen, en drankje en koekje tijdens de pauze. Parkeren is gratis."}
+                ],
+                "hiddenSections": []
+            }
+            return default_config
+        
+        return {
+            "menuItems": config.get("menuItems", []),
+            "partners": config.get("partners", []),
+            "faqItems": config.get("faqItems", []),
+            "hiddenSections": config.get("hiddenSections", [])
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.put("/admin/config")
+async def update_configuration(
+    config_update: dict,
+    current_user: User = Depends(get_admin_user)
+):
+    """Update configuration data"""
+    try:
+        config_type = config_update.get("type")
+        data = config_update.get("data")
+        
+        if not config_type or data is None:
+            raise HTTPException(status_code=400, detail="Missing type or data")
+        
+        # Get existing configuration
+        existing_config = await db.configuration.find_one({"type": "site_config"})
+        if not existing_config:
+            existing_config = {
+                "type": "site_config",
+                "menuItems": [],
+                "partners": [],
+                "faqItems": [],
+                "hiddenSections": []
+            }
+        
+        # Update specific configuration type
+        existing_config[config_type] = data
+        existing_config["updatedAt"] = datetime.utcnow()
+        
+        # Upsert configuration
+        await db.configuration.update_one(
+            {"type": "site_config"},
+            {"$set": existing_config},
+            upsert=True
+        )
+        
+        return {"message": f"{config_type} configuration updated successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
