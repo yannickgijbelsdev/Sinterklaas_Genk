@@ -43,6 +43,11 @@ export const AdvancedLiveEditor = () => {
     }));
   }, []);
 
+  const handleFileUploadChange = useCallback((e) => {
+    const file = e.target.files[0];
+    if (file) handleFileUpload(file);
+  }, []);
+
   if (!isAuthenticated() || !isAdmin()) {
     return null;
   }
