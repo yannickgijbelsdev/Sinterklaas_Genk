@@ -847,10 +847,12 @@ export default function Home() {
       {/* Photo Gallery Section */}
       <section 
         id="gallery"
-        className="section section-padding relative"
+        className="section relative"
         style={{ 
           background: 'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)',
-          color: 'white'
+          color: 'white',
+          paddingTop: '192px',
+          paddingBottom: '96px'
         }}
       >
         {/* Wave Shape Top - News to Gallery */}
