@@ -676,10 +676,7 @@ const PasswordManagement = ({
               id="confirm_password"
               type="password"
               value={passwordChange.confirm_password}
-              onChange={(e) => setPasswordChange(prev => ({
-                ...prev, 
-                confirm_password: e.target.value
-              }))}
+              onChange={handlePasswordConfirmChange}
               placeholder="Bevestig nieuw wachtwoord"
             />
           </div>
