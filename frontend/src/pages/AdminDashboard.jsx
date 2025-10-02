@@ -984,6 +984,7 @@ const PasswordManagement = ({
                 {activeTab === 'news' && 'Nieuws Beheer'}
                 {activeTab === 'shows' && 'Shows Beheer'}
                 {activeTab === 'users' && 'Gebruikers Beheer'}
+                {activeTab === 'passwords' && 'Wachtwoord Beheer'}
                 {activeTab === 'media' && 'Media Beheer'}
                 {activeTab === 'settings' && 'Instellingen'}
               </h2>
