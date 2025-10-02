@@ -1601,7 +1601,7 @@ async def startup_event():
             }
             
             await db.users.insert_one(admin_user)
-            print("✅ Created default admin user - email: admin@sinterklaas.com, password: admin123")
+            print("✅ Created default admin user - email: admin@sinterklaas.com, password: KYLovie13monx")
         else:
             print("✅ Admin user already exists")
     except Exception as e:
