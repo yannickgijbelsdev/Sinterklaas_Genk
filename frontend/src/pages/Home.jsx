@@ -877,7 +877,7 @@ export default function Home() {
               }}
               data-edit-id="gallery_subtitle"
             >
-              Beleef de magie van Sinterklaas en de Wensmachine door onze prachtige beelden
+              Beleef de magie van Sinterklaas en de Wensmachine met onze prachtige beelden
             </p>
           </div>
 
