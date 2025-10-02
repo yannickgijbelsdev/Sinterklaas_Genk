@@ -523,10 +523,7 @@ export const AdvancedLiveEditor = () => {
                 <Input
                   type="color"
                   defaultValue="#B91C1C"
-                  onChange={(e) => {
-                    handleColorChange(managementPanel.data.section, e.target.value);
-                    setManagementPanel({ show: false, type: '' });
-                  }}
+                  onChange={handleColorPickerChange}
                   className="w-full h-12"
                 />
               </>
