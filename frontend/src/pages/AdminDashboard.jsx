@@ -8,7 +8,7 @@ import { Badge } from '../components/ui/badge';
 import { toast } from 'sonner';
 import AdminLogin from '../components/AdminLogin';
 import { useAuth } from '../contexts/AuthContext';
-import RichNewsEditor from '../components/RichNewsEditor';
+import SimpleRichEditor from '../components/SimpleRichEditor';
 import { 
   Plus, 
   Edit, 
