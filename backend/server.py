@@ -73,7 +73,10 @@ async def serve_uploaded_file(file_path: str):
     """Serve uploaded files via API prefix for Kubernetes ingress"""
     file_location = Path("uploads") / file_path
     if file_location.exists() and file_location.is_file():
-        return FileResponse(file_location)
+        # Determine media type based on file extension
+        import mimetypes
+        media_type, _ = mimetypes.guess_type(str(file_location))
+        return FileResponse(file_location, media_type=media_type)
     raise HTTPException(status_code=404, detail="File not found")
 
 
