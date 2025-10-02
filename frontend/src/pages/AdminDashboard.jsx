@@ -373,9 +373,23 @@ export default function AdminDashboard() {
     if (!editingNews) return;
 
     try {
+      let imageUrl = newNews.featured_image;
+      
+      // Upload new image if selected
+      if (selectedImage) {
+        imageUrl = await handleImageUpload(selectedImage);
+        if (!imageUrl) {
+          toast.error('Fout bij uploaden van nieuwe afbeelding');
+          return;
+        }
+      }
+
       const response = await apiCall(`/admin/news/${editingNews.id}`, {
         method: 'PUT',
-        body: JSON.stringify(newNews)
+        body: JSON.stringify({
+          ...newNews,
+          featured_image: imageUrl
+        })
       });
 
       if (response.ok) {
@@ -386,8 +400,11 @@ export default function AdminDashboard() {
           excerpt: '',
           content: '',
           category: 'Algemeen',
-          published: true
+          published: true,
+          featured_image: ''
         });
+        setSelectedImage(null);
+        setImagePreview('');
         loadDashboardData();
       } else {
         toast.error('Fout bij bijwerken artikel');
