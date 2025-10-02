@@ -30,6 +30,40 @@ export const LiveEditorProvider = ({ children }) => {
     }
   }, [isAuthenticated, isAdmin]);
 
+  // Only load content if user is authenticated and admin
+  if (!isAuthenticated() || !isAdmin()) {
+    // Return a minimal version for non-admin users
+    const value = {
+      isEditing: false,
+      pageContent: {},
+      hiddenSections: [],
+      menuItems: [],
+      partners: [],
+      faqItems: [],
+      setIsEditing: () => {},
+      loadAllContent: () => {},
+      saveContent: () => {},
+      saveConfiguration: () => {},
+      uploadMedia: () => {},
+      toggleSectionVisibility: () => {},
+      addMenuItem: () => {},
+      updateMenuItem: () => {},
+      deleteMenuItem: () => {},
+      addPartner: () => {},
+      updatePartner: () => {},
+      deletePartner: () => {},
+      updateFaqItem: () => {},
+      getContent: (contentId, defaultValue = '') => defaultValue,
+      isSectionHidden: () => false
+    };
+    
+    return (
+      <LiveEditorContext.Provider value={value}>
+        {children}
+      </LiveEditorContext.Provider>
+    );
+  }
+
   const loadAllContent = async () => {
     try {
       // Load general content
