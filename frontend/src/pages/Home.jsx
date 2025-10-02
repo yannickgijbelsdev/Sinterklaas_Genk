@@ -262,29 +262,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Main Title - Center */}
-        <div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 15 }}>
-          <div className="text-center text-white">
-            <h1 
-              className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 drop-shadow-2xl"
-              data-edit-id="hero_title"
-              style={{ 
-                textShadow: '0 4px 12px rgba(0,0,0,0.8)',
-                fontFamily: 'serif'
-              }}
-            >
-              De Magische Sinterklaas Show
-            </h1>
-            <p 
-              className="text-xl md:text-2xl lg:text-3xl mb-8 drop-shadow-xl"
-              data-edit-id="hero_subtitle"
-              style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}
-            >
-              Een onvergetelijke ervaring in Genk
-            </p>
-          </div>
-        </div>
-
         {/* View Trailer Button - Bottom Right */}
         <button 
           onClick={() => setShowTrailerModal(true)}
