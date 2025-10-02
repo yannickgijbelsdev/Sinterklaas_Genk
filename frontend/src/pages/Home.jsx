@@ -23,7 +23,7 @@ export default function Home() {
   const [loadingMoreNews, setLoadingMoreNews] = useState(false);
   const [currentPartnerSet, setCurrentPartnerSet] = useState(0);
 
-  // Partner logo sets that will rotate - Updated with new logos
+  // Partner logo sets that will rotate - Expanded with all 7 logos
   const partnerSets = [
     [
       {
@@ -44,9 +44,43 @@ export default function Home() {
     ],
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/ggy8l0ja_Poolse_Dansgroep.png",
-        alt: "Poolse Dansgroep Logo",
-        id: "partner_poolse_dansgroep_logo_2"
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/0kogizc7_Rotary_Genk.png",
+        alt: "Rotary Genk Logo",
+        id: "partner_rotary_genk_logo"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/bv2w2k83_GENK-LOGO-SCREEN-POSITIEF-RGB.png",
+        alt: "Genk Logo",
+        id: "partner_genk_logo"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/v32730xq_Hotel_Bonka.svg",
+        alt: "Hotel Bonka Logo",
+        id: "partner_hotel_bonka_logo"
+      }
+    ],
+    [
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/xa0191iz_tk3ymnog_SW-2025-LOGO-RGB.png",
+        alt: "SW 2025 Logo",
+        id: "partner_sw_2025_logo"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/ajsbqyr6_Jumbo_Genk.png",
+        alt: "Jumbo Genk Logo",
+        id: "partner_jumbo_genk_logo_2"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/0kogizc7_Rotary_Genk.png",
+        alt: "Rotary Genk Logo",
+        id: "partner_rotary_genk_logo_2"
+      }
+    ],
+    [
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/v32730xq_Hotel_Bonka.svg",
+        alt: "Hotel Bonka Logo",
+        id: "partner_hotel_bonka_logo_2"
       },
       {
         src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/6rvbd219_Balls_Glory.png",
@@ -54,26 +88,26 @@ export default function Home() {
         id: "partner_balls_glory_logo_2"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/ajsbqyr6_Jumbo_Genk.png",
-        alt: "Jumbo Genk Logo",
-        id: "partner_jumbo_genk_logo_2"
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/bv2w2k83_GENK-LOGO-SCREEN-POSITIEF-RGB.png",
+        alt: "Genk Logo",
+        id: "partner_genk_logo_2"
       }
     ],
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/6rvbd219_Balls_Glory.png",
-        alt: "Balls Glory Logo",
-        id: "partner_balls_glory_logo_3"
-      },
-      {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/ajsbqyr6_Jumbo_Genk.png",
-        alt: "Jumbo Genk Logo",
-        id: "partner_jumbo_genk_logo_3"
-      },
-      {
         src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/ggy8l0ja_Poolse_Dansgroep.png",
-        alt: "Poolse Dansgroep Logo", 
-        id: "partner_poolse_dansgroep_logo_3"
+        alt: "Poolse Dansgroep Logo",
+        id: "partner_poolse_dansgroep_logo_2"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/xa0191iz_tk3ymnog_SW-2025-LOGO-RGB.png",
+        alt: "SW 2025 Logo", 
+        id: "partner_sw_2025_logo_2"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/v32730xq_Hotel_Bonka.svg",
+        alt: "Hotel Bonka Logo",
+        id: "partner_hotel_bonka_logo_3"
       }
     ]
   ];
