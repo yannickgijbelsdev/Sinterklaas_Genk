@@ -444,8 +444,11 @@ export default function Home() {
             <video
               autoPlay
               controls
+              controlsList="nodownload noremoteplayback"
+              disablePictureInPicture
               className="w-full h-auto"
               style={{ maxHeight: '80vh' }}
+              onContextMenu={(e) => e.preventDefault()}
               onEnded={() => {
                 // Video ends, don't loop
                 console.log('Trailer finished playing');
