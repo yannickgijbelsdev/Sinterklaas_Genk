@@ -63,7 +63,17 @@ export default function Home() {
     fetchData();
   }, []);
 
-  // Video handling useEffect removed - using modal instead
+  // Background video handling
+  useEffect(() => {
+    const backgroundVideo = document.querySelector('#hero video');
+    if (backgroundVideo) {
+      // Ensure video plays and is muted
+      backgroundVideo.muted = true;
+      backgroundVideo.play().catch(err => {
+        console.log('Background video autoplay prevented:', err);
+      });
+    }
+  }, []);
 
   const faqItems = [
     {
