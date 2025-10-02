@@ -1411,108 +1411,6 @@ def upload_to_sftp_working(file_content: bytes, filename: str, subfolder: str = 
         print(f"❌ SFTP upload failed: {str(e)}")
         raise Exception(f"SFTP upload failed: {str(e)}")
 
-# Include the router in the main app
-app.include_router(api_router)
-
-# Mount static files for uploads
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
-
-@app.on_event("startup")
-async def startup_event():
-    """Create default admin user if it doesn't exist"""
-    try:
-        # Check if admin user with correct email exists
-        admin_exists = await db.users.find_one({"email": "admin@sinterklaas.com"})
-        
-        if not admin_exists:
-            # Create default admin user with correct fields matching User model
-            hashed_password = hash_password("admin123")
-            admin_user = {
-                "id": str(uuid.uuid4()),
-                "username": "admin@sinterklaas.com",  # Use email as username
-                "email": "admin@sinterklaas.com", 
-                "hashed_password": hashed_password,
-                "is_active": True,
-                "is_admin": True,
-                "createdAt": datetime.utcnow(),
-                "updatedAt": datetime.utcnow()
-            }
-            
-            await db.users.insert_one(admin_user)
-            print("✅ Created default admin user - email: admin@sinterklaas.com, password: admin123")
-        else:
-            print("✅ Admin user already exists")
-    except Exception as e:
-        print(f"❌ Error creating default admin user: {e}")
-    
-    # Create sample news articles if none exist
-    try:
-        news_count = await db.news.count_documents({})
-        if news_count == 0:
-            sample_news = [
-                {
-                    "id": str(uuid.uuid4()),
-                    "title": "Welkom bij Sinterklaas Genk 2025!",
-                    "excerpt": "Dit jaar brengen we jullie weer de meest magische Sinterklaas ervaring in Genk!",
-                    "content": "Onze Sinterklaas shows zijn terug! Dit jaar hebben we extra aandacht besteed aan interactie en beleving. Kom genieten van een onvergetelijke avond vol magie, muziek en natuurlijk... cadeautjes! Met onze nieuwe interactieve elementen wordt elke show een unieke ervaring.",
-                    "category": "Show Nieuws",
-                    "published": True,
-                    "date": datetime.now().isoformat(),
-                    "featured_image": "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg",
-                    "image": "",
-                    "createdAt": datetime.utcnow(),
-                    "updatedAt": datetime.utcnow()
-                },
-                {
-                    "id": str(uuid.uuid4()),
-                    "title": "Behind the Scenes: Zo bereiden we ons voor",
-                    "excerpt": "Een exclusieve kijk achter de schermen bij de voorbereidingen voor het Sinterklaas seizoen.",
-                    "content": "Het Sinterklaas seizoen begint al maanden voor november! Onze acteurs en crew werken hard om jullie de beste show te geven. Van kostuums tot decor, alles wordt met liefde voorbereid. Ontdek in dit artikel hoe wij ervoor zorgen dat de magie tot leven komt.",
-                    "category": "Achter de Schermen",
-                    "published": True,
-                    "date": (datetime.now() - timedelta(days=5)).isoformat(),
-                    "featured_image": "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/tf62t3u6_MRTN1802.jpg",
-                    "image": "",
-                    "createdAt": datetime.utcnow(),
-                    "updatedAt": datetime.utcnow()
-                },
-                {
-                    "id": str(uuid.uuid4()),
-                    "title": "Tips voor Ouders: De Perfecte Sinterklaasavond",
-                    "excerpt": "Praktische tips om ervoor te zorgen dat je kind optimaal kan genieten van de magische ervaring.",
-                    "content": "Een Sinterklaasshow kan overweldigend zijn voor kleine kinderen. Hier zijn onze beste tips: kom 15 minuten voor de show aan, breng een klein knuffeldiertje mee voor comfort, en leg van tevoren uit wat er gaat gebeuren. Zo wordt het een onvergetelijke ervaring!",
-                    "category": "Tips voor Ouders",
-                    "published": True,
-                    "date": (datetime.now() - timedelta(days=10)).isoformat(),
-                    "featured_image": "https://via.placeholder.com/400x200/DC2626/FFFFFF?text=Tips+voor+Ouders",
-                    "image": "",
-                    "createdAt": datetime.utcnow(),
-                    "updatedAt": datetime.utcnow()
-                }
-            ]
-            
-            await db.news.insert_many(sample_news)
-            print("✅ Created sample news articles")
-        else:
-            print("✅ News articles already exist")
-    except Exception as e:
-        print(f"❌ Error creating sample news articles: {e}")
-
 # Public Content Endpoint (no auth required)
 @api_router.get("/content")
 async def get_public_content():
@@ -1542,8 +1440,6 @@ async def get_public_shows():
         return shows
     except Exception as e:
         return []
-
-# Endpoint removed - will add in better location
 
 # Configuration Management Endpoints
 @api_router.get("/admin/config")
@@ -1661,6 +1557,108 @@ async def update_content(
         return {"message": f"Successfully updated {updated_count} content items"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+# Include the router in the main app
+app.include_router(api_router)
+
+# Mount static files for uploads
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+@app.on_event("startup")
+async def startup_event():
+    """Create default admin user if it doesn't exist"""
+    try:
+        # Check if admin user with correct email exists
+        admin_exists = await db.users.find_one({"email": "admin@sinterklaas.com"})
+        
+        if not admin_exists:
+            # Create default admin user with correct fields matching User model
+            hashed_password = hash_password("admin123")
+            admin_user = {
+                "id": str(uuid.uuid4()),
+                "username": "admin@sinterklaas.com",  # Use email as username
+                "email": "admin@sinterklaas.com", 
+                "hashed_password": hashed_password,
+                "is_active": True,
+                "is_admin": True,
+                "createdAt": datetime.utcnow(),
+                "updatedAt": datetime.utcnow()
+            }
+            
+            await db.users.insert_one(admin_user)
+            print("✅ Created default admin user - email: admin@sinterklaas.com, password: admin123")
+        else:
+            print("✅ Admin user already exists")
+    except Exception as e:
+        print(f"❌ Error creating default admin user: {e}")
+    
+    # Create sample news articles if none exist
+    try:
+        news_count = await db.news.count_documents({})
+        if news_count == 0:
+            sample_news = [
+                {
+                    "id": str(uuid.uuid4()),
+                    "title": "Welkom bij Sinterklaas Genk 2025!",
+                    "excerpt": "Dit jaar brengen we jullie weer de meest magische Sinterklaas ervaring in Genk!",
+                    "content": "Onze Sinterklaas shows zijn terug! Dit jaar hebben we extra aandacht besteed aan interactie en beleving. Kom genieten van een onvergetelijke avond vol magie, muziek en natuurlijk... cadeautjes! Met onze nieuwe interactieve elementen wordt elke show een unieke ervaring.",
+                    "category": "Show Nieuws",
+                    "published": True,
+                    "date": datetime.now().isoformat(),
+                    "featured_image": "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg",
+                    "image": "",
+                    "createdAt": datetime.utcnow(),
+                    "updatedAt": datetime.utcnow()
+                },
+                {
+                    "id": str(uuid.uuid4()),
+                    "title": "Behind the Scenes: Zo bereiden we ons voor",
+                    "excerpt": "Een exclusieve kijk achter de schermen bij de voorbereidingen voor het Sinterklaas seizoen.",
+                    "content": "Het Sinterklaas seizoen begint al maanden voor november! Onze acteurs en crew werken hard om jullie de beste show te geven. Van kostuums tot decor, alles wordt met liefde voorbereid. Ontdek in dit artikel hoe wij ervoor zorgen dat de magie tot leven komt.",
+                    "category": "Achter de Schermen",
+                    "published": True,
+                    "date": (datetime.now() - timedelta(days=5)).isoformat(),
+                    "featured_image": "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/tf62t3u6_MRTN1802.jpg",
+                    "image": "",
+                    "createdAt": datetime.utcnow(),
+                    "updatedAt": datetime.utcnow()
+                },
+                {
+                    "id": str(uuid.uuid4()),
+                    "title": "Tips voor Ouders: De Perfecte Sinterklaasavond",
+                    "excerpt": "Praktische tips om ervoor te zorgen dat je kind optimaal kan genieten van de magische ervaring.",
+                    "content": "Een Sinterklaasshow kan overweldigend zijn voor kleine kinderen. Hier zijn onze beste tips: kom 15 minuten voor de show aan, breng een klein knuffeldiertje mee voor comfort, en leg van tevoren uit wat er gaat gebeuren. Zo wordt het een onvergetelijke ervaring!",
+                    "category": "Tips voor Ouders",
+                    "published": True,
+                    "date": (datetime.now() - timedelta(days=10)).isoformat(),
+                    "featured_image": "https://via.placeholder.com/400x200/DC2626/FFFFFF?text=Tips+voor+Ouders",
+                    "image": "",
+                    "createdAt": datetime.utcnow(),
+                    "updatedAt": datetime.utcnow()
+                }
+            ]
+            
+            await db.news.insert_many(sample_news)
+            print("✅ Created sample news articles")
+        else:
+            print("✅ News articles already exist")
+    except Exception as e:
+        print(f"❌ Error creating sample news articles: {e}")
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
