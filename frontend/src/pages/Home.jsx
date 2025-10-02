@@ -682,7 +682,7 @@ export default function Home() {
               style={{ fontSize: '20px', color: '#666' }}
               data-edit-id="news_subtitle"
             >
-              Blijf op de hoogte van alle nieuwtjes en verhalen rondom Sinterklaas Genk.
+              Blijf op de hoogte van alle nieuwtjes en verhalen van Sinterklaas in Genk.
             </p>
           </div>
           
