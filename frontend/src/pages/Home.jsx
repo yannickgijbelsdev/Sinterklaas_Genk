@@ -612,6 +612,7 @@ export default function Home() {
               className="w-full h-auto"
               style={{ maxHeight: '80vh' }}
               onContextMenu={(e) => e.preventDefault()}
+              data-edit-id="trailer_modal_video"
               onEnded={() => {
                 // Video ends, don't loop
                 console.log('Trailer finished playing');
