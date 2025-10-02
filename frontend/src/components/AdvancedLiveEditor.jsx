@@ -456,10 +456,7 @@ export const AdvancedLiveEditor = () => {
               <input
                 type="file"
                 accept="image/*,video/*"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) handleFileUpload(file);
-                }}
+                onChange={handleFileUploadChange}
                 className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
               />
             </div>
