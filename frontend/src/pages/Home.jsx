@@ -1029,7 +1029,7 @@ export default function Home() {
                   src="https://customer-assets.emergentagent.com/job_genk-sint-site/artifacts/1x6rjv7u_SW_HQ_Logo.png"
                   alt="Studio Wonderland Logo"
                   style={{ 
-                    height: '48px', 
+                    height: '96px', 
                     width: 'auto',
                     filter: 'brightness(0) saturate(100%) invert(24%) sepia(79%) saturate(2476%) hue-rotate(346deg) brightness(92%) contrast(92%)'
                   }}
