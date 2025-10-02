@@ -22,6 +22,41 @@ export default function Home() {
   const [newsDisplayCount, setNewsDisplayCount] = useState(3);
   const [loadingMoreNews, setLoadingMoreNews] = useState(false);
 
+  // Load and apply stored content on page load
+  useEffect(() => {
+    const loadStoredContent = async () => {
+      try {
+        // Try to load stored content from backend
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/content`);
+        if (response.ok) {
+          const contentData = await response.json();
+          
+          // Apply content to elements
+          contentData.forEach(item => {
+            const element = document.querySelector(`[data-edit-id="${item.id}"]`);
+            if (element) {
+              if (element.tagName === 'IMG') {
+                element.src = item.value;
+              } else if (element.tagName === 'VIDEO') {
+                element.src = item.value;
+                const source = element.querySelector('source');
+                if (source) source.src = item.value;
+              } else {
+                element.textContent = item.value;
+              }
+            }
+          });
+        }
+      } catch (error) {
+        console.log('Could not load stored content, using defaults');
+      }
+    };
+
+    // Wait a bit for DOM to be ready, then load content
+    const timer = setTimeout(loadStoredContent, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Smooth scroll function
   const smoothScrollTo = (elementId) => {
     const element = document.querySelector(elementId);
