@@ -6,17 +6,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { toast } from 'sonner';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-
-// Block types for live editor
-const LIVE_BLOCK_TYPES = {
-  TEXT: 'text',
-  HEADING: 'heading',
-  IMAGE: 'image',
-  BUTTON: 'button',
-  SPACER: 'spacer',
-  DIVIDER: 'divider'
-};
+const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
 
 export const LiveEditor = ({ children, pageKey = 'home' }) => {
   const { user, isAuthenticated, apiCall } = useAuth();
