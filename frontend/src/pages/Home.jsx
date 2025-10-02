@@ -166,19 +166,44 @@ export default function Home() {
   return (
     <div>
       
-      {/* Hero Section with Image Background & Trailer Button */}
+      {/* Hero Section with Video Background & Trailer Button */}
       <section 
         id="hero" 
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
-        style={{
-          backgroundImage: `url('https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat'
-        }}
       >
+        {/* Video Background - Silent & Looping */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover',
+            zIndex: 1
+          }}
+          onContextMenu={(e) => e.preventDefault()}
+        >
+          <source 
+            src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ynr147fs_trailer%20zonder%20OT.mp4" 
+            type="video/mp4" 
+          />
+        </video>
+        
+        {/* Fallback image if video doesn't load */}
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: `url('https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg')`,
+            zIndex: 0
+          }}
+        ></div>
+        
         {/* Subtle overlay for content readability */}
-        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute inset-0 bg-black/10" style={{ zIndex: 2 }}></div>
         
         {/* Trailer Button - Bottom Right */}
         <button
