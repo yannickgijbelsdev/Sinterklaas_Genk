@@ -261,7 +261,7 @@ export default function AdminDashboard() {
     if (!window.confirm('Weet je zeker dat je dit artikel wilt verwijderen?')) return;
 
     try {
-      const response = await fetch(`${API}/admin/news/${id}`, {
+      const response = await apiCall(`/admin/news/${id}`, {
         method: 'DELETE'
       });
 
