@@ -129,11 +129,6 @@ export default function Home() {
       title: "Wenssexpress Scene 2"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/izi2wnpm_Wenssexpress__1.23.1.jpg",
-      alt: "Sinterklaas en de Wensmachine - Scene 3",
-      title: "Wenssexpress Scene 3"
-    },
-    {
       src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/e9m4txzp_Wenssexpress__1.33.1.jpg",
       alt: "Sinterklaas en de Wensmachine - Scene 4",
       title: "Wenssexpress Scene 4"
