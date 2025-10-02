@@ -1632,29 +1632,33 @@ async def get_admin_content(current_user: User = Depends(get_admin_user)):
 
 @api_router.put("/admin/content")
 async def update_content(
-    content_update: dict,
+    content_updates: List[ContentUpdate],
     current_user: User = Depends(get_admin_user)
 ):
-    """Update content item"""
+    """Update multiple content items"""
     try:
-        content_id = content_update.get("id")
-        value = content_update.get("value")
+        updated_count = 0
         
-        if not content_id:
-            raise HTTPException(status_code=400, detail="Missing content id")
+        for content_update in content_updates:
+            # Generate a unique ID based on section and key
+            content_id = f"{content_update.section}_{content_update.key}"
+            
+            # Upsert content item
+            await db.content.update_one(
+                {"id": content_id},
+                {"$set": {
+                    "id": content_id,
+                    "section": content_update.section,
+                    "type": content_update.type,
+                    "key": content_update.key,
+                    "value": content_update.value,
+                    "updatedAt": datetime.utcnow()
+                }},
+                upsert=True
+            )
+            updated_count += 1
         
-        # Upsert content
-        await db.content.update_one(
-            {"id": content_id},
-            {"$set": {
-                "id": content_id,
-                "value": value,
-                "updatedAt": datetime.utcnow()
-            }},
-            upsert=True
-        )
-        
-        return {"message": "Content updated successfully"}
+        return {"message": f"Successfully updated {updated_count} content items"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
