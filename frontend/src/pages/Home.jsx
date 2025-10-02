@@ -603,27 +603,75 @@ export default function Home() {
 
       {/* Contact Section - REMOVED */}
 
-      {/* Simple Footer */}
+      {/* Enhanced Footer */}
       <footer 
-        style={{ background: '#FEF7ED', padding: '40px 0', textAlign: 'center' }}
+        style={{ background: '#FEF7ED', padding: '60px 0 40px 0' }}
         data-section-id="footer_section"
       >
-        <div className="container">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
-            <Gift size={24} color="#DC2626" />
-            <span 
-              style={{ fontSize: '20px', fontWeight: '700', color: '#DC2626' }}
-              data-edit-id="footer_title"
-            >
-              Sinterklaas Genk
-            </span>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+          {/* Main Footer Content */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+            gap: '40px', 
+            marginBottom: '40px' 
+          }}>
+            {/* Brand Section */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '20px' }}>
+                <Gift size={28} color="#DC2626" />
+                <span 
+                  style={{ fontSize: '24px', fontWeight: '700', color: '#DC2626' }}
+                  data-edit-id="footer_title"
+                >
+                  Sinterklaas Genk
+                </span>
+              </div>
+              <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5', maxWidth: '300px', margin: '0 auto' }}>
+                De meest magische Sinterklaas ervaring voor het hele gezin in Genk.
+              </p>
+            </div>
+
+            {/* Contact Info Section */}
+            <div>
+              <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#DC2626', marginBottom: '20px' }}>
+                Contact
+              </h3>
+              <div style={{ color: '#666', fontSize: '15px', lineHeight: '1.6' }}>
+                <div style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Mail size={18} color="#DC2626" />
+                  <a 
+                    href="mailto:info@sinterklaasgenk.be" 
+                    style={{ color: '#DC2626', textDecoration: 'none' }}
+                    onMouseOver={(e) => e.target.style.textDecoration = 'underline'}
+                    onMouseOut={(e) => e.target.style.textDecoration = 'none'}
+                  >
+                    info@sinterklaasgenk.be
+                  </a>
+                </div>
+                <div style={{ marginBottom: '12px' }}>
+                  <strong>Studio Wonderland</strong>
+                </div>
+                <div style={{ fontSize: '13px', color: '#888' }}>
+                  Ondernemingsnummer: BE1008.607.780
+                </div>
+              </div>
+            </div>
           </div>
-          <p 
-            style={{ color: '#666', fontSize: '14px' }}
-            data-edit-id="footer_copyright"
-          >
-            © 2025 Sinterklaas Genk. Alle rechten voorbehouden.
-          </p>
+
+          {/* Copyright */}
+          <div style={{ 
+            textAlign: 'center', 
+            paddingTop: '30px', 
+            borderTop: '1px solid #E5E7EB' 
+          }}>
+            <p 
+              style={{ color: '#666', fontSize: '14px', margin: '0' }}
+              data-edit-id="footer_copyright"
+            >
+              © 2025 Sinterklaas Genk - Studio Wonderland. Alle rechten voorbehouden.
+            </p>
+          </div>
         </div>
       </footer>
 
