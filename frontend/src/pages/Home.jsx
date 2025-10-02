@@ -982,6 +982,27 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          {/* Credits Banner */}
+          <div style={{
+            marginTop: '40px',
+            display: 'flex',
+            justifyContent: 'center',
+            paddingBottom: '20px'
+          }}>
+            <div style={{
+              background: 'white',
+              color: '#666',
+              padding: '12px 24px',
+              borderRadius: '25px',
+              fontSize: '14px',
+              fontWeight: '500',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+              textAlign: 'center'
+            }}>
+              Beelden door Stad Genk, Tony van Galen en Killian De Sitter
+            </div>
+          </div>
         </div>
 
         {/* Wave Shape Bottom - Gallery to Footer */}
