@@ -172,19 +172,39 @@ export default function Home() {
   return (
     <div>
       
-      {/* Hero Section */}
+      {/* Hero Section with Video Background */}
       <section 
         id="hero" 
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
-        style={{
-          backgroundImage: `url('https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat'
-        }}
       >
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover',
+            zIndex: -1
+          }}
+        >
+          <source 
+            src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ynr147fs_trailer%20zonder%20OT.mp4" 
+            type="video/mp4" 
+          />
+          {/* Fallback image if video doesn't load */}
+          <img 
+            src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg"
+            alt="Sinterklaas"
+            className="w-full h-full object-cover"
+          />
+        </video>
+        
+        {/* Dark overlay for text readability (optional - can be removed for cleaner video) */}
+        <div className="absolute inset-0 bg-black/20"></div>
         
         {/* Title removed - clean banner */}
         
