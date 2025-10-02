@@ -1,0 +1,37 @@
+/* Hide all existing HTML5 audio elements and their filename containers */
+div:has(audio[controls]) {
+  display: none !important;
+}
+
+/* Alternative approach for browsers that don't support :has() */
+div audio[controls] {
+  display: none !important;
+}
+
+div h4:has(+ audio[controls]),
+h4:has(+ audio[controls]) {
+  display: none !important;
+}
+
+/* Hide any div that contains both h4 with music emoji and audio */
+div:has(h4:contains("🎵")) audio {
+  display: none !important;
+}
+
+div:has(h4:contains("🎵")) h4 {
+  display: none !important;
+}
+
+/* Style for our wave audio players */
+.wave-audio-container {
+  margin: 20px 0 !important;
+}
+
+.wave-audio-container .audio-play-btn:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
+}
+
+.wave-audio-container .wave-container:hover {
+  border-color: #DC2626 !important;
+}
