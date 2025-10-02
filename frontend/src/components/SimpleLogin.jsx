@@ -123,7 +123,7 @@ export const SimpleLogin = ({ onSuccess }) => {
               <Input
                 name="username"
                 value={credentials.username}
-                onChange={(e) => setCredentials({...credentials, username: e.target.value})}
+                onChange={handleUsernameChange}
                 placeholder="admin"
                 required
                 className="mt-1"
