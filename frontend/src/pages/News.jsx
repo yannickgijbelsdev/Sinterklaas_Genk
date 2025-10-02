@@ -36,17 +36,9 @@ export default function News() {
   
   // Loading state - removed for instant display
 
-  // Error state
+  // Error state - show nothing if there's an error
   if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Fout bij laden van nieuws</h1>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <Button onClick={() => window.location.reload()}>Probeer opnieuw</Button>
-        </div>
-      </div>
-    );
+    return <div className="min-h-screen"></div>;
   }
 
   // If there's an ID in the URL, show single article
