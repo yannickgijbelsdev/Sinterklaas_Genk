@@ -65,6 +65,17 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+# Mount static files also under /api prefix for Kubernetes ingress
+from fastapi.responses import FileResponse
+
+@api_router.get("/uploads/{file_path:path}")
+async def serve_uploaded_file(file_path: str):
+    """Serve uploaded files via API prefix for Kubernetes ingress"""
+    file_location = Path("uploads") / file_path
+    if file_location.exists() and file_location.is_file():
+        return FileResponse(file_location)
+    raise HTTPException(status_code=404, detail="File not found")
+
 
 # Define Models
 class StatusCheck(BaseModel):
