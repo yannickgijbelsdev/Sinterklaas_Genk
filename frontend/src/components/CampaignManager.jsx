@@ -505,7 +505,7 @@ export function CampaignManager({ subscribers = [] }) {
                 <Input
                   type="email"
                   value={campaignData.from_email}
-                  onChange={(e) => setCampaignData({...campaignData, from_email: e.target.value})}
+                  onChange={handleFromEmailChange}
                 />
               </div>
               <div>
