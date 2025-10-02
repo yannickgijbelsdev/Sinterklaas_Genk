@@ -805,7 +805,7 @@ const PasswordManagement = ({
             <select
               id="userRole"
               value={newUser.role}
-              onChange={(e) => setNewUser({...newUser, role: e.target.value})}
+              onChange={handleNewUserRoleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
             >
               <option value="admin">Admin</option>
