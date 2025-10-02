@@ -844,6 +844,127 @@ export default function Home() {
 
       {/* Contact Section - REMOVED */}
 
+      {/* Photo Gallery Section */}
+      <section 
+        id="gallery"
+        style={{ 
+          background: 'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)',
+          padding: '80px 0',
+          color: 'white'
+        }}
+      >
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+          {/* Section Header */}
+          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <h2 
+              style={{ 
+                fontSize: '48px', 
+                fontWeight: '800', 
+                marginBottom: '20px',
+                textShadow: '2px 4px 8px rgba(0,0,0,0.3)'
+              }}
+              data-edit-id="gallery_title"
+            >
+              Foto Galerij
+            </h2>
+            <p 
+              style={{ 
+                fontSize: '20px', 
+                opacity: '0.9', 
+                maxWidth: '600px', 
+                margin: '0 auto',
+                lineHeight: '1.6'
+              }}
+              data-edit-id="gallery_subtitle"
+            >
+              Beleef de magie van Sinterklaas en de Wensmachine door onze prachtige beelden
+            </p>
+          </div>
+
+          {/* Gallery Grid */}
+          <div 
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '20px',
+              marginBottom: '40px'
+            }}
+          >
+            {galleryImages.map((image, index) => (
+              <div
+                key={index}
+                onClick={() => openLightbox(index)}
+                style={{
+                  position: 'relative',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+                  transition: 'all 0.3s ease',
+                  backgroundColor: '#fff'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-8px)';
+                  e.target.style.boxShadow = '0 20px 40px rgba(0,0,0,0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+                }}
+              >
+                <div
+                  style={{
+                    paddingBottom: '75%', // 4:3 aspect ratio
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    style={{
+                      position: 'absolute',
+                      top: '0',
+                      left: '0',
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onContextMenu={(e) => e.preventDefault()} // Prevent right-click
+                    draggable={false} // Prevent dragging
+                  />
+                  
+                  {/* Overlay on hover */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '0',
+                      left: '0',
+                      right: '0',
+                      bottom: '0',
+                      background: 'rgba(0,0,0,0.5)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      opacity: '0',
+                      transition: 'opacity 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => e.target.style.opacity = '1'}
+                    onMouseLeave={(e) => e.target.style.opacity = '0'}
+                  >
+                    <div style={{ textAlign: 'center', color: 'white' }}>
+                      <div style={{ fontSize: '48px', marginBottom: '12px' }}>🔍</div>
+                      <p style={{ fontSize: '16px', fontWeight: '600' }}>Bekijk groter</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Enhanced Footer */}
       <footer 
         style={{ background: '#FEF7ED', padding: '60px 0 40px 0' }}
