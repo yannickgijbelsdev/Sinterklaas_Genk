@@ -47,8 +47,8 @@ export default function News() {
     if (newsData && newsData.length > 0) {
       // Small delay to ensure DOM is updated
       setTimeout(() => {
-        // Force replace HTML5 audio with wave players
-        replaceAllAudioElements();
+        // Use safer CSS-only approach to hide HTML5 audio
+        hideHTML5AudioElements();
         initializeAudioPlayers();
       }, 500);
     }
