@@ -439,7 +439,7 @@ export default function Home() {
                     boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
                   }}
                 >
-                  <span>{item.question}</span>
+                  <span data-edit-id={`faq_question_${index}`}>{item.question}</span>
                   {openFaq === index ? <Minus size={20} color="#B91C1C" /> : <Plus size={20} color="#B91C1C" />}
                 </button>
                 {openFaq === index && (
