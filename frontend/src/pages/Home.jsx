@@ -513,7 +513,7 @@ export default function Home() {
                 onClick={() => window.open('https://events.flextickets.nl/event/sinterklaas-en-de-wensmachine', '_blank')}
               >
                 <Calendar size={20} />
-                Bestel nu je tickets
+                Bestel hier je tickets
               </button>
             </div>
             <div style={{
