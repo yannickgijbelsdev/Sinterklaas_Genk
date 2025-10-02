@@ -1521,7 +1521,7 @@ async def update_configuration(
 async def get_admin_content(current_user: User = Depends(get_admin_user)):
     """Get all content for admin editing"""
     try:
-        content = list(await db.content.find().to_list(1000))
+        content = await db.content.find({}, {"_id": 0}).to_list(1000)
         return content
     except Exception as e:
         return []
