@@ -321,14 +321,27 @@ export default function Home() {
       {/* Waarom Section - REMOVED */}
 
       {/* CTA Reserveer Section */}
-      <section id="reserveer" className="section section-padding relative" style={{ backgroundColor: '#B91C1C' }}>
+      <section 
+        id="reserveer" 
+        className="section section-padding relative" 
+        style={{ backgroundColor: '#B91C1C' }}
+        data-section-id="reserveer_section"
+      >
         <div className="container">
           <div className="card" style={{ background: '#DC2626', color: 'white', display: 'flex', alignItems: 'center', gap: '64px' }}>
             <div style={{ flex: 1 }}>
-              <h2 className="genty-regular text-white mb-8" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+              <h2 
+                className="genty-regular text-white mb-8" 
+                style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
+                data-edit-id="reserveer_title"
+              >
                 Reserveer nu jullie magische Sinterklaasavond!
               </h2>
-              <p className="text-white mb-8" style={{ opacity: 0.9 }}>
+              <p 
+                className="text-white mb-8" 
+                style={{ opacity: 0.9 }}
+                data-edit-id="reserveer_description"
+              >
                 Wacht niet te lang - onze populaire data zijn snel uitverkocht. Zorg dat jullie gezin bij dit magische gebeuren kan zijn!
               </p>
               <button 
