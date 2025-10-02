@@ -672,24 +672,14 @@ export default function Home() {
             <div style={{
               width: '300px',
               height: '200px',
-              background: 'rgba(245, 158, 11, 0.2)',
+              background: 'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)',
               borderRadius: '20px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '64px'
             }}>
-              <img 
-                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/tf62t3u6_MRTN1802.jpg" 
-                alt="Sinterklaas karakter" 
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '16px'
-                }}
-                data-edit-id="reserveer_sinterklaas_image"
-              />
+              <Gift size={80} color="white" style={{ opacity: 0.8 }} />
             </div>
           </div>
         </div>
