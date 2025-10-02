@@ -357,7 +357,97 @@ export default function News() {
             We respecteren je privacy en sturen geen spam.
           </p>
         </div>
+        
+        {/* Wave Shape Above Footer */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+          <svg 
+            className="relative block w-full h-24" 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 1200 120" 
+            preserveAspectRatio="none"
+          >
+            <path 
+              d="M0,0 C300,60 900,60 1200,0 L1200,120 L0,120 Z" 
+              style={{ fill: '#FEF7ED' }}
+            ></path>
+          </svg>
+        </div>
       </section>
+
+      {/* Enhanced Footer */}
+      <footer 
+        style={{ background: '#FEF7ED', padding: '60px 0 40px 0' }}
+        data-section-id="footer_section"
+      >
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+          {/* Main Footer Content */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+            gap: '40px', 
+            marginBottom: '40px' 
+          }}>
+            {/* Brand Section */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_genk-sint-site/artifacts/1x6rjv7u_SW_HQ_Logo.png"
+                  alt="Studio Wonderland Logo"
+                  style={{ 
+                    height: '96px', 
+                    width: 'auto',
+                    filter: 'brightness(0) saturate(100%) invert(24%) sepia(79%) saturate(2476%) hue-rotate(346deg) brightness(92%) contrast(92%)'
+                  }}
+                  data-edit-id="footer_logo"
+                />
+              </div>
+              <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5', maxWidth: '300px', margin: '0 auto' }}>
+                De meest magische Sinterklaas ervaring voor het hele gezin in Genk.
+              </p>
+            </div>
+
+            {/* Contact Info Section */}
+            <div>
+              <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#DC2626', marginBottom: '20px' }}>
+                Contact
+              </h3>
+              <div style={{ color: '#666', fontSize: '15px', lineHeight: '1.6' }}>
+                <div style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ color: '#DC2626', fontSize: '18px' }}>📧</span>
+                  <a 
+                    href="mailto:info@sinterklaasgenk.be" 
+                    style={{ color: '#DC2626', textDecoration: 'none' }}
+                    onMouseOver={(e) => e.target.style.textDecoration = 'underline'}
+                    onMouseOut={(e) => e.target.style.textDecoration = 'none'}
+                  >
+                    info@sinterklaasgenk.be
+                  </a>
+                </div>
+                <div style={{ marginBottom: '12px' }}>
+                  <strong>Studio Wonderland</strong>
+                </div>
+                <div style={{ fontSize: '13px', color: '#888' }}>
+                  Ondernemingsnummer: BE1008.607.780
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div style={{ 
+            textAlign: 'center', 
+            paddingTop: '30px', 
+            borderTop: '1px solid #E5E7EB' 
+          }}>
+            <p 
+              style={{ color: '#666', fontSize: '14px', margin: '0' }}
+              data-edit-id="footer_copyright"
+            >
+              © 2025 Sinterklaas Genk - Studio Wonderland. Alle rechten voorbehouden.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
