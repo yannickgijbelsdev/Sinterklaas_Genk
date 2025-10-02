@@ -70,6 +70,7 @@ export const Header = () => {
                   width: 'auto',
                   objectFit: 'contain'
                 }}
+                data-edit-id="header_logo"
               />
             </a>
           </div>
