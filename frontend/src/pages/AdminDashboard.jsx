@@ -183,6 +183,12 @@ export default function AdminDashboard() {
     password: '',
     role: 'admin'
   });
+  const [passwordChange, setPasswordChange] = useState({
+    current_password: '',
+    new_password: '',
+    confirm_password: ''
+  });
+  const [users, setUsers] = useState([]);
   const [stats, setStats] = useState({
     totalNews: 0,
     totalShows: 0,
