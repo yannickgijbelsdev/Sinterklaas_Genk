@@ -8,6 +8,15 @@ export const SimpleLogin = ({ onSuccess }) => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [loading, setLoading] = useState(false);
 
+  // useCallback handlers to prevent focus issues
+  const handleUsernameChange = useCallback((e) => {
+    setCredentials({...credentials, username: e.target.value});
+  }, [credentials]);
+
+  const handlePasswordChange = useCallback((e) => {
+    setCredentials({...credentials, password: e.target.value});
+  }, [credentials]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
