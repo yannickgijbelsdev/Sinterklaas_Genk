@@ -408,7 +408,10 @@ export default function Home() {
             >
               Veelgestelde Vragen
             </h2>
-            <p style={{ fontSize: '20px', color: '#374151' }}>
+            <p 
+              style={{ fontSize: '20px', color: '#374151' }}
+              data-edit-id="faq_subtitle"
+            >
               Antwoorden op de meest gestelde vragen over onze Sinterklaasshows.
             </p>
           </div>
