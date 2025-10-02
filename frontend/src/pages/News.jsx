@@ -19,7 +19,12 @@ export default function News() {
         const response = await fetch(`${API}/news`);
         if (response.ok) {
           const data = await response.json();
-          setNewsData(data);
+          // Only set data if we actually have articles
+          if (data && data.length > 0) {
+            setNewsData(data);
+          } else {
+            setNewsData([]);
+          }
         } else {
           setError('Kon nieuws niet laden');
         }
