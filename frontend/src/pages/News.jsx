@@ -41,6 +41,16 @@ export default function News() {
 
     fetchNews();
   }, []);
+
+  // Initialize audio players after content is loaded
+  useEffect(() => {
+    if (newsData && newsData.length > 0) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        initializeAudioPlayers();
+      }, 100);
+    }
+  }, [newsData]);
   
   // Loading state - removed for instant display
 
