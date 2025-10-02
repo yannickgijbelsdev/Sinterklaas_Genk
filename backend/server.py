@@ -1467,6 +1467,16 @@ async def get_public_content():
     except Exception as e:
         return []
 
+# Public News Endpoint (no auth required)
+@api_router.get("/news")
+async def get_public_news():
+    """Get all published news articles for public viewing"""
+    try:
+        news = list(await db.news.find({"published": True}).sort("date", -1).to_list(1000))
+        return news
+    except Exception as e:
+        return []
+
 # Configuration Management Endpoints
 @api_router.get("/admin/config")
 async def get_configuration(current_user: User = Depends(get_admin_user)):
