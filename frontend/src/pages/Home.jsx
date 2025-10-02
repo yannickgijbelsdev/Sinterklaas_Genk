@@ -867,9 +867,9 @@ export default function Home() {
             ></path>
           </svg>
         </div>
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+        <div className="container">
           {/* Section Header */}
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <div className="text-center mb-16">
             <h2 
               className="genty-regular"
               style={{ 
