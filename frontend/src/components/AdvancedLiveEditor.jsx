@@ -222,12 +222,37 @@ export const AdvancedLiveEditor = () => {
         floatingBtn.appendChild(uploadBtn);
       }
 
-      // Show floating button on hover
+      // Show floating button on hover with better positioning
       element.onmouseenter = (e) => {
         const rect = element.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+        
+        // Calculate optimal position
+        let left = rect.right - 80;
+        let top = Math.max(10, rect.top - 40); // Ensure minimum 10px from top
+        
+        // Keep button within viewport
+        if (left + 80 > viewportWidth) {
+          left = rect.left - 80;
+        }
+        if (left < 10) {
+          left = 10;
+        }
+        
+        // Ensure button doesn't go above viewport
+        if (top < 10) {
+          top = rect.bottom + 10;
+        }
+        
+        // Ensure button doesn't go below viewport
+        if (top + 40 > viewportHeight) {
+          top = viewportHeight - 50;
+        }
+        
         floatingBtn.style.display = 'flex';
-        floatingBtn.style.left = `${rect.right - 80}px`;
-        floatingBtn.style.top = `${rect.top - 40}px`;
+        floatingBtn.style.left = `${left}px`;
+        floatingBtn.style.top = `${top}px`;
       };
 
       element.onmouseleave = (e) => {
