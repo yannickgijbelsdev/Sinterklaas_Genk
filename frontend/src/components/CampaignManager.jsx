@@ -164,6 +164,23 @@ export function CampaignManager({ subscribers = [] }) {
   const [previewHtml, setPreviewHtml] = useState('');
   const [sending, setSending] = useState(false);
 
+  // useCallback handlers to prevent focus issues
+  const handleCampaignNameChange = useCallback((e) => {
+    setCampaignData({...campaignData, name: e.target.value});
+  }, [campaignData]);
+
+  const handleFromNameChange = useCallback((e) => {
+    setCampaignData({...campaignData, from_name: e.target.value});
+  }, [campaignData]);
+
+  const handleFromEmailChange = useCallback((e) => {
+    setCampaignData({...campaignData, from_email: e.target.value});
+  }, [campaignData]);
+
+  const handleReplyToChange = useCallback((e) => {
+    setCampaignData({...campaignData, reply_to: e.target.value});
+  }, [campaignData]);
+
   // Ensure subscribers is always an array
   const safeSubscribers = Array.isArray(subscribers) ? subscribers : [];
 
