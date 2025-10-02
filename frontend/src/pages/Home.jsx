@@ -236,7 +236,8 @@ export default function Home() {
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
           style={{ 
             backgroundImage: `url('https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg')`,
-            zIndex: 0
+            zIndex: 0,
+            display: videoLoaded ? 'none' : 'block'
           }}
         ></div>
         
