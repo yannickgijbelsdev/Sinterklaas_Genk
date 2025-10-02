@@ -327,7 +327,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "SFTP Image Upload Functionality Testing Complete"
+    - "Password Management Functionality Testing Complete"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
