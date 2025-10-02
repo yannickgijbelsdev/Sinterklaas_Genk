@@ -439,7 +439,7 @@ export default function Home() {
                 }}>
                   {post.image ? (
                     <img 
-                      src={post.image} 
+                      src={post.image.startsWith('http') ? post.image : `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001'}${post.image}`} 
                       alt={post.title}
                       style={{
                         width: '100%',
