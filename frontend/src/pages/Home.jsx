@@ -1024,14 +1024,17 @@ export default function Home() {
           }}>
             {/* Brand Section */}
             <div style={{ textAlign: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '20px' }}>
-                <Gift size={28} color="#DC2626" />
-                <span 
-                  style={{ fontSize: '24px', fontWeight: '700', color: '#DC2626' }}
-                  data-edit-id="footer_title"
-                >
-                  Sinterklaas Genk
-                </span>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_genk-sint-site/artifacts/1x6rjv7u_SW_HQ_Logo.png"
+                  alt="Studio Wonderland Logo"
+                  style={{ 
+                    height: '48px', 
+                    width: 'auto',
+                    filter: 'brightness(0) saturate(100%) invert(24%) sepia(79%) saturate(2476%) hue-rotate(346deg) brightness(92%) contrast(92%)'
+                  }}
+                  data-edit-id="footer_logo"
+                />
               </div>
               <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5', maxWidth: '300px', margin: '0 auto' }}>
                 De meest magische Sinterklaas ervaring voor het hele gezin in Genk.
