@@ -231,7 +231,10 @@ export default function AdminDashboard() {
 
       if (response.ok) {
         const result = await response.json();
-        return result.image_url;
+        // Return full URL for proper image serving
+        return result.image_url.startsWith('/') 
+          ? `${process.env.REACT_APP_BACKEND_URL}${result.image_url}`
+          : result.image_url;
       } else {
         toast.error('Fout bij uploaden van afbeelding');
         return null;
