@@ -57,29 +57,7 @@ const DashboardOverview = ({ stats, news, setActiveTab }) => (
 
     {/* Recent Activity */}
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center">
-            <FileText className="h-5 w-5 mr-2" />
-            Recent Nieuws
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {news.slice(0, 5).map((article) => (
-              <div key={article.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <div className="flex-1">
-                  <p className="font-medium text-sm">{article.title}</p>
-                  <p className="text-xs text-gray-500">{article.category}</p>
-                </div>
-                <Badge variant="outline" className="text-xs">
-                  {new Date(article.date).toLocaleDateString('nl-NL')}
-                </Badge>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+      {/* Recent Nieuws section removed - already in menu */}
 
       <Card>
         <CardHeader>
