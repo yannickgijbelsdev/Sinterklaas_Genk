@@ -30,6 +30,9 @@ function AppContent() {
           <Route path="/characters" element={<Characters />} />
           <Route path="/shows" element={<Shows />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/nieuws" element={<News />} />
+          <Route path="/nieuws/:slug" element={<News />} />
+          {/* Backward compatibility for old /news routes */}
           <Route path="/news" element={<News />} />
           <Route path="/news/:id" element={<News />} />
           <Route path="/contact" element={<Contact />} />
