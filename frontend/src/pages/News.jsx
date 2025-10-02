@@ -119,9 +119,22 @@ export default function News() {
             
             {/* Article Content */}
             <div className="prose prose-lg max-w-none mb-16">
-              <p style={{ lineHeight: '1.8', color: '#374151', fontSize: '18px' }}>
-                {article.content}
-              </p>
+              <div 
+                style={{ lineHeight: '1.8', color: '#374151', fontSize: '18px' }}
+                dangerouslySetInnerHTML={{
+                  __html: article.content
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-red-600 hover:text-red-800">$1</a>')
+                    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;" />')
+                    .replace(/\n\n/g, '</p><p>')
+                    .replace(/^/, '<p>')
+                    .replace(/$/, '</p>')
+                    .replace(/<div class="audio-container">/g, '<div style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">')
+                    .replace(/<h4>/g, '<h4 style="margin: 0 0 10px 0; color: #374151;">')
+                    .replace(/<audio controls>/g, '<audio controls style="width: 100%; margin-top: 10px;">')
+                }}
+              />
             </div>
             
           </div>
