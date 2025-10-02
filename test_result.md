@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: Test de admin login functionaliteit van de Sinterklaas Genk website: admin user creation, login API endpoint, authentication flow, JWT token verification, admin-protected endpoints, en database verificatie.
+user_problem_statement: De gebruiker wil twee verbeteringen: 1) Feature image upload lokaal en bewerken in nieuws dashboard, 2) Menu wijzigingen - "Reserveren" naar "Bestel je tickets" en "Reserveer direct" naar "Bestel nu je tickets" met FlexTickets link https://events.flextickets.nl/event/sinterklaas-en-de-wensmachine
 
 backend:
   - task: "Content management endpoints"
