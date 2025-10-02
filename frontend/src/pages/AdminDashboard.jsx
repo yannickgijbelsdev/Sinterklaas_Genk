@@ -928,7 +928,6 @@ const PasswordManagement = ({
                 {activeTab === 'dashboard' && 'Dashboard Overzicht'}
                 {activeTab === 'news' && 'Nieuws Beheer'}
                 {activeTab === 'users' && 'Gebruikers Beheer'}
-                {activeTab === 'passwords' && 'Wachtwoord Beheer'}
               </h2>
               <p className="text-sm text-gray-600">
                 Sinterklaas Genk - Administratie Paneel
