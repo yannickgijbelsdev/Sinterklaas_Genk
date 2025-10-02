@@ -238,27 +238,36 @@ export default function Home() {
         <div 
           className="absolute bottom-8 left-8 bg-white/90 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-lg"
           style={{ zIndex: 10 }}
+          data-edit-id="partners_section"
         >
           <div className="flex items-center gap-6">
-            <span className="text-base text-gray-700 font-medium whitespace-nowrap">Partners:</span>
+            <span 
+              className="text-base text-gray-700 font-medium whitespace-nowrap"
+              data-edit-id="partners_label"
+            >
+              Partners:
+            </span>
             <div className="flex items-center gap-4">
               {/* Genk Logo */}
               <img 
                 src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/m50ye00m_GENK-LOGO-SCREEN-POSITIEF-RGB.png"
                 alt="Genk Logo"
                 className="h-16 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity duration-200"
+                data-edit-id="partner_genk_logo"
               />
               {/* RC Genk Logo */}
               <img 
                 src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/v8z8d4ru_Logo-RC-Genk-1.jpg"
                 alt="RC Genk Logo"
                 className="h-16 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity duration-200"
+                data-edit-id="partner_rc_genk_logo"
               />
               {/* SW 2025 Logo */}
               <img 
                 src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/tk3ymnog_SW-2025-LOGO-RGB.png"
                 alt="SW 2025 Logo"
                 className="h-16 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity duration-200"
+                data-edit-id="partner_wonderland_logo"
               />
             </div>
           </div>
