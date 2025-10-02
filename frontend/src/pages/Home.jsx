@@ -905,11 +905,9 @@ export default function Home() {
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.transform = 'translateY(-8px)';
-                  e.target.style.boxShadow = '0 20px 40px rgba(0,0,0,0.4)';
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
                 }}
               >
                 <div
