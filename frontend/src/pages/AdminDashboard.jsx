@@ -362,26 +362,8 @@ export default function AdminDashboard() {
   };
 
   const handleEditNews = (article) => {
-    setEditingNews(article);
-    setNewNews({
-      title: article.title,
-      excerpt: article.excerpt,
-      content: article.content,
-      category: article.category,
-      published: article.published || true,
-      featured_image: article.featured_image || ''
-    });
-    // Set current image as preview if exists
-    if (article.featured_image) {
-      // If it's a relative URL, make it absolute with backend URL
-      const imageUrl = article.featured_image.startsWith('/') 
-        ? `${process.env.REACT_APP_BACKEND_URL}${article.featured_image}`
-        : article.featured_image;
-      setImagePreview(imageUrl);
-    } else {
-      setImagePreview('');
-    }
-    setSelectedImage(null);
+    setEditingArticle(article);
+    setShowRichEditor(true);
   };
 
   const handleUpdateNews = async () => {
