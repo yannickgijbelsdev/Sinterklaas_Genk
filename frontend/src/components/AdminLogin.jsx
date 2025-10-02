@@ -85,8 +85,8 @@ export default function AdminLogin() {
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
             <p className="text-sm text-blue-700">
               <strong>Demo login:</strong><br />
-              Email: admin@sinterklaas.com<br />
-              Wachtwoord: sinterklaas2024
+              Username: admin<br />
+              Wachtwoord: admin123
             </p>
           </div>
         </CardContent>
