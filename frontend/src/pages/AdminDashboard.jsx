@@ -666,10 +666,7 @@ const PasswordManagement = ({
               id="new_password"
               type="password"
               value={passwordChange.new_password}
-              onChange={(e) => setPasswordChange(prev => ({
-                ...prev, 
-                new_password: e.target.value
-              }))}
+              onChange={handlePasswordNewChange}
               placeholder="Voer nieuw wachtwoord in (min. 6 karakters)"
             />
           </div>
