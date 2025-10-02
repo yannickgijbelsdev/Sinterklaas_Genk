@@ -1542,6 +1542,44 @@ async def update_configuration(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Content Management Endpoints
+@api_router.get("/admin/content")
+async def get_admin_content(current_user: User = Depends(get_admin_user)):
+    """Get all content for admin editing"""
+    try:
+        content = list(await db.content.find().to_list(1000))
+        return content
+    except Exception as e:
+        return []
+
+@api_router.put("/admin/content")
+async def update_content(
+    content_update: dict,
+    current_user: User = Depends(get_admin_user)
+):
+    """Update content item"""
+    try:
+        content_id = content_update.get("id")
+        value = content_update.get("value")
+        
+        if not content_id:
+            raise HTTPException(status_code=400, detail="Missing content id")
+        
+        # Upsert content
+        await db.content.update_one(
+            {"id": content_id},
+            {"$set": {
+                "id": content_id,
+                "value": value,
+                "updatedAt": datetime.utcnow()
+            }},
+            upsert=True
+        )
+        
+        return {"message": "Content updated successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
