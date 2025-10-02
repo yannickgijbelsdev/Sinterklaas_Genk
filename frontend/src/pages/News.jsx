@@ -52,37 +52,7 @@ export default function News() {
     }
   }, [newsData]);
 
-  // Safer function to just hide HTML5 audio elements without removing content
-  const hideHTML5AudioElements = () => {
-    // Add CSS to hide existing audio players
-    const style = document.createElement('style');
-    style.textContent = `
-      h4:has(+ audio), 
-      h4 + audio,
-      div:has(audio[controls]) h4:contains("🎵"),
-      div:has(audio[controls]) audio[controls] {
-        display: none !important;
-      }
-    `;
-    document.head.appendChild(style);
-    
-    // As a backup, manually hide elements
-    document.querySelectorAll('h4').forEach(h4 => {
-      if (h4.textContent.includes('🎵') && h4.textContent.includes('.mp3')) {
-        h4.style.display = 'none';
-        
-        // Hide adjacent audio element
-        let next = h4.nextElementSibling;
-        while (next) {
-          if (next.tagName === 'AUDIO') {
-            next.style.display = 'none';
-            break;
-          }
-          next = next.nextElementSibling;
-        }
-      }
-    });
-  };
+  // Audio replacement disabled to prevent content loss
   
   // Loading state - removed for instant display
 
