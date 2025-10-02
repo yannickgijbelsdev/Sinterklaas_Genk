@@ -637,8 +637,18 @@ export default function Home() {
             
             {/* Modal Footer */}
             <div className="bg-gray-900 text-white p-4 text-center">
-              <h3 className="text-xl font-bold mb-2">Sinterklaas en de Wensmachine</h3>
-              <p className="text-gray-300">Beleef de magie van onze interactieve Sinterklaas show</p>
+              <h3 
+                className="text-xl font-bold mb-2"
+                data-edit-id="trailer_modal_title"
+              >
+                Sinterklaas en de Wensmachine
+              </h3>
+              <p 
+                className="text-gray-300"
+                data-edit-id="trailer_modal_description"
+              >
+                Beleef de magie van onze interactieve Sinterklaas show
+              </p>
             </div>
           </div>
         </div>
