@@ -21,6 +21,62 @@ export default function Home() {
   const [showTrailerModal, setShowTrailerModal] = useState(false);
   const [newsDisplayCount, setNewsDisplayCount] = useState(3);
   const [loadingMoreNews, setLoadingMoreNews] = useState(false);
+  const [currentPartnerSet, setCurrentPartnerSet] = useState(0);
+
+  // Partner logo sets that will rotate
+  const partnerSets = [
+    [
+      {
+        src: "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/m50ye00m_GENK-LOGO-SCREEN-POSITIEF-RGB.png",
+        alt: "Genk Logo",
+        id: "partner_genk_logo"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/v8z8d4ru_Logo-RC-Genk-1.jpg", 
+        alt: "RC Genk Logo",
+        id: "partner_rc_genk_logo"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/tk3ymnog_SW-2025-LOGO-RGB.png",
+        alt: "SW 2025 Logo", 
+        id: "partner_wonderland_logo"
+      }
+    ],
+    [
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/lwrivjdj_Jumbo_Logo.svg.png",
+        alt: "Jumbo Logo",
+        id: "partner_jumbo_logo"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/btmxt9xa_logo.svg",
+        alt: "Partner Logo 2",
+        id: "partner_logo_2"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/5j4h75yd_logo-nieuw--wit.svg",
+        alt: "Partner Logo 3",
+        id: "partner_logo_3"
+      }
+    ],
+    [
+      {
+        src: "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ef6r6w98_Wonderland.png",
+        alt: "Wonderland Logo",
+        id: "partner_wonderland_logo_2"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/lwrivjdj_Jumbo_Logo.svg.png",
+        alt: "Jumbo Logo",
+        id: "partner_jumbo_logo_2"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/m50ye00m_GENK-LOGO-SCREEN-POSITIEF-RGB.png",
+        alt: "Genk Logo",
+        id: "partner_genk_logo_2"
+      }
+    ]
+  ];
 
   // Load and apply stored content on page load - for ALL users
   useEffect(() => {
