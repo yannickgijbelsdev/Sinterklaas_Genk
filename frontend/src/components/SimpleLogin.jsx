@@ -155,7 +155,7 @@ export const SimpleLogin = ({ onSuccess }) => {
           <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
             <p className="text-sm text-yellow-800 font-medium">Demo Credentials:</p>
             <p className="text-sm text-yellow-700">Gebruikersnaam: admin</p>
-            <p className="text-sm text-yellow-700">Wachtwoord: admin123</p>
+            <p className="text-sm text-yellow-700">Wachtwoord: KYLovie13monx</p>
           </div>
         </CardContent>
       </Card>
