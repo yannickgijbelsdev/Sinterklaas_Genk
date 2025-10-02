@@ -420,9 +420,33 @@ test_plan:
         agent: "testing"
         comment: "AUTHENTICATION AND NEWS API ENDPOINTS TESTING COMPLETED SUCCESSFULLY: Comprehensive testing of authentication and news API endpoints completed with 100% success rate (7/7 tests passed). ✅ MONGODB CONNECTION VERIFIED: Database connectivity working correctly via API health check. ✅ ADMIN LOGIN AUTHENTICATION: POST /api/auth/login working with admin credentials (admin/admin123) - returns valid JWT token and user data with admin privileges. Note: Requested credentials (admin@sinterklaas.com/sinterklaas2024) not found, but alternative admin credentials working perfectly. ✅ JWT AUTHENTICATION FLOW: Token verification via POST /api/auth/verify working correctly, returns valid user data with admin status. ✅ PROTECTED ADMIN ENDPOINTS: GET /api/admin/news accessible with proper authentication header, retrieved 4 news articles successfully. ✅ NEWS ARTICLE CREATION: POST /api/admin/news working correctly with authentication, successfully created test article with ID ad98fa91-5635-4a56-985f-b2d5cb8a5462. ✅ PUBLIC NEWS ACCESS: GET /api/news (public endpoint) working without authentication, retrieved 5 published articles including the newly created test article. ✅ AUTHENTICATION SECURITY: Protected endpoints correctly reject unauthenticated requests (403/401), wrong credentials properly rejected with 401 status. CONCLUSION: All authentication and news API endpoints are fully operational. MongoDB connection stable, JWT authentication properly implemented, news management system working correctly with both protected admin endpoints and public access endpoints."
 
+  - task: "Menu Wijzigingen - FlexTickets Integratie"
+    implemented: true
+    working: "NA"
+    file: "Header.jsx, Home.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented menu changes: 'Reserveren' naar 'Bestel je tickets' in header navigation en 'Reserveer Direct' naar 'Bestel nu je tickets' in homepage. Both links now redirect to FlexTickets URL https://events.flextickets.nl/event/sinterklaas-en-de-wensmachine via window.open in new tab. Needs testing to verify functionality."
+
+  - task: "Feature Image Upload Admin Dashboard"
+    implemented: true
+    working: "NA"
+    file: "AdminDashboard.jsx, server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added comprehensive image upload functionality to admin news dashboard. Includes file input for image selection, image preview, upload progress indicator, image upload function using /admin/news/upload-image endpoint. Updated createNews and updateNews functions to handle image uploads. Added state management for selectedImage, imagePreview, uploadingImage. Needs backend testing."
+
 agent_communication:
   - agent: "main"
-    message: "CRITICAL ISSUE IDENTIFIED: User reported that LiveEditor is not working - no edit buttons, floating toolbars, or block insertion functionality visible despite being logged in as admin. Screenshots confirm that even when authenticated, no live editor UI elements are showing up. This is a critical bug preventing the core live editing functionality from working. Need to debug and fix the LiveEditor component immediately."
+    message: "NEW FEATURES IMPLEMENTED: 1) Menu changes completed - 'Reserveren' changed to 'Bestel je tickets' and 'Reserveer direct' to 'Bestel nu je tickets' with FlexTickets integration, 2) Added complete feature image upload system to admin news dashboard including file selection, preview, and upload functionality using existing backend endpoint. Both features implemented and need comprehensive testing."
   - agent: "testing"
     message: "PASSWORD MANAGEMENT FUNCTIONALITY TESTING COMPLETED SUCCESSFULLY: User requested comprehensive testing of the admin dashboard password management functionality. ✅ ALL CORE TESTS PASSED (7/8 - 87.5% SUCCESS RATE): 1) Admin login with credentials (admin/admin123) working perfectly, 2) Navigation to 'Wachtwoorden' (Passwords) tab successful, 3) Password management page loads correctly with proper form fields, 4) Password change form functionality verified - all three password fields (current, new, confirm) present and functional, 5) Logout functionality working correctly, 6) Login with new password (admin/newpassword123) successful, 7) User management section accessible and functional, 8) Error scenario testing partially completed. ✅ KEY FUNCTIONALITY VERIFIED: Password successfully changed from 'admin123' to 'newpassword123', authentication flow working correctly, form validations functioning properly, user management section accessible, logout/login cycle working perfectly. ✅ UI/UX EXPERIENCE: Professional interface with proper Dutch labels, clear form structure, appropriate error handling, smooth navigation between sections. ✅ SECURITY MEASURES: Proper authentication required for password changes, secure logout functionality, protected admin areas working correctly. ⚠️ MINOR TECHNICAL ISSUE: Some DOM element attachment issues during automated testing, but core functionality verified through multiple test approaches. CONCLUSION: The password management functionality is production-ready and fully operational. All critical features working correctly including password changes, authentication flows, and user management access. The admin dashboard provides a secure and user-friendly interface for password management tasks."
   - agent: "testing"
