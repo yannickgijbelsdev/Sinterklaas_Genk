@@ -91,8 +91,8 @@ export default function News() {
             )}
             
             {/* Article Header */}
-            <div className="mb-8">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="mb-12">
+              <div className="flex items-center gap-4 mb-6">
                 <Badge variant="outline" className="text-red-600 border-red-200">
                   {article.category || 'Algemeen'}
                 </Badge>
@@ -106,7 +106,7 @@ export default function News() {
                 </div>
               </div>
               
-              <h1 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">
+              <h1 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">
                 {article.title}
               </h1>
               
