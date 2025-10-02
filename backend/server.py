@@ -1527,7 +1527,12 @@ async def get_public_shows():
     except Exception as e:
         return []
 
-# General Upload Endpoint (Protected) - Based on working news upload
+# Test Upload Endpoint
+@api_router.get("/admin/upload-test")
+async def upload_test():
+    return {"status": "Upload endpoint is working"}
+
+# General Upload Endpoint (Protected) - Based on working news upload  
 @api_router.post("/admin/upload")
 async def upload_general_file(file: UploadFile = File(...), current_user: User = Depends(get_admin_user)):
     """Upload media files (images, audio, video)"""
