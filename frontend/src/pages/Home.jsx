@@ -876,7 +876,7 @@ export default function Home() {
               style={{ 
                 fontSize: 'clamp(2rem, 4vw, 3rem)', 
                 fontWeight: '700',
-                color: 'white',
+                color: '#1F2937',
                 marginBottom: '20px'
               }}
               data-edit-id="gallery_title"
@@ -886,7 +886,7 @@ export default function Home() {
             <p 
               style={{ 
                 fontSize: '20px', 
-                opacity: '0.9', 
+                color: '#4B5563',
                 maxWidth: '600px', 
                 margin: '0 auto',
                 lineHeight: '1.6'
