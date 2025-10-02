@@ -184,14 +184,21 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
       const file = e.target.files[0];
       if (!file) return;
 
+      console.log('Starting inline image upload:', file.name, file.size, file.type);
+
       try {
         toast.info('Afbeelding uploaden...');
-        const imageUrl = await compressAndUploadImage(file);
+        const imageUrl = await compressAndUploadImage(file, (progress) => {
+          console.log('Inline image upload progress:', progress);
+        });
+        
+        console.log('Inline image uploaded:', imageUrl);
         const imageMarkdown = `\n\n![${file.name}](${imageUrl})\n\n`;
         insertContent(imageMarkdown);
-        toast.success('Afbeelding toegevoegd!');
+        toast.success('Afbeelding toegevoegd aan artikel!');
       } catch (error) {
-        toast.error('Fout bij uploaden afbeelding');
+        console.error('Error uploading inline image:', error);
+        toast.error(`Fout bij uploaden afbeelding: ${error.message}`);
       }
     };
 
