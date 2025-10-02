@@ -21,9 +21,6 @@ export default function Home() {
   const [showTrailerModal, setShowTrailerModal] = useState(false);
   const [newsDisplayCount, setNewsDisplayCount] = useState(3);
   const [loadingMoreNews, setLoadingMoreNews] = useState(false);
-  const [isLiveEditing, setIsLiveEditing] = useState(false);
-
-  const { isAuthenticated, isAdmin } = useAuth();
 
   // Smooth scroll function
   const smoothScrollTo = (elementId) => {
