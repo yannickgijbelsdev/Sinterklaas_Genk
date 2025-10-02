@@ -451,6 +451,61 @@ export default function Home() {
         </div>
       </footer>
 
+      {/* Trailer Modal */}
+      {showTrailerModal && (
+        <div 
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+          onClick={() => setShowTrailerModal(false)}
+        >
+          <div 
+            className="relative w-full max-w-4xl mx-4 bg-black rounded-lg overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowTrailerModal(false)}
+              className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full p-2 z-10 transition-all duration-200"
+            >
+              <X size={24} />
+            </button>
+            
+            {/* Video Player */}
+            <video
+              autoPlay
+              controls
+              className="w-full h-auto"
+              style={{ maxHeight: '80vh' }}
+              onEnded={() => {
+                // Video ends, don't loop
+                console.log('Trailer finished playing');
+              }}
+            >
+              <source 
+                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ynr147fs_trailer%20zonder%20OT.mp4" 
+                type="video/mp4" 
+              />
+              <p className="text-white p-4">
+                Uw browser ondersteunt geen video afspelen. 
+                <a 
+                  href="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ynr147fs_trailer%20zonder%20OT.mp4" 
+                  className="text-red-400 underline ml-1"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  Download de trailer hier
+                </a>
+              </p>
+            </video>
+            
+            {/* Modal Footer */}
+            <div className="bg-gray-900 text-white p-4 text-center">
+              <h3 className="text-xl font-bold mb-2">Sinterklaas en de Wensmachine</h3>
+              <p className="text-gray-300">Beleef de magie van onze interactieve Sinterklaas show</p>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
