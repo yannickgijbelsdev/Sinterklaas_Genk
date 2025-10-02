@@ -279,12 +279,8 @@ export default function Home() {
       answer: "Dat is helaas niet mogelijk. We werken met een externe ticketverdeler flextickets.nl. Denk dus goed na voor u een ticket koopt. Bij eventuele ziekte of verlet kan u de kaarten wel doorgeven aan iemand anders."
     },
     {
-      question: "Is deze voorstelling georganiseerd door VZW Animo zoals de voorbije jaren?",
-      answer: "Neen, de voorstelling is georganiseerd door de nieuwe VZW Studio Wonderland uit Genk in samenwerking met Stad Genk. De regisseur van de film en de producenten van de voorstelling zijn wel dezelfde als de voorbije jaren. We brengen ook hetzelfde concept: een film in combinatie met live theater."
-    },
-    {
-      question: "Komen de bekende acteur/zanger Hugo Sigal en zangeres Loredana live naar de voorstelling?",
-      answer: "Neen, de voorstelling is een afwisseling tussen live theater en filmbeelden. Hugo Sigal speelt de rol van Boze Heks in de film en zangeres Loredana de rol van Roodkapje in de film. Ze zijn dus niet live aanwezig in de zaal. Sinterklaas en de pieten komen wel live naar de voorstelling samen met een hele hoop andere acteurs."
+      question: "Komt Loes Van den Heuvel naar de voorstelling?",
+      answer: "Neen, de voorstelling is een afwisseling tussen live theater en filmbeelden. Loes Van den Heuvel speelt de rol van Koningin Marie Antoinette. Ze zijn dus niet live aanwezig in de zaal. Sinterklaas en de pieten komen wel live naar de voorstelling samen met een hele hoop andere acteurs."
     },
     {
       question: "Delen de Sint en de pieten na de voorstelling nog cadeautjes en snoep uit?",
@@ -292,7 +288,7 @@ export default function Home() {
     },
     {
       question: "Vanaf welke leeftijd moet een kind betalen?",
-      answer: "Kinderen onder de 2 jaar hoeven geen ticket te betalen en kunnen mee op de schoot. Ze hebben geen recht op een stoel. Indien dit toch wenselijk is koopt u best toch een ticket. Kinderen ouder dan 2 jaar moeten dus een ticket kopen."
+      answer: "Kinderen onder de 2 jaar hoeven geen ticket te betalen en kunnen mee op de schoot. Ze hebben geen recht op een stoel. Indien dit toch wenselijk is, koopt u best toch een ticket. Kinderen ouder dan 2 jaar moeten dus een ticket kopen."
     },
     {
       question: "Vanaf welke leeftijd is de voorstelling aan te raden?",
@@ -300,10 +296,10 @@ export default function Home() {
     },
     {
       question: "Komen er roetpieten of Zwarte Pieten naar de voorstelling?",
-      answer: "Er worden ons al jaren vragen gesteld over de figuur van Zwarte Piet. Dat kunnen we niet zomaar negeren. We hebben het uiterlijk van Piet licht aangepast vanwege de veranderende samenleving, maar met respect voor de Sinterklaastraditie. De pieten hebben geen dikke rode lippen meer en geen oorbellen. Veder krijgen ze roetvegen in plaats van een volledig zwart gezicht. We merken dat de kinderen het ook op die manier gewoon zijn de dag van vandaag."
+      answer: "Er worden ons al jaren vragen gesteld over de figuur van Zwarte Piet. Dat kunnen we niet zomaar negeren. We hebben het uiterlijk van Piet licht aangepast vanwege de veranderende samenleving, maar met respect voor de Sinterklaastraditie. De pieten hebben geen dikke rode lippen meer en geen oorbellen. Verder krijgen ze roetvegen in plaats van een volledig zwart gezicht. We merken dat de kinderen het ook op die manier gewoon zijn de dag van vandaag."
     },
     {
-      question: "Hoe komt het dat jullie tickets kunnen aanbieden aan 10 euro (kinderen) en 12 euro (volwassenen) per persoon?",
+      question: "Hoe komt het dat jullie tickets kunnen aanbieden aan 11 euro (kinderen) en 13 euro (volwassenen) per persoon?",
       answer: "We weten dat andere Sinterklaasvoorstellingen vaak het dubbele of meer kosten. VZW Studio Wonderland werkt hoofdzakelijk met vrijwilligers en met partners zoals Stad Genk. De voorstelling is ook beperkt tot een uur. Op die manier kunnen we de ticketprijs laag houden."
     },
     {
@@ -312,15 +308,15 @@ export default function Home() {
     },
     {
       question: "Wat moet ik doen als ik mijn ticket kwijt ben of ik mijn tickets niet heb ontvangen?",
-      answer: "Probeer zelf de tickets nogmaals te sturen via deze link. Lukt het dan nog niet? Stuur dan een e-mail naar support@flextickets.nl"
+      answer: "Probeer zelf de tickets nogmaals te sturen. Lukt het dan nog niet? Stuur dan een e-mail naar support@flextickets.nl"
     },
     {
       question: "Waarom betaal ik boekingskosten voor mijn tickets?",
-      answer: "We werken met een externe ticketverdeler flextickets. In de boekingskost zitten zowel de prijs van de handeling van de tickets als de kosten die de bank aanrekent voor het afrekenen van de tickets. Terwijl je bij de meeste ticketverdelers een bedrag betaalt per ticket werken we hier met één prijs per boeking. Je betaalt dus 1,75 euro boekingskost voor het bestellen van 1 ticket, maar evenveel als je bijvoorbeeld 10 tickets boekt. Het is dus aan te raden om in grote groep tickets te bestellen."
+      answer: "We werken met een externe ticketverdeler flextickets. In de boekingskost zitten zowel de prijs van de handeling van de tickets als de kosten die de bank aanrekent voor het afrekenen van de tickets. Terwijl je bij de meeste ticketverdelers een bedrag betaalt per ticket werken we hier met één prijs per boeking. Je betaalt dus 2 euro boekingskost voor het bestellen van 1 ticket, maar evenveel als je bijvoorbeeld 10 tickets boekt. Het is dus aan te raden om in grote groep tickets te bestellen."
     },
     {
       question: "Is er parkeerplaats voorzien?",
-      answer: "Parkeren kan op verschillende plaatsen rondom het Stadhuis van Genk. Via deze link vind je meer informatie."
+      answer: "Parkeren kan op verschillende plaatsen rondom het Stadhuis van Genk."
     }
   ];
 
