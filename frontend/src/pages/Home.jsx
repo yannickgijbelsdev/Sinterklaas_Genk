@@ -263,36 +263,64 @@ export default function Home() {
 
   const faqItems = [
     {
-      question: "Hoe garandeer jullie de veiligheid tijdens shows?",
-      answer: "Al onze shows worden uitgevoerd door ervaren acteurs met achtergrondcontroles. We hanteren strikte veiligheidsprotocollen en hebben altijd EHBO-gekwalificeerde medewerkers aanwezig."
+      question: "Hoe lang duurt de voorstelling?",
+      answer: "De voorstelling duurt ongeveer een uur. Het is een afwisseling tussen live theater, filmbeelden, liedjes en animatie. Na de voorstelling kan je nog een drankje drinken in de Foyer en delen de Pieten snoepzakjes uit aan de kinderen."
     },
     {
-      question: "Wat is inbegrepen in de ticketprijs?",
-      answer: "Ticketprijzen omvatten de volledige show, interactie met Sinterklaas en Pieten, cadeautjes voor kinderen, en drankje en koekje tijdens de pauze. Parkeren is gratis."
+      question: "Is de voorstelling bereikbaar voor mensen met een rolstoel?",
+      answer: "Ja, het stadhuis is toegankelijk voor iedereen. Bent u slecht te been of gebruikt u een rolstoel: kom dan langs het hellend vlak aan de hoofdingang. Op het Balieplein vind je een lift voor personen met een handicap die toegang geeft tot de schouwburg. Druk op 1 B. Kom op tijd en verwittig het personeel aan de zaal dan helpen we u ook in de zaal om een plekje te verzekeren."
     },
     {
-      question: "Kunnen we tickets terugbetaald krijgen?",
-      answer: "Bij annulering tot 7 dagen voor de show bieden we volledige terugbetaling. In geval van ziekte of noodgevallen bekijken we elk geval individueel."
+      question: "Zijn de plaatsen genummerd?",
+      answer: "Neen, we werken niet met genummerde plaatsen. Een half uur voor iedere voorstelling gaan de deuren van de Foyer open en kan je al een drankje drinken. Tien minuten voor iedere voorstelling gaan de deuren van de zaal open."
     },
     {
-      question: "Is de show geschikt voor kinderen met speciale behoeften?",
-      answer: "Absoluut! We hebben ervaring met inclusieve voorstellingen. Neem contact op bij het boeken zodat we rekening kunnen houden met specifieke behoeften."
+      question: "Kan ik mijn tickets omruilen voor een ander uur of andere datum of kunnen mijn tickets worden terugbetaald?",
+      answer: "Dat is helaas niet mogelijk. We werken met een externe ticketverdeler flextickets.nl. Denk dus goed na voor u een ticket koopt. Bij eventuele ziekte of verlet kan u de kaarten wel doorgeven aan iemand anders."
     },
     {
-      question: "Hoe lang duurt de show?",
-      answer: "Onze shows duren ongeveer 75 minuten inclusief een korte pauze. Dit is de perfecte lengte om kinderen betrokken te houden zonder dat ze moe worden."
+      question: "Is deze voorstelling georganiseerd door VZW Animo zoals de voorbije jaren?",
+      answer: "Neen, de voorstelling is georganiseerd door de nieuwe VZW Studio Wonderland uit Genk in samenwerking met Stad Genk. De regisseur van de film en de producenten van de voorstelling zijn wel dezelfde als de voorbije jaren. We brengen ook hetzelfde concept: een film in combinatie met live theater."
     },
     {
-      question: "Kunnen we foto's maken tijdens de show?",
-      answer: "Ja! Tijdens de show mogen foto's gemaakt worden. Na afloop is er altijd gelegenheid voor een meet & greet met Sinterklaas en de Pieten."
+      question: "Komen de bekende acteur/zanger Hugo Sigal en zangeres Loredana live naar de voorstelling?",
+      answer: "Neen, de voorstelling is een afwisseling tussen live theater en filmbeelden. Hugo Sigal speelt de rol van Boze Heks in de film en zangeres Loredana de rol van Roodkapje in de film. Ze zijn dus niet live aanwezig in de zaal. Sinterklaas en de pieten komen wel live naar de voorstelling samen met een hele hoop andere acteurs."
     },
     {
-      question: "Waar vinden de shows plaats?",
-      answer: "Onze hoofdlocatie is in het cultureel centrum van Genk. Voor groepsboekingen kunnen we ook naar uw locatie komen (scholen, bedrijven, etc.)."
+      question: "Delen de Sint en de pieten na de voorstelling nog cadeautjes en snoep uit?",
+      answer: "De Sint gaat na de voorstelling even rusten. De pieten delen snoep uit aan de kinderen na de voorstelling. Ieder kind met een ticket heeft recht op 1 snoepzakje. Deze snoepzakjes worden u aangeboden door het centrummanagement van Stad Genk."
     },
     {
-      question: "Zijn er kortingen voor grote groepen?",
-      answer: "Ja, vanaf 20 personen bieden we groepskortingen. Scholen en verenigingen krijgen ook speciale tarieven. Neem contact op voor meer informatie."
+      question: "Vanaf welke leeftijd moet een kind betalen?",
+      answer: "Kinderen onder de 2 jaar hoeven geen ticket te betalen en kunnen mee op de schoot. Ze hebben geen recht op een stoel. Indien dit toch wenselijk is koopt u best toch een ticket. Kinderen ouder dan 2 jaar moeten dus een ticket kopen."
+    },
+    {
+      question: "Vanaf welke leeftijd is de voorstelling aan te raden?",
+      answer: "De voorstelling is een mix tussen film, live theater, animatie en muziek. Op die manier is het ook voor kleine kinderen een feest. We adviseren de leeftijd vanaf 3 jaar."
+    },
+    {
+      question: "Komen er roetpieten of Zwarte Pieten naar de voorstelling?",
+      answer: "Er worden ons al jaren vragen gesteld over de figuur van Zwarte Piet. Dat kunnen we niet zomaar negeren. We hebben het uiterlijk van Piet licht aangepast vanwege de veranderende samenleving, maar met respect voor de Sinterklaastraditie. De pieten hebben geen dikke rode lippen meer en geen oorbellen. Veder krijgen ze roetvegen in plaats van een volledig zwart gezicht. We merken dat de kinderen het ook op die manier gewoon zijn de dag van vandaag."
+    },
+    {
+      question: "Hoe komt het dat jullie tickets kunnen aanbieden aan 10 euro (kinderen) en 12 euro (volwassenen) per persoon?",
+      answer: "We weten dat andere Sinterklaasvoorstellingen vaak het dubbele of meer kosten. VZW Studio Wonderland werkt hoofdzakelijk met vrijwilligers en met partners zoals Stad Genk. De voorstelling is ook beperkt tot een uur. Op die manier kunnen we de ticketprijs laag houden."
+    },
+    {
+      question: "Vanaf wanneer moet ik een ticket kopen voor een volwassene?",
+      answer: "Vanaf 18 jaar betaal je een ticket voor een volwassene. Kinderen tot 12 jaar hebben recht op een snoepzakje na de voorstelling."
+    },
+    {
+      question: "Wat moet ik doen als ik mijn ticket kwijt ben of ik mijn tickets niet heb ontvangen?",
+      answer: "Probeer zelf de tickets nogmaals te sturen via deze link. Lukt het dan nog niet? Stuur dan een e-mail naar support@flextickets.nl"
+    },
+    {
+      question: "Waarom betaal ik boekingskosten voor mijn tickets?",
+      answer: "We werken met een externe ticketverdeler flextickets. In de boekingskost zitten zowel de prijs van de handeling van de tickets als de kosten die de bank aanrekent voor het afrekenen van de tickets. Terwijl je bij de meeste ticketverdelers een bedrag betaalt per ticket werken we hier met één prijs per boeking. Je betaalt dus 1,75 euro boekingskost voor het bestellen van 1 ticket, maar evenveel als je bijvoorbeeld 10 tickets boekt. Het is dus aan te raden om in grote groep tickets te bestellen."
+    },
+    {
+      question: "Is er parkeerplaats voorzien?",
+      answer: "Parkeren kan op verschillende plaatsen rondom het Stadhuis van Genk. Via deze link vind je meer informatie."
     }
   ];
 
