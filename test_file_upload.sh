@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BACKEND_URL="https://festive-dashboard-1.preview.emergentagent.com"
+BACKEND_URL="https://saint-nick-site.preview.emergentagent.com"
 API_BASE="${BACKEND_URL}/api"
 
 echo "=== FILE UPLOAD TEST ==="
