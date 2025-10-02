@@ -9,7 +9,7 @@ const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND
 
 export default function News() {
   const { id } = useParams();
-  const [newsData, setNewsData] = useState([]);
+  const [newsData, setNewsData] = useState(null); // Start with null instead of empty array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
