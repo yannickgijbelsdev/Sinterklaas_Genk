@@ -621,7 +621,7 @@ const PasswordManagement = ({
   const [selectedUser, setSelectedUser] = React.useState(null);
   const [newUserPassword, setNewUserPassword] = React.useState('');
 
-  useEffect(() => {
+  React.useEffect(() => {
     loadUsers();
   }, []);
 
