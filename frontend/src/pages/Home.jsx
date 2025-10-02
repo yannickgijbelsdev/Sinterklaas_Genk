@@ -848,9 +848,9 @@ export default function Home() {
       <section 
         id="gallery"
         style={{ 
-          background: 'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)',
+          background: '#FEF7ED',
           padding: '80px 0',
-          color: 'white',
+          color: '#1F2937',
           position: 'relative'
         }}
       >
