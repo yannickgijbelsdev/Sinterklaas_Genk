@@ -495,7 +495,7 @@ export function CampaignManager({ subscribers = [] }) {
                 <Label>Van Naam</Label>
                 <Input
                   value={campaignData.from_name}
-                  onChange={(e) => setCampaignData({...campaignData, from_name: e.target.value})}
+                  onChange={handleFromNameChange}
                 />
               </div>
             </div>
