@@ -420,7 +420,7 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
               type="checkbox"
               id="published"
               checked={formData.published}
-              onChange={(e) => setFormData(prev => ({ ...prev, published: e.target.checked }))}
+              onChange={handlePublishedChange}
               className="rounded border-gray-300 text-red-600 focus:ring-red-500"
             />
             <Label htmlFor="published">Artikel publiceren</Label>
