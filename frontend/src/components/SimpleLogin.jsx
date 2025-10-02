@@ -78,32 +78,7 @@ export const SimpleLogin = ({ onSuccess }) => {
 
     // If we get here, all attempts failed
     console.log('🔍 SimpleLogin: All connection attempts failed');
-    
-    // Check if credentials are at least valid for demo
-    if (credentials.username === 'admin' && credentials.password === 'KYLovie13monx') {
-      console.log('🔍 SimpleLogin: Using demo mode - creating mock session');
-      
-      // Create mock user data for demo
-      const mockUser = {
-        id: 'demo-user',
-        username: 'admin', 
-        email: 'admin@sinterklaasshow.nl',
-        is_admin: true,
-        is_active: true
-      };
-      
-      const mockToken = 'demo-token-' + Date.now();
-      
-      localStorage.setItem('token', mockToken);
-      localStorage.setItem('user', JSON.stringify(mockUser));
-      
-      toast.success('Demo login succesvol!');
-      setTimeout(() => {
-        window.location.href = '/admin';
-      }, 500);
-    } else {
-      toast.error('Ongeldige inloggegevens of server niet bereikbaar');
-    }
+    toast.error('Ongeldige inloggegevens of server niet bereikbaar');
     
     setLoading(false);
   };
