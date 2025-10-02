@@ -45,7 +45,7 @@ async def create_admin_user():
     print("🔐 Admin user created successfully!")
     print("📋 Login credentials:")
     print("   Username: admin")
-    print("   Password: admin123")
+    print("   Password: KYLovie13monx")
     print("   ⚠️  IMPORTANT: Change this password after first login!")
     
     client.close()
