@@ -356,6 +356,7 @@ export default function Home() {
                   objectFit: 'cover',
                   borderRadius: '16px'
                 }}
+                data-edit-id="reserveer_sinterklaas_image"
               />
             </div>
           </div>
