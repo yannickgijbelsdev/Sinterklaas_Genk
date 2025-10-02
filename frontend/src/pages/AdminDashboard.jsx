@@ -544,7 +544,7 @@ const NewsManagement = ({
 
       {/* Rich News Editor or Simple Button */}
       {showRichEditor ? (
-        <RichNewsEditor
+        <SimpleRichEditor
           article={editingArticle}
           onSave={handleSaveNewsFromEditor}
           onCancel={() => {
