@@ -1331,7 +1331,7 @@ async def demo_upload_news_image(file: UploadFile = File(...)):
     
     try:
         # Save file locally as backup
-        local_file_path = f"{uploads_dir}/{unique_filename}"
+        local_file_path = f"uploads/news/{unique_filename}"
         with open(local_file_path, "wb") as f:
             f.write(content)
         
