@@ -478,8 +478,19 @@ export default function AdminDashboard() {
       </div>
     </div>
   );
+};
 
-  const NewsManagement = () => (
+const NewsManagement = ({ 
+  news, 
+  editingNews, 
+  setEditingNews, 
+  newNews, 
+  setNewNews, 
+  handleCreateNews, 
+  handleUpdateNews, 
+  handleDeleteNews, 
+  loading 
+}) => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Nieuws Beheer</h2>
