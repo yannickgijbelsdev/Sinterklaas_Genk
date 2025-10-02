@@ -41,6 +41,14 @@ const RichNewsEditor = ({ article, onSave, onCancel }) => {
     setFormData(prev => ({ ...prev, published: e.target.checked }));
   }, []);
 
+  const handleFileUpload = useCallback((e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFeaturedImageFile(file);
+      handleFeaturedImageUpload(file);
+    }
+  }, []);
+
   // Compress and upload image
   const compressAndUploadImage = async (file, onProgress = () => {}) => {
     return new Promise((resolve, reject) => {
