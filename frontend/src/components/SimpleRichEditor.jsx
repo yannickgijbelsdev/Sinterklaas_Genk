@@ -172,7 +172,17 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
         default:
           formattedText = selectedText;
       }
-      insertContent(formattedText.replace(selectedText, ''));
+      // Replace selected text with formatted version
+      const textarea = contentRef.current;
+      const text = textarea.value;
+      const newContent = text.substring(0, start) + formattedText + text.substring(end);
+      setFormData(prev => ({ ...prev, content: newContent }));
+      
+      // Set cursor position after formatted content
+      setTimeout(() => {
+        textarea.selectionStart = textarea.selectionEnd = start + formattedText.length;
+        textarea.focus();
+      }, 0);
     }
   };
 
