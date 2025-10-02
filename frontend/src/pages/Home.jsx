@@ -150,6 +150,15 @@ export default function Home() {
     };
   }, []);
 
+  // Rotate partner logos every 4 seconds
+  useEffect(() => {
+    const rotationInterval = setInterval(() => {
+      setCurrentPartnerSet((prev) => (prev + 1) % partnerSets.length);
+    }, 4000);
+
+    return () => clearInterval(rotationInterval);
+  }, [partnerSets.length]);
+
   // Smooth scroll function
   const smoothScrollTo = (elementId) => {
     const element = document.querySelector(elementId);
