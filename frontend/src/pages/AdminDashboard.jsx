@@ -554,7 +554,12 @@ const NewsManagement = ({
                         {article.category || 'Algemeen'}
                       </Badge>
                       <span className="text-xs text-gray-400">
-                        {new Date(article.date).toLocaleDateString('nl-NL')}
+                        {new Date(article.date).toLocaleDateString('nl-BE', {
+                          day: '2-digit',
+                          month: '2-digit', 
+                          year: 'numeric',
+                          timeZone: 'Europe/Brussels'
+                        })}
                       </span>
                     </div>
                     
