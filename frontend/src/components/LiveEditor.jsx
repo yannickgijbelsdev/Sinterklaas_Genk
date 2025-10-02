@@ -1,40 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { Button } from './ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Badge } from './ui/badge';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Textarea } from './ui/textarea';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
-import { toast } from 'sonner';
+import React, { useState, useEffect } from 'react';
+import { Edit, Save, X, Upload, Settings, Palette, Link as LinkIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { 
-  Plus, 
-  Trash2, 
-  Edit3, 
-  Save, 
-  Eye, 
-  EyeOff,
-  Undo, 
-  Redo,
-  RefreshCw,
-  GripVertical,
-  Type,
-  Image as ImageIcon,
-  Square,
-  Minus,
-  Columns,
-  Settings,
-  Palette,
-  Copy,
-  Upload,
-  Link2
-} from 'lucide-react';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
+import { toast } from 'sonner';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
