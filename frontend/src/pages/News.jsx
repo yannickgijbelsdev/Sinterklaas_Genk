@@ -42,17 +42,15 @@ export default function News() {
     fetchNews();
   }, []);
 
-  // Initialize audio players after content is loaded
+  // Initialize audio players after content is loaded - NO DOM MANIPULATION
   useEffect(() => {
     if (newsData && newsData.length > 0) {
-      // Small delay to ensure DOM is updated
+      // Only initialize wave players that already exist, don't modify DOM
       setTimeout(() => {
         initializeAudioPlayers();
       }, 100);
     }
   }, [newsData]);
-
-  // Audio replacement disabled to prevent content loss
   
   // Loading state - removed for instant display
 
