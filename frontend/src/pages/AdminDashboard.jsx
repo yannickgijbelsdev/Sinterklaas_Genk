@@ -853,8 +853,14 @@ const PasswordManagement = ({
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar */}
       <div className="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg">
-        <div className="flex items-center justify-center h-16 bg-red-600">
-          <h1 className="text-xl font-bold text-white">Admin Dashboard</h1>
+        <div className="flex items-center justify-center h-16 bg-white border-b border-gray-200">
+          <div className="bg-white p-3 rounded-lg shadow-sm">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_genk-sint-site/artifacts/ij49qgko_cropped-Favicon_Sinterklaas.png"
+              alt="Sinterklaas Admin Logo"
+              className="h-10 w-auto"
+            />
+          </div>
         </div>
         
         <nav className="mt-8">
