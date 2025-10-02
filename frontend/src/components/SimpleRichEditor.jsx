@@ -47,7 +47,8 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
 
             if (response.ok) {
               const result = await response.json();
-              const imageUrl = `${process.env.REACT_APP_BACKEND_URL}${result.url}`;
+              const backendUrl = process.env.REACT_APP_BACKEND_URL || window.location.origin;
+              const imageUrl = `${backendUrl}${result.url}`;
               console.log('Image uploaded successfully:', imageUrl);
               resolve(imageUrl);
             } else {
