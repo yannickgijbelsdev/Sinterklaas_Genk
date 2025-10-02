@@ -35,6 +35,9 @@ export const Header = () => {
         element.scrollIntoView({ behavior: 'smooth' });
         setIsMenuOpen(false);
       }
+    } else if (href.startsWith('http')) {
+      window.open(href, '_blank');
+      setIsMenuOpen(false);
     } else {
       window.location.href = href;
     }
