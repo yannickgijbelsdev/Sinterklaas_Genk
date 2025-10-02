@@ -794,7 +794,7 @@ const PasswordManagement = ({
                 id="userPassword"
                 type="password"
                 value={newUser.password}
-                onChange={(e) => setNewUser({...newUser, password: e.target.value})}
+                onChange={handleNewUserPasswordChange}
                 placeholder="Veilig wachtwoord..."
               />
             </div>
