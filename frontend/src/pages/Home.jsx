@@ -116,6 +116,35 @@ export default function Home() {
     ]
   ];
 
+  // Gallery images
+  const galleryImages = [
+    {
+      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/07f51h8b_Wenssexpress__1.50.1.jpg",
+      alt: "Sinterklaas en de Wensmachine - Scene 1",
+      title: "Wenssexpress Scene 1"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/saea5881_Wenssexpress__1.95.1.jpg",
+      alt: "Sinterklaas en de Wensmachine - Scene 2", 
+      title: "Wenssexpress Scene 2"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/izi2wnpm_Wenssexpress__1.23.1.jpg",
+      alt: "Sinterklaas en de Wensmachine - Scene 3",
+      title: "Wenssexpress Scene 3"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/e9m4txzp_Wenssexpress__1.33.1.jpg",
+      alt: "Sinterklaas en de Wensmachine - Scene 4",
+      title: "Wenssexpress Scene 4"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/xqnej0us_Wenssexpress__1.120.1.jpg",
+      alt: "Sinterklaas en de Wensmachine - Scene 5",
+      title: "Wenssexpress Scene 5"
+    }
+  ];
+
   // Load and apply stored content on page load - for ALL users
   useEffect(() => {
     const loadStoredContent = async () => {
