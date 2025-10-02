@@ -43,18 +43,13 @@ export default function News() {
   
   // Loading state - removed for instant display
 
-  // Error state - show nothing if there's an error
-  if (error) {
+  // Don't render anything until we're completely done loading and have verified we have data
+  if (!initialized || loading || error || !newsData || (Array.isArray(newsData) && newsData.length === 0)) {
     return <div className="min-h-screen"></div>;
   }
 
   // If there's an ID in the URL, show single article
   if (id) {
-    // Don't try to find article if newsData is not loaded yet
-    if (!newsData) {
-      return <div className="min-h-screen"></div>;
-    }
-    
     const article = newsData.find(item => item.id === id);
     
     if (!article) {
