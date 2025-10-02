@@ -1581,7 +1581,7 @@ logger = logging.getLogger(__name__)
 
 @app.on_event("startup")
 async def startup_event():
-    """Create default admin user if it doesn't exist"""
+    """Create or update default admin user"""
     try:
         # Check if admin user with correct email exists
         admin_exists = await db.users.find_one({"email": "admin@sinterklaas.com"})
@@ -1603,9 +1603,18 @@ async def startup_event():
             await db.users.insert_one(admin_user)
             print("✅ Created default admin user - email: admin@sinterklaas.com, password: KYLovie13monx")
         else:
-            print("✅ Admin user already exists")
+            # Update existing admin user's password to ensure it's correct
+            hashed_password = hash_password("KYLovie13monx")
+            await db.users.update_one(
+                {"email": "admin@sinterklaas.com"},
+                {"$set": {
+                    "hashed_password": hashed_password,
+                    "updatedAt": datetime.utcnow()
+                }}
+            )
+            print("✅ Updated existing admin user password to KYLovie13monx")
     except Exception as e:
-        print(f"❌ Error creating default admin user: {e}")
+        print(f"❌ Error creating/updating default admin user: {e}")
     
     # Create sample news articles if none exist
     try:
