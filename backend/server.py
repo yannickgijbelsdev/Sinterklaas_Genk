@@ -1530,6 +1530,16 @@ async def get_public_news():
     except Exception as e:
         return []
 
+# Public Shows Endpoint (no auth required)
+@api_router.get("/shows")
+async def get_public_shows():
+    """Get all shows for public viewing"""
+    try:
+        shows = list(await db.shows.find().sort("date", 1).to_list(1000))
+        return shows
+    except Exception as e:
+        return []
+
 # Configuration Management Endpoints
 @api_router.get("/admin/config")
 async def get_configuration(current_user: User = Depends(get_admin_user)):
