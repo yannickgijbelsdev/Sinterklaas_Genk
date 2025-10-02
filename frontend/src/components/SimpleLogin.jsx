@@ -152,10 +152,9 @@ export const SimpleLogin = ({ onSuccess }) => {
             </Button>
           </form>
 
-          <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <p className="text-sm text-yellow-800 font-medium">Demo Credentials:</p>
-            <p className="text-sm text-yellow-700">Gebruikersnaam: admin</p>
-            <p className="text-sm text-yellow-700">Wachtwoord: KYLovie13monx</p>
+          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm text-blue-800 font-medium">Login Informatie:</p>
+            <p className="text-sm text-blue-700">Neem contact op met de beheerder voor login gegevens</p>
           </div>
         </CardContent>
       </Card>
