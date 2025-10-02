@@ -127,8 +127,8 @@ export default function News() {
           </div>
         </article>
         
-        {/* Footer */}
-        <footer style={{ background: '#FEF7ED', padding: '40px 0', textAlign: 'center' }}>
+        {/* Footer - Sticky Bottom */}
+        <footer className="mt-auto" style={{ background: '#FEF7ED', padding: '40px 0', textAlign: 'center' }}>
           <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
               <Gift size={24} color="#DC2626" />
