@@ -1416,7 +1416,7 @@ def upload_to_sftp_working(file_content: bytes, filename: str, subfolder: str = 
 async def get_public_content():
     """Get all public content for page rendering"""
     try:
-        content = list(await db.content.find().to_list(1000))
+        content = await db.content.find({}, {"_id": 0}).to_list(1000)
         return content
     except Exception as e:
         return []
