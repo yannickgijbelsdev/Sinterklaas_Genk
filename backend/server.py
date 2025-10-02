@@ -799,24 +799,7 @@ async def update_content(content_updates: List[ContentUpdate], current_user: Use
     
     return {"message": "Content updated successfully"}
 
-# File Upload (Protected)
-@api_router.post("/admin/upload")
-async def upload_file(file: UploadFile = File(...), current_user: User = Depends(get_admin_user)):
-    # Validate file type
-    if not file.content_type.startswith('image/'):
-        raise HTTPException(status_code=400, detail="Only image files are allowed")
-    
-    # Generate unique filename
-    file_extension = file.filename.split('.')[-1]
-    unique_filename = f"{uuid.uuid4()}.{file_extension}"
-    file_path = uploads_dir / unique_filename
-    
-    # Save file
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-    
-    # Return URL
-    return {"url": f"/uploads/{unique_filename}", "filename": unique_filename}
+# File Upload (Protected) - REMOVED: Duplicate of enhanced upload endpoint below
 
 # Gallery Management
 @api_router.get("/admin/gallery", response_model=List[GalleryItem])
