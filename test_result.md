@@ -468,6 +468,18 @@ test_plan:
         agent: "testing"
         comment: "FEATURED IMAGE UPLOAD COMPREHENSIVE TESTING COMPLETED SUCCESSFULLY: Performed complete end-to-end testing of featured image upload functionality as requested in Sinterklaas Genk review. ✅ ALL REVIEW REQUIREMENTS PASSED (100% success rate): 1) POST /api/admin/news/upload-image endpoint working perfectly with admin authentication, 2) File validation comprehensive - non-image files rejected (400), large files >5MB rejected (400), valid images accepted (200), 3) Unique filename generation working correctly (format: news_YYYYMMDD_HHMMSS_hash.ext), 4) News article creation with featured_image field fully functional, 5) News article updates with new featured images working correctly, 6) Image serving and storage functionality verified - images accessible via /api/uploads/news/ path with proper Content-Type headers, 7) Complete workflow tested: upload → create article → update article → image serving. ✅ AUTHENTICATION VERIFIED: All admin endpoints properly protected with JWT authentication, unauthorized requests correctly rejected (403). ✅ ROBUSTNESS CONFIRMED: System handles various image formats and sizes correctly, proper error handling implemented. CONCLUSION: Featured image upload functionality is production-ready and fully operational for news articles management."
 
+  - task: "Admin Password Investigation"
+    implemented: true
+    working: false
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "ADMIN PASSWORD INVESTIGATION COMPLETED - ISSUE IDENTIFIED: Comprehensive investigation of reported admin password issue completed. ❌ PROBLEM CONFIRMED: Only old password 'admin123' works, new password 'KYLovie13monx' does NOT work despite backend changes. ✅ ROOT CAUSE IDENTIFIED: Existing admin user (ID: 63423ce9-ba67-4c4a-b360-2da6371d5b35, username: 'admin', email: 'admin@sinterklaas.com') still has old password hash for 'admin123'. ✅ STARTUP EVENT LOGIC FLAW: The startup_event() function checks for existing admin user by email and finds the existing user, but it only creates NEW users - it does NOT update existing users' passwords. The existing admin user was created with 'admin123' and never got updated to 'KYLovie13monx'. ✅ DATABASE VERIFICATION: Direct database query confirms stored password hash only matches 'admin123', not 'KYLovie13monx'. ✅ AUTHENTICATION TESTING: Only 'admin/admin123' returns 200 OK, all other combinations ('admin/KYLovie13monx', 'admin@sinterklaas.com/admin123', 'admin@sinterklaas.com/KYLovie13monx') return 401 Unauthorized. ✅ SECURITY IMPACT: No multiple passwords working - only one password active, which is secure but incorrect password. SOLUTION NEEDED: Update startup_event() to also UPDATE existing admin user's password to 'KYLovie13monx', not just create new users."
+
 agent_communication:
   - agent: "main"
     message: "NEW FEATURES IMPLEMENTED: 1) Menu changes completed - 'Reserveren' changed to 'Bestel je tickets' and 'Reserveer direct' to 'Bestel nu je tickets' with FlexTickets integration, 2) Added complete feature image upload system to admin news dashboard including file selection, preview, and upload functionality using existing backend endpoint. Both features implemented and need comprehensive testing."
