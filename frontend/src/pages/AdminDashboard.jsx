@@ -978,9 +978,11 @@ const PasswordManagement = ({
                   loading={loading}
                 />
               )}
-              {activeTab === 'users' && <UserManagement newUser={newUser} setNewUser={setNewUser} handleCreateUser={handleCreateUser} />}
-              {activeTab === 'passwords' && (
-                <PasswordManagement 
+              {activeTab === 'users' && (
+                <UserManagement 
+                  newUser={newUser} 
+                  setNewUser={setNewUser} 
+                  handleCreateUser={handleCreateUser}
                   passwordChange={passwordChange}
                   setPasswordChange={setPasswordChange}
                   handleChangePassword={handleChangePassword}
