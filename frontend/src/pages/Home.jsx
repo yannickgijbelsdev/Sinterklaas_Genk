@@ -679,7 +679,7 @@ export default function Home() {
               justifyContent: 'center',
               fontSize: '64px'
             }}>
-              <Gift size={80} color="white" style={{ opacity: 0.8 }} />
+              <Ticket size={80} color="white" style={{ opacity: 0.8 }} />
             </div>
           </div>
         </div>
