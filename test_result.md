@@ -327,7 +327,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Password Management Functionality Testing Complete"
+    - "Menu Wijzigingen - FlexTickets Integratie"
+    - "Feature Image Upload Functionaliteit"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
