@@ -190,6 +190,40 @@ export default function AdminDashboard() {
     totalUsers: 89
   });
 
+  // useCallback handlers to prevent input focus issues
+  const handlePasswordCurrentChange = useCallback((e) => {
+    setPasswordChange(prev => ({
+      ...prev, 
+      current_password: e.target.value
+    }));
+  }, []);
+
+  const handlePasswordNewChange = useCallback((e) => {
+    setPasswordChange(prev => ({
+      ...prev, 
+      new_password: e.target.value
+    }));
+  }, []);
+
+  const handlePasswordConfirmChange = useCallback((e) => {
+    setPasswordChange(prev => ({
+      ...prev, 
+      confirm_password: e.target.value
+    }));
+  }, []);
+
+  const handleNewUserEmailChange = useCallback((e) => {
+    setNewUser(prev => ({...prev, email: e.target.value}));
+  }, []);
+
+  const handleNewUserPasswordChange = useCallback((e) => {
+    setNewUser(prev => ({...prev, password: e.target.value}));
+  }, []);
+
+  const handleNewUserRoleChange = useCallback((e) => {
+    setNewUser(prev => ({...prev, role: e.target.value}));
+  }, []);
+
   useEffect(() => {
     if (isAuthenticated() && isAdmin()) {
       loadDashboardData();
