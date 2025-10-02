@@ -59,6 +59,9 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # Create the main app without a prefix
 app = FastAPI()
 
+# Mount static files for uploaded images
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
