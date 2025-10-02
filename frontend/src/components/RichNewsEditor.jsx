@@ -24,6 +24,23 @@ const RichNewsEditor = ({ article, onSave, onCancel }) => {
   const [featuredImageFile, setFeaturedImageFile] = useState(null);
   const [featuredImagePreview, setFeaturedImagePreview] = useState(article?.featured_image || '');
 
+  // useCallback handlers to prevent focus issues
+  const handleTitleChange = useCallback((e) => {
+    setFormData(prev => ({ ...prev, title: e.target.value }));
+  }, []);
+
+  const handleCategoryChange = useCallback((e) => {
+    setFormData(prev => ({ ...prev, category: e.target.value }));
+  }, []);
+
+  const handleExcerptChange = useCallback((e) => {
+    setFormData(prev => ({ ...prev, excerpt: e.target.value }));
+  }, []);
+
+  const handlePublishedChange = useCallback((e) => {
+    setFormData(prev => ({ ...prev, published: e.target.checked }));
+  }, []);
+
   // Compress and upload image
   const compressAndUploadImage = async (file, onProgress = () => {}) => {
     return new Promise((resolve, reject) => {
