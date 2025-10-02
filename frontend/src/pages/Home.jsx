@@ -867,7 +867,7 @@ export default function Home() {
               }}
               data-edit-id="gallery_title"
             >
-              Foto Galerij
+              Foto's
             </h2>
             <p 
               style={{ 
