@@ -292,11 +292,8 @@ export default function AdminDashboard() {
     if (!editingNews) return;
 
     try {
-      const response = await fetch(`${API}/admin/news/${editingNews.id}`, {
+      const response = await apiCall(`/admin/news/${editingNews.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(newNews)
       });
 
