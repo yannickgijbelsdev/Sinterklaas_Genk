@@ -700,8 +700,8 @@ async def upload_news_image(file: UploadFile = File(...), current_user: User = D
     with open(file_path, "wb") as f:
         f.write(content)
     
-    # Return local URL path
-    local_image_url = f"/uploads/news/{unique_filename}"
+    # Return local URL path with API prefix for Kubernetes ingress
+    local_image_url = f"/api/uploads/news/{unique_filename}"
     
     return {"image_url": local_image_url, "filename": unique_filename}
 
