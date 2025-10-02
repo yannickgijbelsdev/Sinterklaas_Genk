@@ -241,8 +241,8 @@ export default function Home() {
           }}
         ></div>
         
-        {/* Dark overlay for text readability (optional - can be removed for cleaner video) */}
-        <div className="absolute inset-0 bg-black/20"></div>
+        {/* Subtle overlay for content readability */}
+        <div className="absolute inset-0 bg-black/10" style={{ zIndex: 2 }}></div>
         
         {/* Title removed - clean banner */}
         
