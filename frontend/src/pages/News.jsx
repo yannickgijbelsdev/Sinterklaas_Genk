@@ -47,10 +47,59 @@ export default function News() {
     if (newsData && newsData.length > 0) {
       // Small delay to ensure DOM is updated
       setTimeout(() => {
+        // Force replace HTML5 audio with wave players
+        replaceAllAudioElements();
         initializeAudioPlayers();
-      }, 100);
+      }, 500);
     }
   }, [newsData]);
+
+  // Function to replace all HTML5 audio elements
+  const replaceAllAudioElements = () => {
+    // Find all divs that contain audio with filenames
+    const allDivs = document.querySelectorAll('div');
+    allDivs.forEach(div => {
+      if (div.innerHTML.includes('🎵') && div.innerHTML.includes('.mp3') && div.querySelector('audio')) {
+        const audio = div.querySelector('audio');
+        const src = audio?.src || audio?.querySelector('source')?.src;
+        
+        if (src) {
+          const wavePlayerHTML = `
+            <div class="wave-audio-container" data-audio-src="${src}" style="margin: 20px 0;">
+              <div style="background: linear-gradient(135deg, #FEF7ED 0%, #FEF3C7 100%); border-radius: 16px; padding: 20px; border: 2px solid #DC2626; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.1);">
+                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                  <button class="audio-play-btn" style="background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); border: none; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;">
+                    <span style="color: white; font-size: 16px;">▶</span>
+                  </button>
+                  <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #B91C1C; min-width: 100px;">
+                    <span class="current-time">0:00</span>
+                    <span style="opacity: 0.6;">/</span>
+                    <span class="total-time" style="opacity: 0.8;">0:00</span>
+                  </div>
+                </div>
+                <div class="wave-container" style="position: relative; height: 80px; background: #FFFFFF; border-radius: 8px; border: 1px solid #FED7D7; cursor: pointer; overflow: hidden; display: flex; align-items: end; gap: 2px; padding: 8px 4px;">
+                  <div class="wave-progress" style="position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: linear-gradient(135deg, rgba(220, 38, 38, 0.2) 0%, rgba(185, 28, 28, 0.2) 100%); border-radius: 8px; transition: width 0.1s ease; z-index: 1;"></div>
+                  ${Array.from({length: 50}, (_, i) => {
+                    const height = Math.random() * 60 + 20;
+                    return `<div style="width: 6px; height: ${height}%; background: linear-gradient(to top, #E5E7EB, #F3F4F6); border-radius: 3px; transition: all 0.3s ease; z-index: 2; position: relative;"></div>`;
+                  }).join('')}
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 12px; color: #B91C1C; opacity: 0.7;">
+                  <span>Klik op de wave om door te spoelen</span>
+                  <span class="progress-percentage">0%</span>
+                </div>
+              </div>
+              <audio class="hidden-audio" style="display: none;" preload="metadata">
+                <source src="${src}" type="audio/mpeg">
+              </audio>
+            </div>
+          `;
+          
+          div.outerHTML = wavePlayerHTML;
+        }
+      }
+    });
+  };
   
   // Loading state - removed for instant display
 
