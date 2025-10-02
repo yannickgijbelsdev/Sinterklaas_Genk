@@ -612,23 +612,6 @@ const NewsManagement = ({
     </div>
   );
 
-  const ShowsManagement = () => (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold">Shows Beheer</h2>
-      <Card>
-        <CardContent className="p-8 text-center">
-          <Calendar className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-          <h3 className="text-lg font-medium mb-2">Shows Management</h3>
-          <p className="text-gray-600 mb-4">Beheer hier alle Sinterklaas shows en evenementen.</p>
-          <Button>
-            <Plus className="h-4 w-4 mr-2" />
-            Nieuwe Show Toevoegen
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
-  );
-
 const PasswordManagement = ({ 
   passwordChange, 
   setPasswordChange, 
