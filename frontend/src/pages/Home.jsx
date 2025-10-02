@@ -493,9 +493,9 @@ export default function Home() {
         {/* Subtle overlay for content readability */}
         <div className="absolute inset-0 bg-black/10" style={{ zIndex: 2 }}></div>
         
-        {/* Partner Logos Banner - Bottom Left - Rotating Carousel */}
+        {/* Partner Logos Banner - Desktop: Bottom Left / Mobile: Below content */}
         <div 
-          className="absolute bottom-8 left-8 bg-white/90 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-lg"
+          className="absolute bottom-8 left-8 bg-white/90 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-lg hidden lg:block"
           style={{ zIndex: 10 }}
           data-edit-id="partners_section"
         >
