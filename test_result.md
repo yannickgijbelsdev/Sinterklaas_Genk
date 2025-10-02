@@ -122,6 +122,21 @@ backend:
       - working: true
         agent: "testing"
         comment: "RE-TESTED SUCCESSFULLY: All content management endpoints working perfectly. GET /api/admin/content returns 16 content items. PUT /api/admin/content successfully updates content for all page sections (about, characters, shows, gallery, news, contact). Content persistence verified in database. All endpoints properly protected with JWT authentication (403 errors for unauthorized requests). File upload functionality working with proper authentication and file accessibility verified."
+      - working: true
+        agent: "testing"
+        comment: "LIVE EDITOR BACKEND FUNCTIONALITY FULLY OPERATIONAL: Fixed critical routing issues that were causing 404 errors on essential endpoints. RESOLVED ISSUES: 1) Fixed duplicate route registration - moved endpoint definitions before app.include_router() call, 2) Fixed ObjectId serialization errors by excluding _id fields from responses, 3) Updated PUT /api/admin/content to handle array of ContentUpdate objects as expected by live editor. ALL TESTS PASSED (7/7 - 100% success rate): ✅ GET /api/content (public, no auth) - returns 26 content items, ✅ GET /api/admin/content (admin auth) - returns 26 content items with proper authentication, ✅ PUT /api/admin/content (admin auth) - successfully updates multiple content items, ✅ GET /api/admin/config (admin auth) - returns configuration with menu items/partners/FAQ, ✅ PUT /api/admin/config (admin auth) - successfully updates configuration, ✅ Cross-endpoint integration - content saved via admin endpoint appears in public endpoint, ✅ Database collections usage - both endpoints use correct db.content collection. LIVE EDITOR BACKEND IS PRODUCTION-READY."
+
+  - task: "Live Editor Backend API Endpoints"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "LIVE EDITOR BACKEND FUNCTIONALITY TESTING COMPLETED SUCCESSFULLY: Comprehensive testing of all live editor backend endpoints completed with 100% success rate (7/7 tests passed). CRITICAL FIXES IMPLEMENTED: 1) Fixed 404 errors on /api/content, /api/admin/content, /api/admin/config by moving endpoint definitions before router inclusion, 2) Fixed 500 errors caused by MongoDB ObjectId serialization by excluding _id fields, 3) Updated PUT /api/admin/content to handle List[ContentUpdate] format as expected by live editor frontend. ALL ENDPOINTS WORKING: ✅ GET /api/content (public, no auth) - Working correctly with 26 content items, ✅ GET /api/admin/content (admin auth: admin/admin123) - Working correctly with proper authentication, ✅ PUT /api/admin/content (admin auth) - Successfully updates multiple content items with proper persistence, ✅ GET /api/admin/config (admin auth) - Working correctly with menu/partners/FAQ configuration, ✅ PUT /api/admin/config (admin auth) - Successfully updates configuration data, ✅ Cross-endpoint integration verified - content saved via admin endpoint immediately appears in public endpoint, ✅ Database collections usage verified - both endpoints correctly use db.content collection. LIVE EDITOR BACKEND IS FULLY OPERATIONAL AND PRODUCTION-READY."
 
   - task: "Admin User Creation"
     implemented: true
