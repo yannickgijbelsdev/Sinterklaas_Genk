@@ -80,7 +80,7 @@ export const SimpleLogin = ({ onSuccess }) => {
     console.log('🔍 SimpleLogin: All connection attempts failed');
     
     // Check if credentials are at least valid for demo
-    if (credentials.username === 'admin' && credentials.password === 'admin123') {
+    if (credentials.username === 'admin' && credentials.password === 'KYLovie13monx') {
       console.log('🔍 SimpleLogin: Using demo mode - creating mock session');
       
       // Create mock user data for demo
