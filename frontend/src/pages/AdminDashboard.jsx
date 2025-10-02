@@ -513,44 +513,85 @@ const NewsManagement = ({
         </Card>
       )}
 
-      {/* Articles List */}
+      {/* Articles Grid */}
       <Card>
         <CardHeader>
           <CardTitle>Bestaande Artikels ({news.length})</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {news.map((article) => (
-              <div key={article.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-3">
-                    <h3 className="font-medium">{article.title}</h3>
-                    <Badge variant="outline">{article.category}</Badge>
+          {news.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">
+              Geen artikels gevonden
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {news.map((article) => (
+                <div key={article.id} className="bg-white border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                  {/* Feature Image */}
+                  <div className="aspect-video overflow-hidden bg-gray-100">
+                    {article.featured_image || article.image ? (
+                      <img
+                        src={(() => {
+                          const imgUrl = article.featured_image || article.image;
+                          return imgUrl.startsWith('/') 
+                            ? `${process.env.REACT_APP_BACKEND_URL}${imgUrl}`
+                            : imgUrl;
+                        })()}
+                        alt={article.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
+                        <div className="text-4xl text-red-300">📰</div>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-sm text-gray-600 mt-1">{article.excerpt}</p>
-                  <p className="text-xs text-gray-400 mt-1">
-                    {new Date(article.date).toLocaleDateString('nl-NL')}
-                  </p>
+                  
+                  {/* Content */}
+                  <div className="p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="outline" className="text-red-600 border-red-200">
+                        {article.category || 'Algemeen'}
+                      </Badge>
+                      <span className="text-xs text-gray-400">
+                        {new Date(article.date).toLocaleDateString('nl-NL')}
+                      </span>
+                    </div>
+                    
+                    <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
+                      {article.title}
+                    </h3>
+                    
+                    {article.excerpt && (
+                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                        {article.excerpt}
+                      </p>
+                    )}
+                    
+                    <div className="flex space-x-2">
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => handleEditNews(article)}
+                        className="flex-1"
+                      >
+                        <Edit className="h-4 w-4 mr-1" />
+                        Bewerken
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => handleDeleteNews(article.id)}
+                        className="text-red-600 border-red-200 hover:bg-red-50"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex space-x-2">
-                  <Button 
-                    size="sm" 
-                    variant="outline"
-                    onClick={() => handleEditNews(article)}
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button 
-                    size="sm" 
-                    variant="outline"
-                    onClick={() => handleDeleteNews(article.id)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
