@@ -136,7 +136,7 @@ export const SimpleLogin = ({ onSuccess }) => {
                 type="password"
                 name="password"
                 value={credentials.password}
-                onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+                onChange={handlePasswordChange}
                 placeholder="••••••••"
                 required
                 className="mt-1"
