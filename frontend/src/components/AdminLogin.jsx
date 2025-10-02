@@ -7,7 +7,9 @@ import { Shield, Lock, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function AdminLogin({ onLogin }) {
+export default function AdminLogin() {
+  const { login } = useAuth();
+  const [email, setEmail] = useState('admin@sinterklaas.com');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -15,13 +17,16 @@ export default function AdminLogin({ onLogin }) {
     e.preventDefault();
     setLoading(true);
 
-    // Simple password check - in production you'd want proper authentication
-    if (password === 'sinterklaas2024') {
-      sessionStorage.setItem('adminAuthenticated', 'true');
-      toast.success('Succesvol ingelogd!');
-      onLogin(true);
-    } else {
-      toast.error('Onjuist wachtwoord');
+    try {
+      const result = await login(email, password);
+      if (result.success) {
+        // Login successful, AuthContext will handle state update
+        // Navigation will happen automatically due to authentication change
+      } else {
+        toast.error(result.message || 'Login failed');
+      }
+    } catch (error) {
+      toast.error('Network error');
     }
     
     setLoading(false);
