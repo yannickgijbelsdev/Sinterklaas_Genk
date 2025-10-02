@@ -35,6 +35,14 @@ export const AdvancedLiveEditor = () => {
   const [editModal, setEditModal] = useState({ show: false, type: '', data: {} });
   const [managementPanel, setManagementPanel] = useState({ show: false, type: '' });
 
+  // useCallback handlers to prevent focus issues
+  const handleTextValueChange = useCallback((e) => {
+    setEditModal(prev => ({
+      ...prev,
+      data: { ...prev.data, currentValue: e.target.value }
+    }));
+  }, []);
+
   if (!isAuthenticated() || !isAdmin()) {
     return null;
   }
