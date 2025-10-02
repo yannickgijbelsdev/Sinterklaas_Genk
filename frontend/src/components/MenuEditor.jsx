@@ -30,6 +30,15 @@ function SortableMenuItem({ item, onUpdate, onDelete, onAddChild, level = 0 }) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [editData, setEditData] = useState({ label: item.label, url: item.url });
   
+  // useCallback handlers to prevent focus issues
+  const handleLabelChange = useCallback((e) => {
+    setEditData({...editData, label: e.target.value});
+  }, [editData]);
+
+  const handleUrlChange = useCallback((e) => {
+    setEditData({...editData, url: e.target.value});
+  }, [editData]);
+  
   const {
     attributes,
     listeners,
