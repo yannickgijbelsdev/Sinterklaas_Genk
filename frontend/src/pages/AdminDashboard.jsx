@@ -197,9 +197,7 @@ export default function AdminDashboard() {
   }, [isAuthenticated, isAdmin]);
 
   const handleLogout = () => {
-    sessionStorage.removeItem('adminAuthenticated');
-    setIsAuthenticated(false);
-    toast.info('Uitgelogd');
+    logout();
   };
 
   const loadDashboardData = async () => {
