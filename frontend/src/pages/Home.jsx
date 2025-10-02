@@ -70,9 +70,9 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const [contentRes, newsRes, showsRes] = await Promise.all([
-          fetch(`${API}/admin/content`),
+          fetch(`${API}/content`),
           fetch(`${API}/news`),
-          fetch(`${API}/admin/shows`)
+          fetch(`${API}/shows`)
         ]);
 
         if (contentRes.ok) {
