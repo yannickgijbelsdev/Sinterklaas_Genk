@@ -174,7 +174,12 @@ export default function News() {
                   <div className="aspect-video overflow-hidden">
                     {(article.featured_image || article.image) ? (
                       <img
-                        src={article.featured_image || article.image}
+                        src={(() => {
+                          const imgUrl = article.featured_image || article.image;
+                          return imgUrl.startsWith('/') 
+                            ? `${process.env.REACT_APP_BACKEND_URL}${imgUrl}`
+                            : imgUrl;
+                        })()}
                         alt={article.title}
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                       />
