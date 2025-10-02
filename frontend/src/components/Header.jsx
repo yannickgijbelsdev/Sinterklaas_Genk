@@ -8,7 +8,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const isNewsPage = location.pathname.startsWith('/news');
+  const isNewsPage = location.pathname.startsWith('/nieuws') || location.pathname.startsWith('/news');
   // Removed login functionality - direct admin access
 
   useEffect(() => {
