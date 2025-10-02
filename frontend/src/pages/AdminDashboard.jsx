@@ -633,6 +633,10 @@ const PasswordManagement = ({
   const [selectedUser, setSelectedUser] = React.useState(null);
   const [newUserPassword, setNewUserPassword] = React.useState('');
 
+  const handleNewUserPasswordChange = React.useCallback((e) => {
+    setNewUserPassword(e.target.value);
+  }, []);
+
   React.useEffect(() => {
     loadUsers();
   }, []);
