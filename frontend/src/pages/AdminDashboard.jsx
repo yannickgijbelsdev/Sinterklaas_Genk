@@ -25,7 +25,9 @@ import {
   Search,
   Filter,
   LogOut,
-  UserPlus
+  UserPlus,
+  Lock,
+  Key
 } from 'lucide-react';
 
 const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
