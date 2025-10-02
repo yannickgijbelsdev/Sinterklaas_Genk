@@ -525,7 +525,7 @@ const NewsManagement = ({
     </div>
   );
 
-  const UserManagement = () => (
+  const UserManagement = ({ newUser, setNewUser, handleCreateUser }) => (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Gebruikers Beheer</h2>
       
