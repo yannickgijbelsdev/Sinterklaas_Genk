@@ -82,13 +82,6 @@ export default function AdminLogin() {
               {loading ? 'Inloggen...' : 'Inloggen'}
             </Button>
           </form>
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <p className="text-sm text-blue-700">
-              <strong>Demo login:</strong><br />
-              Username: admin<br />
-              Wachtwoord: admin123
-            </p>
-          </div>
         </CardContent>
       </Card>
     </div>
