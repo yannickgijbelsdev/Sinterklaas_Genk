@@ -796,19 +796,6 @@ export default function Home() {
                   <a href={post.id && post.id.startsWith('demo-') ? '#' : `/news/${post.id}`} style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
                     Lees meer →
                   </a>
-                  <div style={{ 
-                    fontSize: '14px', 
-                    color: '#999', 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center', 
-                    marginTop: '16px', 
-                    paddingTop: '16px', 
-                    borderTop: '1px solid #E5E7EB' 
-                  }}>
-                    <span>{post.date}</span>
-                    <span>{post.readTime || '3 min lezen'}</span>
-                  </div>
                 </div>
               </div>
             ))}
