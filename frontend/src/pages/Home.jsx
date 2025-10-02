@@ -215,6 +215,36 @@ export default function Home() {
         {/* Subtle overlay for content readability */}
         <div className="absolute inset-0 bg-black/10" style={{ zIndex: 2 }}></div>
         
+        {/* Partner Logos Banner - Bottom Left */}
+        <div 
+          className="absolute bottom-8 left-8 bg-white/90 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-lg"
+          style={{ zIndex: 10 }}
+        >
+          <div className="flex items-center gap-6">
+            <span className="text-sm text-gray-600 font-medium whitespace-nowrap">Partners:</span>
+            <div className="flex items-center gap-4">
+              {/* Genk Logo */}
+              <img 
+                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/m50ye00m_GENK-LOGO-SCREEN-POSITIEF-RGB.png"
+                alt="Genk Logo"
+                className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-200"
+              />
+              {/* RC Genk Logo */}
+              <img 
+                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/v8z8d4ru_Logo-RC-Genk-1.jpg"
+                alt="RC Genk Logo"
+                className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-200"
+              />
+              {/* SW 2025 Logo */}
+              <img 
+                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/tk3ymnog_SW-2025-LOGO-RGB.png"
+                alt="SW 2025 Logo"
+                className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-200"
+              />
+            </div>
+          </div>
+        </div>
+
         {/* Trailer Button - Bottom Right */}
         <button
           onClick={() => setShowTrailerModal(true)}
