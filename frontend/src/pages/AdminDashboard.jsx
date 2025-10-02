@@ -649,9 +649,10 @@ const NewsManagement = ({
           <div>
             <Label htmlFor="content">Inhoud</Label>
             <Textarea
+              key="content-textarea"
               id="content"
               value={newNews.content}
-              onChange={(e) => setNewNews({...newNews, content: e.target.value})}
+              onChange={handleContentChange}
               placeholder="Volledige artikel inhoud..."
               rows={6}
             />
