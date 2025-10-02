@@ -104,7 +104,7 @@ export const LoginForm = ({ onSuccess }) => {
             <p className="text-sm text-yellow-800">
               <strong>Demo Credentials:</strong><br />
               Gebruikersnaam: admin<br />
-              Wachtwoord: admin123
+              Wachtwoord: KYLovie13monx
             </p>
           </div>
         </CardContent>
