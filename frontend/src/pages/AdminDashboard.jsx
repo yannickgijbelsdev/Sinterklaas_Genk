@@ -637,9 +637,10 @@ const NewsManagement = ({
           <div>
             <Label htmlFor="excerpt">Samenvatting</Label>
             <Textarea
+              key="excerpt-textarea"
               id="excerpt"
               value={newNews.excerpt}
-              onChange={(e) => setNewNews({...newNews, excerpt: e.target.value})}
+              onChange={handleExcerptChange}
               placeholder="Korte samenvatting..."
               rows={2}
             />
