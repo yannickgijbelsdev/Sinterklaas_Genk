@@ -581,9 +581,10 @@ const NewsManagement = ({
             <div>
               <Label htmlFor="title">Titel</Label>
               <Input
+                key="title-input"
                 id="title"
                 value={newNews.title}
-                onChange={(e) => setNewNews({...newNews, title: e.target.value})}
+                onChange={handleTitleChange}
                 placeholder="Artikel titel..."
               />
             </div>
