@@ -657,8 +657,11 @@ const NewsManagement = ({
                     excerpt: '',
                     content: '',
                     category: 'Algemeen',
-                    published: true
+                    published: true,
+                    featured_image: ''
                   });
+                  setSelectedImage(null);
+                  setImagePreview('');
                 }}
               >
                 Annuleren
