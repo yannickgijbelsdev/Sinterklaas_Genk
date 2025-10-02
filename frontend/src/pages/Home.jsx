@@ -966,9 +966,16 @@ export default function Home() {
                     }}
                     className="gallery-overlay"
                   >
-                    <div style={{ textAlign: 'center', color: 'white' }}>
-                      <Eye size={48} style={{ marginBottom: '12px' }} />
-                      <p style={{ fontSize: '16px', fontWeight: '600' }}>Bekijk groter</p>
+                    <div style={{ 
+                      textAlign: 'center', 
+                      color: 'white',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <Eye size={48} style={{ marginBottom: '8px', display: 'block' }} />
+                      <p style={{ fontSize: '16px', fontWeight: '600', margin: '0' }}>Bekijk groter</p>
                     </div>
                   </div>
                 </div>
