@@ -70,14 +70,6 @@ export default function News() {
       <div className="min-h-screen">
         <article className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-6">
-              <Link to="/news">
-                <Button variant="outline" className="mb-6">
-                  <ArrowLeft size={16} className="mr-2" />
-                  Terug naar nieuws
-                </Button>
-              </Link>
-            </div>
             
             {/* Featured Image */}
             {(article.featured_image || article.image) && (
