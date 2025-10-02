@@ -664,6 +664,14 @@ export default function Home() {
         </div>
       )}
 
+      {/* Live Editor Component */}
+      {isAuthenticated() && isAdmin() && (
+        <LiveEditor 
+          isEnabled={isLiveEditing}
+          onToggle={() => setIsLiveEditing(!isLiveEditing)}
+        />
+      )}
+
     </div>
   );
 }
