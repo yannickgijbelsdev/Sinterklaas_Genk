@@ -89,14 +89,6 @@ export default function News() {
                 <Badge variant="outline" className="text-red-600 border-red-200">
                   {article.category || 'Algemeen'}
                 </Badge>
-                <div className="flex items-center text-gray-500 text-sm">
-                  <Calendar size={16} className="mr-2" />
-                  {new Date(article.date).toLocaleDateString('nl-NL', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </div>
               </div>
               
               <h1 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">
