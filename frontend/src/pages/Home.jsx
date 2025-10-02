@@ -204,46 +204,29 @@ export default function Home() {
   return (
     <div>
       
-      {/* Hero Section with Video Background */}
+      {/* Hero Section with Image Background & Trailer Button */}
       <section 
         id="hero" 
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        style={{
+          backgroundImage: `url('https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
-        {/* Video Background */}
-        <video
-          id="hero-video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ 
-            width: '100%', 
-            height: '100%', 
-            objectFit: 'cover',
-            zIndex: 1,
-            display: videoLoaded ? 'block' : 'none'
-          }}
-        >
-          <source 
-            src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ynr147fs_trailer%20zonder%20OT.mp4" 
-            type="video/mp4" 
-          />
-        </video>
-        
-        {/* Fallback image if video doesn't load */}
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{ 
-            backgroundImage: `url('https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg')`,
-            zIndex: 0,
-            display: videoLoaded ? 'none' : 'block'
-          }}
-        ></div>
-        
         {/* Subtle overlay for content readability */}
-        <div className="absolute inset-0 bg-black/10" style={{ zIndex: 2 }}></div>
+        <div className="absolute inset-0 bg-black/10"></div>
+        
+        {/* Trailer Button - Bottom Right */}
+        <button
+          onClick={() => setShowTrailerModal(true)}
+          className="absolute bottom-8 right-8 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-2 z-10"
+          style={{ zIndex: 10 }}
+        >
+          <Play size={20} />
+          Bekijk de trailer
+        </button>
         
         {/* Title removed - clean banner */}
         
