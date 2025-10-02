@@ -583,13 +583,24 @@ export default function Home() {
       {/* Contact Section - REMOVED */}
 
       {/* Simple Footer */}
-      <footer style={{ background: '#FEF7ED', padding: '40px 0', textAlign: 'center' }}>
+      <footer 
+        style={{ background: '#FEF7ED', padding: '40px 0', textAlign: 'center' }}
+        data-section-id="footer_section"
+      >
         <div className="container">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
             <Gift size={24} color="#DC2626" />
-            <span style={{ fontSize: '20px', fontWeight: '700', color: '#DC2626' }}>Sinterklaas Genk</span>
+            <span 
+              style={{ fontSize: '20px', fontWeight: '700', color: '#DC2626' }}
+              data-edit-id="footer_title"
+            >
+              Sinterklaas Genk
+            </span>
           </div>
-          <p style={{ color: '#666', fontSize: '14px' }}>
+          <p 
+            style={{ color: '#666', fontSize: '14px' }}
+            data-edit-id="footer_copyright"
+          >
             © 2025 Sinterklaas Genk. Alle rechten voorbehouden.
           </p>
         </div>
