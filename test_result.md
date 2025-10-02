@@ -470,7 +470,7 @@ test_plan:
 
   - task: "Admin Password Investigation"
     implemented: true
-    working: false
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
@@ -479,6 +479,9 @@ test_plan:
       - working: false
         agent: "testing"
         comment: "ADMIN PASSWORD INVESTIGATION COMPLETED - ISSUE IDENTIFIED: Comprehensive investigation of reported admin password issue completed. ❌ PROBLEM CONFIRMED: Only old password 'admin123' works, new password 'KYLovie13monx' does NOT work despite backend changes. ✅ ROOT CAUSE IDENTIFIED: Existing admin user (ID: 63423ce9-ba67-4c4a-b360-2da6371d5b35, username: 'admin', email: 'admin@sinterklaas.com') still has old password hash for 'admin123'. ✅ STARTUP EVENT LOGIC FLAW: The startup_event() function checks for existing admin user by email and finds the existing user, but it only creates NEW users - it does NOT update existing users' passwords. The existing admin user was created with 'admin123' and never got updated to 'KYLovie13monx'. ✅ DATABASE VERIFICATION: Direct database query confirms stored password hash only matches 'admin123', not 'KYLovie13monx'. ✅ AUTHENTICATION TESTING: Only 'admin/admin123' returns 200 OK, all other combinations ('admin/KYLovie13monx', 'admin@sinterklaas.com/admin123', 'admin@sinterklaas.com/KYLovie13monx') return 401 Unauthorized. ✅ SECURITY IMPACT: No multiple passwords working - only one password active, which is secure but incorrect password. SOLUTION NEEDED: Update startup_event() to also UPDATE existing admin user's password to 'KYLovie13monx', not just create new users."
+      - working: true
+        agent: "testing"
+        comment: "ADMIN PASSWORD UPDATE VERIFICATION COMPLETED SUCCESSFULLY: Comprehensive testing of admin authentication after startup_event password update fix completed with excellent results. ✅ PASSWORD UPDATE SUCCESSFUL: The startup_event() fix successfully updated the admin password in the database from 'admin123' to 'KYLovie13monx'. ✅ OLD PASSWORD CORRECTLY REJECTED: admin/admin123 credentials now correctly return 401 Unauthorized - old password no longer works. ✅ NEW PASSWORD WORKING: admin/KYLovie13monx credentials successfully authenticate and return valid JWT token with admin privileges. ✅ EMAIL LOGIN BEHAVIOR CLARIFIED: admin@sinterklaas.com/KYLovie13monx returns 401 because the login endpoint only matches against 'username' field, not 'email' field. Since username='admin' and email='admin@sinterklaas.com', only 'admin' works as login username. This is correct system behavior. ✅ AUTHENTICATION SYSTEM SECURE: Only one password active (KYLovie13monx), proper error handling for invalid credentials, JWT token generation working correctly. ✅ DATABASE CONSISTENCY: Admin user properly configured with username='admin', email='admin@sinterklaas.com', is_admin=true, password hash for 'KYLovie13monx'. CONCLUSION: The startup_event fix successfully resolved the password issue. Admin authentication is working correctly with the new password 'KYLovie13monx'."
 
 agent_communication:
   - agent: "main"
