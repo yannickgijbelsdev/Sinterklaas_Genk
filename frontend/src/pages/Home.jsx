@@ -208,7 +208,7 @@ export default function Home() {
         {/* Trailer Button - Bottom Right */}
         <button
           onClick={() => setShowTrailerModal(true)}
-          className="absolute bottom-8 right-8 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-2 z-10"
+          className="absolute bottom-8 right-8 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-2"
           style={{ zIndex: 10 }}
         >
           <Play size={20} />
