@@ -186,6 +186,8 @@ export default function AdminDashboard() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [showRichEditor, setShowRichEditor] = useState(false);
+  const [editingArticle, setEditingArticle] = useState(null);
   const [newUser, setNewUser] = useState({
     email: '',
     password: '',
