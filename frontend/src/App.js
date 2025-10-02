@@ -3,6 +3,7 @@ import "./App.css";
 import "./styles/camp-buddy-theme.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { LiveEditorProvider } from "./contexts/LiveEditorContext";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import Home from "./pages/Home";
