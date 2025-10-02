@@ -579,6 +579,35 @@ const NewsManagement = ({
             </div>
           </div>
           
+          {/* Featured Image Upload */}
+          <div>
+            <Label htmlFor="image">Uitgelichte Afbeelding</Label>
+            <div className="mt-2">
+              <input
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={handleImageSelect}
+                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+              />
+              {uploadingImage && (
+                <div className="mt-2 flex items-center text-sm text-gray-600">
+                  <div className="animate-spin mr-2 h-4 w-4 border-2 border-red-500 border-t-transparent rounded-full"></div>
+                  Afbeelding uploaden...
+                </div>
+              )}
+              {imagePreview && (
+                <div className="mt-3">
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="h-32 w-48 object-cover rounded-lg border"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+          
           <div>
             <Label htmlFor="excerpt">Samenvatting</Label>
             <Textarea
