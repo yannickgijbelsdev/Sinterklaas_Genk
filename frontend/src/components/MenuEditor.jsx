@@ -427,7 +427,7 @@ export default function MenuEditor() {
                   <Input
                     placeholder="URL (bijv: /about)"
                     value={newItem.url}
-                    onChange={(e) => setNewItem({...newItem, url: e.target.value})}
+                    onChange={handleNewItemUrlChange}
                   />
                   <Button onClick={addMenuItem}>
                     <Plus size={16} />
