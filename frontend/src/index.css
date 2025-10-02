@@ -113,3 +113,26 @@ code {
   scrollbar-width: thin;
   scrollbar-color: #dc2626 #f1f1f1;
 }
+
+/* Partner logo carousel animations */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  100% {
+    opacity: 0.85;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
