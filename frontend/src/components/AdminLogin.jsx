@@ -3,8 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { Shield, Lock } from 'lucide-react';
+import { Shield, Lock, Mail } from 'lucide-react';
 import { toast } from 'sonner';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function AdminLogin({ onLogin }) {
   const [password, setPassword] = useState('');
