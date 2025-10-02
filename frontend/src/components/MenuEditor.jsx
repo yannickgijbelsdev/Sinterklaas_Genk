@@ -94,7 +94,7 @@ function SortableMenuItem({ item, onUpdate, onDelete, onAddChild, level = 0 }) {
                 <div className="flex gap-2 flex-1">
                   <Input
                     value={editData.label}
-                    onChange={(e) => setEditData({...editData, label: e.target.value})}
+                    onChange={handleLabelChange}
                     placeholder="Menu label"
                     className="h-8"
                   />
