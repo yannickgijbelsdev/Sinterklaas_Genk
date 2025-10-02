@@ -333,7 +333,7 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
             <select
               id="category"
               value={formData.category}
-              onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+              onChange={handleCategoryChange}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
             >
               <option value="Algemeen">Algemeen</option>
