@@ -38,7 +38,7 @@ const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND
 const DashboardOverview = ({ stats, news, setActiveTab }) => (
   <div className="space-y-6">
     {/* Stats Cards */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <Card>
         <CardContent className="p-6">
           <div className="flex items-center">
@@ -48,20 +48,6 @@ const DashboardOverview = ({ stats, news, setActiveTab }) => (
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Nieuws Artikels</p>
               <p className="text-2xl font-bold text-gray-900">{stats.totalNews}</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <Calendar className="h-6 w-6 text-green-600" />
-            </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Shows</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalShows}</p>
             </div>
           </div>
         </CardContent>
