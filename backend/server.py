@@ -578,6 +578,36 @@ async def verify_token(current_user: User = Depends(get_current_user)):
 async def logout():
     return {"message": "Logged out successfully"}
 
+@api_router.post("/auth/change-password")
+async def change_password(password_data: PasswordChange, current_user: User = Depends(get_current_user)):
+    """Allow authenticated users to change their own password"""
+    try:
+        # Verify current password
+        user_in_db = await db.users.find_one({"id": current_user.id})
+        if not user_in_db:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        if not verify_password(password_data.current_password, user_in_db["hashed_password"]):
+            raise HTTPException(status_code=400, detail="Current password is incorrect")
+        
+        # Hash new password and update
+        new_hashed_password = hash_password(password_data.new_password)
+        
+        await db.users.update_one(
+            {"id": current_user.id}, 
+            {"$set": {
+                "hashed_password": new_hashed_password,
+                "updatedAt": datetime.utcnow()
+            }}
+        )
+        
+        return {"message": "Password changed successfully"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Failed to change password")
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
