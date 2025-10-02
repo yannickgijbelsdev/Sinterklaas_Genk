@@ -221,7 +221,7 @@ export default function AdminDashboard() {
     formData.append('image', file);
 
     try {
-      const response = await apiCall('/admin/upload-image', {
+      const response = await apiCall('/admin/news/upload-image', {
         method: 'POST',
         body: formData,
         headers: {
