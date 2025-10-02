@@ -607,6 +607,161 @@ const NewsManagement = ({
     </div>
   );
 
+const PasswordManagement = ({ 
+  passwordChange, 
+  setPasswordChange, 
+  handleChangePassword, 
+  users, 
+  loadUsers, 
+  handleResetUserPassword,
+  user 
+}) => {
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [newUserPassword, setNewUserPassword] = useState('');
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold">Wachtwoord Beheer</h2>
+      
+      {/* Change Own Password */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center">
+            <Shield className="h-5 w-5 mr-2" />
+            Eigen Wachtwoord Wijzigen
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label htmlFor="current_password">Huidig Wachtwoord</Label>
+            <Input
+              id="current_password"
+              type="password"
+              value={passwordChange.current_password}
+              onChange={(e) => setPasswordChange(prev => ({
+                ...prev, 
+                current_password: e.target.value
+              }))}
+              placeholder="Voer huidig wachtwoord in"
+            />
+          </div>
+          <div>
+            <Label htmlFor="new_password">Nieuw Wachtwoord</Label>
+            <Input
+              id="new_password"
+              type="password"
+              value={passwordChange.new_password}
+              onChange={(e) => setPasswordChange(prev => ({
+                ...prev, 
+                new_password: e.target.value
+              }))}
+              placeholder="Voer nieuw wachtwoord in (min. 6 karakters)"
+            />
+          </div>
+          <div>
+            <Label htmlFor="confirm_password">Bevestig Nieuw Wachtwoord</Label>
+            <Input
+              id="confirm_password"
+              type="password"
+              value={passwordChange.confirm_password}
+              onChange={(e) => setPasswordChange(prev => ({
+                ...prev, 
+                confirm_password: e.target.value
+              }))}
+              placeholder="Bevestig nieuw wachtwoord"
+            />
+          </div>
+          <Button onClick={handleChangePassword} className="bg-red-600 hover:bg-red-700">
+            <Lock className="h-4 w-4 mr-2" />
+            Wachtwoord Wijzigen
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Reset Other Users' Passwords */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center">
+            <Users className="h-5 w-5 mr-2" />
+            Gebruikers Wachtwoorden Beheren
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {users.length > 0 ? (
+              <div className="space-y-3">
+                {users.filter(u => u.id !== user?.id).map((userItem) => (
+                  <div key={userItem.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    <div>
+                      <p className="font-medium">{userItem.username}</p>
+                      <p className="text-sm text-gray-500">{userItem.email}</p>
+                      <Badge variant={userItem.is_admin ? "default" : "secondary"} className="text-xs mt-1">
+                        {userItem.is_admin ? 'Admin' : 'Gebruiker'}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {selectedUser === userItem.id ? (
+                        <>
+                          <Input
+                            type="password"
+                            placeholder="Nieuw wachtwoord (min. 6 karakters)"
+                            value={newUserPassword}
+                            onChange={(e) => setNewUserPassword(e.target.value)}
+                            className="w-48"
+                          />
+                          <Button 
+                            size="sm" 
+                            onClick={() => {
+                              handleResetUserPassword(userItem.id, newUserPassword);
+                              setSelectedUser(null);
+                              setNewUserPassword('');
+                            }}
+                            className="bg-green-600 hover:bg-green-700"
+                          >
+                            Opslaan
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => {
+                              setSelectedUser(null);
+                              setNewUserPassword('');
+                            }}
+                          >
+                            Annuleren
+                          </Button>
+                        </>
+                      ) : (
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => setSelectedUser(userItem.id)}
+                        >
+                          <Key className="h-4 w-4 mr-1" />
+                          Reset Wachtwoord
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <Users className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                <p>Geen andere gebruikers gevonden</p>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
   const UserManagement = ({ newUser, setNewUser, handleCreateUser }) => (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Gebruikers Beheer</h2>
