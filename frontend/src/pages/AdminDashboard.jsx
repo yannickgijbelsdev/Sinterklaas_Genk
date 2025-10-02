@@ -915,31 +915,6 @@ const PasswordManagement = ({
             </button>
             
             <button
-              onClick={() => setActiveTab('shows')}
-              className={`w-full flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                activeTab === 'shows' 
-                  ? 'bg-red-100 text-red-700 border-r-4 border-red-600' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              <Calendar className="h-5 w-5 mr-3" />
-              Shows
-              <Badge className="ml-auto">{shows.length}</Badge>
-            </button>
-            
-            <button
-              onClick={() => setActiveTab('media')}
-              className={`w-full flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                activeTab === 'media' 
-                  ? 'bg-red-100 text-red-700 border-r-4 border-red-600' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              <ImageIcon className="h-5 w-5 mr-3" />
-              Media
-            </button>
-            
-            <button
               onClick={() => setActiveTab('users')}
               className={`w-full flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
                 activeTab === 'users' 
