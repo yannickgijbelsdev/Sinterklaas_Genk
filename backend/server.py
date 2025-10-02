@@ -1527,57 +1527,7 @@ async def get_public_shows():
     except Exception as e:
         return []
 
-# Test Upload Endpoint
-@api_router.get("/admin/upload-test")
-async def upload_test():
-    return {"status": "Upload endpoint is working"}
-
-# General Upload Endpoint (Protected) - Based on working news upload  
-@api_router.post("/admin/upload")
-async def upload_general_file(file: UploadFile = File(...), current_user: User = Depends(get_admin_user)):
-    """Upload media files (images, audio, video)"""
-    # Validate file type
-    allowed_types = {
-        'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/jpg',
-        'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4', 'audio/aac',
-        'video/mp4', 'video/mpeg', 'video/quicktime', 'video/webm'
-    }
-    
-    if file.content_type not in allowed_types:
-        raise HTTPException(status_code=400, detail=f"Unsupported file type: {file.content_type}")
-    
-    # Check file size (max 50MB)
-    content = await file.read()
-    if len(content) > 50 * 1024 * 1024:
-        raise HTTPException(status_code=400, detail="File too large. Maximum size is 50MB")
-    
-    # Determine directory based on file type
-    if file.content_type.startswith('image/'):
-        subdir = "images"
-    elif file.content_type.startswith('audio/'):
-        subdir = "audio"
-    else:
-        subdir = "video"
-    
-    # Generate unique filename
-    file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'bin'
-    unique_filename = f"upload_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.{file_extension}"
-    
-    # Save file
-    upload_dir = Path(f"uploads/{subdir}")
-    upload_dir.mkdir(parents=True, exist_ok=True)
-    
-    file_path = upload_dir / unique_filename
-    with open(file_path, "wb") as f:
-        f.write(content)
-    
-    # Return URL path with API prefix
-    return {
-        "url": f"/api/uploads/{subdir}/{unique_filename}",
-        "filename": unique_filename,
-        "size": len(content),
-        "type": file.content_type
-    }
+# Endpoint removed - will add in better location
 
 # Configuration Management Endpoints
 @api_router.get("/admin/config")
