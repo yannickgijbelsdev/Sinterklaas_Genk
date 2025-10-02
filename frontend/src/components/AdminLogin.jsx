@@ -45,6 +45,21 @@ export default function AdminLogin() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
+              <Label htmlFor="email">Email</Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin@sinterklaas.com"
+                  className="pl-9"
+                  required
+                />
+              </div>
+            </div>
+            <div>
               <Label htmlFor="password">Wachtwoord</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -53,7 +68,7 @@ export default function AdminLogin() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Voer admin wachtwoord in..."
+                  placeholder="Voer wachtwoord in..."
                   className="pl-9"
                   required
                 />
@@ -69,7 +84,9 @@ export default function AdminLogin() {
           </form>
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
             <p className="text-sm text-blue-700">
-              <strong>Demo wachtwoord:</strong> sinterklaas2024
+              <strong>Demo login:</strong><br />
+              Email: admin@sinterklaas.com<br />
+              Wachtwoord: sinterklaas2024
             </p>
           </div>
         </CardContent>
