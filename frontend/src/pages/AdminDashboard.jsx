@@ -310,45 +310,33 @@ export default function AdminDashboard() {
   };
 
   const handleCreateNews = async () => {
-    try {
-      let imageUrl = '';
-      
-      // Upload image if selected
-      if (selectedImage) {
-        imageUrl = await handleImageUpload(selectedImage);
-        if (!imageUrl) {
-          toast.error('Fout bij uploaden van afbeelding');
-          return;
-        }
-      }
+    setEditingArticle(null);
+    setShowRichEditor(true);
+  };
 
-      const response = await apiCall('/admin/news', {
-        method: 'POST',
+  const handleSaveNewsFromEditor = async (newsData) => {
+    try {
+      const method = editingArticle ? 'PUT' : 'POST';
+      const endpoint = editingArticle ? `/admin/news/${editingArticle.id}` : '/admin/news';
+
+      const response = await apiCall(endpoint, {
+        method: method,
         body: JSON.stringify({
-          ...newNews,
-          date: new Date().toISOString(),
-          featured_image: imageUrl || `https://via.placeholder.com/400x200/DC2626/FFFFFF?text=${encodeURIComponent(newNews.title.substring(0, 20))}`
+          ...newsData,
+          date: editingArticle?.date || new Date().toISOString()
         })
       });
 
       if (response.ok) {
-        toast.success('Nieuws artikel toegevoegd!');
-        setNewNews({
-          title: '',
-          excerpt: '',
-          content: '',
-          category: 'Algemeen',
-          published: true,
-          featured_image: ''
-        });
-        setSelectedImage(null);
-        setImagePreview('');
+        toast.success(editingArticle ? 'Artikel bijgewerkt!' : 'Nieuws artikel toegevoegd!');
+        setShowRichEditor(false);
+        setEditingArticle(null);
         loadDashboardData();
       } else {
-        toast.error('Fout bij toevoegen artikel');
+        toast.error('Fout bij opslaan artikel');
       }
     } catch (error) {
-      console.error('Error creating news:', error);
+      console.error('Error saving news:', error);
       toast.error('Verbindingsfout');
     }
   };
