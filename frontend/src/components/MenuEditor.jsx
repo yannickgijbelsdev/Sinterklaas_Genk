@@ -100,7 +100,7 @@ function SortableMenuItem({ item, onUpdate, onDelete, onAddChild, level = 0 }) {
                   />
                   <Input
                     value={editData.url}
-                    onChange={(e) => setEditData({...editData, url: e.target.value})}
+                    onChange={handleUrlChange}
                     placeholder="URL (bijv. /about)"
                     className="h-8"
                   />
