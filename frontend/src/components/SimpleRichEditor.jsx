@@ -468,7 +468,7 @@ const SimpleRichEditor = ({ article, onSave, onCancel }) => {
                 <Textarea
                   ref={contentRef}
                   value={formData.content}
-                  onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                  onChange={handleContentChange}
                   placeholder="Schrijf hier uw artikel inhoud...
 
 Gebruik de toolbar knoppen voor opmaak:
