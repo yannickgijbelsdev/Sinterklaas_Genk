@@ -34,17 +34,7 @@ export default function News() {
     fetchNews();
   }, []);
   
-  // Loading state
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-6xl mb-4">📰</div>
-          <div className="text-xl">Nieuws laden...</div>
-        </div>
-      </div>
-    );
-  }
+  // Loading state - removed for instant display
 
   // Error state
   if (error) {
