@@ -3411,6 +3411,8 @@ def main():
             success = tester.run_news_api_analysis()
         elif sys.argv[1] == "hardcoded_urls" or sys.argv[1] == "--hardcoded-urls":
             success = tester.run_hardcoded_urls_investigation()
+        elif sys.argv[1] == "--review" or sys.argv[1] == "review":
+            success = tester.test_admin_news_functionality_review()
         else:
             print("Available options:")
             print("  --admin-login           : Run focused admin login tests")
@@ -3420,11 +3422,12 @@ def main():
             print("  --image-upload          : Run image upload functionality tests")
             print("  --password-investigation: Investigate admin password issue")
             print("  --news-analysis         : Run news API endpoint analysis")
-            print("  --hardcoded-urls        : Investigate hardcoded image URLs in database (NEW)")
-            print("  (no args)               : Run hardcoded URLs investigation")
+            print("  --hardcoded-urls        : Investigate hardcoded image URLs in database")
+            print("  --review                : Run admin news functionality review tests (NEW)")
+            print("  (no args)               : Run admin news functionality review")
             success = tester.run_all_tests()
     else:
-        success = tester.run_hardcoded_urls_investigation()  # Default to hardcoded URLs investigation
+        success = tester.test_admin_news_functionality_review()  # Default to review test as requested
     
     # Exit with appropriate code
     sys.exit(0 if success else 1)
