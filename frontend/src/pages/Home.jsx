@@ -310,7 +310,10 @@ export default function Home() {
 
         if (newsRes.ok) {
           const newsData = await newsRes.json();
+          console.log('🔍 Homepage API Response:', { newsData, length: newsData.length });
           setNews(newsData.slice(0, 3)); // Get latest 3 articles
+        } else {
+          console.log('❌ Homepage News API Error:', newsRes.status, newsRes.statusText);
         }
 
         if (showsRes.ok) {
