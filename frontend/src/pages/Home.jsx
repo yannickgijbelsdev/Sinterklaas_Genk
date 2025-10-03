@@ -799,7 +799,7 @@ export default function Home() {
               style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#DC2626' }}
               data-edit-id="news_title"
             >
-              Sintverhalen & Nieuws
+              Sinterklaas Genk Nieuws & Verhalen
             </h2>
             <p 
               style={{ fontSize: '20px', color: '#666' }}
