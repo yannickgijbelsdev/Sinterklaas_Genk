@@ -117,6 +117,7 @@ export default function News() {
   }
 
   // If there's an error or no data, use demo data as fallback
+  console.log('🔍 News Debug:', { error, newsData, newsDataLength: newsData?.length });
   const displayData = (error || !newsData || newsData.length === 0) ? demoNewsData : newsData;
 
   // If there's a slug/ID in the URL, show single article
