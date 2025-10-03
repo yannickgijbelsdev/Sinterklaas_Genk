@@ -1436,9 +1436,16 @@ async def get_public_news():
 async def get_public_shows():
     """Get all shows for public viewing"""
     try:
-        shows = list(await db.shows.find().sort("date", 1).to_list(1000))
-        return shows
+        shows = await db.shows.find().sort("date", 1).to_list(1000)
+        # Convert ObjectId to string and remove _id field for JSON serialization
+        serialized_shows = []
+        for show in shows:
+            if '_id' in show:
+                del show['_id']
+            serialized_shows.append(show)
+        return serialized_shows
     except Exception as e:
+        print(f"Error in get_public_shows: {e}")
         return []
 
 # Configuration Management Endpoints
