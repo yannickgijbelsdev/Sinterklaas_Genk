@@ -148,7 +148,7 @@ export default function News() {
             {/* Featured Image */}
             {(article.featured_image || article.image) && (
               <div className="mb-12">
-                <img
+                <OptimizedImage
                   src={(() => {
                     const imgUrl = article.featured_image || article.image;
                     return imgUrl.startsWith('/') 
