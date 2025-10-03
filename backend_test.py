@@ -2709,6 +2709,216 @@ class BackendTester:
             
         return passed == total
 
+    def test_hardcoded_image_urls_in_database(self):
+        """Check news articles database for hardcoded image URLs containing old domains"""
+        try:
+            print("   Checking news articles database for hardcoded image URLs...")
+            
+            # Get all news articles from the database
+            response = self.session.get(f"{API_BASE}/news")
+            
+            if response.status_code != 200:
+                self.log_test("Hardcoded Image URLs Check", False, 
+                            f"Could not retrieve news articles (Status: {response.status_code})")
+                return False
+            
+            articles = response.json()
+            print(f"   📊 Found {len(articles)} news articles to analyze")
+            
+            # Domains to check for
+            old_domains = ['festive-genk', 'emergent.host', 'emergent-agent.com']
+            specific_image = 'SINTFILM_SELECTIE_0339.JPG'
+            
+            # Results tracking
+            articles_with_old_domains = []
+            articles_with_specific_image = []
+            all_image_urls = []
+            
+            print(f"   🔍 Searching for:")
+            print(f"      - Old domains: {', '.join(old_domains)}")
+            print(f"      - Specific image: {specific_image}")
+            print()
+            
+            for i, article in enumerate(articles):
+                article_id = article.get('id', f'article_{i}')
+                title = article.get('title', 'Untitled')
+                
+                print(f"   📰 Article {i+1}: '{title}' (ID: {article_id})")
+                
+                # Check all text fields for URLs
+                fields_to_check = {
+                    'content': article.get('content', ''),
+                    'excerpt': article.get('excerpt', ''),
+                    'featured_image': article.get('featured_image', ''),
+                    'image': article.get('image', '')
+                }
+                
+                article_has_old_domain = False
+                article_has_specific_image = False
+                article_image_urls = []
+                
+                for field_name, field_value in fields_to_check.items():
+                    if not field_value:
+                        continue
+                        
+                    # Check for old domains
+                    for domain in old_domains:
+                        if domain in field_value:
+                            article_has_old_domain = True
+                            print(f"      ⚠️  OLD DOMAIN FOUND in {field_name}: {domain}")
+                            print(f"         Content: {field_value[:200]}...")
+                    
+                    # Check for specific image
+                    if specific_image in field_value:
+                        article_has_specific_image = True
+                        print(f"      🎯 SPECIFIC IMAGE FOUND in {field_name}: {specific_image}")
+                        print(f"         Full URL: {field_value}")
+                    
+                    # Extract all URLs from the field
+                    import re
+                    urls = re.findall(r'https?://[^\s<>"]+', field_value)
+                    for url in urls:
+                        if any(img_ext in url.lower() for img_ext in ['.jpg', '.jpeg', '.png', '.gif', '.webp']):
+                            article_image_urls.append({
+                                'url': url,
+                                'field': field_name,
+                                'article_id': article_id,
+                                'article_title': title
+                            })
+                
+                if article_has_old_domain:
+                    articles_with_old_domains.append({
+                        'id': article_id,
+                        'title': title,
+                        'article': article
+                    })
+                
+                if article_has_specific_image:
+                    articles_with_specific_image.append({
+                        'id': article_id,
+                        'title': title,
+                        'article': article
+                    })
+                
+                all_image_urls.extend(article_image_urls)
+                
+                if not article_has_old_domain and not article_has_specific_image:
+                    print(f"      ✅ No old domains or specific image found")
+                
+                print()
+            
+            # Summary report
+            print("   " + "="*60)
+            print("   DATABASE ANALYSIS RESULTS")
+            print("   " + "="*60)
+            
+            print(f"   📊 SUMMARY:")
+            print(f"      Total articles analyzed: {len(articles)}")
+            print(f"      Articles with old domains: {len(articles_with_old_domains)}")
+            print(f"      Articles with specific image: {len(articles_with_specific_image)}")
+            print(f"      Total image URLs found: {len(all_image_urls)}")
+            print()
+            
+            if articles_with_old_domains:
+                print(f"   ⚠️  ARTICLES WITH OLD DOMAINS ({len(articles_with_old_domains)}):")
+                for article_info in articles_with_old_domains:
+                    print(f"      - '{article_info['title']}' (ID: {article_info['id']})")
+                print()
+            
+            if articles_with_specific_image:
+                print(f"   🎯 ARTICLES WITH SPECIFIC IMAGE ({len(articles_with_specific_image)}):")
+                for article_info in articles_with_specific_image:
+                    print(f"      - '{article_info['title']}' (ID: {article_info['id']})")
+                print()
+            
+            if all_image_urls:
+                print(f"   🖼️  ALL IMAGE URLS FOUND ({len(all_image_urls)}):")
+                for img_info in all_image_urls[:10]:  # Show first 10
+                    print(f"      - {img_info['url']}")
+                    print(f"        └─ Article: '{img_info['article_title']}' ({img_info['field']} field)")
+                if len(all_image_urls) > 10:
+                    print(f"      ... and {len(all_image_urls) - 10} more image URLs")
+                print()
+            
+            # Determine test result
+            issues_found = len(articles_with_old_domains) > 0
+            
+            if issues_found:
+                self.log_test("Hardcoded Image URLs Check", False, 
+                            f"Found {len(articles_with_old_domains)} articles with old domain references that need updating")
+            else:
+                self.log_test("Hardcoded Image URLs Check", True, 
+                            f"No old domain references found in {len(articles)} articles. All image URLs appear to be current.")
+            
+            # Return detailed results for further processing
+            return {
+                'success': not issues_found,
+                'total_articles': len(articles),
+                'articles_with_old_domains': articles_with_old_domains,
+                'articles_with_specific_image': articles_with_specific_image,
+                'all_image_urls': all_image_urls
+            }
+            
+        except Exception as e:
+            self.log_test("Hardcoded Image URLs Check", False, f"Error: {str(e)}")
+            return {'success': False, 'error': str(e)}
+
+    def run_hardcoded_urls_investigation(self):
+        """Run investigation for hardcoded image URLs in database"""
+        print("=" * 70)
+        print("SINTERKLAAS GENK WEBSITE - HARDCODED IMAGE URLS INVESTIGATION")
+        print("=" * 70)
+        print(f"Testing against: {BACKEND_URL}")
+        print("Investigating news articles for old domain references...")
+        print()
+        
+        # Investigation test sequence
+        tests = [
+            ("API Connectivity", self.test_health_check),
+            ("Hardcoded Image URLs Database Check", self.test_hardcoded_image_urls_in_database),
+        ]
+        
+        passed = 0
+        total = len(tests)
+        investigation_results = None
+        
+        for test_name, test_func in tests:
+            print(f"Running: {test_name}")
+            print("-" * 50)
+            result = test_func()
+            if isinstance(result, dict):
+                investigation_results = result
+                if result.get('success', False):
+                    passed += 1
+            elif result:
+                passed += 1
+            print()
+        
+        # Summary
+        print("=" * 70)
+        print("HARDCODED URLS INVESTIGATION SUMMARY")
+        print("=" * 70)
+        print(f"Total Tests: {total}")
+        print(f"Passed: {passed}")
+        print(f"Failed: {total - passed}")
+        print()
+        
+        if investigation_results:
+            if investigation_results.get('success', False):
+                print("✅ INVESTIGATION COMPLETE - No hardcoded old domain URLs found!")
+                print("   All image URLs in the database appear to be current.")
+            else:
+                print("⚠️  INVESTIGATION COMPLETE - Issues found that need attention:")
+                if investigation_results.get('articles_with_old_domains'):
+                    print(f"   - {len(investigation_results['articles_with_old_domains'])} articles contain old domain references")
+                if investigation_results.get('articles_with_specific_image'):
+                    print(f"   - {len(investigation_results['articles_with_specific_image'])} articles contain the specific image 'SINTFILM_SELECTIE_0339.JPG'")
+                print("   These articles may need database updates to use current image URLs.")
+        else:
+            print("❌ Investigation could not be completed due to technical issues.")
+            
+        return passed == total
+
     def run_all_tests(self):
         """Run comprehensive backend testing suite"""
         return self.run_sinterklaas_genk_review_tests()
