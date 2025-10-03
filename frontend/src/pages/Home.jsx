@@ -11,6 +11,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { initializeAudioPlayers } from '../utils/audioPlayerUtils';
 import SEO from '../components/SEO';
 import { getLocalBusinessSchema, getWebsiteSchema } from '../utils/structuredData';
+import OptimizedImage from '../components/OptimizedImage';
 import '../styles/camp-buddy-theme.css';
 
 const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
