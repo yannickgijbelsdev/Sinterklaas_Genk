@@ -364,7 +364,7 @@ export default function News() {
                 {/* Featured Image */}
                 <div className="aspect-video overflow-hidden">
                   {(article.featured_image || article.image) ? (
-                    <img
+                    <OptimizedImage
                       src={(() => {
                         const imgUrl = article.featured_image || article.image;
                         return imgUrl.startsWith('/') 
