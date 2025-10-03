@@ -375,6 +375,8 @@ export default function News() {
                       })()}
                       alt={article.title}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                      decoding="async"
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
