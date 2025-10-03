@@ -656,7 +656,7 @@ export default function Home() {
                 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
                 data-edit-id="cta_main_title"
               >
-                Sinterklaas Genk - Magische Sinterklaasshow Limburg
+                Reserveer nu je tickets voor 'Sinterklaas en de Wensmachine'
               </h1>
               <p 
                 className="text-white mb-8" 
