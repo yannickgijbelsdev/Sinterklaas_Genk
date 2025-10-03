@@ -18,39 +18,7 @@ const createSlug = (title) => {
     .trim('-'); // Remove leading/trailing hyphens
 };
 
-// Demo news data for fallback
-const demoNewsData = [
-  {
-    id: 'demo-1',
-    category: "Achter de Schermen",
-    title: "Zo bereiden onze acteurs zich voor op het Sinterklaas seizoen",
-    excerpt: "Een kijkje achter de schermen bij de voorbereidingen voor de magische Sinterklaasshow...",
-    content: "Onze getalenteerde acteurs beginnen al maanden van tevoren met de voorbereidingen voor het nieuwe Sinterklaas seizoen. Van het instuderen van nieuwe liedjes tot het perfectioneren van hun karakters, elke detail wordt zorgvuldig voorbereid om jullie de meest magische ervaring te bieden.\n\nDe repetities vinden plaats in onze studio waar creativiteit en passie samenkomen. Elke acteur brengt zijn eigen unieke touch mee aan het verhaal van Sinterklaas en zijn Pieten.",
-    date: "2024-11-15T10:00:00Z",
-    published: true,
-    featured_image: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/achter_de_schermen.jpg"
-  },
-  {
-    id: 'demo-2',
-    category: "Tips voor Ouders", 
-    title: "Hoe bereid je je kind voor op de eerste Sinterklaasshow?",
-    excerpt: "Praktische tips om ervoor te zorgen dat je kind optimaal kan genieten van de magische ervaring...",
-    content: "De eerste Sinterklaasshow kan een overweldigende maar ook magische ervaring zijn voor je kind. Hier zijn enkele tips om je kind voor te bereiden:\n\n**Voor de show:**\n- Vertel je kind over Sinterklaas en de Pieten\n- Laat foto's zien van vorige shows\n- Praat over wat ze kunnen verwachten\n\n**Tijdens de show:**\n- Blijf kalm en positief\n- Moedig je kind aan om mee te doen\n- Maak foto's van deze speciale momenten",
-    date: "2024-11-10T14:00:00Z",
-    published: true,
-    featured_image: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/tips_ouders.jpg"
-  },
-  {
-    id: 'demo-3',
-    category: "Tradities",
-    title: "De geschiedenis van Sinterklaas in Genk",
-    excerpt: "Ontdek hoe de Sinterklaas traditie is gegroeid in onze mooie stad en wat dit betekent voor families...",
-    content: "De Sinterklaas traditie heeft een rijke geschiedenis in Genk. Al generaties lang brengt de goedheiligman vreugde en magie naar gezinnen in onze gemeente.\n\n**Historische achtergrond:**\nDe eerste officiële Sinterklaas viering in Genk vond plaats in 1952. Sindsdien is de traditie alleen maar gegroeid en meer geliefd geworden.\n\n**Moderne tijd:**\nVandaag de dag combineert onze Sinterklaas show traditionele elementen met moderne theatrale technieken om een onvergetelijke ervaring te creëren voor het hele gezin.",
-    date: "2024-11-05T16:00:00Z",
-    published: true,
-    featured_image: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/geschiedenis.jpg"
-  }
-];
+// No demo data - show real content only
 
 // Utility function to find article by slug or ID
 const findArticleBySlugOrId = (articles, slugOrId) => {
