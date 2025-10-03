@@ -101,13 +101,13 @@ export default function News() {
 
   // Initialize audio players after content is loaded - NO DOM MANIPULATION
   useEffect(() => {
-    if (newsData && newsData.length > 0) {
+    if (displayData && displayData.length > 0) {
       // Only initialize wave players that already exist, don't modify DOM
       setTimeout(() => {
         initializeAudioPlayers();
       }, 100);
     }
-  }, [newsData]);
+  }, [displayData]);
   
   // Loading state - removed for instant display
 
