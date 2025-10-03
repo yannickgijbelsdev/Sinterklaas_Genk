@@ -292,11 +292,6 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('🔍 Homepage API URLs:', {
-          content: `${API}/content`,
-          news: `${API}/news`,
-          shows: `${API}/shows`
-        });
         const [contentRes, newsRes, showsRes] = await Promise.all([
           fetch(`${API}/content`),
           fetch(`${API}/news`),
