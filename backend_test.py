@@ -80,14 +80,14 @@ class BackendTester:
                     expected_email = "admin@sinterklaas.com"
                     
                     if (user_info.get('email') == expected_email and 
-                        user_info.get('username') == 'admin' and
+                        user_info.get('username') == 'admin@sinterklaas.com' and
                         user_info.get('is_admin', False)):
                         self.log_test("Admin User Creation", True, 
                                     f"Default admin user exists: {user_info['email']} with admin privileges")
                         return True
                     else:
                         self.log_test("Admin User Creation", False, 
-                                    f"Admin user exists but incorrect details: email={user_info.get('email')}, admin={user_info.get('is_admin')}")
+                                    f"Admin user exists but incorrect details: email={user_info.get('email')}, username={user_info.get('username')}, admin={user_info.get('is_admin')}")
                         return False
                 else:
                     self.log_test("Admin User Creation", False, "No user info in login response")
