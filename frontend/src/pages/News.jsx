@@ -90,7 +90,8 @@ export default function News() {
           setNewsData(demoNewsData);
         }
       } catch (err) {
-        setError('Error loading news');
+        // Use demo data as fallback on error
+        setNewsData(demoNewsData);
         console.error('Error fetching news:', err);
       } finally {
         setLoading(false);
