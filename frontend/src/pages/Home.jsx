@@ -377,7 +377,7 @@ export default function Home() {
     },
     {
       question: "Is de voorstelling bereikbaar voor mensen met een rolstoel?",
-      answer: "Ja, het stadhuis is toegankelijk voor iedereen. Bent u slecht te been of gebruikt u een rolstoel: kom dan langs het hellend vlak aan de hoofdingang. Op het Balieplein vind je een lift voor personen met een handicap die toegang geeft tot de schouwburg. Druk op 1 B. Kom op tijd en verwittig het personeel aan de zaal dan helpen we u ook in de zaal om een plekje te verzekeren."
+      answer: "Ja, het stadhuis is toegankelijk voor iedereen. Bent u slecht te been of gebruikt u een rolstoel: kom dan langs het hellend vlak aan de hoofdingang. Op het Balieplein vind je een lift voor personen met een beperking die toegang geeft tot de schouwburg. Druk op 1 B. Kom op tijd en verwittig het personeel aan de zaal dan helpen we u ook in de zaal om een plekje te verzekeren."
     },
     {
       question: "Zijn de plaatsen genummerd?",
@@ -389,7 +389,7 @@ export default function Home() {
     },
     {
       question: "Komt Loes Van den Heuvel naar de voorstelling?",
-      answer: "Neen, de voorstelling is een afwisseling tussen live theater en filmbeelden. Loes Van den Heuvel speelt de rol van Koningin Marie Antoinette. Ze zijn dus niet live aanwezig in de zaal. Sinterklaas en de pieten komen wel live naar de voorstelling samen met een hele hoop andere acteurs."
+      answer: "Neen, de voorstelling is een afwisseling tussen live theater en filmbeelden. Loes Van den Heuvel speelt de rol van Koningin Marie Antoinette. Ze is dus niet live aanwezig in de zaal. Sinterklaas en de pieten komen wel live naar de voorstelling samen met een hele hoop andere acteurs."
     },
     {
       question: "Delen de Sint en de pieten na de voorstelling nog cadeautjes en snoep uit?",
@@ -408,7 +408,7 @@ export default function Home() {
       answer: "Er worden ons al jaren vragen gesteld over de figuur van Zwarte Piet. Dat kunnen we niet zomaar negeren. We hebben het uiterlijk van Piet licht aangepast vanwege de veranderende samenleving, maar met respect voor de Sinterklaastraditie. De pieten hebben geen dikke rode lippen meer en geen oorbellen. Verder krijgen ze roetvegen in plaats van een volledig zwart gezicht. We merken dat de kinderen het ook op die manier gewoon zijn de dag van vandaag."
     },
     {
-      question: "Hoe komt het dat jullie tickets kunnen aanbieden aan 11 euro (kinderen) en 13 euro (volwassenen) per persoon?",
+      question: "Hoe komt het dat jullie tickets kunnen aanbieden aan 11 Euro (kinderen) en 13 Euro (volwassenen) per persoon?",
       answer: "We weten dat andere Sinterklaasvoorstellingen vaak het dubbele of meer kosten. VZW Studio Wonderland werkt hoofdzakelijk met vrijwilligers en met partners zoals Stad Genk. De voorstelling is ook beperkt tot een uur. Op die manier kunnen we de ticketprijs laag houden."
     },
     {
@@ -417,7 +417,7 @@ export default function Home() {
     },
     {
       question: "Wat moet ik doen als ik mijn ticket kwijt ben of ik mijn tickets niet heb ontvangen?",
-      answer: "Probeer zelf de tickets nogmaals te sturen. Lukt het dan nog niet? Stuur dan een e-mail naar support@flextickets.nl"
+      answer: "Je kan dan best een e-mail sturen naar support@flextickets.nl"
     },
     {
       question: "Waarom betaal ik boekingskosten voor mijn tickets?",
@@ -425,7 +425,7 @@ export default function Home() {
     },
     {
       question: "Is er parkeerplaats voorzien?",
-      answer: "Parkeren kan op verschillende plaatsen rondom het Stadhuis van Genk."
+      answer: "Parkeren kan op verschillende plaatsen rondom het Stadhuis van Genk. Voor meer informatie raadpleeg je de website van Stad Genk."
     }
   ];
 
