@@ -11,7 +11,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { initializeAudioPlayers } from '../utils/audioPlayerUtils';
 import '../styles/camp-buddy-theme.css';
 
-const API = 'http://localhost:8001/api';
+const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
 
 // Utility function to create URL slug from title
 const createSlug = (title) => {
