@@ -6,7 +6,7 @@ import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { initializeAudioPlayers } from '../utils/audioPlayerUtils';
 
-const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
+const API = 'http://localhost:8001/api';
 
 // Utility function to create URL slug from title
 const createSlug = (title) => {
