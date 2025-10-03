@@ -771,7 +771,13 @@ async def upload_general_file(file: UploadFile = File(...), current_user: User =
 @api_router.get("/admin/shows", response_model=List[ShowDate])
 async def get_all_shows():
     shows = await db.shows.find().to_list(1000)
-    return [ShowDate(**show) for show in shows]
+    # Clean MongoDB ObjectIds before creating Pydantic models
+    cleaned_shows = []
+    for show in shows:
+        if '_id' in show:
+            del show['_id']
+        cleaned_shows.append(ShowDate(**show))
+    return cleaned_shows
 
 @api_router.post("/admin/shows", response_model=ShowDate)
 async def create_show_date(show: ShowDateCreate):
