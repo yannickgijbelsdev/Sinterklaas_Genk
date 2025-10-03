@@ -7,6 +7,7 @@ import { Badge } from '../components/ui/badge';
 import { initializeAudioPlayers } from '../utils/audioPlayerUtils';
 import SEO from '../components/SEO';
 import { getArticleSchema, getBreadcrumbSchema } from '../utils/structuredData';
+import OptimizedImage from '../components/OptimizedImage';
 
 const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
 
