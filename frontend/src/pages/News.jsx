@@ -329,6 +329,16 @@ export default function News() {
   // Main news listing page
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Sinterklaas Nieuws Genk - Laatste Updates Sinterklaasshow Limburg"
+        description="Blijf op de hoogte van het laatste Sinterklaas nieuws in Genk en Limburg. Lees over onze sinterklaasshows, achter de schermen verhalen en tips voor gezinnen in Vlaanderen en België."
+        keywords="sinterklaas nieuws genk, sinterklaas limburg, sinterklaasshow updates, sinterklaas vlaanderen, sinterklaas belgië, sinterklaas aankomst nieuws"
+        canonicalUrl="/nieuws"
+        ogTitle="Sinterklaas Nieuws Genk | Laatste Updates Sinterklaasshow"
+        ogDescription="Het laatste nieuws over Sinterklaas voorstellingen in Genk en heel Limburg. Ontdek verhalen, tips en updates over onze magische shows."
+        ogImage="https://sinterklaasgenk.be/nieuws-og-image.jpg"
+      />
+      
       {/* Header Section */}
       <section className="py-20 bg-gradient-to-r from-red-600 to-red-700">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
