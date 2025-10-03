@@ -1290,6 +1290,247 @@ class BackendTester:
             
         return passed == total
 
+    def test_news_api_endpoint_detailed(self):
+        """Test GET /api/news endpoint in detail to check for real news articles"""
+        try:
+            print("   Testing GET /api/news endpoint for real news articles...")
+            
+            response = self.session.get(f"{API_BASE}/news")
+            
+            if response.status_code == 200:
+                articles = response.json()
+                article_count = len(articles)
+                
+                print(f"   ✅ API Response: HTTP 200 OK")
+                print(f"   ✅ Articles returned: {article_count}")
+                
+                if article_count == 0:
+                    self.log_test("News API Endpoint Analysis", True, 
+                                "API working but returns empty array - no articles in database")
+                    return True, []
+                
+                # Analyze article structure and content
+                print(f"   📊 Analyzing article structure and content...")
+                
+                demo_indicators = ['demo', 'test', 'placeholder', 'example', 'via.placeholder.com']
+                real_articles = []
+                demo_articles = []
+                
+                for i, article in enumerate(articles[:5]):  # Show first 5 articles
+                    print(f"\n   📰 Article {i+1}:")
+                    print(f"      ID: {article.get('id', 'N/A')}")
+                    print(f"      Title: {article.get('title', 'N/A')}")
+                    print(f"      Category: {article.get('category', 'N/A')}")
+                    print(f"      Date: {article.get('date', 'N/A')}")
+                    print(f"      Published: {article.get('published', 'N/A')}")
+                    print(f"      Excerpt: {article.get('excerpt', 'N/A')[:100]}...")
+                    
+                    # Check if article appears to be demo/test content
+                    title = article.get('title', '').lower()
+                    content = article.get('content', '').lower()
+                    excerpt = article.get('excerpt', '').lower()
+                    image = article.get('featured_image', '') or article.get('image', '')
+                    
+                    is_demo = any(indicator in title or indicator in content or 
+                                 indicator in excerpt or indicator in image 
+                                 for indicator in demo_indicators)
+                    
+                    if is_demo:
+                        demo_articles.append(article)
+                        print(f"      🔍 Classification: DEMO/TEST ARTICLE")
+                    else:
+                        real_articles.append(article)
+                        print(f"      🔍 Classification: REAL ARTICLE")
+                
+                # Summary analysis
+                print(f"\n   📈 CONTENT ANALYSIS SUMMARY:")
+                print(f"      Total Articles: {article_count}")
+                print(f"      Real Articles: {len(real_articles)}")
+                print(f"      Demo/Test Articles: {len(demo_articles)}")
+                
+                if len(real_articles) > 0:
+                    print(f"\n   ✅ REAL CONTENT FOUND:")
+                    for article in real_articles[:3]:
+                        print(f"      - '{article.get('title', 'N/A')}' ({article.get('category', 'N/A')})")
+                
+                if len(demo_articles) > 0:
+                    print(f"\n   ⚠️  DEMO CONTENT FOUND:")
+                    for article in demo_articles[:3]:
+                        print(f"      - '{article.get('title', 'N/A')}' ({article.get('category', 'N/A')})")
+                
+                # Determine overall status
+                if len(real_articles) > 0:
+                    self.log_test("News API Endpoint Analysis", True, 
+                                f"API returns {article_count} articles with {len(real_articles)} real articles and {len(demo_articles)} demo articles")
+                else:
+                    self.log_test("News API Endpoint Analysis", True, 
+                                f"API returns {article_count} articles but all appear to be demo/test content")
+                
+                return True, articles
+                
+            else:
+                self.log_test("News API Endpoint Analysis", False, 
+                            f"API request failed - Status: {response.status_code}, Response: {response.text}")
+                return False, []
+                
+        except Exception as e:
+            self.log_test("News API Endpoint Analysis", False, f"Error: {str(e)}")
+            return False, []
+
+    def test_news_api_structure_validation(self, articles):
+        """Validate the structure of news articles returned by API"""
+        if not articles:
+            self.log_test("News API Structure Validation", True, "No articles to validate")
+            return True
+            
+        try:
+            print("   🔍 Validating news article data structure...")
+            
+            required_fields = ['id', 'title', 'excerpt', 'content', 'category', 'date', 'published']
+            optional_fields = ['featured_image', 'image', 'createdAt', 'updatedAt']
+            
+            structure_issues = []
+            valid_articles = 0
+            
+            for i, article in enumerate(articles):
+                article_issues = []
+                
+                # Check required fields
+                for field in required_fields:
+                    if field not in article or article[field] is None:
+                        article_issues.append(f"Missing required field: {field}")
+                    elif field in ['title', 'excerpt', 'content'] and not str(article[field]).strip():
+                        article_issues.append(f"Empty required field: {field}")
+                
+                # Check data types
+                if 'published' in article and not isinstance(article['published'], bool):
+                    article_issues.append("'published' field should be boolean")
+                
+                if 'date' in article and not article['date']:
+                    article_issues.append("'date' field is empty")
+                
+                if article_issues:
+                    structure_issues.append(f"Article {i+1} ({article.get('title', 'N/A')[:30]}...): {', '.join(article_issues)}")
+                else:
+                    valid_articles += 1
+            
+            # Report results
+            total_articles = len(articles)
+            if structure_issues:
+                print(f"   ⚠️  Structure issues found in {len(structure_issues)} articles:")
+                for issue in structure_issues[:5]:  # Show first 5 issues
+                    print(f"      - {issue}")
+                if len(structure_issues) > 5:
+                    print(f"      ... and {len(structure_issues) - 5} more issues")
+            
+            print(f"   📊 Structure validation results:")
+            print(f"      Valid articles: {valid_articles}/{total_articles}")
+            print(f"      Articles with issues: {len(structure_issues)}/{total_articles}")
+            
+            if valid_articles == total_articles:
+                self.log_test("News API Structure Validation", True, 
+                            f"All {total_articles} articles have valid structure")
+                return True
+            elif valid_articles > 0:
+                self.log_test("News API Structure Validation", True, 
+                            f"{valid_articles}/{total_articles} articles have valid structure (minor issues in others)")
+                return True
+            else:
+                self.log_test("News API Structure Validation", False, 
+                            f"All articles have structure issues")
+                return False
+                
+        except Exception as e:
+            self.log_test("News API Structure Validation", False, f"Error: {str(e)}")
+            return False
+
+    def run_news_api_analysis(self):
+        """Run comprehensive news API analysis as requested in review"""
+        print("=" * 70)
+        print("NEWS API ENDPOINT ANALYSIS - REVIEW REQUEST")
+        print("=" * 70)
+        print(f"Testing against: {BACKEND_URL}")
+        print("Analyzing GET /api/news endpoint for real vs demo content")
+        print()
+        
+        # Test sequence for news API analysis
+        tests_results = []
+        
+        print("Running: API Health Check")
+        print("-" * 50)
+        health_ok = self.test_health_check()
+        tests_results.append(("API Health Check", health_ok))
+        print()
+        
+        print("Running: News API Endpoint Detailed Analysis")
+        print("-" * 50)
+        api_ok, articles = self.test_news_api_endpoint_detailed()
+        tests_results.append(("News API Analysis", api_ok))
+        print()
+        
+        print("Running: News API Structure Validation")
+        print("-" * 50)
+        structure_ok = self.test_news_api_structure_validation(articles)
+        tests_results.append(("Structure Validation", structure_ok))
+        print()
+        
+        # Summary
+        passed = sum(1 for _, success in tests_results if success)
+        total = len(tests_results)
+        
+        print("=" * 70)
+        print("NEWS API ANALYSIS SUMMARY")
+        print("=" * 70)
+        print(f"Total Tests: {total}")
+        print(f"Passed: {passed}")
+        print(f"Failed: {total - passed}")
+        print(f"Success Rate: {(passed/total)*100:.1f}%")
+        print()
+        
+        if articles:
+            print("🔍 KEY FINDINGS:")
+            print(f"   • API returns {len(articles)} total articles")
+            
+            # Analyze content types
+            demo_indicators = ['demo', 'test', 'placeholder', 'example', 'via.placeholder.com']
+            real_count = 0
+            demo_count = 0
+            
+            for article in articles:
+                title = article.get('title', '').lower()
+                content = article.get('content', '').lower()
+                excerpt = article.get('excerpt', '').lower()
+                image = article.get('featured_image', '') or article.get('image', '')
+                
+                is_demo = any(indicator in title or indicator in content or 
+                             indicator in excerpt or indicator in image 
+                             for indicator in demo_indicators)
+                
+                if is_demo:
+                    demo_count += 1
+                else:
+                    real_count += 1
+            
+            print(f"   • {real_count} appear to be real articles")
+            print(f"   • {demo_count} appear to be demo/test articles")
+            
+            if real_count == 0:
+                print("\n⚠️  ISSUE IDENTIFIED:")
+                print("   The API returns articles but they all appear to be demo/test content.")
+                print("   This could explain why frontend shows fallback to demo data.")
+                print("   Consider adding real news articles to the database.")
+            else:
+                print(f"\n✅ REAL CONTENT AVAILABLE:")
+                print(f"   The API has {real_count} real articles available.")
+                print("   If frontend shows demo data, the issue is likely in frontend logic.")
+        else:
+            print("⚠️  ISSUE IDENTIFIED:")
+            print("   The API returns empty data - no articles in database.")
+            print("   This would cause frontend to fallback to demo data.")
+            print("   Database needs to be populated with news articles.")
+        
+        return passed == total
+
     def test_image_upload_api_endpoint(self):
         """Test POST /api/admin/news/upload-image endpoint with admin authentication"""
         if not self.auth_token:
