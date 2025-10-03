@@ -48,13 +48,15 @@ function AppContent() {
 
 function App() {
   return (
-    <AuthProvider>
-      <LiveEditorProvider>
-        <BrowserRouter>
-          <AppContent />
-        </BrowserRouter>
-      </LiveEditorProvider>
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <LiveEditorProvider>
+          <BrowserRouter>
+            <AppContent />
+          </BrowserRouter>
+        </LiveEditorProvider>
+      </AuthProvider>
+    </HelmetProvider>
   );
 }
 
