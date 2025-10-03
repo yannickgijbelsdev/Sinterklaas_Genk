@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { globalImageLoader, getValidImageUrl } from '../utils/imageLoader';
 
 const OptimizedImage = ({ 
   src, 
