@@ -111,8 +111,33 @@ export default function News() {
       );
     }
 
+    // SEO data for individual article
+    const articleSlug = createSlug(article.title);
+    const articleSchema = getArticleSchema({
+      ...article,
+      slug: articleSlug
+    });
+    
+    const breadcrumbs = [
+      { name: 'Home', url: 'https://sinterklaasgenk.be/' },
+      { name: 'Nieuws', url: 'https://sinterklaasgenk.be/nieuws' },
+      { name: article.title, url: `https://sinterklaasgenk.be/nieuws/${articleSlug}` }
+    ];
+    
     return (
       <div className="min-h-screen flex flex-col">
+        <SEO 
+          title={`${article.title} - Sinterklaas Genk Nieuws`}
+          description={`${article.excerpt} Lees meer over Sinterklaas shows en activiteiten in Genk, Limburg.`}
+          keywords={`sinterklaas genk, sinterklaas limburg, ${article.category}, sinterklaasshow, ${article.title.toLowerCase()}`}
+          canonicalUrl={`/nieuws/${articleSlug}`}
+          ogTitle={`${article.title} | Sinterklaas Genk`}
+          ogDescription={article.excerpt}
+          ogImage={article.featured_image || article.image}
+          ogType="article"
+          structuredData={[articleSchema, getBreadcrumbSchema(breadcrumbs)]}
+        />
+        
         {/* Header Spacer */}
         <div className="pt-24"></div>
         
