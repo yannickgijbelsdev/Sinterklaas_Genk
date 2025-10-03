@@ -112,9 +112,12 @@ export default function News() {
   // Loading state - removed for instant display
 
   // Don't render anything until we're completely done loading and have verified we have data
-  if (!initialized || loading || error || !newsData || (Array.isArray(newsData) && newsData.length === 0)) {
+  if (!initialized || loading) {
     return <div className="min-h-screen"></div>;
   }
+
+  // If there's an error or no data, use demo data as fallback
+  const displayData = (error || !newsData || newsData.length === 0) ? demoNewsData : newsData;
 
   // If there's a slug/ID in the URL, show single article
   if (paramValue) {
