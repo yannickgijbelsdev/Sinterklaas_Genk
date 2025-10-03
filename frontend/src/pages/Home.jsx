@@ -852,7 +852,7 @@ export default function Home() {
           )}
           
           {/* Load More News Button */}
-          {blogPosts.length > newsDisplayCount && (
+          {blogPosts.length > newsDisplayCount && blogPosts.length > 0 && (
             <div className="text-center mt-12">
               <button
                 onClick={loadMoreNews}
