@@ -121,7 +121,7 @@ export default function News() {
 
   // If there's a slug/ID in the URL, show single article
   if (paramValue) {
-    const article = findArticleBySlugOrId(newsData, paramValue);
+    const article = findArticleBySlugOrId(displayData, paramValue);
     
     if (!article) {
       return <div className="min-h-screen"></div>;
