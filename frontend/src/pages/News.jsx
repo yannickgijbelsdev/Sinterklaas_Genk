@@ -362,7 +362,9 @@ export default function News() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <div className="text-6xl mb-4">📰</div>
+              <div className="mb-4 flex justify-center">
+                <Newspaper size={64} className="text-gray-400" />
+              </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Geen nieuws beschikbaar</h3>
               <p className="text-gray-600">Er zijn momenteel geen nieuwsartikelen om te tonen.</p>
             </div>
