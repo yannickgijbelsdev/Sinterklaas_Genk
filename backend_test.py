@@ -102,11 +102,11 @@ class BackendTester:
             return False
 
     def test_admin_login(self):
-        """Test admin authentication with admin@sinterklaas.com/admin123"""
+        """Test admin authentication with admin/KYLovie13monx as requested in review"""
         try:
             login_data = {
                 "username": "admin",
-                "password": "admin123"
+                "password": "KYLovie13monx"
             }
             
             response = self.session.post(f"{API_BASE}/auth/login", json=login_data)
