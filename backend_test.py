@@ -3178,6 +3178,8 @@ def main():
             success = tester.run_password_investigation_tests()
         elif sys.argv[1] == "news_analysis" or sys.argv[1] == "--news-analysis":
             success = tester.run_news_api_analysis()
+        elif sys.argv[1] == "hardcoded_urls" or sys.argv[1] == "--hardcoded-urls":
+            success = tester.run_hardcoded_urls_investigation()
         else:
             print("Available options:")
             print("  --admin-login           : Run focused admin login tests")
@@ -3185,12 +3187,13 @@ def main():
             print("  --demo-endpoints        : Run demo admin endpoints tests (no auth)")
             print("  --sftp                  : Run SFTP image upload functionality tests")
             print("  --image-upload          : Run image upload functionality tests")
-            print("  --password-investigation: Investigate admin password issue (NEW)")
-            print("  --news-analysis         : Run news API endpoint analysis (NEW)")
-            print("  (no args)               : Run all comprehensive tests")
+            print("  --password-investigation: Investigate admin password issue")
+            print("  --news-analysis         : Run news API endpoint analysis")
+            print("  --hardcoded-urls        : Investigate hardcoded image URLs in database (NEW)")
+            print("  (no args)               : Run hardcoded URLs investigation")
             success = tester.run_all_tests()
     else:
-        success = tester.run_password_investigation_tests()  # Default to password investigation
+        success = tester.run_hardcoded_urls_investigation()  # Default to hardcoded URLs investigation
     
     # Exit with appropriate code
     sys.exit(0 if success else 1)
