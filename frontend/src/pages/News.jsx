@@ -364,11 +364,11 @@ export default function News() {
                 {/* Featured Image */}
                 <div className="aspect-video overflow-hidden">
                   {(article.featured_image || article.image) ? (
-                    <OptimizedImage
+                    <img
                       src={(() => {
                         const imgUrl = article.featured_image || article.image;
                         return imgUrl.startsWith('/') 
-                          ? `${process.env.REACT_APP_BACKEND_URL}${imgUrl}`
+                          ? `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001'}${imgUrl}`
                           : imgUrl;
                       })()}
                       alt={article.title}
