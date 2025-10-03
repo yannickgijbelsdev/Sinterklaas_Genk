@@ -797,47 +797,59 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="three-column">
-            {blogPosts.slice(0, newsDisplayCount).map((post, index) => (
-              <div key={post.id || index} className="card" style={{ overflow: 'hidden', padding: '0' }}>
-                <div style={{
-                  height: '200px',
-                  background: post.image ? 'transparent' : '#DC2626',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '64px',
-                  position: 'relative'
-                }}>
-                  {post.image ? (
-                    <img 
-                      src={post.image.startsWith('http') ? post.image : `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001'}${post.image}`} 
-                      alt={post.title}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }}
-                    />
-                  ) : (
-                    <span>{post.icon || '📰'}</span>
-                  )}
-                </div>
-                <div style={{ padding: '24px' }}>
-                  <div className="sinterklaas-badge" style={{ marginBottom: '16px' }}>
-                    {post.category || 'Nieuws'}
+          {blogPosts.length > 0 ? (
+            <div className="three-column">
+              {blogPosts.slice(0, newsDisplayCount).map((post, index) => (
+                <div key={post.id || index} className="card" style={{ overflow: 'hidden', padding: '0' }}>
+                  <div style={{
+                    height: '200px',
+                    background: post.image ? 'transparent' : '#DC2626',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '64px',
+                    position: 'relative'
+                  }}>
+                    {post.image ? (
+                      <img 
+                        src={post.image.startsWith('http') ? post.image : `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001'}${post.image}`} 
+                        alt={post.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                      />
+                    ) : (
+                      <span>{post.icon || '📰'}</span>
+                    )}
                   </div>
-                  <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px', lineHeight: '1.3' }}>
-                    {post.title}
-                  </h3>
-                  <p style={{ color: '#666', marginBottom: '16px' }}>{post.excerpt}</p>
-                  <a href={`/nieuws/${createSlug(post.title)}`} style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
-                    Lees meer →
-                  </a>
+                  <div style={{ padding: '24px' }}>
+                    <div className="sinterklaas-badge" style={{ marginBottom: '16px' }}>
+                      {post.category || 'Nieuws'}
+                    </div>
+                    <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px', lineHeight: '1.3' }}>
+                      {post.title}
+                    </h3>
+                    <p style={{ color: '#666', marginBottom: '16px' }}>{post.excerpt}</p>
+                    <a href={`/nieuws/${createSlug(post.title)}`} style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
+                      Lees meer →
+                    </a>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '60px 20px', color: '#666' }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}>📰</div>
+              <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '12px', color: '#333' }}>
+                Geen nieuws beschikbaar
+              </h3>
+              <p style={{ fontSize: '16px' }}>
+                Er zijn momenteel geen nieuwsartikelen om te tonen.
+              </p>
+            </div>
+          )}
           
           {/* Load More News Button */}
           {blogPosts.length > newsDisplayCount && (
