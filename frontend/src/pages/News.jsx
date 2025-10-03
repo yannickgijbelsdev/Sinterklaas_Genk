@@ -77,6 +77,9 @@ export default function News() {
       setTimeout(() => {
         initializeAudioPlayers();
       }, 100);
+      
+      // Preload critical images for better performance
+      preloadCriticalImages(newsData);
     }
   }, [newsData]);
   
