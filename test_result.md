@@ -212,6 +212,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "NEWS ENDPOINT COMPREHENSIVE TESTING COMPLETED: Performed detailed testing of /api/news endpoint to debug frontend 'Error loading news' issue. ✅ BACKEND FULLY FUNCTIONAL: GET /api/news returns HTTP 200 with 7 news articles (including all 3 demo articles). ✅ RESPONSE STRUCTURE VERIFIED: Valid JSON array with all required fields (id, title, excerpt, content, category, date, published). ✅ DUTCH CONTENT CONFIRMED: All articles contain proper Dutch content with categories 'Achter de Schermen', 'Algemeen', 'Tips & Tricks'. ✅ CORS WORKING: Proper CORS headers present for cross-origin requests. ✅ PERFORMANCE GOOD: Response time 55.93ms. CONCLUSION: Backend /api/news endpoint is working perfectly. If frontend shows 'Error loading news', the issue is in frontend implementation, not backend API."
+      - working: true
+        agent: "testing"
+        comment: "NEWS API ENDPOINT ANALYSIS COMPLETED SUCCESSFULLY: Performed comprehensive analysis of GET /api/news endpoint as requested in review to check for real vs demo articles. ✅ API FULLY FUNCTIONAL: Returns HTTP 200 with 1 real news article. ✅ REAL CONTENT CONFIRMED: Found 1 legitimate article 'Op de set voor 'Sinterklaas en de Wensmachine'' (Achter de Schermen category) with proper Dutch content, images, and metadata. ✅ DATA STRUCTURE VALID: All required fields present (id, title, excerpt, content, category, date, published, featured_image). ✅ NO DEMO CONTENT: Zero demo/test articles found - all content is real. ✅ CONCLUSION: The API returns real news articles, not demo data. If frontend shows fallback to demo data, the issue is in frontend data handling logic, not backend API availability or content quality."
 
   - task: "Demo Admin Endpoints (No Authentication)"
     implemented: true
