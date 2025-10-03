@@ -9,6 +9,8 @@ import { Button } from '../components/ui/button';
 import { useAuth } from '../contexts/AuthContext';
 // import { useLiveEditor } from '../contexts/LiveEditorContext'; // HIDDEN
 import { initializeAudioPlayers } from '../utils/audioPlayerUtils';
+import SEO from '../components/SEO';
+import { getLocalBusinessSchema, getWebsiteSchema } from '../utils/structuredData';
 import '../styles/camp-buddy-theme.css';
 
 const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
