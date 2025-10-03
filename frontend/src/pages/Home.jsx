@@ -830,7 +830,7 @@ export default function Home() {
                     position: 'relative'
                   }}>
                     {post.image ? (
-                      <img 
+                      <OptimizedImage 
                         src={post.image.startsWith('http') ? post.image : `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001'}${post.image}`} 
                         alt={post.title}
                         style={{
@@ -838,6 +838,8 @@ export default function Home() {
                           height: '100%',
                           objectFit: 'cover'
                         }}
+                        maxRetries={3}
+                        retryDelay={2000}
                       />
                     ) : (
                       <span>{post.icon || '📰'}</span>
