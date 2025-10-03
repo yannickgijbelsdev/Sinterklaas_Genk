@@ -148,11 +148,11 @@ export default function News() {
             {/* Featured Image */}
             {(article.featured_image || article.image) && (
               <div className="mb-12">
-                <OptimizedImage
+                <img
                   src={(() => {
                     const imgUrl = article.featured_image || article.image;
                     return imgUrl.startsWith('/') 
-                      ? `${process.env.REACT_APP_BACKEND_URL}${imgUrl}`
+                      ? `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001'}${imgUrl}`
                       : imgUrl;
                   })()}
                   alt={article.title}
