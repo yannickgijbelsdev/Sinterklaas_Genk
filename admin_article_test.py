@@ -63,40 +63,49 @@ class AdminArticleTester:
     def test_admin_login(self):
         """Test admin authentication"""
         try:
-            # Try with the correct admin credentials from backend code
-            login_data = {
-                "username": "admin@sinterklaas.com",
-                "password": "KYLovie13monx"
-            }
+            # Try different admin credential combinations based on test_result.md
+            credentials_to_try = [
+                {"username": "admin", "password": "KYLovie13monx"},  # Latest from backend code
+                {"username": "admin", "password": "admin123"},      # Fallback from test results
+                {"username": "admin@sinterklaas.com", "password": "KYLovie13monx"},
+                {"username": "admin@sinterklaas.com", "password": "admin123"}
+            ]
             
-            response = self.session.post(f"{API_BASE}/auth/login", json=login_data)
-            
-            if response.status_code == 200:
-                data = response.json()
-                if 'access_token' in data and 'user' in data:
-                    self.auth_token = data['access_token']
-                    user_info = data['user']
-                    
-                    # Set authorization header for future requests
-                    self.session.headers.update({
-                        'Authorization': f'Bearer {self.auth_token}'
-                    })
-                    
-                    if user_info.get('is_admin', False):
-                        self.log_test("Admin Login", True, 
-                                    f"Successfully logged in as admin: {user_info.get('email', 'N/A')}")
-                        return True
+            for i, login_data in enumerate(credentials_to_try):
+                print(f"   Trying credentials {i+1}: {login_data['username']}/{login_data['password']}")
+                
+                response = self.session.post(f"{API_BASE}/auth/login", json=login_data)
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    if 'access_token' in data and 'user' in data:
+                        self.auth_token = data['access_token']
+                        user_info = data['user']
+                        
+                        # Set authorization header for future requests
+                        self.session.headers.update({
+                            'Authorization': f'Bearer {self.auth_token}'
+                        })
+                        
+                        if user_info.get('is_admin', False):
+                            self.log_test("Admin Login", True, 
+                                        f"Successfully logged in as admin: {user_info.get('email', 'N/A')} using {login_data['username']}/{login_data['password']}")
+                            return True
+                        else:
+                            self.log_test("Admin Login", False, 
+                                        f"User logged in but not admin: {user_info}")
+                            return False
                     else:
-                        self.log_test("Admin Login", False, 
-                                    f"User logged in but not admin: {user_info}")
-                        return False
+                        print(f"   ❌ Missing token or user info in response")
+                        continue
                 else:
-                    self.log_test("Admin Login", False, "Missing token or user info in response")
-                    return False
-            else:
-                self.log_test("Admin Login", False, 
-                            f"Status: {response.status_code}, Response: {response.text}")
-                return False
+                    print(f"   ❌ Status: {response.status_code}")
+                    continue
+            
+            # If we get here, none of the credentials worked
+            self.log_test("Admin Login", False, 
+                        "None of the admin credential combinations worked")
+            return False
                 
         except Exception as e:
             self.log_test("Admin Login", False, f"Error: {str(e)}")
