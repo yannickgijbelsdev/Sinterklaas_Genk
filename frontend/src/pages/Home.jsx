@@ -837,6 +837,8 @@ export default function Home() {
                           height: '100%',
                           objectFit: 'cover'
                         }}
+                        loading="lazy"
+                        decoding="async"
                       />
                     ) : (
                       <span>{post.icon || '📰'}</span>
