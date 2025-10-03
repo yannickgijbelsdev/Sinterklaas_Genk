@@ -841,7 +841,9 @@ export default function Home() {
             </div>
           ) : (
             <div style={{ textAlign: 'center', padding: '60px 20px', color: '#666' }}>
-              <div style={{ fontSize: '48px', marginBottom: '16px' }}>📰</div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+                <Newspaper size={48} style={{ color: '#9CA3AF' }} />
+              </div>
               <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '12px', color: '#333' }}>
                 Geen nieuws beschikbaar
               </h3>
