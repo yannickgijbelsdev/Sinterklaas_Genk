@@ -444,8 +444,24 @@ export default function Home() {
 
   // Loader removed - direct rendering
 
+  // SEO structured data
+  const structuredData = [
+    getLocalBusinessSchema(),
+    getWebsiteSchema()
+  ];
+
   return (
     <div>
+      <SEO 
+        title="Sinterklaas Genk - Magische Sinterklaasshow Limburg België"
+        description="Boek de meest magische Sinterklaasshow in Genk! Professionele Sinterklaas voorstellingen door heel Limburg, Vlaanderen en België. Sinterklaas aankomst en theater shows voor het hele gezin."
+        keywords="sinterklaas genk, sinterklaas limburg, sinterklaasshow genk, sinterklaas belgië, sinterklaas vlaanderen, sinterklaas aankomst, sinterklaas voorstelling limburg, sinterklaas boeken genk, sinterklaas theater vlaanderen"
+        canonicalUrl="/"
+        ogTitle="Sinterklaas Genk - De Meest Magische Sinterklaasshow in Limburg"
+        ogDescription="Professionele Sinterklaasshows in Genk en heel Limburg. Boek nu de perfecte Sinterklaas ervaring voor uw gezin!"
+        ogImage="https://sinterklaasgenk.be/og-image.jpg"
+        structuredData={structuredData}
+      />
       
       {/* Hero Section with Video Background & Trailer Button */}
       <section 
