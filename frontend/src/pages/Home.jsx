@@ -126,6 +126,23 @@ export default function Home() {
         alt: "Hotel Bonka Logo",
         id: "partner_hotel_bonka_logo_3"
       }
+    ],
+    [
+      {
+        src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/ipnyn5k1_Rosendal_Logo.png",
+        alt: "Rosendal Logo",
+        id: "partner_rosendal_logo_featured"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/0kogizc7_Rotary_Genk.png",
+        alt: "Rotary Genk Logo",
+        id: "partner_rotary_genk_logo_3"
+      },
+      {
+        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/6rvbd219_Balls_Glory.png",
+        alt: "Balls Glory Logo", 
+        id: "partner_balls_glory_logo_3"
+      }
     ]
   ];
 
