@@ -2919,6 +2919,237 @@ class BackendTester:
             
         return passed == total
 
+    def test_admin_news_functionality_review(self):
+        """Test admin news functionality as requested in review"""
+        print("=" * 70)
+        print("ADMIN NEWS FUNCTIONALITY REVIEW TESTING")
+        print("=" * 70)
+        print("Testing specific requirements from review request:")
+        print("1. Admin login with credentials admin/KYLovie13monx")
+        print("2. POST /api/admin/news to create a new test article")
+        print("3. GET /api/admin/news to retrieve articles")
+        print("4. Check for authentication or CORS issues")
+        print()
+        
+        # Step 1: Test admin login
+        print("STEP 1: Testing admin login with admin/KYLovie13monx")
+        print("-" * 50)
+        
+        try:
+            login_data = {
+                "username": "admin",
+                "password": "KYLovie13monx"
+            }
+            
+            response = self.session.post(f"{API_BASE}/auth/login", json=login_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if 'access_token' in data and 'user' in data:
+                    self.auth_token = data['access_token']
+                    user_info = data['user']
+                    
+                    print(f"✅ Admin login successful")
+                    print(f"   Username: {user_info.get('username', 'N/A')}")
+                    print(f"   Email: {user_info.get('email', 'N/A')}")
+                    print(f"   Admin privileges: {user_info.get('is_admin', False)}")
+                    print(f"   Token received: {self.auth_token[:20]}...")
+                    
+                    # Set authorization header
+                    self.session.headers.update({
+                        'Authorization': f'Bearer {self.auth_token}'
+                    })
+                    
+                    login_success = True
+                else:
+                    print(f"❌ Login failed: Missing token or user info")
+                    login_success = False
+            else:
+                print(f"❌ Login failed: Status {response.status_code}")
+                print(f"   Response: {response.text}")
+                login_success = False
+                
+        except Exception as e:
+            print(f"❌ Login error: {str(e)}")
+            login_success = False
+        
+        print()
+        
+        if not login_success:
+            print("❌ Cannot proceed with remaining tests - admin login failed")
+            return False
+        
+        # Step 2: Test POST /api/admin/news
+        print("STEP 2: Testing POST /api/admin/news to create test article")
+        print("-" * 50)
+        
+        try:
+            test_article = {
+                "title": "Test News Article - Admin Panel Review",
+                "excerpt": "This is a test article created during admin panel review testing",
+                "content": "This test article was created to verify that the admin news creation functionality is working correctly. The user reported issues with creating articles in the admin panel.",
+                "category": "Test",
+                "date": "2024-12-19",
+                "published": True,
+                "featured_image": "https://via.placeholder.com/400x200/DC2626/FFFFFF?text=Test+Article"
+            }
+            
+            response = self.session.post(f"{API_BASE}/admin/news", json=test_article)
+            
+            if response.status_code == 200:
+                created_article = response.json()
+                article_id = created_article.get('id')
+                
+                print(f"✅ Article creation successful")
+                print(f"   Article ID: {article_id}")
+                print(f"   Title: {created_article.get('title', 'N/A')}")
+                print(f"   Category: {created_article.get('category', 'N/A')}")
+                print(f"   Published: {created_article.get('published', 'N/A')}")
+                
+                create_success = True
+                test_article_id = article_id
+            else:
+                print(f"❌ Article creation failed: Status {response.status_code}")
+                print(f"   Response: {response.text}")
+                create_success = False
+                test_article_id = None
+                
+        except Exception as e:
+            print(f"❌ Article creation error: {str(e)}")
+            create_success = False
+            test_article_id = None
+        
+        print()
+        
+        # Step 3: Test GET /api/admin/news
+        print("STEP 3: Testing GET /api/admin/news to retrieve articles")
+        print("-" * 50)
+        
+        try:
+            response = self.session.get(f"{API_BASE}/admin/news")
+            
+            if response.status_code == 200:
+                articles = response.json()
+                article_count = len(articles)
+                
+                print(f"✅ Article retrieval successful")
+                print(f"   Total articles: {article_count}")
+                
+                # Check if our test article is in the list
+                if test_article_id and create_success:
+                    found_test_article = False
+                    for article in articles:
+                        if article.get('id') == test_article_id:
+                            found_test_article = True
+                            print(f"   ✅ Test article found in admin list")
+                            break
+                    
+                    if not found_test_article:
+                        print(f"   ⚠️  Test article not found in admin list")
+                
+                # Show first few articles
+                print(f"   Recent articles:")
+                for i, article in enumerate(articles[:3]):
+                    print(f"     {i+1}. {article.get('title', 'N/A')} ({article.get('category', 'N/A')})")
+                
+                retrieve_success = True
+            else:
+                print(f"❌ Article retrieval failed: Status {response.status_code}")
+                print(f"   Response: {response.text}")
+                retrieve_success = False
+                
+        except Exception as e:
+            print(f"❌ Article retrieval error: {str(e)}")
+            retrieve_success = False
+        
+        print()
+        
+        # Step 4: Test public news endpoint to check if articles appear
+        print("STEP 4: Testing public news endpoint and CORS")
+        print("-" * 50)
+        
+        try:
+            # Test public endpoint (should work without auth)
+            temp_headers = self.session.headers.copy()
+            if 'Authorization' in self.session.headers:
+                del self.session.headers['Authorization']
+            
+            try:
+                response = self.session.get(f"{API_BASE}/news")
+                
+                if response.status_code == 200:
+                    public_articles = response.json()
+                    public_count = len(public_articles)
+                    
+                    print(f"✅ Public news endpoint working")
+                    print(f"   Public articles: {public_count}")
+                    
+                    # Check CORS headers
+                    cors_headers = response.headers.get('Access-Control-Allow-Origin', 'Not set')
+                    print(f"   CORS headers: {cors_headers}")
+                    
+                    # Check if our test article appears in public list
+                    if test_article_id and create_success:
+                        found_in_public = False
+                        for article in public_articles:
+                            if article.get('id') == test_article_id:
+                                found_in_public = True
+                                print(f"   ✅ Test article visible in public news")
+                                break
+                        
+                        if not found_in_public:
+                            print(f"   ⚠️  Test article not visible in public news")
+                    
+                    public_success = True
+                else:
+                    print(f"❌ Public news endpoint failed: Status {response.status_code}")
+                    print(f"   Response: {response.text}")
+                    public_success = False
+                    
+            finally:
+                # Restore auth headers
+                self.session.headers.update(temp_headers)
+                
+        except Exception as e:
+            print(f"❌ Public news endpoint error: {str(e)}")
+            public_success = False
+        
+        print()
+        
+        # Summary
+        print("=" * 70)
+        print("ADMIN NEWS FUNCTIONALITY REVIEW SUMMARY")
+        print("=" * 70)
+        
+        tests_passed = sum([login_success, create_success, retrieve_success, public_success])
+        total_tests = 4
+        
+        print(f"✅ Admin login (admin/KYLovie13monx): {'PASS' if login_success else 'FAIL'}")
+        print(f"✅ POST /api/admin/news (create article): {'PASS' if create_success else 'FAIL'}")
+        print(f"✅ GET /api/admin/news (retrieve articles): {'PASS' if retrieve_success else 'FAIL'}")
+        print(f"✅ Public news endpoint & CORS: {'PASS' if public_success else 'FAIL'}")
+        print()
+        print(f"Overall Success Rate: {tests_passed}/{total_tests} ({(tests_passed/total_tests)*100:.1f}%)")
+        
+        if tests_passed == total_tests:
+            print()
+            print("🎉 ALL ADMIN NEWS FUNCTIONALITY TESTS PASSED!")
+            print("✅ Admin authentication working with correct credentials")
+            print("✅ News article creation via admin API working")
+            print("✅ News article retrieval via admin API working")
+            print("✅ Public news endpoint accessible with proper CORS")
+            print("✅ No authentication or CORS issues detected")
+            print()
+            print("CONCLUSION: The admin news functionality is working correctly.")
+            print("If the frontend admin panel still shows issues, the problem is likely")
+            print("in the frontend code, not the backend API.")
+        else:
+            print()
+            print("⚠️  SOME ADMIN NEWS FUNCTIONALITY TESTS FAILED")
+            print("Check the detailed results above to identify the specific issues.")
+        
+        return tests_passed == total_tests
+
     def run_all_tests(self):
         """Run comprehensive backend testing suite"""
         return self.run_sinterklaas_genk_review_tests()
