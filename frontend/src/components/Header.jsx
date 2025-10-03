@@ -28,7 +28,7 @@ export const Header = () => {
   ] : [
     { name: 'Bestel je tickets', href: 'https://events.flextickets.nl/event/sinterklaas-en-de-wensmachine' },
     { name: 'Veelgestelde vragen', href: '#faq' },
-    { name: 'Nieuws', href: '#news' },
+    { name: 'Nieuws', href: '/nieuws' },
     { name: 'Foto\'s', href: '#gallery' }
   ];
 
