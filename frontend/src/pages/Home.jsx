@@ -651,13 +651,13 @@ export default function Home() {
         <div className="container">
           <div className="card" style={{ background: '#DC2626', color: 'white', display: 'flex', alignItems: 'center', gap: '64px' }}>
             <div style={{ flex: 1 }}>
-              <h2 
+              <h1 
                 className="genty-regular text-white mb-8" 
                 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
-                data-edit-id="reserveer_title"
+                data-edit-id="cta_main_title"
               >
-                Reserveer nu je tickets voor 'Sinterklaas en de Wensmachine'
-              </h2>
+                Sinterklaas Genk - Magische Sinterklaasshow Limburg
+              </h1>
               <p 
                 className="text-white mb-8" 
                 style={{ opacity: 0.9 }}
