@@ -432,7 +432,6 @@ export default function Home() {
 
   // Use real news data with fallback to demo data - using useMemo to ensure re-computation when news changes
   const blogPosts = useMemo(() => {
-    console.log('🔍 Homepage News Debug:', { news, newsLength: news.length });
     if (news.length > 0) {
       return news.map(article => ({
         id: article.id,
