@@ -19,11 +19,23 @@ const OptimizedImage = ({
 
   // Reset state when src changes
   useEffect(() => {
-    setCurrentSrc(src);
+    const validUrl = getValidImageUrl(src, fallbackSrc);
+    setCurrentSrc(validUrl);
     setIsLoading(true);
     setHasError(false);
     setRetryCount(0);
-  }, [src]);
+
+    // Use global image loader for better queue management
+    if (validUrl) {
+      globalImageLoader.loadImage(validUrl)
+        .then(() => {
+          // Image loaded successfully in background
+        })
+        .catch(() => {
+          // Will be handled by img onError
+        });
+    }
+  }, [src, fallbackSrc]);
 
   const handleLoad = () => {
     setIsLoading(false);
