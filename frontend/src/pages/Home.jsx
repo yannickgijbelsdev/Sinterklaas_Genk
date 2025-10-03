@@ -859,7 +859,7 @@ export default function Home() {
                     {post.title}
                   </h3>
                   <p style={{ color: '#666', marginBottom: '16px' }}>{post.excerpt}</p>
-                  <a href={post.id && post.id.startsWith('demo-') ? '#' : `/news/${post.id}`} style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
+                  <a href={post.id && post.id.startsWith('demo-') ? '#' : `/nieuws/${createSlug(post.title)}`} style={{ color: 'var(--sinterklaas-rood)', textDecoration: 'none', fontWeight: '600' }}>
                     Lees meer →
                   </a>
                 </div>
