@@ -82,12 +82,10 @@ export default function News() {
           if (data && data.length > 0) {
             setNewsData(data);
           } else {
-            // Use demo data as fallback
-            setNewsData(demoNewsData);
+            setNewsData([]);
           }
         } else {
-          // Use demo data as fallback on error
-          setNewsData(demoNewsData);
+          setError('Kon nieuws niet laden');
         }
       } catch (err) {
         // Use demo data as fallback on error
