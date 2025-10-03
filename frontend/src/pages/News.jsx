@@ -305,8 +305,9 @@ export default function News() {
       {/* News Grid */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {displayData.map((article) => (
+          {displayData.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {displayData.map((article) => (
               <Card key={article.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                 {/* Featured Image */}
                 <div className="aspect-video overflow-hidden">
