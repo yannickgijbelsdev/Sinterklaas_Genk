@@ -40,7 +40,7 @@ export default function Home() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Partner logo sets that will rotate - Expanded with all 7 logos
+  // Partner logo sets that will rotate - Expanded with all 8 logos
   const partnerSets = [
     [
       {
@@ -54,9 +54,9 @@ export default function Home() {
         id: "partner_poolse_dansgroep_logo"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/6rvbd219_Balls_Glory.png",
-        alt: "Balls Glory Logo", 
-        id: "partner_balls_glory_logo"
+        src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/ipnyn5k1_Rosendal_Logo.png",
+        alt: "Rosendal Logo",
+        id: "partner_rosendal_logo"
       }
     ],
     [
