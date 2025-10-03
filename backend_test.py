@@ -2966,6 +2966,8 @@ def main():
             success = tester.run_image_upload_tests()
         elif sys.argv[1] == "--password-investigation":
             success = tester.run_password_investigation_tests()
+        elif sys.argv[1] == "news_analysis" or sys.argv[1] == "--news-analysis":
+            success = tester.run_news_api_analysis()
         else:
             print("Available options:")
             print("  --admin-login           : Run focused admin login tests")
@@ -2974,6 +2976,7 @@ def main():
             print("  --sftp                  : Run SFTP image upload functionality tests")
             print("  --image-upload          : Run image upload functionality tests")
             print("  --password-investigation: Investigate admin password issue (NEW)")
+            print("  --news-analysis         : Run news API endpoint analysis (NEW)")
             print("  (no args)               : Run all comprehensive tests")
             success = tester.run_all_tests()
     else:
