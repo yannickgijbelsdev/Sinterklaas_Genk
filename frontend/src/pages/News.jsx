@@ -156,6 +156,9 @@ export default function News() {
                   })()}
                   alt={article.title}
                   className="w-full h-96 object-cover rounded-lg shadow-lg"
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
                 />
               </div>
             )}
