@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Gift, Star, Calendar, Clock, Users, Heart, Shield, Award, 
   CheckCircle, ArrowRight, Play, Download, Plus, Minus, X,
-  Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube, Eye, Ticket
+  Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube, Eye, Ticket, Newspaper
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 // import AdvancedLiveEditor from '../components/AdvancedLiveEditor'; // HIDDEN
