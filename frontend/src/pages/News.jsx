@@ -94,7 +94,21 @@ export default function News() {
     const article = findArticleBySlugOrId(displayData, paramValue);
     
     if (!article) {
-      return <div className="min-h-screen"></div>;
+      return (
+        <div className="min-h-screen flex items-center justify-center">
+          <SEO 
+            title="Artikel niet gevonden - Sinterklaas Genk Nieuws"
+            description="Het gevraagde nieuwsartikel kon niet worden gevonden. Bekijk ons nieuws overzicht voor de laatste updates over Sinterklaas shows in Genk en Limburg."
+            noindex={true}
+          />
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">Artikel niet gevonden</h1>
+            <Link to="/nieuws" className="text-blue-600 hover:underline">
+              Terug naar nieuws overzicht
+            </Link>
+          </div>
+        </div>
+      );
     }
 
     return (
