@@ -94,7 +94,7 @@ class BackendTester:
                     return False
             else:
                 self.log_test("Admin User Creation", False, 
-                            f"Cannot login with admin/admin123 credentials (Status: {response.status_code})")
+                            f"Cannot login with admin/KYLovie13monx credentials (Status: {response.status_code})")
                 return False
                 
         except Exception as e:
