@@ -155,6 +155,26 @@ export default function Home() {
       src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/xqnej0us_Wenssexpress__1.120.1.jpg",
       alt: "Sinterklaas en de Wensmachine - Scene 5",
       title: "Wenssexpress Scene 5"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/srofgh51_MRTN1539.jpg",
+      alt: "Sinterklaas en de Wensmachine - Achter de Schermen 1",
+      title: "Achter de Schermen MRTN1539"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/wl27pzxk_MRTN1636.jpg",
+      alt: "Sinterklaas en de Wensmachine - Achter de Schermen 2",
+      title: "Achter de Schermen MRTN1636"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/2rojc2pz_MRTN1887.jpg",
+      alt: "Sinterklaas en de Wensmachine - Achter de Schermen 3",
+      title: "Achter de Schermen MRTN1887"
+    },
+    {
+      src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/zvfethlq_MRTN1513.jpg",
+      alt: "Sinterklaas en de Wensmachine - Achter de Schermen 4",
+      title: "Achter de Schermen MRTN1513"
     }
   ];
 
