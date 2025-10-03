@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import "./styles/camp-buddy-theme.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from "./contexts/AuthContext";
 import { LiveEditorProvider } from "./contexts/LiveEditorContext";
 import { Header } from "./components/Header";
