@@ -434,7 +434,7 @@ export default function Home() {
     },
     {
       question: "Wat moet ik doen als ik mijn ticket kwijt ben of ik mijn tickets niet heb ontvangen?",
-      answer: `Je kan dan best de tickets nog eens opnieuw laten versturen. Dit doe je door op deze knop te drukken die je begeleid naar de support pagina van onze partner Flextickets.
+      answer: `Je kan dan best de tickets nog eens opnieuw laten versturen. Dit doe je door op de knop te drukken die je begeleid naar de support pagina van onze partner Flextickets.
       
       <div style="margin: 16px 0;">
         <a href="https://events.flextickets.nl/Ticketing/lostticket" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: #DC2626; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" onmouseover="this.style.transform='translateY(-2px)'; this.style.backgroundColor='#B91C1C'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.15)'" onmouseout="this.style.transform='translateY(0px)'; this.style.backgroundColor='#DC2626'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)'">
