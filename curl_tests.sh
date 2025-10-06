@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BACKEND_URL="https://festive-genk.preview.emergentagent.com"
+BACKEND_URL="https://sinterklaasgenk.preview.emergentagent.com"
 API_BASE="${BACKEND_URL}/api"
 
 echo "=== BACKEND API TESTING WITH CURL ==="
