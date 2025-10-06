@@ -44,7 +44,7 @@ export default function Home() {
   const partnerSets = [
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/1yvaxns5_LogoJumboGenk.png",
+        src: "https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/7p77tlp5_LogoJumboGenk.png",
         alt: "Jumbo Genk Logo",
         id: "partner_jumbo_genk_logo"
       },
@@ -83,7 +83,7 @@ export default function Home() {
         id: "partner_sw_2025_logo"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/1yvaxns5_LogoJumboGenk.png",
+        src: "https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/7p77tlp5_LogoJumboGenk.png",
         alt: "Jumbo Genk Logo",
         id: "partner_jumbo_genk_logo_2"
       },
