@@ -41,7 +41,7 @@ db = client[os.environ['DB_NAME']]
 SFTP_CONFIG = {
     'host': 'static1.koodh.cloud',
     'username': 'sinterklaasgenk@static1.koodh.cloud',
-    'password': 'KYLovie13monx',
+    'password': os.environ.get('SFTP_PASSWORD'),
     'port': 22
 }
 
