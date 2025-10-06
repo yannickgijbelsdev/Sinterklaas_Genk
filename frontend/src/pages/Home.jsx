@@ -44,7 +44,7 @@ export default function Home() {
   const partnerSets = [
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/ajsbqyr6_Jumbo_Genk.png",
+        src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/1yvaxns5_LogoJumboGenk.png",
         alt: "Jumbo Genk Logo",
         id: "partner_jumbo_genk_logo"
       },
