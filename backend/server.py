@@ -52,7 +52,9 @@ def upload_to_sftp(file_content: bytes, filename: str, subfolder: str = "images"
     return f"https://static1.koodh.cloud/{subfolder}/{filename}"
 
 # Security
-JWT_SECRET = os.environ.get('JWT_SECRET', 'sinterklaas-show-secret-key-2024')
+JWT_SECRET = os.environ.get('JWT_SECRET')
+if not JWT_SECRET:
+    raise ValueError("JWT_SECRET environment variable is required")
 JWT_ALGORITHM = 'HS256'
 security = HTTPBearer()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
