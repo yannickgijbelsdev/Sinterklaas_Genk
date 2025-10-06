@@ -432,31 +432,8 @@ export default function News() {
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-20 bg-gradient-to-r from-yellow-50 to-orange-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Blijf Op De Hoogte
-          </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Schrijf je in voor onze nieuwsbrief en mis geen enkel nieuwtje over de show!
-          </p>
-          <div className="flex max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Je email adres"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-            />
-            <Button className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-r-lg">
-              Inschrijven
-            </Button>
-          </div>
-          <p className="text-sm text-gray-500 mt-4">
-            We respecteren je privacy en sturen geen spam.
-          </p>
-        </div>
-        
-        {/* Wave Shape Above Footer */}
+      {/* Wave Shape Above Footer */}
+      <section className="relative" style={{ backgroundColor: '#FEF3C7' }}>
         <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
           <svg 
             className="relative block w-full h-24" 
