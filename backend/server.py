@@ -1370,7 +1370,7 @@ def upload_to_sftp_working(file_content: bytes, filename: str, subfolder: str = 
         # SFTP connection settings
         hostname = 'static1.koodh.cloud'
         username = 'sinterklaasgenk@static1.koodh.cloud'
-        password = 'KYLovie13monx'
+        password = os.environ.get('SFTP_PASSWORD', 'KYLovie13monx')  # Fallback for backward compatibility
         port = 22
         
         # Create SSH client
