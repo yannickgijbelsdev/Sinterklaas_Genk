@@ -1601,9 +1601,14 @@ async def startup_event():
         # Check if admin user with correct email exists
         admin_exists = await db.users.find_one({"email": "admin@sinterklaas.com"})
         
+        admin_password = os.environ.get('ADMIN_PASSWORD')
+        if not admin_password:
+            print("⚠️ ADMIN_PASSWORD environment variable not set, skipping admin user creation")
+            return
+            
         if not admin_exists:
             # Create default admin user with correct fields matching User model
-            hashed_password = hash_password("KYLovie13monx")
+            hashed_password = hash_password(admin_password)
             admin_user = {
                 "id": str(uuid.uuid4()),
                 "username": "admin@sinterklaas.com",  # Use email as username
@@ -1616,10 +1621,10 @@ async def startup_event():
             }
             
             await db.users.insert_one(admin_user)
-            print("✅ Created default admin user - email: admin@sinterklaas.com, password: KYLovie13monx")
+            print("✅ Created default admin user - email: admin@sinterklaas.com")
         else:
             # Update existing admin user's password to ensure it's correct
-            hashed_password = hash_password("KYLovie13monx")
+            hashed_password = hash_password(admin_password)
             await db.users.update_one(
                 {"email": "admin@sinterklaas.com"},
                 {"$set": {
@@ -1627,7 +1632,7 @@ async def startup_event():
                     "updatedAt": datetime.utcnow()
                 }}
             )
-            print("✅ Updated existing admin user password to KYLovie13monx")
+            print("✅ Updated existing admin user password")
     except Exception as e:
         print(f"❌ Error creating/updating default admin user: {e}")
     
