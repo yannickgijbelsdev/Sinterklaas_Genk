@@ -8,7 +8,7 @@ import { Upload, Save, Eye, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 // Configuration
-const API = 'http://localhost:8001/api';
+const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
 
 export const BannerEditor = () => {
   const [bannerData, setBannerData] = useState({
