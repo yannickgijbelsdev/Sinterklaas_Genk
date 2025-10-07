@@ -61,7 +61,7 @@ export default function Home() {
     ],
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/0kogizc7_Rotary_Genk.png",
+        src: "https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/4tmenap3_Rotary-Genk-Noord.png",
         alt: "Rotary Genk Logo",
         id: "partner_rotary_genk_logo"
       },
@@ -88,7 +88,7 @@ export default function Home() {
         id: "partner_jumbo_genk_logo_2"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/0kogizc7_Rotary_Genk.png",
+        src: "https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/4tmenap3_Rotary-Genk-Noord.png",
         alt: "Rotary Genk Logo",
         id: "partner_rotary_genk_logo_2"
       }
@@ -134,7 +134,7 @@ export default function Home() {
         id: "partner_rosendal_logo_featured"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/0kogizc7_Rotary_Genk.png",
+        src: "https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/4tmenap3_Rotary-Genk-Noord.png",
         alt: "Rotary Genk Logo",
         id: "partner_rotary_genk_logo_3"
       },
