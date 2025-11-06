@@ -535,7 +535,7 @@ export default function Home() {
           data-edit-id="hero_background_video"
         >
           <source 
-            src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/ynr147fs_trailer%20zonder%20OT.mp4" 
+            src="https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/pltquld6_Extra_Shows_Sinterklaas_Genk_Animatie.mp4" 
             type="video/mp4" 
           />
         </video>
