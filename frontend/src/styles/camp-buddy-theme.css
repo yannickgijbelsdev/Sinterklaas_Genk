@@ -668,3 +668,25 @@ h3 {
   padding-left: 16px;
   margin: 24px 0;
 }
+
+/* Responsive Hero Video CSS */
+.hero-video {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Mobile responsive video - use contain to show full video */
+@media (max-width: 768px) {
+  .hero-video {
+    object-fit: contain;
+    background-color: #000;
+  }
+}
+
+/* For very small screens, ensure video is properly centered */
+@media (max-width: 480px) {
+  .hero-video {
+    object-fit: contain;
+    object-position: center center;
+  }
+}
