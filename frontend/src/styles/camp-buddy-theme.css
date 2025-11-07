@@ -669,26 +669,24 @@ h3 {
   margin: 24px 0;
 }
 
-/* Responsive Hero Video CSS */
+/* Responsive Hero Video CSS - Always show full video without cropping */
 .hero-video {
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center;
+  background-color: #1a1a1a;
 }
 
-/* Mobile responsive video - adjust positioning to show important parts */
+/* Ensure consistent behavior across all screen sizes */
 @media (max-width: 768px) {
   .hero-video {
-    object-fit: cover;
-    object-position: center 20%;
-    transform: scale(1.1);
+    object-fit: contain;
+    object-position: center;
   }
 }
 
-/* For very small screens, show more of the video content */
 @media (max-width: 480px) {
   .hero-video {
-    object-fit: cover;
-    object-position: center 15%;
-    transform: scale(1.05);
+    object-fit: contain;
+    object-position: center;
   }
 }
