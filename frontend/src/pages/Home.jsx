@@ -524,11 +524,11 @@ export default function Home() {
           loop
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full hero-video"
           style={{ 
             width: '100%', 
             height: '100%', 
-            objectFit: window.innerWidth <= 768 ? 'contain' : 'cover',
+            objectFit: 'cover',
             objectPosition: 'center',
             zIndex: 1
           }}
