@@ -524,11 +524,12 @@ export default function Home() {
           loop
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full"
           style={{ 
             width: '100%', 
             height: '100%', 
-            objectFit: 'cover',
+            objectFit: window.innerWidth <= 768 ? 'contain' : 'cover',
+            objectPosition: 'center',
             zIndex: 1
           }}
           onContextMenu={(e) => e.preventDefault()}
