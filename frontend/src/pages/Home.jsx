@@ -523,14 +523,13 @@ export default function Home() {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           className="absolute inset-0 w-full h-full hero-video"
           style={{ 
             width: '100%', 
             height: '100%', 
-            objectFit: 'contain',
+            objectFit: 'cover',
             objectPosition: 'center',
-            backgroundColor: '#1a1a1a',
             zIndex: 1
           }}
           onContextMenu={(e) => e.preventDefault()}
