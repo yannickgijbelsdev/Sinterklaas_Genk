@@ -528,8 +528,9 @@ export default function Home() {
           style={{ 
             width: '100%', 
             height: '100%', 
-            objectFit: 'cover',
-            objectPosition: 'center top',
+            objectFit: 'contain',
+            objectPosition: 'center',
+            backgroundColor: '#1a1a1a',
             zIndex: 1
           }}
           onContextMenu={(e) => e.preventDefault()}
