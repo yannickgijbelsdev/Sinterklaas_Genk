@@ -21,7 +21,7 @@ import shutil
 import jwt
 from jwt.exceptions import InvalidTokenError, ExpiredSignatureError
 from passlib.context import CryptContext
-from datetime import datetime, timedelta, timedelta
+from datetime import datetime, timedelta
 import json
 import asyncio
 # import pysftp  # Temporarily disabled due to paramiko compatibility issue
@@ -626,7 +626,7 @@ async def change_password(password_data: PasswordChange, current_user: User = De
         
     except HTTPException:
         raise
-    except Exception as e:
+    except Exception:
         raise HTTPException(status_code=500, detail="Failed to change password")
 
 # Add your routes to the router instead of directly to app
@@ -689,7 +689,7 @@ async def delete_news_article(article_id: str, current_user: User = Depends(get_
 
 # Admin Routes - News Management (Protected)
 @api_router.get("/news", response_model=List[NewsArticle])
-async def get_published_news():
+async def get_published_news_legacy():
     news_items = await db.news.find({"published": True}).sort("date", -1).to_list(100)
     return [NewsArticle(**item) for item in news_items]
 
@@ -1184,7 +1184,7 @@ async def track_email_open(campaign_id: str, subscriber_email: str):
         from fastapi.responses import Response
         pixel_data = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\tpHYs\x00\x00\x0b\x13\x00\x00\x0b\x13\x01\x00\x9a\x9c\x18\x00\x00\x00\x17IDATx\xda\x62\xf8\x0f\x00\x01\x01\x01\x00\x18\xdd\x8d\xb4\x00\x00\x00\x00IEND\xaeB`\x82'
         return Response(content=pixel_data, media_type="image/png")
-    except:
+    except Exception:
         return Response(content=b'', media_type="image/png")
 
 # Public unsubscribe endpoint
@@ -1393,12 +1393,12 @@ def upload_to_sftp_working(file_content: bytes, filename: str, subfolder: str = 
             try:
                 # Create parent directory first
                 sftp.mkdir("public_html")
-            except:
+            except Exception:
                 pass  # public_html might already exist
             
             try:
                 sftp.mkdir(remote_dir)
-            except:
+            except Exception:
                 pass  # Directory might already exist
         
         # Upload file
@@ -1426,7 +1426,7 @@ async def get_public_content():
     try:
         content = await db.content.find({}, {"_id": 0}).to_list(1000)
         return content
-    except Exception as e:
+    except Exception:
         return []
 
 # Public News Endpoint (no auth required)
@@ -1436,7 +1436,7 @@ async def get_public_news():
     try:
         news = list(await db.news.find({"published": True}).sort("date", -1).to_list(1000))
         return news
-    except Exception as e:
+    except Exception:
         return []
 
 # Public Shows Endpoint (no auth required)
@@ -1538,7 +1538,7 @@ async def get_admin_content(current_user: User = Depends(get_admin_user)):
     try:
         content = await db.content.find({}, {"_id": 0}).to_list(1000)
         return content
-    except Exception as e:
+    except Exception:
         return []
 
 @api_router.put("/admin/content")

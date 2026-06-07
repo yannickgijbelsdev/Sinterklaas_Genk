@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BACKEND_URL="https://sinterklaasgenk.preview.emergentagent.com"
+BACKEND_URL="https://partner-logos-v2.preview.emergentagent.com"
 API_BASE="${BACKEND_URL}/api"
 
 echo "=== FILE UPLOAD TEST ==="
