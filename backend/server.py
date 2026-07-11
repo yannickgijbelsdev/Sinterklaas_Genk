@@ -9,6 +9,7 @@ import os
 import io
 import logging
 import pandas as pd
+import requests
 from io import StringIO
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, From, To, Subject, HtmlContent
@@ -652,6 +653,41 @@ async def get_published_news():
     """Get all published news articles for public viewing"""
     news_items = await db.news.find({"published": True}).sort("createdAt", -1).to_list(1000)
     return [NewsArticle(**item) for item in news_items]
+
+# Public Route - External News feed (Koodh Clara CMS)
+@api_router.get("/news/external")
+def get_external_news():
+    """Fetch news items from the external news API and normalize them
+    for the public site. Server-side proxy avoids mixed-content/CORS issues."""
+    news_api_url = os.environ.get("NEWS_API_URL")
+    if not news_api_url:
+        return []
+    try:
+        resp = requests.get(news_api_url, timeout=15, headers={"Accept": "application/json"})
+        resp.raise_for_status()
+        data = resp.json()
+    except Exception as exc:
+        logging.getLogger(__name__).error(f"External news fetch failed: {exc}")
+        return []
+
+    normalized = []
+    for item in data.get("items", []):
+        category = (item.get("category") or {}).get("name") or "Nieuws"
+        image_url = item.get("image_url") or ""
+        excerpt = item.get("excerpt") or ""
+        normalized.append({
+            "id": item.get("id"),
+            "title": item.get("title") or "",
+            "slug": item.get("slug") or "",
+            "excerpt": excerpt,
+            "category": category,
+            "image": image_url,
+            "featured_image": image_url,
+            "date": item.get("published_at") or "",
+            "content": excerpt,
+            "external_url": item.get("url") or "",
+        })
+    return normalized
 
 # Admin Routes - News Management (Protected)
 @api_router.get("/admin/news", response_model=List[NewsArticle])

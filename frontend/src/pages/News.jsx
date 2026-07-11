@@ -47,7 +47,7 @@ export default function News() {
     const fetchNews = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${API}/news`);
+        const response = await fetch(`${API}/news/external`);
         if (response.ok) {
           const data = await response.json();
           if (data && data.length > 0) {

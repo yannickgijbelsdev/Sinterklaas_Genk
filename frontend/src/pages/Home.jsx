@@ -333,7 +333,7 @@ export default function Home() {
       try {
         const [contentRes, newsRes, showsRes] = await Promise.all([
           fetch(`${API}/content`),
-          fetch(`${API}/news`),
+          fetch(`${API}/news/external`),
           fetch(`${API}/shows`)
         ]);
 
