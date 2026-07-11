@@ -10,6 +10,7 @@ import io
 import logging
 import pandas as pd
 import requests
+import re
 from io import StringIO
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, From, To, Subject, HtmlContent
@@ -737,6 +738,15 @@ def get_external_article(article_id: str):
 
     image_url = item.get("image_url") or ""
     body = item.get("body") or item.get("body_html") or item.get("content") or ""
+    image_caption = item.get("image_caption_html") or ""
+    # The feed embeds the featured-image credit as the first paragraph of the
+    # body. Strip those leading credit paragraphs so the credit only shows once,
+    # as a caption directly under the featured image.
+    if body:
+        body = re.sub(
+            r'^\s*(<p[^>]*class="[^"]*clara-image-credit[^"]*"[^>]*>.*?</p>\s*)+',
+            "", body, flags=re.DOTALL,
+        )
     if not body:
         parts = []
         for img in (item.get("body_images") or []):
@@ -755,6 +765,7 @@ def get_external_article(article_id: str):
         "excerpt": item.get("excerpt") or "",
         "image": image_url,
         "featured_image": image_url,
+        "image_caption": image_caption,
         "date": item.get("published_at") or "",
         "content": body,
         "body_images": item.get("body_images") or [],

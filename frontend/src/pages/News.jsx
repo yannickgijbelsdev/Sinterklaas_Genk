@@ -187,8 +187,15 @@ export default function News() {
                   className="w-full h-96 object-cover rounded-lg shadow-lg"
                   loading="eager"
                   decoding="async"
-                  fetchpriority="high"
+                  fetchPriority="high"
                 />
+                {article.image_caption && (
+                  <div
+                    className="text-sm text-gray-500 mt-2"
+                    data-testid="news-featured-image-caption"
+                    dangerouslySetInnerHTML={{ __html: article.image_caption }}
+                  />
+                )}
               </div>
             )}
             
