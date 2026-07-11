@@ -173,6 +173,16 @@ export default function News() {
         <article className="flex-1 py-12">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
+            {/* Back Button */}
+            <Link
+              to="/nieuws"
+              data-testid="news-back-button"
+              className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-semibold mb-8 transition-colors"
+            >
+              <ArrowLeft size={18} />
+              Terug naar nieuws
+            </Link>
+            
             {/* Featured Image */}
             {(article.featured_image || article.image) && (
               <div className="mb-12">
@@ -184,7 +194,7 @@ export default function News() {
                       : imgUrl;
                   })()}
                   alt={article.title}
-                  className="w-full h-96 object-cover rounded-lg shadow-lg"
+                  className="w-full h-96 object-cover rounded-xl shadow-lg"
                   loading="eager"
                   decoding="async"
                   fetchPriority="high"
@@ -215,6 +225,7 @@ export default function News() {
             {/* Article Content */}
             <div className="prose prose-lg max-w-none mb-16">
               <div 
+                className="news-article-body"
                 style={{ lineHeight: '1.8', color: '#374151', fontSize: '18px' }}
                 dangerouslySetInnerHTML={{
                   __html: (() => {

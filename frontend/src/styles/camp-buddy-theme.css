@@ -689,3 +689,22 @@ h3 {
     object-position: center 25%;
   }
 }
+
+
+/* News article body (external Koodh content) */
+.news-article-body figure {
+  margin: 24px 0;
+}
+.news-article-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.news-article-body figcaption,
+.news-article-body .clara-img-credit,
+.news-article-body .clara-image-credit {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
