@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 import { Calendar, ArrowLeft, ArrowRight, Clock, Gift, Mail, Newspaper } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
 import { initializeAudioPlayers } from '../utils/audioPlayerUtils';
 import SEO from '../components/SEO';
 import { getArticleSchema, getBreadcrumbSchema } from '../utils/structuredData';
@@ -169,12 +168,6 @@ export default function News() {
             
             {/* Article Header */}
             <div className="mb-12">
-              <div className="flex items-center gap-4 mb-6">
-                <Badge variant="outline" className="text-red-600 border-red-200">
-                  {article.category || 'Algemeen'}
-                </Badge>
-              </div>
-              
               <h1 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">
                 {article.title}
               </h1>
@@ -390,13 +383,6 @@ export default function News() {
                 </div>
                 
                 <CardContent className="p-6">
-                  {/* Category only */}
-                  <div className="flex items-center justify-between mb-3">
-                    <Badge variant="outline" className="text-red-600 border-red-200">
-                      {article.category || 'Algemeen'}
-                    </Badge>
-                  </div>
-                  
                   {/* Title */}
                   <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
                     {article.title}

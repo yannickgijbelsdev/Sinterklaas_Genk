@@ -894,9 +894,6 @@ export default function Home() {
                     )}
                   </div>
                   <div style={{ padding: '24px' }}>
-                    <div className="sinterklaas-badge" style={{ marginBottom: '16px' }}>
-                      {post.category || 'Nieuws'}
-                    </div>
                     <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px', lineHeight: '1.3' }}>
                       {post.title}
                     </h3>

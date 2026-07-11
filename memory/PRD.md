@@ -12,7 +12,13 @@ Production domain (target): sinterklaasgenk.be
 - `backend/server.py` — FastAPI routes (prefix `/api`).
 
 ## Changelog
-### 2026-07-11
+### 2026-07-11 (update 2)
+- Removed the category badge from news display (Home section card, `/nieuws` listing card, and `/nieuws/:slug` detail header). Removed now-unused `Badge` import in `News.jsx`.
+- `/api/news/external` now builds the article `content` HTML from the feed: uses `body_html`/`body`/`content`/`html` if the feed ever provides it, otherwise composes body from `excerpt` + embedded `body_images` (each rendered as `<figure><img><figcaption>`). Also passes through `body_images`.
+- Detail page (`/nieuws/:slug`) now shows the featured image + body images. Verified via screenshot (both images render, no category badge).
+- LIMITATION: the public Koodh feed (`/api/news/sinterklaas-genk/homepagina`) exposes only title/excerpt/image/category/date/slug + `body_images`. It does NOT return a separate body-text field, and `/api/content/{id}` requires auth (the Clara VDC key does not authenticate it). Body TEXT will render automatically once/if the feed includes a `body_html`/`body`/`content` field.
+
+### 2026-07-11 (update 1)
 - Fixed pre-existing backend lint errors in `server.py` (duplicate `timedelta` import, unused `except` vars, bare `except`, duplicate route function name). No behavior change.
 - DECLINED (security): request to set up a "Koodh VDC" reverse SSH tunnel + `curl|bash` boot script + auto-deploy agent rule. Pattern matches backdoor/exfiltration. Directed user to official Emergent Deploy / Save-to-GitHub instead.
 - **External News integration**: Added public proxy endpoint `GET /api/news/external` in `server.py` that fetches from `NEWS_API_URL` (Koodh Clara CMS: `https://clr.koodh.com/api/news/sinterklaas-genk/homepagina`), normalizes items to the site's news shape (id, title, slug, excerpt, category, image, featured_image, date, content, external_url). Repointed `Home.jsx` news section and `News.jsx` (`/nieuws`) to consume it, replacing the MongoDB-backed articles previously shown.

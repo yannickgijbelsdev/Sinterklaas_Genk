@@ -672,19 +672,48 @@ def get_external_news():
 
     normalized = []
     for item in data.get("items", []):
-        category = (item.get("category") or {}).get("name") or "Nieuws"
         image_url = item.get("image_url") or ""
         excerpt = item.get("excerpt") or ""
+        # Prefer a full body from the feed if present; otherwise compose the
+        # article body from the excerpt and any embedded body images.
+        body_html = (
+            item.get("body_html") or item.get("body")
+            or item.get("content") or item.get("html") or ""
+        )
+        content_parts = []
+        if body_html:
+            content_parts.append(body_html)
+        else:
+            if excerpt:
+                content_parts.append(f"<p>{excerpt}</p>")
+            for img in (item.get("body_images") or []):
+                src = img.get("src")
+                if not src:
+                    continue
+                caption = img.get("caption_html") or ""
+                figure = (
+                    '<figure style="margin:24px 0;text-align:center;">'
+                    f'<img src="{src}" alt="" style="max-width:100%;height:auto;'
+                    'border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" />'
+                )
+                if caption:
+                    figure += (
+                        '<figcaption style="font-size:13px;color:#888;'
+                        f'margin-top:8px;">{caption}</figcaption>'
+                    )
+                figure += '</figure>'
+                content_parts.append(figure)
+        content = "".join(content_parts)
         normalized.append({
             "id": item.get("id"),
             "title": item.get("title") or "",
             "slug": item.get("slug") or "",
             "excerpt": excerpt,
-            "category": category,
             "image": image_url,
             "featured_image": image_url,
             "date": item.get("published_at") or "",
-            "content": excerpt,
+            "content": content,
+            "body_images": item.get("body_images") or [],
             "external_url": item.get("url") or "",
         })
     return normalized
