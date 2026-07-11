@@ -38,6 +38,7 @@ export default function News() {
   const { slug, id } = useParams(); // Get both slug and id for backward compatibility
   const paramValue = slug || id; // Use slug if available, fallback to id
   const [newsData, setNewsData] = useState(null);
+  const [fullArticle, setFullArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [initialized, setInitialized] = useState(false);
@@ -81,6 +82,26 @@ export default function News() {
       preloadCriticalImages(newsData);
     }
   }, [newsData]);
+
+  // Fetch the full article (incl. body text) when viewing a single article
+  useEffect(() => {
+    if (!paramValue || !newsData || newsData.length === 0) return;
+    const matched = findArticleBySlugOrId(newsData, paramValue);
+    if (!matched || !matched.id) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(`${API}/news/external/${matched.id}`);
+        if (res.ok) {
+          const full = await res.json();
+          if (!cancelled) setFullArticle(full);
+        }
+      } catch (err) {
+        console.error('Error fetching full article:', err);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [paramValue, newsData]);
   
   // Loading state - removed for instant display
 
@@ -94,7 +115,12 @@ export default function News() {
 
   // If there's a slug/ID in the URL, show single article
   if (paramValue) {
-    const article = findArticleBySlugOrId(displayData, paramValue);
+    const listArticle = findArticleBySlugOrId(displayData, paramValue);
+    const article = listArticle
+      ? (fullArticle && fullArticle.id === listArticle.id
+          ? { ...listArticle, ...fullArticle }
+          : listArticle)
+      : null;
     
     if (!article) {
       return (

@@ -718,6 +718,49 @@ def get_external_news():
         })
     return normalized
 
+# Public Route - Single external article (full body) by id
+@api_router.get("/news/external/{article_id}")
+def get_external_article(article_id: str):
+    """Fetch a single external article (with full HTML body) by id."""
+    base = os.environ.get("NEWS_ARTICLE_API_BASE")
+    if not base:
+        raise HTTPException(status_code=503, detail="News article API not configured")
+    try:
+        resp = requests.get(
+            f"{base}{article_id}", timeout=15, headers={"Accept": "application/json"}
+        )
+        resp.raise_for_status()
+        item = resp.json()
+    except Exception as exc:
+        logging.getLogger(__name__).error(f"External article fetch failed: {exc}")
+        raise HTTPException(status_code=502, detail="Failed to fetch article")
+
+    image_url = item.get("image_url") or ""
+    body = item.get("body") or item.get("body_html") or item.get("content") or ""
+    if not body:
+        parts = []
+        for img in (item.get("body_images") or []):
+            src = img.get("src")
+            if src:
+                parts.append(
+                    '<figure style="margin:24px 0;text-align:center;">'
+                    f'<img src="{src}" alt="" style="max-width:100%;height:auto;'
+                    'border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);" /></figure>'
+                )
+        body = "".join(parts)
+    return {
+        "id": item.get("id"),
+        "title": item.get("title") or "",
+        "slug": item.get("slug") or "",
+        "excerpt": item.get("excerpt") or "",
+        "image": image_url,
+        "featured_image": image_url,
+        "date": item.get("published_at") or "",
+        "content": body,
+        "body_images": item.get("body_images") or [],
+        "external_url": item.get("url") or "",
+    }
+
 # Admin Routes - News Management (Protected)
 @api_router.get("/admin/news", response_model=List[NewsArticle])
 async def get_all_news(current_user: User = Depends(get_admin_user)):

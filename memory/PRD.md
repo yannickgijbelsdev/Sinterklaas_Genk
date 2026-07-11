@@ -12,6 +12,12 @@ Production domain (target): sinterklaasgenk.be
 - `backend/server.py` — FastAPI routes (prefix `/api`).
 
 ## Changelog
+### 2026-07-11 (update 3)
+- Found the full-article endpoint: `GET https://clr.koodh.com/api/news/articles/{article_id}` returns a `body` field (full HTML incl. text + inline body images).
+- Backend: added `GET /api/news/external/{article_id}` proxy (`NEWS_ARTICLE_API_BASE` in `.env`) returning normalized article with `content` = `body`.
+- Frontend `News.jsx`: on the detail page (`/nieuws/:slug`) it now looks up the article id from the list feed, then fetches the full article by id and renders the body text + body images. Verified via screenshot ("Wajooooo dit is toffff" + body image render).
+- Body TEXT is now fully working.
+
 ### 2026-07-11 (update 2)
 - Removed the category badge from news display (Home section card, `/nieuws` listing card, and `/nieuws/:slug` detail header). Removed now-unused `Badge` import in `News.jsx`.
 - `/api/news/external` now builds the article `content` HTML from the feed: uses `body_html`/`body`/`content`/`html` if the feed ever provides it, otherwise composes body from `excerpt` + embedded `body_images` (each rendered as `<figure><img><figcaption>`). Also passes through `body_images`.
