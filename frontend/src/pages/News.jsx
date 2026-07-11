@@ -175,12 +175,12 @@ export default function News() {
             
             {/* Back Button */}
             <Link
-              to="/nieuws"
+              to="/#news"
               data-testid="news-back-button"
               className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-semibold mb-8 transition-colors"
             >
               <ArrowLeft size={18} />
-              Terug naar nieuws
+              Terug
             </Link>
             
             {/* Featured Image */}

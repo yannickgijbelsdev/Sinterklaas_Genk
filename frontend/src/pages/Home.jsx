@@ -365,6 +365,36 @@ export default function Home() {
     fetchData();
   }, []);
 
+  // Scroll to a section when the URL has a hash (e.g. "/#news").
+  // Keep correcting the position until layout stabilises (lazy media shifts it).
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const id = hash.slice(1);
+    let raf;
+    let stable = 0;
+    const start = Date.now();
+    const tick = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        const top = el.getBoundingClientRect().top;
+        if (Math.abs(top) > 2) {
+          el.scrollIntoView({ behavior: 'auto', block: 'start' });
+          stable = 0;
+        } else {
+          stable += 1;
+        }
+      } else {
+        stable = 0;
+      }
+      if (stable < 5 && Date.now() - start < 8000) {
+        raf = requestAnimationFrame(tick);
+      }
+    };
+    const t = setTimeout(() => { raf = requestAnimationFrame(tick); }, 100);
+    return () => { clearTimeout(t); cancelAnimationFrame(raf); };
+  }, []);
+
   // Background video handling
   useEffect(() => {
     const backgroundVideo = document.querySelector('#hero video');
