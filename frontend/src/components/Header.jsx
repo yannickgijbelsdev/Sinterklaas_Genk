@@ -28,7 +28,7 @@ export const Header = () => {
   ] : [
     { name: 'Bestel je tickets', href: 'https://events.flextickets.nl/event/sinterklaas-en-de-wensmachine' },
     { name: 'Veelgestelde vragen', href: '#faq' },
-    { name: 'Nieuws', href: '/nieuws' },
+    { name: 'Nieuws', href: '#news' },
     { name: 'Foto\'s', href: '#gallery' }
   ];
 
@@ -41,6 +41,9 @@ export const Header = () => {
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
         setIsMenuOpen(false);
+      } else {
+        // Section is not on the current page -> go to the homepage section
+        window.location.href = `/${href}`;
       }
     } else if (href.startsWith('http')) {
       window.open(href, '_blank');
