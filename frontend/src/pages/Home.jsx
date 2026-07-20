@@ -1233,7 +1233,7 @@ export default function Home() {
               style={{ color: '#666', fontSize: '14px', margin: '0' }}
               data-edit-id="footer_copyright"
             >
-              © 2025 Sinterklaas Genk - Studio Wonderland. Alle rechten voorbehouden.
+              © {new Date().getFullYear()} Sinterklaas Genk - Studio Wonderland. Alle rechten voorbehouden.
             </p>
             <a
               href="https://koodh.com"
