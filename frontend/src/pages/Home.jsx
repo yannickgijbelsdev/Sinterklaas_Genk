@@ -149,47 +149,47 @@ export default function Home() {
   // Gallery images
   const galleryImages = [
     {
-      src: "/media/Wenssexpress__1.50.1.jpg",
+      src: "/media/Wenssexpress__1.50.1.webp",
       alt: "Sinterklaas en de Wensmachine - Scene 1",
       title: "Wenssexpress Scene 1"
     },
     {
-      src: "/media/Wenssexpress__1.95.1.jpg",
+      src: "/media/Wenssexpress__1.95.1.webp",
       alt: "Sinterklaas en de Wensmachine - Scene 2", 
       title: "Wenssexpress Scene 2"
     },
     {
-      src: "/media/Wenssexpress__1.23.1.jpg",
+      src: "/media/Wenssexpress__1.23.1.webp",
       alt: "Sinterklaas en de Wensmachine - Scene 3",
       title: "Wenssexpress Scene 3"
     },
     {
-      src: "/media/Wenssexpress__1.33.1.jpg",
+      src: "/media/Wenssexpress__1.33.1.webp",
       alt: "Sinterklaas en de Wensmachine - Scene 4",
       title: "Wenssexpress Scene 4"
     },
     {
-      src: "/media/Wenssexpress__1.120.1.jpg",
+      src: "/media/Wenssexpress__1.120.1.webp",
       alt: "Sinterklaas en de Wensmachine - Scene 5",
       title: "Wenssexpress Scene 5"
     },
     {
-      src: "/media/MRTN1539.jpg",
+      src: "/media/MRTN1539.webp",
       alt: "Sinterklaas en de Wensmachine - Achter de Schermen 1",
       title: "Achter de Schermen MRTN1539"
     },
     {
-      src: "/media/MRTN1636.jpg",
+      src: "/media/MRTN1636.webp",
       alt: "Sinterklaas en de Wensmachine - Achter de Schermen 2",
       title: "Achter de Schermen MRTN1636"
     },
     {
-      src: "/media/MRTN1887.jpg",
+      src: "/media/MRTN1887.webp",
       alt: "Sinterklaas en de Wensmachine - Achter de Schermen 3",
       title: "Achter de Schermen MRTN1887"
     },
     {
-      src: "/media/MRTN1513.jpg",
+      src: "/media/MRTN1513.webp",
       alt: "Sinterklaas en de Wensmachine - Achter de Schermen 4",
       title: "Achter de Schermen MRTN1513"
     }
@@ -576,7 +576,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
           style={{ 
-            backgroundImage: `url('/media/MRTN1539.jpg')`,
+            backgroundImage: `url('/media/MRTN1539.webp')`,
             zIndex: 0
           }}
         ></div>
@@ -1072,6 +1072,8 @@ export default function Home() {
                   <img
                     src={image.src}
                     alt={image.alt}
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       position: 'absolute',
                       top: '0',
@@ -1219,9 +1221,13 @@ export default function Home() {
 
           {/* Copyright */}
           <div style={{ 
-            textAlign: 'center', 
             paddingTop: '30px', 
-            borderTop: '1px solid #E5E7EB' 
+            borderTop: '1px solid #E5E7EB',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '16px'
           }}>
             <p 
               style={{ color: '#666', fontSize: '14px', margin: '0' }}
@@ -1229,6 +1235,17 @@ export default function Home() {
             >
               © 2025 Sinterklaas Genk - Studio Wonderland. Alle rechten voorbehouden.
             </p>
+            <a
+              href="https://koodh.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="footer-koodh-logo"
+              style={{ display: 'inline-flex', alignItems: 'center', opacity: 0.75, transition: 'opacity 0.3s ease' }}
+              onMouseOver={(e) => { e.currentTarget.style.opacity = '1'; }}
+              onMouseOut={(e) => { e.currentTarget.style.opacity = '0.75'; }}
+            >
+              <img src="/media/koodh-logo-black.png" alt="Koodh" style={{ height: '22px', width: 'auto' }} />
+            </a>
           </div>
         </div>
       </footer>

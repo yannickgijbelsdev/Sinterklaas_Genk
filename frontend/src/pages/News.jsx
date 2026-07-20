@@ -351,9 +351,13 @@ export default function News() {
 
             {/* Copyright */}
             <div style={{ 
-              textAlign: 'center', 
               paddingTop: '30px', 
-              borderTop: '1px solid #E5E7EB' 
+              borderTop: '1px solid #E5E7EB',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '16px'
             }}>
               <p 
                 style={{ color: '#666', fontSize: '14px', margin: '0' }}
@@ -361,6 +365,17 @@ export default function News() {
               >
                 © 2025 Sinterklaas Genk - Studio Wonderland. Alle rechten voorbehouden.
               </p>
+              <a
+                href="https://koodh.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="footer-koodh-logo"
+                style={{ display: 'inline-flex', alignItems: 'center', opacity: 0.75, transition: 'opacity 0.3s ease' }}
+                onMouseOver={(e) => { e.currentTarget.style.opacity = '1'; }}
+                onMouseOut={(e) => { e.currentTarget.style.opacity = '0.75'; }}
+              >
+                <img src="/media/koodh-logo-black.png" alt="Koodh" style={{ height: '22px', width: 'auto' }} />
+              </a>
             </div>
           </div>
         </footer>
