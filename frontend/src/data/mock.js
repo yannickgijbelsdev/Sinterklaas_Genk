@@ -63,7 +63,7 @@ export const characters = [
     id: 1,
     name: "Sinterklaas",
     description: "De lieve goedheiligman die elk jaar vanuit Spanje komt om alle brave kinderen te bezoeken.",
-    image: "https://images.pexels.com/photos/6021574/pexels-photo-6021574.jpeg",
+    image: "/media/pexels-6021574.jpeg",
     funFact: "Sinterklaas heeft een bijzonder geheugen en weet precies welk cadeautje elk kind het liefst wil hebben!"
   },
   {
@@ -97,7 +97,7 @@ export const gallery = [
   },
   {
     id: 3,
-    image: "https://images.pexels.com/photos/6021574/pexels-photo-6021574.jpeg",
+    image: "/media/pexels-6021574.jpeg",
     title: "Sinterklaas arriveert",
     description: "De goedheiligman komt aan in de stad"
   },
@@ -135,7 +135,7 @@ export const news = [
     title: "Sinterklaas is aangekomen!",
     date: "1 november 2024",
     excerpt: "Sinterklaas is aangekomen in Nederland en bereidt zich voor op de show van dit jaar.",
-    image: "https://images.pexels.com/photos/6021574/pexels-photo-6021574.jpeg",
+    image: "/media/pexels-6021574.jpeg",
     content: "Met veel pracht en praal is Sinterklaas weer aangekomen in Nederland. Dit jaar heeft hij een hele bijzondere show voorbereid..."
   },
   {

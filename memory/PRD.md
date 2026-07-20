@@ -12,6 +12,14 @@ Production domain (target): sinterklaasgenk.be
 - `backend/server.py` — FastAPI routes (prefix `/api`).
 
 ## Changelog
+### 2026-07-11 (update 4) — Media lokaal opgeslagen
+- Alle externe site-media (24 bestanden van `customer-assets.emergentagent.com` + 1 pexels-foto) gedownload naar `frontend/public/media/` en 39 URL-referenties in `Home.jsx`, `News.jsx`, `Header.jsx`, `AdminDashboard.jsx`, `data/mock.js` herschreven naar `/media/...`. Zo reist alle media mee met de GitHub-repo (push/pull).
+- Trailer-video (`trailer met OT.mp4`) was 4K/112MB → **boven GitHub's 100MB-limiet**. Gecomprimeerd met ffmpeg naar 1080p H.264 + faststart → `/media/trailer.mp4` (14.8MB). Web-vriendelijk en git-veilig.
+- `MRTN1539.jpg` gededupliceerd (hero-fallback + galerij verwijzen naar 1 bestand).
+- Favicons in `index.html` waren al lokaal.
+- Geverifieerd: homepage (hero-video, partnerlogo's, galerij) en trailer-modal laden allemaal van `/media/` (0 mislukte requests).
+- LET OP: nieuws-afbeeldingen blijven live van Koodh komen (dynamische CMS-content, kan niet als statisch bestand gecommit worden). `Home_backup.jsx` (ongebruikt) is niet gemigreerd.
+
 ### 2026-07-11 (update 3)
 - Found the full-article endpoint: `GET https://clr.koodh.com/api/news/articles/{article_id}` returns a `body` field (full HTML incl. text + inline body images).
 - Backend: added `GET /api/news/external/{article_id}` proxy (`NEWS_ARTICLE_API_BASE` in `.env`) returning normalized article with `content` = `body`.

@@ -73,7 +73,7 @@ export const Header = () => {
           <div className="header-logo">
             <a href="/" className="flex items-center">
               <img 
-                src="https://customer-assets.emergentagent.com/job_genk-sint-site/artifacts/x94vcp1m_cropped-Favicon_Sinterklaas.png" 
+                src="/media/cropped-Favicon_Sinterklaas.png" 
                 alt="Sinterklaas S Logo" 
                 style={{ 
                   height: '60px',

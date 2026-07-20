@@ -307,7 +307,7 @@ export default function News() {
               <div style={{ textAlign: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                   <img 
-                    src="https://customer-assets.emergentagent.com/job_genk-sint-site/artifacts/1x6rjv7u_SW_HQ_Logo.png"
+                    src="/media/SW_HQ_Logo.png"
                     alt="Studio Wonderland Logo"
                     style={{ 
                       height: '96px', 
@@ -496,7 +496,7 @@ export default function News() {
             <div style={{ textAlign: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                 <img 
-                  src="https://customer-assets.emergentagent.com/job_genk-sint-site/artifacts/1x6rjv7u_SW_HQ_Logo.png"
+                  src="/media/SW_HQ_Logo.png"
                   alt="Studio Wonderland Logo"
                   style={{ 
                     height: '96px', 

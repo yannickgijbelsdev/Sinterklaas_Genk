@@ -44,102 +44,102 @@ export default function Home() {
   const partnerSets = [
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/7dndwb3y_CloseUp_JumboGenk.png",
+        src: "/media/CloseUp_JumboGenk.png",
         alt: "Jumbo Genk Logo",
         id: "partner_jumbo_genk_logo"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/ggy8l0ja_Poolse_Dansgroep.png", 
+        src: "/media/Poolse_Dansgroep.png", 
         alt: "Poolse Dansgroep Logo",
         id: "partner_poolse_dansgroep_logo"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/ipnyn5k1_Rosendal_Logo.png",
+        src: "/media/Rosendal_Logo.png",
         alt: "Rosendal Logo",
         id: "partner_rosendal_logo"
       }
     ],
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/4tmenap3_Rotary-Genk-Noord.png",
+        src: "/media/Rotary-Genk-Noord.png",
         alt: "Rotary Genk Noord Logo",
         id: "partner_rotary_genk_logo"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/bv2w2k83_GENK-LOGO-SCREEN-POSITIEF-RGB.png",
+        src: "/media/GENK-LOGO-SCREEN-POSITIEF-RGB.png",
         alt: "Genk Logo",
         id: "partner_genk_logo"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/v32730xq_Hotel_Bonka.svg",
+        src: "/media/Hotel_Bonka.svg",
         alt: "Hotel Bonka Logo",
         id: "partner_hotel_bonka_logo"
       }
     ],
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/xa0191iz_tk3ymnog_SW-2025-LOGO-RGB.png",
+        src: "/media/SW-2025-LOGO-RGB.png",
         alt: "SW 2025 Logo",
         id: "partner_sw_2025_logo"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/7dndwb3y_CloseUp_JumboGenk.png",
+        src: "/media/CloseUp_JumboGenk.png",
         alt: "Jumbo Genk Logo",
         id: "partner_jumbo_genk_logo_2"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/4tmenap3_Rotary-Genk-Noord.png",
+        src: "/media/Rotary-Genk-Noord.png",
         alt: "Rotary Genk Noord Logo",
         id: "partner_rotary_genk_logo_2"
       }
     ],
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/v32730xq_Hotel_Bonka.svg",
+        src: "/media/Hotel_Bonka.svg",
         alt: "Hotel Bonka Logo",
         id: "partner_hotel_bonka_logo_2"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/6rvbd219_Balls_Glory.png",
+        src: "/media/Balls_Glory.png",
         alt: "Balls Glory Logo",
         id: "partner_balls_glory_logo_2"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/bv2w2k83_GENK-LOGO-SCREEN-POSITIEF-RGB.png",
+        src: "/media/GENK-LOGO-SCREEN-POSITIEF-RGB.png",
         alt: "Genk Logo",
         id: "partner_genk_logo_2"
       }
     ],
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/ggy8l0ja_Poolse_Dansgroep.png",
+        src: "/media/Poolse_Dansgroep.png",
         alt: "Poolse Dansgroep Logo",
         id: "partner_poolse_dansgroep_logo_2"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/xa0191iz_tk3ymnog_SW-2025-LOGO-RGB.png",
+        src: "/media/SW-2025-LOGO-RGB.png",
         alt: "SW 2025 Logo", 
         id: "partner_sw_2025_logo_2"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/v32730xq_Hotel_Bonka.svg",
+        src: "/media/Hotel_Bonka.svg",
         alt: "Hotel Bonka Logo",
         id: "partner_hotel_bonka_logo_3"
       }
     ],
     [
       {
-        src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/ipnyn5k1_Rosendal_Logo.png",
+        src: "/media/Rosendal_Logo.png",
         alt: "Rosendal Logo",
         id: "partner_rosendal_logo_featured"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/4tmenap3_Rotary-Genk-Noord.png",
+        src: "/media/Rotary-Genk-Noord.png",
         alt: "Rotary Genk Noord Logo",
         id: "partner_rotary_genk_logo_3"
       },
       {
-        src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/6rvbd219_Balls_Glory.png",
+        src: "/media/Balls_Glory.png",
         alt: "Balls Glory Logo", 
         id: "partner_balls_glory_logo_3"
       }
@@ -149,47 +149,47 @@ export default function Home() {
   // Gallery images
   const galleryImages = [
     {
-      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/07f51h8b_Wenssexpress__1.50.1.jpg",
+      src: "/media/Wenssexpress__1.50.1.jpg",
       alt: "Sinterklaas en de Wensmachine - Scene 1",
       title: "Wenssexpress Scene 1"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/saea5881_Wenssexpress__1.95.1.jpg",
+      src: "/media/Wenssexpress__1.95.1.jpg",
       alt: "Sinterklaas en de Wensmachine - Scene 2", 
       title: "Wenssexpress Scene 2"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/izi2wnpm_Wenssexpress__1.23.1.jpg",
+      src: "/media/Wenssexpress__1.23.1.jpg",
       alt: "Sinterklaas en de Wensmachine - Scene 3",
       title: "Wenssexpress Scene 3"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/e9m4txzp_Wenssexpress__1.33.1.jpg",
+      src: "/media/Wenssexpress__1.33.1.jpg",
       alt: "Sinterklaas en de Wensmachine - Scene 4",
       title: "Wenssexpress Scene 4"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_genk-santa-admin/artifacts/xqnej0us_Wenssexpress__1.120.1.jpg",
+      src: "/media/Wenssexpress__1.120.1.jpg",
       alt: "Sinterklaas en de Wensmachine - Scene 5",
       title: "Wenssexpress Scene 5"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/srofgh51_MRTN1539.jpg",
+      src: "/media/MRTN1539.jpg",
       alt: "Sinterklaas en de Wensmachine - Achter de Schermen 1",
       title: "Achter de Schermen MRTN1539"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/wl27pzxk_MRTN1636.jpg",
+      src: "/media/MRTN1636.jpg",
       alt: "Sinterklaas en de Wensmachine - Achter de Schermen 2",
       title: "Achter de Schermen MRTN1636"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/2rojc2pz_MRTN1887.jpg",
+      src: "/media/MRTN1887.jpg",
       alt: "Sinterklaas en de Wensmachine - Achter de Schermen 3",
       title: "Achter de Schermen MRTN1887"
     },
     {
-      src: "https://customer-assets.emergentagent.com/job_festive-genk/artifacts/zvfethlq_MRTN1513.jpg",
+      src: "/media/MRTN1513.jpg",
       alt: "Sinterklaas en de Wensmachine - Achter de Schermen 4",
       title: "Achter de Schermen MRTN1513"
     }
@@ -566,7 +566,7 @@ export default function Home() {
           data-edit-id="hero_background_video"
         >
           <source 
-            src="https://customer-assets.emergentagent.com/job_sinterklaasgenk/artifacts/clj6dea9_Extra_Shows_Sinterklaas_Genk_Animatie_Zonder_Logo_Final.mp4" 
+            src="/media/Extra_Shows_Sinterklaas_Genk_Animatie_Zonder_Logo_Final.mp4" 
             type="video/mp4" 
           />
         </video>
@@ -575,7 +575,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
           style={{ 
-            backgroundImage: `url('https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/hgbl7vik_MRTN1539.jpg')`,
+            backgroundImage: `url('/media/MRTN1539.jpg')`,
             zIndex: 0
           }}
         ></div>
@@ -1174,7 +1174,7 @@ export default function Home() {
             <div style={{ textAlign: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                 <img 
-                  src="https://customer-assets.emergentagent.com/job_genk-sint-site/artifacts/1x6rjv7u_SW_HQ_Logo.png"
+                  src="/media/SW_HQ_Logo.png"
                   alt="Studio Wonderland Logo"
                   style={{ 
                     height: '96px', 
@@ -1266,13 +1266,13 @@ export default function Home() {
               }}
             >
               <source 
-                src="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/mgim5w9w_trailer%20met%20OT.mp4" 
+                src="/media/trailer.mp4" 
                 type="video/mp4" 
               />
               <p className="text-white p-4">
                 Uw browser ondersteunt geen video afspelen. 
                 <a 
-                  href="https://customer-assets.emergentagent.com/job_festive-dashboard-1/artifacts/mgim5w9w_trailer%20met%20OT.mp4" 
+                  href="/media/trailer.mp4" 
                   className="text-red-400 underline ml-1"
                   target="_blank" 
                   rel="noopener noreferrer"

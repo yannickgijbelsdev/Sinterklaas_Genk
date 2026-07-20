@@ -832,7 +832,7 @@ const NewsManagement = ({
         <div className="flex items-center justify-center h-16 bg-white border-b border-gray-200">
           <div className="bg-white p-3 rounded-lg shadow-sm">
             <img 
-              src="https://customer-assets.emergentagent.com/job_genk-sint-site/artifacts/ij49qgko_cropped-Favicon_Sinterklaas.png"
+              src="/media/cropped-Favicon_Sinterklaas.png"
               alt="Sinterklaas Admin Logo"
               className="h-10 w-auto"
             />
