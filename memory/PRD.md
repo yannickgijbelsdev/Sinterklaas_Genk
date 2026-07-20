@@ -12,6 +12,22 @@ Production domain (target): sinterklaasgenk.be
 - `backend/server.py` — FastAPI routes (prefix `/api`).
 
 ## Changelog
+### 2026-07-11 (update 5) — SEO & GEO verbeterd
+SEO:
+- `index.html` `lang="en"` → `lang="nl"` (fout voor NL-site). Rijke `<title>`, description, keywords, author, robots (max-image-preview), canonical toegevoegd.
+- Volledige Open Graph + Twitter Card tags nu statisch in HTML (waren enkel client-side). Nieuwe `og-image.jpg` (1200×630, 119KB) gegenereerd.
+- Statische JSON-LD `@graph` (Organization/PerformingGroup + WebSite) in `index.html` — betrouwbaar voor crawlers zonder JS.
+- `structuredData.js`: placeholder-telefoon verwijderd, kapotte logo-URL gefixt (→ `/media/SW_HQ_Logo.png`), Organization verrijkt (priceRange, image, locatie Stadsschouwburg Genk).
+- `sitemap.xml` opgeschoond (dode artikel-URL weg, verse datums).
+- Home-titel ontdubbeld en voorzien van de show-entiteit "Sinterklaas en de Wensmachine".
+GEO (Generative Engine Optimization):
+- FAQPage-schema toegevoegd o.b.v. de 15 FAQ-items (rendert nu).
+- `llms.txt` aangemaakt met beknopte feiten + FAQ + links (AI-standaard).
+- `robots.txt` verwelkomt expliciet AI-crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, ...).
+- `<noscript>` feitensamenvatting toegevoegd.
+- SEO-component: JSON-LD wordt nu imperatief geïnjecteerd (react-helmet-async rendert `ld+json` niet betrouwbaar) — fixt ook artikel/breadcrumb-schema op News.
+- NB: Koodh-feed geeft momenteel 0 artikels terug (test-artikel gedepubliceerd) → `/nieuws` toont leeg; geen bug.
+
 ### 2026-07-11 (update 4) — Media lokaal opgeslagen
 - Alle externe site-media (24 bestanden van `customer-assets.emergentagent.com` + 1 pexels-foto) gedownload naar `frontend/public/media/` en 39 URL-referenties in `Home.jsx`, `News.jsx`, `Header.jsx`, `AdminDashboard.jsx`, `data/mock.js` herschreven naar `/media/...`. Zo reist alle media mee met de GitHub-repo (push/pull).
 - Trailer-video (`trailer met OT.mp4`) was 4K/112MB → **boven GitHub's 100MB-limiet**. Gecomprimeerd met ffmpeg naar 1080p H.264 + faststart → `/media/trailer.mp4` (14.8MB). Web-vriendelijk en git-veilig.

@@ -5,11 +5,13 @@ export const getLocalBusinessSchema = () => ({
   "@type": "LocalBusiness",
   "@id": "https://sinterklaasgenk.be/#organization",
   "name": "Sinterklaas Genk",
-  "alternateName": "Studio Wonderland",
-  "description": "Professionele Sinterklaasshows en voorstellingen in Genk, Limburg en heel Vlaanderen. Boek nu de meest magische Sinterklaas ervaring!",
+  "alternateName": ["Studio Wonderland", "Sinterklaas en de Wensmachine"],
+  "description": "Sinterklaas en de Wensmachine is een magische familievoorstelling in de Stadsschouwburg Genk (Limburg, België): een mix van live theater, film, muziek en dans. Georganiseerd door Studio Wonderland vzw in samenwerking met Stad Genk.",
   "url": "https://sinterklaasgenk.be",
-  "telephone": "+32-XX-XX-XX-XX", // Replace with actual phone
+  "logo": "https://sinterklaasgenk.be/media/SW_HQ_Logo.png",
+  "image": "https://sinterklaasgenk.be/og-image.jpg",
   "email": "info@sinterklaasgenk.be",
+  "priceRange": "€11 - €13",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Genk",
@@ -97,7 +99,7 @@ export const getArticleSchema = (article) => ({
     "name": "Sinterklaas Genk",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://sinterklaasgenk.be/logo.png"
+      "url": "https://sinterklaasgenk.be/media/SW_HQ_Logo.png"
     }
   },
   "datePublished": article.date,
@@ -123,6 +125,23 @@ export const getBreadcrumbSchema = (breadcrumbs) => ({
     "item": crumb.url
   }))
 });
+
+export const getFAQSchema = (faqItems = []) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": (item.answer || "")
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+    }
+  }))
+});
+
 
 export const getWebsiteSchema = () => ({
   "@context": "https://schema.org",

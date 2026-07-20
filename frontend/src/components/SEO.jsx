@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({ 
@@ -23,6 +23,25 @@ const SEO = ({
   const finalKeywords = keywords || defaultKeywords;
   const finalOgTitle = ogTitle || finalTitle;
   const finalOgDescription = ogDescription || finalDescription;
+
+  // Inject JSON-LD structured data imperatively. react-helmet-async does not
+  // reliably render <script type="application/ld+json">, so we manage a single
+  // dynamic tag in <head> and keep it in sync as the user navigates pages.
+  useEffect(() => {
+    const id = 'dynamic-ld-json';
+    let el = document.getElementById(id);
+    if (!structuredData) {
+      if (el) el.remove();
+      return;
+    }
+    if (!el) {
+      el = document.createElement('script');
+      el.type = 'application/ld+json';
+      el.id = id;
+      document.head.appendChild(el);
+    }
+    el.textContent = JSON.stringify(structuredData);
+  }, [structuredData]);
   
   return (
     <Helmet>

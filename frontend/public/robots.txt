@@ -1,32 +1,37 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api/
+Crawl-delay: 1
 
-# Sitemap
-Sitemap: https://sinterklaasgenk.be/sitemap.xml
-
-# Disallow admin areas
+# ---------------------------------------------------------------------------
+# AI / GEO crawlers (Generative Engine Optimization) are explicitly welcome.
+# We want this event to be discoverable through AI answer engines.
+# ---------------------------------------------------------------------------
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: CCBot
+Allow: /
 Disallow: /admin
 Disallow: /api/
 
-# Crawl delay for politeness
-Crawl-delay: 1
-
-# Allow all major search engines
+# Major search & social crawlers
 User-agent: Googlebot
-Allow: /
-
 User-agent: Bingbot
-Allow: /
-
 User-agent: Slurp
-Allow: /
-
 User-agent: DuckDuckBot
-Allow: /
-
-# Social media crawlers
 User-agent: facebookexternalhit
-Allow: /
-
 User-agent: Twitterbot
 Allow: /
+
+# Sitemap
+Sitemap: https://sinterklaasgenk.be/sitemap.xml

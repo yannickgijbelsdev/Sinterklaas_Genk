@@ -10,7 +10,7 @@ import { useAuth } from '../contexts/AuthContext';
 // import { useLiveEditor } from '../contexts/LiveEditorContext'; // HIDDEN
 import { initializeAudioPlayers } from '../utils/audioPlayerUtils';
 import SEO from '../components/SEO';
-import { getLocalBusinessSchema, getWebsiteSchema } from '../utils/structuredData';
+import { getLocalBusinessSchema, getWebsiteSchema, getFAQSchema } from '../utils/structuredData';
 import '../styles/camp-buddy-theme.css';
 
 const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : 'http://localhost:8001/api';
@@ -526,18 +526,19 @@ export default function Home() {
   // SEO structured data
   const structuredData = [
     getLocalBusinessSchema(),
-    getWebsiteSchema()
+    getWebsiteSchema(),
+    getFAQSchema(faqItems)
   ];
 
   return (
     <div>
       <SEO 
-        title="Sinterklaas Genk - Magische Sinterklaasshow Limburg België"
-        description="Boek de meest magische Sinterklaasshow in Genk! Professionele Sinterklaas voorstellingen door heel Limburg, Vlaanderen en België. Sinterklaas aankomst en theater shows voor het hele gezin."
-        keywords="sinterklaas genk, sinterklaas limburg, sinterklaasshow genk, sinterklaas belgië, sinterklaas vlaanderen, sinterklaas aankomst, sinterklaas voorstelling limburg, sinterklaas boeken genk, sinterklaas theater vlaanderen"
+        title="Sinterklaas en de Wensmachine – Magische Sinterklaasshow in Genk"
+        description="Boek de meest magische Sinterklaasshow in Genk! 'Sinterklaas en de Wensmachine' is een familievoorstelling in de Stadsschouwburg Genk (Limburg): live theater, film, muziek en dans. Tickets vanaf €11, aanbevolen vanaf 3 jaar."
+        keywords="sinterklaas genk, sinterklaas en de wensmachine, sinterklaasshow genk, sinterklaas limburg, stadsschouwburg genk, sinterklaas voorstelling, sinterklaas belgië, sinterklaas vlaanderen, familievoorstelling genk, studio wonderland"
         canonicalUrl="/"
-        ogTitle="Sinterklaas Genk - De Meest Magische Sinterklaasshow in Limburg"
-        ogDescription="Professionele Sinterklaasshows in Genk en heel Limburg. Boek nu de perfecte Sinterklaas ervaring voor uw gezin!"
+        ogTitle="Sinterklaas en de Wensmachine – Sinterklaasshow in Genk"
+        ogDescription="Een magische familievoorstelling in de Stadsschouwburg Genk: live theater, film, muziek en dans. Tickets vanaf €11. Aanbevolen vanaf 3 jaar."
         ogImage="https://sinterklaasgenk.be/og-image.jpg"
         structuredData={structuredData}
       />
